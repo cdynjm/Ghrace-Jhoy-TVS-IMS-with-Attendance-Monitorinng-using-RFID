@@ -74,22 +74,22 @@
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
 
     @if(Auth::check())
-    <script src="{{ asset('storage/js/signout.js?id=04062024') }}" data-navigate-once></script>
+    <script src="{{ asset('assets/javascript/signout.js?id=04062024') }}" data-navigate-once></script>
       @if(Auth::user()->role == 1)
-        <script src="{{ asset('storage/js/admin.js?id=04062024') }}" data-navigate-once></script>
+        <script src="{{ asset('assets/javascript/admin.js?id=04062024') }}" data-navigate-once></script>
       @endif
       @if(Auth::user()->role == 2)
-        <script src="{{ asset('storage/js/registrar.js?id=05062024') }}" data-navigate-once></script>
+        <script src="{{ asset('assets/javascript/registrar.js?id=05062024') }}" data-navigate-once></script>
       @endif
       @if(Auth::user()->role == 4)
-        <script src="{{ asset('storage/js/student.js?id=10062024') }}" data-navigate-once></script>
+        <script src="{{ asset('assets/javascript/student.js?id=109062024') }}" data-navigate-once></script>
       @endif
     @else
-    <script src="{{ asset('storage/js/signin.js?id=04062024') }}" data-navigate-once></script>
+    <script src="{{ asset('assets/javascript/signin.js?id=04062024') }}" data-navigate-once></script>
     @endif
 
-    <script src="{{ asset('storage/js/main.js?cache=04062024') }}" data-navigate-once></script>
-    <script src="{{ asset('storage/js/register.js?id=04062024') }}" data-navigate-once></script>
+    <script src="{{ asset('assets/javascript/main.js?cache=04062024') }}" data-navigate-once></script>
+    <script src="{{ asset('assets/javascript/register.js?id=04062024') }}" data-navigate-once></script>
 
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
