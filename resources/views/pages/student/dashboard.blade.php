@@ -57,7 +57,8 @@
                                         Auth::user()->Student->status == 3 ||
                                         Auth::user()->Student->status == 4 ||
                                         Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6
+                                        Auth::user()->Student->status == 6 ||
+                                        Auth::user()->Student->status == 7
                                     
                                     ) bg-success border-success text-white @endif
                                     
@@ -84,7 +85,8 @@
                                         Auth::user()->Student->status == 3 ||
                                         Auth::user()->Student->status == 4 ||
                                         Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6
+                                        Auth::user()->Student->status == 6 ||
+                                        Auth::user()->Student->status == 7
                                     
                                         ) bg-success border-success text-white @endif
                                         
@@ -118,7 +120,8 @@
                                         Auth::user()->Student->status == 3 ||
                                         Auth::user()->Student->status == 4 ||
                                         Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6
+                                        Auth::user()->Student->status == 6 ||
+                                        Auth::user()->Student->status == 7
                                     
                                         ) bg-success border-success text-white @endif
                                         
@@ -147,7 +150,8 @@
                                     
                                         Auth::user()->Student->status == 4 ||
                                         Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6
+                                        Auth::user()->Student->status == 6 ||
+                                        Auth::user()->Student->status == 7
                                     
                                         ) bg-success border-success text-white @endif
                                         
@@ -175,7 +179,8 @@
                                         @if(
 
                                         Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6
+                                        Auth::user()->Student->status == 6 ||
+                                        Auth::user()->Student->status == 7
                                     
                                         ) bg-success border-success text-white @endif
                                         
@@ -185,7 +190,7 @@
 
                                         ">5</span>
                                         <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Interview</span>
+                                        <span class="bs-stepper-title">1st Interview</span>
                                         <span class="bs-stepper-subtitle">
                                             @foreach($tracker->where('tracker', 5) as $tr)
                                                 {{ date('M d, Y', strtotime($tr->created_at)) }}
@@ -201,9 +206,10 @@
                                         <span class="bs-stepper-circle 
                                         
                                         @if(
-                                    
-                                        Auth::user()->Student->status == 6
 
+                                        Auth::user()->Student->status == 6 ||
+                                        Auth::user()->Student->status == 7
+                                    
                                         ) bg-success border-success text-white @endif
                                         
                                         @if(Auth::user()->Student->status == 5)
@@ -212,9 +218,36 @@
 
                                         ">6</span>
                                         <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Final Result</span>
+                                        <span class="bs-stepper-title">2nd Interview</span>
                                         <span class="bs-stepper-subtitle">
                                             @foreach($tracker->where('tracker', 6) as $tr)
+                                                {{ date('M d, Y', strtotime($tr->created_at)) }}
+                                            @endforeach
+                                        </span>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="line"></div>
+                                <div class="step" data-target="#personal-info">
+                                    <button type="button" class="step-trigger">
+                                        <span class="bs-stepper-circle 
+                                        
+                                        @if(
+                                    
+                                        Auth::user()->Student->status == 7
+
+                                        ) bg-success border-success text-white @endif
+                                        
+                                        @if(Auth::user()->Student->status == 6)
+                                            bg-primary border-primary text-white
+                                        @endif
+
+                                        ">7</span>
+                                        <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Final Result</span>
+                                        <span class="bs-stepper-subtitle">
+                                            @foreach($tracker->where('tracker', 7) as $tr)
                                                 {{ date('M d, Y', strtotime($tr->created_at)) }}
                                             @endforeach
                                         </span>
@@ -244,11 +277,16 @@
                         @include('pages.student.admission-cards.interview-schedule')
                     @endif
 
-                    @if(Auth::user()->Student->status == 5 || Auth::user()->Student->status == 6)
+                    @if(Auth::user()->Student->status == 5)
+                        @include('pages.student.admission-cards.second-interview-schedule')
+                    @endif
+
+                    @if(Auth::user()->Student->status == 6 || Auth::user()->Student->status == 7)
                         @include('pages.student.admission-cards.final-result')
                     @endif
                 </div>
           </div>
+          
           @endif
           
           @include('layouts.footer')

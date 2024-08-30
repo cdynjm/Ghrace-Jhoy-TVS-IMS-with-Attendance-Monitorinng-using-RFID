@@ -1,4 +1,4 @@
-<table id="course-data" class="table table-sm table-hover" style="border-bottom: 1px solid rgb(240, 240, 240)">
+<table id="schedule-course-data" class="table table-sm table-hover" style="border-bottom: 1px solid rgb(240, 240, 240)">
     <thead class="text-dark" style="background: rgb(244, 244, 244)">
         <tr>
             <th>#</th>
@@ -6,7 +6,6 @@
             <th><small>Qualification</small></th>
             <th><small>Status</small></th>
             <th><small>COPR #</small></th>
-            <th><small>Action</small></th>
         </tr>
     </thead>
     <tbody>
@@ -28,19 +27,9 @@
 
                 ><small>{{ $count }}</small></td>
                 <td><small>{{ $cor->sector }}</small></td>
-                <td><a wire:navigate href="{{ route('admin.courses-info', ['id' => $aes->encrypt($cor->id)]) }}"><small>{{ $cor->qualification }}</small></a></td>
+                <td><a wire:navigate href="{{ route('admin.create-schedule', ['id' => $aes->encrypt($cor->id)]) }}"><small>{{ $cor->qualification }}</small></a></td>
                 <td><small>{{ $cor->status }}</small></td>
                 <td><small>{{ $cor->copr }}</small></td>
-                <td>
-                    <small>
-                        <a href="javascript:;" id="edit-course" class="me-2">
-                            <i class="fas fa-marker"></i>
-                        </a>
-                        <a href="javascript:;" id="delete-course">
-                            <i class="fas fa-trash" class="me-2"></i>
-                        </a>
-                    </small>
-                </td>
             </tr>
             
         @endforeach

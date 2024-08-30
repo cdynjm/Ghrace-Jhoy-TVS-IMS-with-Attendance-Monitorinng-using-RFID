@@ -35,9 +35,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'admin'], function () {
 		Route::group(['prefix' => 'admin'], function () {
 			Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-			Route::get('/trainers', [AdminController::class, 'trainers'])->name('admin.trainers');
+			Route::get('/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
 			Route::get('/courses', [AdminController::class, 'courses'])->name('admin.courses');
-			Route::get('/students', [AdminController::class, 'students'])->name('admin.students');
+			Route::get('/courses-info/{id}', [AdminController::class, 'coursesInfo'])->name('admin.courses-info');
+			Route::get('/schedule', [AdminController::class, 'schedule'])->name('admin.schedule');
+			Route::get('/create-scehdule/{id}', [AdminController::class, 'createSchedule'])->name('admin.create-schedule');
 		});
 	});
 
@@ -48,7 +50,9 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/exam', [RegistrarController::class, 'exam'])->name('registrar.exam');
 			Route::get('/interview', [RegistrarController::class, 'interview'])->name('registrar.interview');
 			Route::get('/final-result', [RegistrarController::class, 'finalResult'])->name('registrar.final-result');
+			Route::get('/courses', [RegistrarController::class, 'courses'])->name('registrar.courses');
 			Route::post('/registration-form', [RegistrarController::class, 'registrationForm'])->name('registrar.registrationform');
+			Route::get('/enrollment/{id}', [RegistrarController::class, 'enrollment'])->name('registrar.enrollment');
 		});
 	});
 

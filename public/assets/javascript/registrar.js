@@ -331,6 +331,91 @@ $(document).on('click', '#proceed-to-interview', function() {
     });
 });
 
+$(document).on('click', '#proceed-to-second-interview', function() {
+    var proceed = $(this).data('proceed-index');
+
+    var hasApplicants = false;
+    $('.childCheckbox-interview-'+ proceed +':checked').each(function() {
+        hasApplicants = true;
+    });
+
+    if (!hasApplicants) {
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss..</h4><small>Please select at least one applicant before setting the date!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+        return;
+    }
+
+    SweetAlert.fire({
+        icon: 'info',
+        html: 
+        `
+            <h4 class="mb-0">Set Second Interview Schedule</h4>
+            <input class="form-control mt-2" type="date" id="date-scheduled" />
+        `,
+        confirmButtonColor: '#160e45',
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+    })
+    .then((result) => {
+        if (result.value) {
+            var dateScheduled = $('#date-scheduled').val();
+            SweetAlert.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Processing...',
+                allowOutsideClick: false,
+                showConfirmButton: false
+            });
+            
+            if(!dateScheduled) {
+                SweetAlert.fire({
+                    icon: 'error',
+                    html: `<h4 class="mb-0">Opss..</h4><small>Date is required</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+                return;
+            }
+
+            var formData = new FormData();
+            $('.childCheckbox-interview-'+ proceed +':checked').each(function() {
+                formData.append('applicant[]', $(this).val());
+            });
+            formData.append('date', dateScheduled);
+            formData.append('_method', 'PATCH');
+           
+            async function APIrequest() {
+                return await axios.post('/api/update/proceed-to-second-interview', formData, {
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                    }
+                })
+            }
+            APIrequest().then(response => {
+                $('#interview-data').html(response.data.Interview);
+                $('#layout-menu').html(response.data.Status);
+                SweetAlert.fire({
+                    icon: 'success',
+                    html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                SweetAlert.fire({
+                    icon: 'error',
+                    html: `<h4 class="mb-0">Opss..</h4><small>Something went wrong!</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+            });
+        }
+    });
+});
+
 $(document).on('click', '#proceed-to-final-result', function() {
     var proceed = $(this).data('proceed-index');
 

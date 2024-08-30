@@ -46,10 +46,18 @@ class LearnersProfile extends Model
         'dateReceived',
         'exam',
         'interview',
+        'secondInterview',
         'admission_status',
         'status',
+        'yearLevel',
+        'semester',
+        'enrollmentStatus'
         
     ];
+
+    public function LearnersCourse() {
+        return $this->hasOne(LearnersCourse::class, 'studentID', 'id');
+    }
 
     public function Region() {
         return $this->hasOne(Region::class, 'regCode', 'region');

@@ -234,8 +234,12 @@ class StudentController extends Controller
      */
     public function proceedEnrollment() {
         
-        LearnersProfile::where('id', Auth::user()->Student->id)
-            ->update(['admission_status' => 0]);
+        LearnersProfile::where('id', Auth::user()->Student->id)->update([
+            'admission_status' => 0,
+            'yearLevel' => 1,
+            'semester' => 1,
+            'enrollmentStatus' => 1
+        ]);
 
         return redirect('/student/dashboard');
     }

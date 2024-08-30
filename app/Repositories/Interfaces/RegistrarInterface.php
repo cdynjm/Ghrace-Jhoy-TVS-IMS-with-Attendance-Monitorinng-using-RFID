@@ -4,6 +4,11 @@ namespace App\Repositories\Interfaces;
 
 interface RegistrarInterface {
 
+    public function Courses();
+    public function CourseInfo($request);
+
+    public function Enrollees($request);
+
     public function UnscheduledLearnersProfile();
     public function UnscheduledLearnersCourse();
 
@@ -19,6 +24,7 @@ interface RegistrarInterface {
     public function ExamLearnersCourse();
 
     public function InterviewLearnersProfile();
+    public function SecondInterviewLearnersProfile();
     public function InterviewLearnersCourse();
 
     public function FinalResultLearnersProfile();

@@ -34,14 +34,22 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::group(['prefix' => 'create'], function () {
             Route::post('/course', [AdminController::class, 'createCourse']);
+            Route::post('/course-info', [AdminController::class, 'createCourseInfo']);
+            Route::post('/instructor', [AdminController::class, 'createInstructor']);
+            Route::post('/schedule', [AdminController::class, 'createSubjectSchedule']);
+            Route::post('/subjects', [AdminController::class, 'getSubjects']);
+            Route::post('/subject-schedule', [AdminController::class, 'getSubjectSchedule']);
         }); 
 
         Route::group(['prefix' => 'update'], function () {
             Route::patch('/course', [AdminController::class, 'updateCourse']);
+            Route::patch('/instructor', [AdminController::class, 'updateInstructor']);
+            Route::patch('/schedule', [AdminController::class, 'updateSubjectSchedule']);
         });
         
         Route::group(['prefix' => 'delete'], function () {
             Route::delete('/course', [AdminController::class, 'deleteCourse']);
+            Route::delete('/instructor', [AdminController::class, 'deleteInstructor']);
         });
 
     });
@@ -54,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::group(['prefix' => 'update'], function () { 
             Route::patch('/exam-schedule', [RegistrarController::class, 'updateExamSchedule']);
             Route::patch('/proceed-to-interview', [RegistrarController::class, 'updateProceedToInterview']);
+            Route::patch('/proceed-to-second-interview', [RegistrarController::class, 'updateProceedToSecondInterview']);
             Route::patch('/proceed-to-final-result', [RegistrarController::class, 'updateProceedToFinalResult']);
             Route::patch('/admission-passed', [RegistrarController::class, 'updateAdmissionPassed']);
         });

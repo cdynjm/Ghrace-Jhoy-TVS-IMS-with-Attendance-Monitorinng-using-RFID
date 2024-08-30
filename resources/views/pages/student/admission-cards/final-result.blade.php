@@ -5,7 +5,7 @@
             <hr class="my-2">
         </div>
         <div class="card-body">
-            @if(Auth::user()->Student->status == 5)
+            @if(Auth::user()->Student->status == 6)
             <div class="alert alert-solid-danger alert-dismissible d-flex align-items-center" role="alert">
                 <div>
 
@@ -20,7 +20,7 @@
                 </div>
             </div>
             @endif
-            @if(Auth::user()->Student->status == 6)
+            @if(Auth::user()->Student->status == 7)
             <div class="alert alert-solid-success text-dark alert-dismissible d-flex align-items-center" role="alert">
                 <div>
 

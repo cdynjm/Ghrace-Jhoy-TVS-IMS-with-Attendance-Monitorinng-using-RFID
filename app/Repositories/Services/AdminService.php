@@ -24,11 +24,17 @@ use App\Models\Province;
 use App\Modes\Region;
 use App\Models\User;
 use App\Models\Courses;
+use App\Models\Subjects;
+use App\Models\CoursesInfo;
+use App\Models\Instructors;
 
 use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
+
+use App\Models\Schedule;
+use App\Models\SubjectSchedule;
 
 class AdminService implements AdminInterface {
     /**
@@ -54,6 +60,30 @@ class AdminService implements AdminInterface {
      */
     public function Courses() {
         return Courses::orderBy('sector', 'ASC')->get();
+    }
+
+    public function CourseInfo($request) {
+        return Courses::where('id', $this->aes->decrypt($request->id))->first();
+    }
+
+    public function getCourseInfo($request) {
+        return CoursesInfo::where('courseID', $this->aes->decrypt($request->id))->get();
+    }
+
+    public function Subjects($request) {
+        return Subjects::where('courseID', $this->aes->decrypt($request->id))->get();
+    }
+
+    public function Instructors() {
+        return Instructors::get();
+    }
+
+    public function Schedule($request) {
+        return Schedule::where('courseID', $this->aes->decrypt($request->id))->get();
+    }
+
+    public function SubjectSchedule($request) {
+        return SubjectSchedule::where('courseID', $this->aes->decrypt($request->id))->get();
     }
 }
 

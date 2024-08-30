@@ -25,6 +25,10 @@ use App\Modes\Region;
 use App\Models\User;
 use App\Models\Courses;
 
+use App\Models\Subjects;
+use App\Models\CoursesInfo;
+use App\Models\Instructors;
+
 use App\Models\DocumentsPSA;
 use App\Models\DocumetsForm137;
 
@@ -32,6 +36,9 @@ use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
+
+use App\Models\Schedule;
+use App\Models\SubjectSchedule;
 
 use Illuminate\Support\Facades\Gate;
 
@@ -60,8 +67,71 @@ class AdminController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function trainers() {
-        return view('pages.admin.trainers');
+    public function instructors() {
+        $instructors = $this->AdminInterface->Instructors();
+        return view('pages.admin.instructors', ['instructors' => $instructors]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function createInstructor(Request $request) {
+
+        Instructors::create([
+           'instructor' => $request->instructor,
+           'address' => $request->address,
+           'contactNumber' => $request->contactNumber
+        ]);
+
+        $instructors = $this->AdminInterface->Instructors();
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Message' => 'Instructor added successfully',
+            'Instructors' => view('data.admin.instructors-data', compact('instructors', 'aes'))->render()
+        ], Response::HTTP_OK);
+        
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function updateInstructor(Request $request) {
+
+        Instructors::where('id', $this->aes->decrypt($request->id))->update([
+           'instructor' => $request->instructor,
+           'address' => $request->address,
+           'contactNumber' => $request->contactNumber
+        ]);
+
+        $instructors = $this->AdminInterface->Instructors();
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Message' => 'Instructor updated successfully',
+            'Instructors' => view('data.admin.instructors-data', compact('instructors', 'aes'))->render()
+        ], Response::HTTP_OK);
+        
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function deleteInstructor(Request $request) {
+
+        Instructors::where('id', $this->aes->decrypt($request->id))->delete();
+
+        $instructors = $this->AdminInterface->Instructors();
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Message' => 'Instructor deleted successfully',
+            'Instructors' => view('data.admin.instructors-data', compact('instructors', 'aes'))->render()
+        ], Response::HTTP_OK);
+        
     }
     /**
      * Handle an incoming request.
@@ -139,7 +209,170 @@ class AdminController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function students() {
-        return view('pages.admin.students');
+    public function coursesInfo(Request $request) {
+        $course = $this->AdminInterface->CourseInfo($request);
+        $courseInfo = $this->AdminInterface->getCourseInfo($request);
+        $subjects = $this->AdminInterface->Subjects($request);
+        return view('pages.admin.courses-info', compact('course', 'courseInfo', 'subjects'));
     }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function createCourseInfo(Request $request) {
+
+        $get = CoursesInfo::create([
+            'courseID' => $this->aes->decrypt($request->id),
+            'yearLevel' => $request->year,
+            'semester' => $request->semester
+        ]);
+
+        foreach($request->description as $key => $value) {
+            Subjects::create([
+                'courseID' => $this->aes->decrypt($request->id),
+                'courseInfoID' => $get->id,
+                'description' => $value,   
+                'subjectCode' => $request->subjectCode[$key],                        
+                'units' => $request->units[$key]
+            ]);
+        }
+        
+
+        $course = $this->AdminInterface->CourseInfo($request);
+        $courseInfo = $this->AdminInterface->getCourseInfo($request);
+        $subjects = $this->AdminInterface->Subjects($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Message' => 'Course Subjects added successfully',
+            'CoursesInfo' => view('data.admin.course-info-data', compact('course', 'courseInfo', 'subjects', 'aes'))->render()
+        ], Response::HTTP_OK);
+        
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function schedule() {
+        $courses = $this->AdminInterface->Courses();
+        return view('pages.admin.schedule', ['courses' => $courses]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function createSchedule(Request $request) {
+        $course = $this->AdminInterface->CourseInfo($request);
+        $courseInfo = $this->AdminInterface->getCourseInfo($request);
+        $instructors = $this->AdminInterface->Instructors();
+
+        $schedule = $this->AdminInterface->Schedule($request);
+        $subjectSchedule = $this->AdminInterface->SubjectSchedule($request);
+        return view('pages.admin.create-schedule', compact('course', 'courseInfo', 'instructors', 'schedule', 'subjectSchedule'));
+    }
+
+    public function getSubjects(Request $request){
+
+        $subjects = Subjects::where('courseInfoID', $this->aes->decrypt($request->id))->get();
+        $instructors = $this->AdminInterface->Instructors();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Subjects' => view('modals.admin.create.subjects.subject-list', compact('subjects', 'instructors', 'aes'))->render()
+        ], Response::HTTP_OK);
+    }
+
+    public function createSubjectSchedule(Request $request) {
+
+        $schedule = Schedule::create([
+            'courseID' => $this->aes->decrypt($request->id),
+            'courseInfoID' => $this->aes->decrypt($request->yearLevel),
+            'section' => $request->section,
+            'slots' => $request->slots,
+            'enrolled' => 0,
+            'status' => 1, 
+        ]);
+
+        foreach ($request->subjectID as $key => $subjectID) {
+            SubjectSchedule::create([
+                'courseID' => $this->aes->decrypt($request->id),
+                'courseInfoID' => $this->aes->decrypt($request->yearLevel),
+                'scheduleID' => $schedule->id,
+                'subject' => $subjectID,
+                'instructor' => $this->aes->decrypt($request->instructor[$key]),
+                'room' => $request->room[$key],
+                'mon' => $request->days[$key][0] ?? 0,
+                'tue' => $request->days[$key][1] ?? 0,
+                'wed' => $request->days[$key][2] ?? 0,
+                'thu' => $request->days[$key][3] ?? 0,
+                'fri' => $request->days[$key][4] ?? 0,
+                'sat' => $request->days[$key][5] ?? 0,
+                'fromTime' => $request->fromTime[$key],
+                'toTime' => $request->toTime[$key],
+            ]);
+        }
+        
+        $courseInfo = $this->AdminInterface->getCourseInfo($request);
+        $instructors = $this->AdminInterface->Instructors();
+
+        $schedule = $this->AdminInterface->Schedule($request);
+        $subjectSchedule = $this->AdminInterface->SubjectSchedule($request);
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'Schedule created successfully',
+            'Schedule' =>  view('data.admin.schedule-subject-course-data', compact('aes', 'courseInfo', 'instructors', 'schedule', 'subjectSchedule'))->render(),
+        ], Response::HTTP_OK);
+
+    }
+
+    public function getSubjectSchedule(Request $request){
+
+        $subjects = SubjectSchedule::where('scheduleID', $this->aes->decrypt($request->id))->get();
+        $instructors = $this->AdminInterface->Instructors();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Subjects' => view('modals.admin.update.subjects.subject-list', compact('subjects', 'instructors', 'aes'))->render()
+        ], Response::HTTP_OK);
+    }
+
+    public function updateSubjectSchedule(Request $request) {
+
+       $schedule = Schedule::where('id', $this->aes->decrypt($request->scheduleID))->update([
+           'section' => $request->section,
+           'slots' => $request->slots,
+       ]);
+
+       foreach ($request->subjectID as $key => $subjectID) {
+           SubjectSchedule::where('id', $this->aes->decrypt($request->subjectID[$key]))->update([
+               'instructor' => $this->aes->decrypt($request->instructor[$key]),
+               'room' => $request->room[$key],
+               'mon' => $request->days[$key][0] ?? 0,
+               'tue' => $request->days[$key][1] ?? 0,
+               'wed' => $request->days[$key][2] ?? 0,
+               'thu' => $request->days[$key][3] ?? 0,
+               'fri' => $request->days[$key][4] ?? 0,
+               'sat' => $request->days[$key][5] ?? 0,
+               'fromTime' => $request->fromTime[$key],
+               'toTime' => $request->toTime[$key],
+           ]);
+       }
+       
+       $courseInfo = $this->AdminInterface->getCourseInfo($request);
+       $instructors = $this->AdminInterface->Instructors();
+
+       $schedule = $this->AdminInterface->Schedule($request);
+       $subjectSchedule = $this->AdminInterface->SubjectSchedule($request);
+       $aes = $this->aes;
+
+       return response()->json([
+           'Message' => 'Schedule updated successfully',
+           'Schedule' =>  view('data.admin.schedule-subject-course-data', compact('aes', 'courseInfo', 'instructors', 'schedule', 'subjectSchedule'))->render()
+       ], Response::HTTP_OK);
+
+   }
 }

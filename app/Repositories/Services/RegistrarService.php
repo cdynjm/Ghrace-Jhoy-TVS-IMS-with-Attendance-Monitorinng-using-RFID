@@ -137,6 +137,14 @@ class RegistrarService implements RegistrarInterface {
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    public function SecondInterviewLearnersProfile() {
+        return LearnersProfile::where('status', 5)->get()->groupBy('secondInterview');
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function InterviewLearnersCourse() {
         return LearnersCourse::get();
     }
@@ -146,7 +154,7 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function FinalResultLearnersProfile() {
-        return LearnersProfile::where('status', 5)->get();
+        return LearnersProfile::where('status', 6)->get();
     }
     /**
      * Handle an incoming request.
@@ -164,6 +172,25 @@ class RegistrarService implements RegistrarInterface {
     public function Status() {
         return LearnersProfile::where('admission_status', 1)->get();
     }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function Courses() {
+        return Courses::orderBy('sector', 'ASC')->get();
+    }
+
+    public function CourseInfo($request) {
+        return Courses::where('id', $this->aes->decrypt($request->id))->first();
+    }
+
+    public function Enrollees($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id));
+        })->orderBy('lastname', 'ASC')->get()->groupBy('yearLevel');
+    }
+
 }
 
 ?>

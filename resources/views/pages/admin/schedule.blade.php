@@ -8,11 +8,11 @@
 
 @section('content')
     <div class="layout-page">
-        @include('layouts.navbar', ['page' => 'Interview'], 
+        @include('layouts.navbar', ['page' => 'Schedule'], 
         ['icon' => '
           
-           <lord-icon
-                src="https://cdn.lordicon.com/jibstvae.json"
+            <lord-icon
+                src="https://cdn.lordicon.com/qvyppzqz.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">
@@ -23,19 +23,31 @@
       <div class="content-wrapper">
         
           <div class="container-xxl flex-grow-1 container-p-y">
-
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Interview |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Schedule |</a>
                   </li>
                   <li class="breadcrumb-item">Data</li>
                 </ol>
             </nav>
 
                 <div class="row">
-                    <div class="col-md-12 mb-4">
-                        @include('data.registrar.interview-data')
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <div>
+                                        <h6 class="text-sm">Courses/Qualifications</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    @include('data.admin.schedule-course-data')
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
           </div>

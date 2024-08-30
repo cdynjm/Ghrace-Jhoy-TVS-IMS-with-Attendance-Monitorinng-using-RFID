@@ -39,8 +39,8 @@
         </a>
       </li>
 
-      <li class="menu-item {{ Route::currentRouteName() == 'admin.trainers' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('admin.trainers') }}" class="menu-link {{ Route::currentRouteName() == 'admin.trainers' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'admin.instructors' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('admin.instructors') }}" class="menu-link {{ Route::currentRouteName() == 'admin.instructors' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
                 src="https://cdn.lordicon.com/wzrwaorf.json"
@@ -49,7 +49,7 @@
                 style="width:22px;height:22px">
             </lord-icon>
         </span>
-          <div>Trainers</div>
+          <div>Instructors</div>
         </a>
       </li>
 
@@ -67,17 +67,17 @@
         </a>
       </li>
 
-      <li class="menu-item {{ Route::currentRouteName() == 'admin.students' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('admin.students') }}" class="menu-link {{ Route::currentRouteName() == 'admin.students' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'admin.schedule' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('admin.schedule') }}" class="menu-link {{ Route::currentRouteName() == 'admin.schedule' ? 'active' : '' }}">
           <span class="me-2">
               <lord-icon
-                  src="https://cdn.lordicon.com/xzalkbkz.json"
+                  src="https://cdn.lordicon.com/qvyppzqz.json"
                   trigger="in"
                   stroke="bold"
                   style="width:22px;height:22px">
               </lord-icon>
           </span>
-          <div>Students</div>
+          <div>Schedule</div>
         </a>
       </li>
 
@@ -160,9 +160,9 @@
           </span>
           <div>Interview
 
-            @if(!empty($status->where('status', 4)->count()))
+            @if(!empty($status->whereIn('status', [4, 5])->count()))
             <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('status', 4)->count() }}
+              {{ $status->whereIn('status', [4, 5])->count() }}
             </span>
             @endif
 
@@ -182,9 +182,9 @@
           </span>
           <div>Final Result
 
-            @if(!empty($status->where('status', 5)->count()))
+            @if(!empty($status->where('status', 6)->count()))
             <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('status', 5)->count() }}
+              {{ $status->where('status', 6)->count() }}
             </span>
             @endif            
 
@@ -193,6 +193,20 @@
       </li>
 
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Enrollment</span></li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.courses' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.courses') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.courses' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/uecgmesg.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Courses</div>
+        </a>
+      </li>
 
       @endif
 
