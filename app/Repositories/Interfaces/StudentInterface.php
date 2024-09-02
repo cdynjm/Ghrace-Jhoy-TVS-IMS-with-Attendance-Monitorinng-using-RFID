@@ -11,6 +11,11 @@ interface StudentInterface {
     public function LearnersCourse();
     public function LearnersClass();
     public function LearnersWork();
+
+    public function yearLevel();
+    public function subjectSchedule();
+    public function studentGrading();
+    
 }
 
 ?>

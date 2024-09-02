@@ -31,6 +31,14 @@ interface RegistrarInterface {
     public function FinalResultLearnersCourse();
 
     public function Status();
+
+    public function Schedule();
+
+    public function yearLevel($request);
+    public function studentGrading($request);
+
+    public function Students();
+
 }
 
 

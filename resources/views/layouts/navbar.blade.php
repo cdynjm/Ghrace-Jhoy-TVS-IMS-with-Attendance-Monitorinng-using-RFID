@@ -1,3 +1,10 @@
+@php
+    use Illuminate\Support\Str;
+    use App\Http\Controllers\AESCipher;
+    use App\Models\AdmissionApplication;
+    $aes = new AESCipher();
+@endphp
+
 <!-- Navbar -->
 <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar" style="position: fixed; z-index: 9;">
   <div class="container-xxl">
@@ -57,11 +64,24 @@
                           <div class="dropdown-divider"></div>
                       </li>
                       <li>
-                          <a class="dropdown-item" href="pages-profile-user.html">
+                          <a class="dropdown-item" href="#">
                               <i class="bx bx-user me-2"></i>
                               <span class="align-middle">My Profile</span>
                           </a>
                       </li>
+                      @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                      <li>
+                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                            <div>
+                                <i class="bx bx-podcast me-2"></i>
+                                <span class="align-middle">Admission Status</span>
+                            </div>
+                            <div class="form-check form-switch m-0">
+                                <input class="form-check-input" @checked(AdmissionApplication::where('id', 1)->first()->status == 1) type="checkbox" value="{{ $aes->encrypt('1') }}" id="admission-status">
+                            </div>
+                        </a>
+                    </li>                    
+                      @endif
                       <li>
                           <a class="dropdown-item" href="javascript:;" id="sign-out">
                               <i class="bx bx-power-off me-2"></i>

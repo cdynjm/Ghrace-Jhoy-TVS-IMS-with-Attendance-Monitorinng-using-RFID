@@ -36,6 +36,7 @@ use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
+use App\Models\AdmissionApplication;
 
 use App\Models\Tracker;
 
@@ -56,9 +57,14 @@ class RegisterController extends Controller
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function register(Request $request) {
-        $region = $this->RegistrationInterface->Region();
-        $courses = $this->RegistrationInterface->Courses();
-        return view('auth.register', compact('region', 'courses'));
+        if(AdmissionApplication::where('id', 1)->first()->status == 1) {
+            $region = $this->RegistrationInterface->Region();
+            $courses = $this->RegistrationInterface->Courses();
+            return view('auth.register', compact('region', 'courses'));
+        }
+        else {
+            abort(401);
+        }
     }
     /**
      * Handle an incoming request.

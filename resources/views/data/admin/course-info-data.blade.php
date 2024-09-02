@@ -33,6 +33,9 @@
                             <th><small>Description</small></th>
                             <th><small>Units</small></th>
                         </tr>
+                        @php
+                            $totalUnits = 0;
+                        @endphp
                         @foreach ($subjects->where('courseInfoID', $ci->id) as $sub)
                            <tr style="border-bottom: transparent">
                                 <td>
@@ -45,7 +48,15 @@
                                     <div><small>{{ $sub->units }}</small></div>
                                 </td>
                            </tr>
+                           @php
+                                $totalUnits += $sub->units;
+                            @endphp
                         @endforeach
+                        <tr style="border-bottom: transparent">
+                            <td colspan="2" class="text-end"><small><strong>Total Units:</strong></small></td>
+                            <td><small><strong>{{ $totalUnits }}</strong></small></td>
+                            <td colspan="2"></td>
+                        </tr>
                     </table>
                 </td>
                 <td></td>

@@ -28,48 +28,64 @@
             </nav>
 
             <div class="row">
-              <div class="col-sm-6 col-lg-4 mb-4">
+              <div class="col-sm-6 col-lg-3 mb-4">
                   <div class="card card-border-shadow-warning h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
                         <div class="avatar me-2">
                           <span class="avatar-initial rounded bg-label-warning"><i class='bx bxs-calendar-x'></i></span>
                         </div>
-                        <h4 class="ms-1 mb-0">0</h4>
+                        <h4 class="ms-1 mb-0">{{ $student->where('failed', null)->where('status', 2)->count() }}</h4>
                       </div>
-                      <p class="mb-1">Unscheduled</p>
+                      <p class="mb-0">Unscheduled</p>
                       <p class="mb-0">
                         <small class="text-muted">Admission Application</small>
                       </p>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
+                <div class="col-sm-6 col-lg-3 mb-4">
                   <div class="card card-border-shadow-success h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
                         <div class="avatar me-2">
                           <span class="avatar-initial rounded bg-label-success"><i class='bx bxs-calendar-check' ></i></span>
                         </div>
-                        <h4 class="ms-1 mb-0">0</h4>
+                        <h4 class="ms-1 mb-0">{{ $student->where('failed', null)->where('status', 3)->count() }}</h4>
                       </div>
-                      <p class="mb-1">For Exam & Interview</p>
+                      <p class="mb-0">For Exam</p>
                       <p class="mb-0">
                         <small class="text-muted">Admission Application</small>
                       </p>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6 col-lg-4 mb-4">
+                <div class="col-sm-6 col-lg-3 mb-4">
+                  <div class="card card-border-shadow-primary h-100">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center mb-2 pb-1">
+                        <div class="avatar me-2">
+                          <span class="avatar-initial rounded bg-label-primary"><i class='bx bxs-calendar-check' ></i></span>
+                        </div>
+                        <h4 class="ms-1 mb-0">{{ $student->where('failed', null)->whereIn('status', [4,5])->count() }}</h4>
+                      </div>
+                      <p class="mb-0">For Interview</p>
+                      <p class="mb-0">
+                        <small class="text-muted">Admission Application</small>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3 mb-4">
                   <div class="card card-border-shadow-danger h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
                         <div class="avatar me-2">
                           <span class="avatar-initial rounded bg-label-danger"><i class='bx bxs-edit-alt' ></i></span>
                         </div>
-                        <h4 class="ms-1 mb-0">0</h4>
+                        <h4 class="ms-1 mb-0">{{ $student->where('enrollmentStatus', 1)->count() }}</h4>
                       </div>
-                      <p class="mb-1">Enrollment</p>
+                      <p class="mb-0">Enrollment</p>
                       <p class="mb-0">
                         <small class="text-muted">Students</small>
                       </p>

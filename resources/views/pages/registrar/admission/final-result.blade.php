@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-primary shadow text-white me-2" id="admission-passed"><i class="fas fa-check me-1"></i> Passed</button>
-                                        <button class="btn btn-sm btn-danger shadow text-white" id=""><i class="fas fa-times me-1"></i> Failed</button>    
+                                        <button class="btn btn-sm btn-danger shadow text-white" id="failed-admission"><i class="fas fa-times me-1"></i> Failed</button>    
                                     </div>
                                 </div>
                                 <input type="checkbox" class="me-2" id="masterCheckbox-final">

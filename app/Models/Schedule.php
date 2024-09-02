@@ -17,7 +17,8 @@ class Schedule extends Model
         'section',
         'slots',
         'enrolled',
-        'status'
+        'status',
+        'schoolYear'
     ];
 
     public function CourseInfo() {

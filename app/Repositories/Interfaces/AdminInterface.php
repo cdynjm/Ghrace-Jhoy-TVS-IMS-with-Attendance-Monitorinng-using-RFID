@@ -15,6 +15,7 @@ interface AdminInterface {
     public function Schedule($request);
     public function SubjectSchedule($request);
     
+    public function Students();
 }
 
 ?>

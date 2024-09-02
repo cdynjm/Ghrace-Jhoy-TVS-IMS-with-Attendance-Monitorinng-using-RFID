@@ -45,6 +45,9 @@ class AdminService implements AdminInterface {
     public function __construct(
         protected AESCipher $aes
     ) {}
+    public function Students() {
+        return LearnersProfile::where('diploma', null)->get();
+    }
     /**
      * Handle an incoming request.
      *
@@ -79,7 +82,10 @@ class AdminService implements AdminInterface {
     }
 
     public function Schedule($request) {
-        return Schedule::where('courseID', $this->aes->decrypt($request->id))->get();
+        return Schedule::where('courseID', $this->aes->decrypt($request->id))
+            ->orderBy('courseInfoID', 'ASC')
+            ->where('status', 1)
+            ->get();
     }
 
     public function SubjectSchedule($request) {

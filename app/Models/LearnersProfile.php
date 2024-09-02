@@ -49,9 +49,12 @@ class LearnersProfile extends Model
         'secondInterview',
         'admission_status',
         'status',
+        'failed',
         'yearLevel',
         'semester',
-        'enrollmentStatus'
+        'enrollmentStatus',
+        'freshmen',
+        'diploma'
         
     ];
 

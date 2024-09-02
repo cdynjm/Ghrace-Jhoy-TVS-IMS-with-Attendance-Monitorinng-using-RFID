@@ -6,6 +6,33 @@ var SweetAlert = Swal.mixin({
     buttonsStyling: false
 });
 
+$(document).on('click', "#admission-status", function(e){
+    const status = $(this).is(':checked') ? $(this).val() : 'q0CwLsWJBelHrDYiAuk-xgVVFtLpyPnkGPiDKIk7oC0HMfeSbTU8QnQ49oSI7FfEi1-oTPyckxEcbK4l5UbB3YstLUe1vDtwHWk8BcNl-Oa5qrYVSEd9gbUMifkKmRzZ6xOJqjpf4tXZcreBWVK5vQ:ISlAKCMqZiYlXjEyMzQ1Ng';
+    const formData = new FormData();
+    formData.append('status', status);
+    formData.append('_method', 'PATCH');
+    async function APIrequest() {
+        return await axios.post('/api/update/admin/admission-status', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+});
+
 $(document).on('click', '#add-course', function() {
     $('#create-course-modal').modal('show');
 });
@@ -494,11 +521,13 @@ $(document).on('click', "#edit-schedule", function(e){
 
     var id = $(this).parents('tr').find('td[id]').attr("id");
     var courseID = $(this).parents('tr').find('td[courseID]').attr("courseID");
+    var schoolYear = $(this).parents('tr').find('td[schoolYear]').attr("schoolYear");
     var yearLevel = $(this).parents('tr').find('td[yearLevel]').attr("yearLevel");
     var section = $(this).parents('tr').find('td[section]').attr("section");
     var slots = $(this).parents('tr').find('td[slots]').attr("slots");
 
     $('#schedule-id').val(id);
+    $('#school-year').val(schoolYear);
     $('.course-id').val(courseID);
     $('#yearLevel').val(yearLevel);
     $('#section').val(section);
@@ -575,4 +604,59 @@ $(document).on('submit', "#update-schedule", function(e){
             });
         });
     }, 1500);
+});
+
+$(document).on('click', "#archive-schedule", function(e){
+    SweetAlert.fire({
+        icon: 'warning',
+        html: 
+        `
+            <h4 class="mb-0">Are you sure?</h4>
+            <small>This will archive the schedules permanently.</small>
+        `,
+        confirmButtonColor: '#160e45',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Archive!',
+    })
+    .then((result) => {
+        if (result.value) {
+            SweetAlert.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Processing...',
+                allowOutsideClick: false,
+                showConfirmButton: false
+            });
+            const data = {
+                id: $(this).parents('tr').find('td[courseID]').attr("courseID"),
+                scheduleID: $(this).parents('tr').find('td[id]').attr("id")
+            };
+            async function APIrequest() {
+                return await axios.delete('/api/delete/schedule', {
+                    data: data,
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                    }
+                })
+            }
+            APIrequest().then(response => {
+                $('#schedule-subject-course-data').html(response.data.Schedule);
+                SweetAlert.fire({
+                    icon: 'success',
+                    html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                SweetAlert.fire({
+                    icon: 'error',
+                    html: `<h4 class="mb-0">Opss..</h4><small>Something went wrong!</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+            });
+        }
+    });
 });

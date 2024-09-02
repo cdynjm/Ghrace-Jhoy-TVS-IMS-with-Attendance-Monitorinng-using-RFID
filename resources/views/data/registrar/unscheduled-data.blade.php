@@ -31,9 +31,9 @@
                             data-psa="{{ $psa->where('studentID', $lp->id)->first()->filename }}"
                             data-form137="{{ $form137->where('studentID', $lp->id)->first()->filename }}"
                             data-name="{{ $lp->firstname }}-{{ $lp->lastname }}">
-                            <i class="fas fa-download"></i>
+                            <i class="fas fa-download"></i> Forms
                         </a>
-                        <a href="javascript:;" class="text-danger" title="Decline"><i class="fas fa-times"></i></a>
+                        <!-- <a href="javascript:;" class="text-danger" title="Decline"><i class="fas fa-times"></i></a> -->
                     </small>
                 </td>
             </tr>

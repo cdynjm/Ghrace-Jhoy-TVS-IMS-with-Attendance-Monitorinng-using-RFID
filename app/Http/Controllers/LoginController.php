@@ -10,6 +10,7 @@ use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use App\Models\AdmissionApplication;
 
 class LoginController extends Controller
 {
@@ -19,7 +20,8 @@ class LoginController extends Controller
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function login() {
-        return view('auth.login');
+        $status = AdmissionApplication::where('id', 1)->first();
+        return view('auth.login', ['status' => $status]);
     }
     /**
      * Handle an incoming request.

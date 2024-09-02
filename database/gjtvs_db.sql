@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 03, 2024 at 01:36 AM
+-- Generation Time: Aug 31, 2024 at 04:15 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.2
 
@@ -42140,23 +42140,31 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `sector`, `qualification`, `status`, `copr`, `created_at`, `updated_at`) VALUES
-(1, 'Human Health/Health Care', 'Health Care Services NC II HHCHC205', 'WTR', '000-001', '2024-06-04 11:02:38', '2024-06-17 02:06:16'),
-(2, 'Tourism (Hotel and Restaurant)', 'Food and Beverage Services NC II - TRSFB213', 'WTR', '000-002', '2024-06-04 11:06:15', '2024-06-17 02:03:52'),
-(3, 'Tourism (Hotel and Restaurant)', 'Cookery NC II - TRSCOK214', 'WTR', '000-003', '2024-06-04 11:19:34', '2024-06-21 04:06:56'),
-(4, 'Tourism (Hotel and Restaurant)', 'Cookery NC II Prepare and Cook Hot Meals - TRSCOK214', 'WTR-Cluster', '000-004', '2024-06-04 11:31:02', '2024-06-09 09:11:15'),
-(5, 'Tourism (Hotel and Restaurant)', 'Cookery NC II Prepare Cold Meals - TRSCOK214', 'WTR-Cluster', '000-005', '2024-06-04 11:32:38', '2024-06-09 03:03:44'),
-(6, 'Tourism (Hotel and Restaurant)', 'Cookery NC II Prepare Sweets - TRSCOK214', 'WTR-Cluster', '000-006', '2024-06-04 11:33:03', '2024-06-14 01:47:28'),
-(7, 'TVET', 'Trainers Methodology Level I', 'WTR', '000-007', '2024-06-04 23:16:34', '2024-06-18 07:07:48'),
-(8, 'Construction', 'Masonry NC II - CONMAS218', 'WTR', '000-008', '2024-06-04 23:18:42', '2024-06-17 02:00:38'),
-(9, 'Construction', 'Carpentry NC II - CONCAR218', 'WTR', '000-009', '2024-06-04 23:20:32', '2024-06-09 04:14:41'),
-(14, 'Automotive and Land Transportation', 'Driving NC II - ALTDRV204', 'WTR', '000-010', '2024-06-05 00:16:32', '2024-06-18 07:03:43'),
-(15, 'Construction', 'Tile Setting NC II - CONTIL218', 'WTR', '000-011,', '2024-06-05 00:19:58', '2024-06-17 02:04:00'),
-(16, 'Tourism (Hotel and Restaurant)', 'Bread and Pastry Production NC  II - TRSBPP209', 'WTR', '000-012', '2024-06-05 00:41:21', '2024-06-09 05:16:44'),
-(17, 'Human Health/Health Care', 'Contact Tracin Level II - COC', 'NTR', '000-013', '2024-06-05 06:05:06', '2024-06-17 01:29:26'),
-(18, 'Tourism (Hotel and Restaurant)', 'Three (3) Year Diploma Program in Hospitality Management', 'NTR-PQF Level 5 (Diploma)', '000-014', '2024-06-05 06:06:29', '2024-06-05 06:06:29'),
-(19, 'Automotive and Land Transportation', 'Driving (Passenger Bus/Straight Truck) NC III ALTDRB311', 'WTR', '000-015', '2024-06-05 06:07:42', '2024-06-30 08:22:07'),
-(20, 'Tourism (Hotel and Restaurant)', 'Commercial Cooking NC III - TRSCOK307', 'WTR', '000-016', '2024-06-05 06:08:29', '2024-06-17 01:33:54'),
-(21, 'Human Health/Health Care', 'Lifelong Learning Skills: Basic Healthcare for TVET Provider', 'For Monitoring of Other Programs', '000-017', '2024-06-05 06:09:40', '2024-06-17 01:14:24');
+(18, 'Tourism (Hotel and Restaurant)', 'Three (3) Year Diploma Program in Hospitality Management', 'NTR-PQF Level 5 (Diploma)', '000-014', '2024-06-05 06:06:29', '2024-08-30 06:41:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_info`
+--
+
+CREATE TABLE `course_info` (
+  `id` int NOT NULL,
+  `courseID` int DEFAULT NULL,
+  `yearLevel` varchar(255) DEFAULT NULL,
+  `semester` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `course_info`
+--
+
+INSERT INTO `course_info` (`id`, `courseID`, `yearLevel`, `semester`, `created_at`, `updated_at`) VALUES
+(11, 18, '1st year', '1st Semester', '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
+(12, 18, '1st year', '2nd Semester', '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
+(13, 18, '2nd Year', '1st Semester', '2024-08-30 22:58:58', '2024-08-30 22:58:58');
 
 -- --------------------------------------------------------
 
@@ -42172,16 +42180,6 @@ CREATE TABLE `documents_form137` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `documents_form137`
---
-
-INSERT INTO `documents_form137` (`id`, `studentID`, `filename`, `created_at`, `updated_at`) VALUES
-(4, '3', 'evelyn-cadayona-reg-form-2024-06-06-182942.pdf', '2024-06-06 10:29:42', '2024-06-06 10:29:42'),
-(9, '4', 'jessie-cadayona-reg-form-2024-06-10-092718.pdf', '2024-06-10 01:27:18', '2024-06-10 01:27:18'),
-(10, '2', '25bea921-657e-4142-bdf6-01b5d1a44ee8-2024-06-10-103833.jpg', '2024-06-10 02:38:33', '2024-06-10 02:38:33'),
-(11, '1', 'jemuel-cadayona-reg-form-2024-06-17-084247.pdf', '2024-06-17 00:42:47', '2024-06-17 00:42:47');
-
 -- --------------------------------------------------------
 
 --
@@ -42195,16 +42193,6 @@ CREATE TABLE `documents_psa` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `documents_psa`
---
-
-INSERT INTO `documents_psa` (`id`, `studentID`, `filename`, `created_at`, `updated_at`) VALUES
-(6, '3', 'jaysan-ompod-reg-form-2024-06-06-182938.pdf', '2024-06-06 10:29:39', '2024-06-06 10:29:39'),
-(17, '4', 'evelyn-cadayona-reg-form-2024-06-10-092725.pdf', '2024-06-10 01:27:25', '2024-06-10 01:27:25'),
-(19, '2', '45a691e1-4bd3-49b7-b76c-2d470788dad1-2024-06-10-103825.jpg', '2024-06-10 02:38:25', '2024-06-10 02:38:25'),
-(24, '1', 'jemuel-cadayona-reg-form-2024-06-17-084241.pdf', '2024-06-17 00:42:42', '2024-06-17 00:42:42');
 
 -- --------------------------------------------------------
 
@@ -42225,6 +42213,30 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `instructors`
+--
+
+CREATE TABLE `instructors` (
+  `id` int NOT NULL,
+  `instructor` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `contactNumber` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `instructors`
+--
+
+INSERT INTO `instructors` (`id`, `instructor`, `address`, `contactNumber`, `created_at`, `updated_at`) VALUES
+(1, 'Sample Instructor 1', 'Bontoc Southern Leyte', '09661195690', '2024-08-30 04:15:12', '2024-08-31 00:21:41'),
+(3, 'Sample Instructor 2', 'Sogod Southern Leyte', '09661195690', '2024-08-30 04:25:31', '2024-08-30 09:50:08'),
+(4, 'Sample Instructor 3', 'Libagon Southern Leyte', '09661195690', '2024-08-30 04:25:41', '2024-08-30 04:25:41');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `learners_classification`
 --
 
@@ -42236,18 +42248,6 @@ CREATE TABLE `learners_classification` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `learners_classification`
---
-
-INSERT INTO `learners_classification` (`id`, `studentID`, `classification`, `others`, `created_at`, `updated_at`) VALUES
-(1, '1', '24', '', NULL, NULL),
-(2, '1', '9', NULL, NULL, NULL),
-(3, '3', '1', NULL, '2024-06-06 10:25:07', '2024-06-06 10:25:07'),
-(4, '3', '7', NULL, '2024-06-06 10:25:07', '2024-06-06 10:25:07'),
-(5, '3', '13', NULL, '2024-06-06 10:25:07', '2024-06-06 10:25:07'),
-(6, '3', '24', 'Housewife', '2024-06-06 10:25:07', '2024-06-06 10:25:07');
 
 -- --------------------------------------------------------
 
@@ -42263,16 +42263,6 @@ CREATE TABLE `learners_course` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `learners_course`
---
-
-INSERT INTO `learners_course` (`id`, `studentID`, `course`, `scholarship`, `created_at`, `updated_at`) VALUES
-(1, '1', '2                                                                                                    ', 'PESFA', '2024-06-05 12:10:06', '2024-06-05 12:10:06'),
-(2, '2', '14                                                                                                    ', 'TWSP', '2024-06-06 00:25:36', '2024-06-06 00:25:36'),
-(3, '3', '1                                                                                                    ', 'STEP', '2024-06-06 10:25:07', '2024-06-06 10:25:07'),
-(4, '4', '14                                                                                                    ', NULL, '2024-06-09 02:59:36', '2024-06-09 02:59:36');
 
 -- --------------------------------------------------------
 
@@ -42316,21 +42306,15 @@ CREATE TABLE `learners_profile` (
   `dateReceived` date DEFAULT NULL,
   `exam` date DEFAULT NULL,
   `interview` date DEFAULT NULL,
+  `secondInterview` date DEFAULT NULL,
   `admission_status` int DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
+  `yearLevel` int DEFAULT NULL,
+  `semester` int DEFAULT NULL,
+  `enrollmentStatus` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `learners_profile`
---
-
-INSERT INTO `learners_profile` (`id`, `IDpicture`, `ULI`, `entryDate`, `lastname`, `firstname`, `middlename`, `region`, `province`, `city`, `barangay`, `district`, `street`, `account`, `phone`, `nationality`, `sex`, `civilStatus`, `employmentStatus`, `employmentType`, `birthdate`, `age`, `birthplaceRegion`, `birthplaceProvince`, `birthplaceCity`, `education`, `parent`, `parentAddress`, `consent`, `picture`, `dateAccomplished`, `registrar`, `dateReceived`, `exam`, `interview`, `admission_status`, `status`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, 'Cadayona', 'Jemuel', 'Hinay', '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '086402029                                                                                                    ', 'Bontoc', 'Purok 3', 'JEM CDYN', '9061958437', 'Filipino', '1', '1', '3', NULL, '2001-08-03', 22, '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '11', 'Evelyn Cadayona', 'Bontoc Southern Leyte', 'Yes', NULL, '2024-06-05 12:10:06', NULL, NULL, '2024-06-26', NULL, 1, '3', '2024-06-05 12:10:06', '2024-06-21 00:17:46'),
-(2, NULL, NULL, NULL, 'Ompod', 'Jaysan', 'Penaredondo', '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '086405008                                                                                                    ', 'Libagon', 'Purok 1', 'Ja Estrella', '9061958437', 'Filipino', '2', '1', '4', NULL, '2003-07-14', 20, '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '10', 'Mae Ompod', 'Libagon Southern Leyte', 'Yes', NULL, '2024-06-06 00:25:36', NULL, NULL, '2024-06-24', '2024-06-28', 1, '5', '2024-06-06 00:25:36', '2024-06-21 08:31:07'),
-(3, NULL, NULL, NULL, 'Cadayona', 'Evelyn', 'Hinay', '08                                                                                                    ', '0864                                                                                                    ', '086417                                                                                                    ', '086417005                                                                                                    ', 'Sogod', 'Purok Narra', 'Evelyn Cadayona', '9061958437', 'Filipino', '2', '2', '4', NULL, '1977-04-12', 47, '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '5', 'Julieta Hinay', 'Sogod Southern Leyte', 'Yes', NULL, '2024-06-06 10:25:06', NULL, NULL, '2024-06-25', '2024-07-01', 1, '4', '2024-06-06 10:25:06', '2024-06-23 06:53:17'),
-(4, NULL, NULL, NULL, 'Cadayona', 'Jessie', 'Sacro', '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '086402029                                                                                                    ', 'Bontoc', 'Purok 3', 'jessie@gmail.com', '9061958437', 'Filipino', '1', '2', '3', NULL, '1971-04-15', 53, '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '10', 'Jerimias Cadayona', 'Bonoc Southern Leyte', 'Yes', NULL, '2024-06-09 02:59:36', NULL, NULL, '2024-06-24', '2024-06-28', 1, '4', '2024-06-09 02:59:36', '2024-06-21 02:57:36');
 
 -- --------------------------------------------------------
 
@@ -42350,14 +42334,6 @@ CREATE TABLE `learners_working_experience` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `learners_working_experience`
---
-
-INSERT INTO `learners_working_experience` (`id`, `studentID`, `company`, `position`, `dateFrom`, `dateTo`, `salary`, `status`, `created_at`, `updated_at`) VALUES
-(1, '1', 'Dimsum Restaurant', 'OJT', '2018-10-26', '2018-11-01', 2000.00, 'Completed', '2024-06-05 12:10:06', '2024-06-05 12:10:06'),
-(2, '3', 'Mary Ann Pharmacy', 'SalesLady', '1995-04-03', '1998-02-08', 5000.00, 'Inactive', '2024-06-06 10:25:07', '2024-06-06 10:25:07');
 
 -- --------------------------------------------------------
 
@@ -44203,7 +44179,75 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (142, 'App\\Models\\User', 1, 'pemtvirQiIWjvGYyMDHR3NmcnjUKLcwnG3jzebGZvjBNLuqrgg', '236354ebcc850c18d0f68e1bb9258d305b1e574a28cc00884d2c999a0e1152c8', '[\"*\"]', '2024-06-30 08:22:07', NULL, '2024-06-30 08:21:55', '2024-06-30 08:22:07'),
 (143, 'App\\Models\\User', 2, 'gaQDuGuYCDz6KUJpCesvFuOC0DHiWkhnzzgganv0s2uMyNFOvD', '532ec7ad023e410ae76575872585b8cfb69687826efd19ead096c1281bd1ae0f', '[\"*\"]', NULL, NULL, '2024-06-30 08:22:28', '2024-06-30 08:22:28'),
 (144, 'App\\Models\\User', 2, '5uHLWaUT7GVKEUEKIch5B2GRL7zgbxPVN9MuV95DMFjvQInIzO', '855c720753ddf04463e141c92709696d84c232e0749294774c3c16b4a1f91847', '[\"*\"]', NULL, NULL, '2024-07-01 03:42:44', '2024-07-01 03:42:44'),
-(145, 'App\\Models\\User', 1, 'etrd38kcuE9yD6TG8efkwzbhk6Szh3XD7HNND5wDHm27vMxjKP', 'be0602b923a48d467941f910fe086227d18a6030d06f62d1680ea7c50d690c0e', '[\"*\"]', NULL, NULL, '2024-07-01 07:12:55', '2024-07-01 07:12:55');
+(145, 'App\\Models\\User', 1, 'etrd38kcuE9yD6TG8efkwzbhk6Szh3XD7HNND5wDHm27vMxjKP', 'be0602b923a48d467941f910fe086227d18a6030d06f62d1680ea7c50d690c0e', '[\"*\"]', NULL, NULL, '2024-07-01 07:12:55', '2024-07-01 07:12:55'),
+(146, 'App\\Models\\User', 1, '7FgU6BJfV6bWOpLLXsb5X0vFs4Rv2xlG4AlHtzGvTpfF4oGgW1', 'b4c12a421ed84b6eed16691a83bdfc4a0f798706908fbe0369e818feda210f57', '[\"*\"]', '2024-07-04 00:41:10', NULL, '2024-07-04 00:40:16', '2024-07-04 00:41:10'),
+(147, 'App\\Models\\User', 1, 't2SmJ5BPkrsxjt21JE6WaBzxAE5SWfY9MjaK7G9omzHxePWxVj', '542ed26d90c3a6a6f8c6d952603fb8477ef208249c124247eb787b57f56d16c9', '[\"*\"]', NULL, NULL, '2024-07-04 00:54:00', '2024-07-04 00:54:00'),
+(148, 'App\\Models\\User', 8, 'j1fTPIFORhpcl9c2DdkChge1JDyi5Sq7yDVawO4Y3D9TtXJGvN', '21316b86dab68750559470393c0ceb2019a04ea5110b3182391816d6ce56deb4', '[\"*\"]', NULL, NULL, '2024-07-04 01:01:54', '2024-07-04 01:01:54'),
+(149, 'App\\Models\\User', 9, 'bCcGbC0uqM0q4qc5t47379mko3W3TYePYXg88NXJFiYxunPmyC', 'c87b34b140b0341ef6c2d9cf390f855cc78bafcfcaecbb3183ed615a008dba9c', '[\"*\"]', NULL, NULL, '2024-07-04 01:06:39', '2024-07-04 01:06:39'),
+(150, 'App\\Models\\User', 2, 'PrSklBhJjVmlnDXhhwFRyvzvkvZkiJMugPMHqhWesYLZwwNHUZ', '6f8da911bfc952c0de5380e347c7f45bf9aed591f15e3a286b2d0dcd6d8e56cd', '[\"*\"]', NULL, NULL, '2024-07-04 01:19:48', '2024-07-04 01:19:48'),
+(151, 'App\\Models\\User', 2, 'dFIvuiShWcd8qb6PYF9YY7XEwEVMRpOuE1mtRdodJmso2zQwQX', '445a0af4dbfe9f0b83c5a8c8cdba0b8a3b0e9a69f1ed0b7cb16a0cdc39e5a1f4', '[\"*\"]', NULL, NULL, '2024-07-04 03:25:31', '2024-07-04 03:25:31'),
+(152, 'App\\Models\\User', 2, 'PnDJQ4GEcQLAP18esSwOXxjMTwRimHWx5SjFr0M83ODIi0800a', 'de821b8e19ee43c2c3f2c84547ab23e41f95d6b1050a7d43826356fe05982cab', '[\"*\"]', NULL, NULL, '2024-07-04 06:42:08', '2024-07-04 06:42:08'),
+(153, 'App\\Models\\User', 2, 'g0Ydy3CY67HY8R7LoRJY5DHJAVlirOqlYeu2BH1mgvr1uk2hU5', 'de4eaa05b74d803c20ffd5ab46e6ac1014d60f9a78f8f5d20bfa1957f9460f62', '[\"*\"]', NULL, NULL, '2024-07-04 10:56:45', '2024-07-04 10:56:45'),
+(154, 'App\\Models\\User', 8, '84vob3ngfs0CbPR2P7wtKS3v2MN9gMxE05NsjDARMv8bVe227h', '950a64fc6b80d2899ba0f683d236831ec89edff9dbdaa6f81aa3ffbd5f88d737', '[\"*\"]', NULL, NULL, '2024-07-05 01:26:41', '2024-07-05 01:26:41'),
+(155, 'App\\Models\\User', 13, 'AnNn6mqQTc1feXf55jeVquzDVDkhE4b9jUgQ9dUMwJhTBcC2YK', '1bb42dafc2fc4f47f843122fa0e87ff6f582ecd7b7dcb2a77b9b50ae529ce6cf', '[\"*\"]', '2024-07-05 01:53:06', NULL, '2024-07-05 01:32:15', '2024-07-05 01:53:06'),
+(156, 'App\\Models\\User', 2, '9NEWm7Hxu2W5GxkrasYxoZQhPOgdXXJahfHGgO9G0EfWnY7sKJ', '656d193cea176bfce1ef3ae9ce4027dc28d645f756550061e31d87c2c492f5e6', '[\"*\"]', NULL, NULL, '2024-07-05 01:34:33', '2024-07-05 01:34:33'),
+(157, 'App\\Models\\User', 2, 'toWTprp4Ah2KNUOH5dbUfuKyMKS9GKryBOIWIm4Lep29M5qYSE', '20f42f8567fb8daed0139f67289edfdb5adf345741228593fc86596ca911d361', '[\"*\"]', NULL, NULL, '2024-07-06 23:36:56', '2024-07-06 23:36:56'),
+(158, 'App\\Models\\User', 2, 'yW0U8dGBpS08Y2IdXcDPLH4Peoz9O7EdwxdCjSuNIpDOE0qSmd', '4c686641698c6d1a9fe1f359aa9538fe82bdf9d951606512168d2667be073d6c', '[\"*\"]', '2024-07-07 00:35:28', NULL, '2024-07-07 00:33:05', '2024-07-07 00:35:28'),
+(159, 'App\\Models\\User', 2, 'PJAaVkCDB8222TaYUU9NZj47UrcEpFN7RHUq3etbGQj6QxEMb4', '9d787c582e7d98722bfcae44ae91c04406d63bfe76dbbb9e5d77b6c06d462a0a', '[\"*\"]', NULL, NULL, '2024-07-08 01:12:32', '2024-07-08 01:12:32'),
+(160, 'App\\Models\\User', 2, 'MAXYMwj1uzUlbNjl5iL774r1wHY1koPI6k6foxJ8gEmCAUeCcx', '95856a9efbc25e96805c505b836974e9cc8881773683f733d24d0eb4fb801460', '[\"*\"]', NULL, NULL, '2024-07-08 01:45:56', '2024-07-08 01:45:56'),
+(161, 'App\\Models\\User', 2, 'Ozy4B28NmXy9he70uqp0nwbl1HitjxHMVCyFgInGZTuCJQQFkV', '8c53c6dabf1a1cc4fd22550ece78c118435373fb39efacf3cf52a8e637c82bbf', '[\"*\"]', NULL, NULL, '2024-07-14 06:11:29', '2024-07-14 06:11:29'),
+(162, 'App\\Models\\User', 8, 'pEiJ7LTXUzohUAlmI5yvk3uxy3jJfQJi0Fp0PZUXZb10F7hZ4V', '3b30b7a3df5c1db8ec26293babe07a6f03f6ca1fdb11f4f23de50c545865a6d4', '[\"*\"]', NULL, NULL, '2024-07-14 06:15:50', '2024-07-14 06:15:50'),
+(163, 'App\\Models\\User', 1, 'OwYKZ4iNTJyMTUrrkKoTkwtGvPmKzePZXa48MNyttqlNYkG0RB', 'f7a03f47f2dbc1f41a93aed95a7d685f137f1f72d9263b9e77e018e75056550d', '[\"*\"]', '2024-07-14 07:50:08', NULL, '2024-07-14 07:49:31', '2024-07-14 07:50:08'),
+(164, 'App\\Models\\User', 1, 'jneP1gqb6TmULgBYPxhKF52NFAFKHPa49IuBhc9jtgI4lfHYzn', '5be75f8f973e0a754b27f8f43c20107208f5b63a7f16d1db95ea428a3aeef025', '[\"*\"]', '2024-07-15 00:17:12', NULL, '2024-07-15 00:14:31', '2024-07-15 00:17:12'),
+(165, 'App\\Models\\User', 1, 'TdLkXAKKFSx3dTFo9Z8p6KusgtFSIzUwA2KHv2z2KXkMoMT8hA', 'c2329f69649c669605b6d0369e1a81dbfaab4481c5bf6be0098b83c81735eef7', '[\"*\"]', '2024-07-15 00:24:49', NULL, '2024-07-15 00:24:37', '2024-07-15 00:24:49'),
+(166, 'App\\Models\\User', 1, '59bQhKJJHgTMAlCeopfi40kTXbysHJbLcQ9t8J6lulEf61p74Q', '2249e93d8a27b97e8d26005bff18d8a2d03b3c64c25f0ab63d2be5ab7fbdacb4', '[\"*\"]', NULL, NULL, '2024-07-15 00:34:31', '2024-07-15 00:34:31'),
+(167, 'App\\Models\\User', 1, 'r3Tx9hnz0zVMlrR6swvohxhHNF0zOrt0PDxOxUad2pXmmK0t7p', 'b0907694e79786d301c30ea07c286360c993a85003c73a690903d98661a9e68d', '[\"*\"]', '2024-07-15 02:07:48', NULL, '2024-07-15 00:35:38', '2024-07-15 02:07:48'),
+(168, 'App\\Models\\User', 1, 'EYXxjuezN2A5CrF7DC2MkIBTOQ7O2azSjGAdeoxMAxsg83vSQu', '3ec49e58a191a6fea2948f0427964957aa505a7b2334eb0d8728b6873bfcdd72', '[\"*\"]', '2024-07-17 03:08:23', NULL, '2024-07-17 03:08:14', '2024-07-17 03:08:23'),
+(169, 'App\\Models\\User', 1, '4KevyvtpVAKpbnXGQGpc0gV2HTBTQfAPGzXQ8g6NUjr8dBpw87', '222dc386ec66cfd4af399862278a00ad251ebdc8848081a0cac831c0ee90748f', '[\"*\"]', '2024-07-24 09:35:52', NULL, '2024-07-24 09:35:40', '2024-07-24 09:35:52'),
+(170, 'App\\Models\\User', 2, 'aTzpCGNinsoYA7P99x2cJTjPAs4c7oAJQp5V8QHcXn1rL94VhH', '634c0f748275588ded7f5417634354de677dd02265c8e70d0bab41d35885b4d1', '[\"*\"]', NULL, NULL, '2024-07-24 09:36:22', '2024-07-24 09:36:22'),
+(171, 'App\\Models\\User', 8, 'KLSgTgfzkphytZvAJVbICqysMaI5YuVzukbojh1bxaTIiABTdw', '621968edb7b06e7d03f20f60b9bada0647530432902fead0315e1fd684c47ada', '[\"*\"]', NULL, NULL, '2024-07-24 09:37:39', '2024-07-24 09:37:39'),
+(172, 'App\\Models\\User', 2, 'gizUNES3Ksq8Ph0QssDf2rCOPdapFG1I7ZxMlrqzYjGaaG2si8', '3d9a1319fca4d9bc3831d30f9419f41eff9448c997a52829176dbe28e9ca403e', '[\"*\"]', NULL, NULL, '2024-07-24 09:39:32', '2024-07-24 09:39:32'),
+(173, 'App\\Models\\User', 14, 'cNjmYPdwnAoGhhdPsXTUCdmeE8gvH0k1UvhcWgBgapKn0F53Jq', '8d74f2a5715d15f1631adda9f29f93d18dd1bb635fb979569cc4b5a3e07dcbba', '[\"*\"]', NULL, NULL, '2024-07-24 09:42:26', '2024-07-24 09:42:26'),
+(174, 'App\\Models\\User', 14, 'YKvYuTVrziUIvnIDGyFsehumfuBIpfkkuoJlkFHUCncIPjsbzm', 'fd04ee5838199239241eaa0e0b137687e62828b959c64d197953aa737e162552', '[\"*\"]', NULL, NULL, '2024-08-07 08:24:35', '2024-08-07 08:24:35'),
+(175, 'App\\Models\\User', 2, 'vlC53Xy4KyoYbaTUph6V9Dez3m9Ojz17I8R7MzEOiackfqpuT0', '10e5710bf3b7c40238f7ca69e7e4cfbd8a8c6124eed52bfe3866c0efc0c68024', '[\"*\"]', NULL, NULL, '2024-08-07 08:27:03', '2024-08-07 08:27:03'),
+(176, 'App\\Models\\User', 14, 'QBOnuZf8otjjRe9PYEtVCuxY9S1hpEJC3pV7triptIWNV3dotl', '598023e42a0411892a788a39f1eb6c1a1484ce0a8f54368932d99361ec88d8a2', '[\"*\"]', NULL, NULL, '2024-08-07 09:08:07', '2024-08-07 09:08:07'),
+(177, 'App\\Models\\User', 14, 'T12U39sA5S1SHadaLpenRact16LusY8wFmOxhkGGjBz484g9ES', '87baac57cf1d0ab9e9d3a9acc1e81d0821eece18f9a28a0350a820a06ae420a6', '[\"*\"]', NULL, NULL, '2024-08-14 05:30:35', '2024-08-14 05:30:35'),
+(178, 'App\\Models\\User', 2, '6UB9eP4Fj3RzjJw4uCX43l5YF0Y49go0lDWtSu0MzM3Sru3oa8', '9880feb8d1f87c35f51238cc5795ff9ef71306a3ea5a91cfe3d1e21af6c60f65', '[\"*\"]', NULL, NULL, '2024-08-14 05:30:59', '2024-08-14 05:30:59'),
+(179, 'App\\Models\\User', 1, 'IOC5xtQzzJMKtYeKGjDxFwKs4kn7QNRSPfguFt9MNEgD6SW9Bi', '36eaf973aa60f9dd9f1547a04d9324318124fcb3933692fd50f8b55171ce8724', '[\"*\"]', '2024-08-14 05:32:02', NULL, '2024-08-14 05:31:55', '2024-08-14 05:32:02'),
+(180, 'App\\Models\\User', 14, 'kPTJxL5qugc8q3f557WZ4SBO0WdpQIrX9f4GkxAEF01wsVdRUq', 'eb09060d825b1f8b0ea7a7434a7f2a3ddbcb747f88e9d51e25c364d38642b6ed', '[\"*\"]', NULL, NULL, '2024-08-28 02:55:38', '2024-08-28 02:55:38'),
+(181, 'App\\Models\\User', 1, 'PB05ZKL1CBhCBnYnwmDUavLBXiBsv7t3SwX8N7PzwIO6oIHSSA', 'c9b7d0e3959c32e7df424797fd30b0fc4812b227323ec0a9ee4fd55615211846', '[\"*\"]', '2024-08-28 02:56:22', NULL, '2024-08-28 02:56:03', '2024-08-28 02:56:22'),
+(182, 'App\\Models\\User', 2, 'HZ8JmmUXjuUitSvaL0AuxLbuPU5DPFVrso8kYsx6XpHMJXlpYX', 'ead67b79a82703449467939a6cf937159fb23560f153db78936bedafa77a1405', '[\"*\"]', '2024-08-28 02:57:22', NULL, '2024-08-28 02:56:32', '2024-08-28 02:57:22'),
+(183, 'App\\Models\\User', 1, 'HBWTGILjxYcVEqFsUw9tqgNs8kjNQDlDtZ1cZPVuaclsPNMIkY', '5ea8bca94eef8ff8cbbde21cc3633ff514a45798e2087fcd1152b578a94eeb7e', '[\"*\"]', NULL, NULL, '2024-08-29 23:08:19', '2024-08-29 23:08:19'),
+(184, 'App\\Models\\User', 2, 'xMkga30tL0piHXy0S26U6W9od7wDPpT4SWEgujvZgt5gcJ3p6Z', '890d25905b7bbd194a189de37f2058a82242f2f3670c4e127b141996683a28d2', '[\"*\"]', NULL, NULL, '2024-08-29 23:09:48', '2024-08-29 23:09:48'),
+(185, 'App\\Models\\User', 15, 'kO7Vw3LixyrIbLZFEFp7APzlzFGDHAzWVsDgr0DEUED9EmfYVQ', '8c9133a948f263ac22c829e1c08f9021a72c27ad52f7196f9adea59f708a152e', '[\"*\"]', '2024-08-29 23:13:16', NULL, '2024-08-29 23:12:30', '2024-08-29 23:13:16'),
+(186, 'App\\Models\\User', 2, 'Xqc1TLmswATuE2gH5txtdelRCYdzNr5hN3zCIWiNZ0CBvRbGPR', '82ed664503f100923965fdd309060398c64f74748c66a98e2a631574d9a09b53', '[\"*\"]', '2024-08-29 23:49:41', NULL, '2024-08-29 23:13:38', '2024-08-29 23:49:41'),
+(187, 'App\\Models\\User', 15, 'IyDvxU5w4L4cE2PrOFPjUAT803yJZF3KSvV4r2gwctpFNQ5bh4', '1fb4f7a0c6aea9c99dee44ae7ff7312d07d5a8c0ba41804618a1c2066be2cfe4', '[\"*\"]', NULL, NULL, '2024-08-29 23:15:37', '2024-08-29 23:15:37'),
+(188, 'App\\Models\\User', 15, '5ensA2iyPmVoflf4Uxw5cKJKKJ3yyDijCYLt0J1FWDWIu0ZUqE', '97737349d5d76505b85dbf35c3393e9f4c0e9a0589433bbfb7263b2741088a38', '[\"*\"]', NULL, NULL, '2024-08-29 23:53:58', '2024-08-29 23:53:58'),
+(189, 'App\\Models\\User', 2, 'xb5KbRSiErAtk1dbT24EpLuOBZGI866OfkCQW4wAq2azp1xSg2', 'bf0b30969d2a9232733dbd9090956491141d85ac5f570ee57a77961c6a3d8a4f', '[\"*\"]', '2024-08-30 00:00:26', NULL, '2024-08-30 00:00:03', '2024-08-30 00:00:26'),
+(190, 'App\\Models\\User', 1, '191FyNyRjvy1Ic0jbXYQphnchLxdWx7Qbp77H6aWNLMgtDuLo7', '4bf39869ee9ea3a7c0768434f997532a2951d665113c8d991930858f4580360f', '[\"*\"]', '2024-08-30 00:17:43', NULL, '2024-08-30 00:02:33', '2024-08-30 00:17:43'),
+(191, 'App\\Models\\User', 1, '9Pxh4ntXwe9bo4MKEQTtJQpBClT8jR0EFZ6i6HHEb8dOnJlZmt', '2bee9e19de0555c69b52ba2be310739c9b02cfca05c51b966b2ff994a9f35c29', '[\"*\"]', '2024-08-30 01:45:09', NULL, '2024-08-30 00:22:52', '2024-08-30 01:45:09'),
+(192, 'App\\Models\\User', 15, 'gPou14i6qOYXGfgxNqUbA31TDLTIxre2tdfkkMUREWJwKZpTAz', '91a0dcd9755b84f31870b56e98bffcd61b36980abe43a6705b4423f205a095e9', '[\"*\"]', NULL, NULL, '2024-08-30 01:46:19', '2024-08-30 01:46:19'),
+(193, 'App\\Models\\User', 2, 'oLPYZF4E5xJbeSKtDaCGYyrqLcG6P1Oj4b6QhI3Y73iLZzsWnd', 'ad03f9934375cd4137c928341351fbc78fee6f1861136f1b78d20dd3c0ad67b1', '[\"*\"]', NULL, NULL, '2024-08-30 01:46:48', '2024-08-30 01:46:48'),
+(194, 'App\\Models\\User', 2, 'jnEMOhs4MmTv4p3qf79V4yoc9fwItdlnHGqO3HJbsZYviKVieX', '97fda7e13b2b51f3a235556a10ec5c314315cb3ecd3e9ab1d71c4e7a8863b6a1', '[\"*\"]', '2024-08-30 01:52:11', NULL, '2024-08-30 01:51:40', '2024-08-30 01:52:11'),
+(195, 'App\\Models\\User', 15, 'VneZdFT1tUaMZNTvHSHu1VawpztjwUUlwqrB3NuJXf636aGBYR', 'cd982ef91cc311d9e8c2cacadd95de2e6b16eb8577608bae1022337d91612224', '[\"*\"]', NULL, NULL, '2024-08-30 01:52:18', '2024-08-30 01:52:18'),
+(196, 'App\\Models\\User', 1, 'pXKYp4CGl97Xl8r1eztW9RWLbrvut1U52SBomwT0I7PCmceEg3', 'ba074635cff0f17c9383ab5a9ae561e96dc656f9eea8131d60e795de97475e50', '[\"*\"]', '2024-08-30 04:31:18', NULL, '2024-08-30 02:39:14', '2024-08-30 04:31:18'),
+(197, 'App\\Models\\User', 1, 'HlyAS5GxTkZQA9EmEhuthdO7rTzj8VYS4JzR3nVynEIUo4JMkb', 'ce33a01de78f8d2b9c338c51ab452e902a2594a5c4fabb9bfd075b675ee3acde', '[\"*\"]', '2024-08-30 09:50:08', NULL, '2024-08-30 03:48:56', '2024-08-30 09:50:08'),
+(198, 'App\\Models\\User', 2, 'LjiaUKYgrU38sFPGg7JmMgY1RjiHfo8ExpaKb8EEO6E616bYT8', '848169d26e86917e242c765c0241cb928f5aa7ed508ed2e370411695a41b5ee6', '[\"*\"]', NULL, NULL, '2024-08-30 05:22:06', '2024-08-30 05:22:06'),
+(199, 'App\\Models\\User', 1, 'uZq9el9FXtqUQTfxv83ut2NRnXVlz0q8JHW0YlJmK2zJ1dlXWQ', 'cb238874ece5e87cbab8323b4744fe16efabcaa07a525b7714caf21264f88ea9', '[\"*\"]', '2024-08-30 11:16:01', NULL, '2024-08-30 06:50:21', '2024-08-30 11:16:01'),
+(200, 'App\\Models\\User', 2, 'F0lovHV9eIgvvh1UcUYiz1Ue7sSINvEpYnpFaVvY7rEdzdPu3e', '98a2b0698c0f5ca3e4b13310a782242bee84c79e80b692e4cb48497cb5bfe854', '[\"*\"]', NULL, NULL, '2024-08-30 09:50:54', '2024-08-30 09:50:54'),
+(201, 'App\\Models\\User', 1, 'pSgcA30bWTvnBMMGTZSUJ7WOV0wt9gDSj8bpPiFccHUdgIJrES', 'bc4bcd7b72f267e7b9de7f8a83878351058dec3ed5c5e121378fc8e5c5ec8721', '[\"*\"]', '2024-08-30 11:15:30', NULL, '2024-08-30 09:55:04', '2024-08-30 11:15:30'),
+(202, 'App\\Models\\User', 2, '6mf0hhYj9pVvWe31QyrQFXDdaDodMpWcrt5DclYA89bUWLqsKl', '240199194d06ab10b55563b388d419ec0d589f084db91a483ab4fa009f81efa8', '[\"*\"]', NULL, NULL, '2024-08-30 11:17:34', '2024-08-30 11:17:34'),
+(203, 'App\\Models\\User', 1, 'voam0pbBonE3RjsBnfN0QlsnWxAwBbxbOlgooRrK5TA3hRd6cl', '13d2f01ddf0c8462f48b18ca0fb9abb371a7124f71d5f0e3ebdd32c09759e92f', '[\"*\"]', '2024-08-30 11:25:30', NULL, '2024-08-30 11:21:52', '2024-08-30 11:25:30'),
+(204, 'App\\Models\\User', 1, 'H3oWHxBbM7ZRXGynTb9CK8vi8CwOfpAgGkxQiZvc3BbLyomxB2', '46366907794a24cc82fd76c3614a9a13b5f9c7cb9d002bc4234226cf0d8a3714', '[\"*\"]', '2024-08-30 22:46:36', NULL, '2024-08-30 22:39:33', '2024-08-30 22:46:36'),
+(205, 'App\\Models\\User', 2, 'fA6YMmyy5Vczjh8SFJKYxaQA8pcbVSc6vPyl8sRtDHVnJafjQB', 'dbf573c073d52c981b67359323132bd35cede92f250062697b6ab36670dc3d4b', '[\"*\"]', NULL, NULL, '2024-08-30 22:49:52', '2024-08-30 22:49:52'),
+(206, 'App\\Models\\User', 15, 'L28eF9H8HsrnEO7FJJGzgVOQBYOrY3VqntGugXDrWlNDwTiLw4', '4a415de5f6f9824b96e85b740a809d1e80dc8d3e85f98d53f816942417035acf', '[\"*\"]', NULL, NULL, '2024-08-30 22:51:09', '2024-08-30 22:51:09'),
+(207, 'App\\Models\\User', 1, 'MHJRT3J0D2fCSbPrJsCGKbhttxY5x6JsqkQJuZpcVMxYHaARUr', '7139426d8c1c80f1353248e17678e33a10a16dc13744ce2a7d967fd41dfc41f6', '[\"*\"]', '2024-08-30 23:35:06', NULL, '2024-08-30 22:51:51', '2024-08-30 23:35:06'),
+(208, 'App\\Models\\User', 1, 'hh7FHDrM3UEoVpbFXFhsy9tBjj3eqN0nbKE6iaTeGdbz6kcxrp', 'bae849f34bdafcf3b8e6bebfdc4f4ce1f5abf5f9f28960e724ec8e785e223aba', '[\"*\"]', '2024-08-31 00:43:29', NULL, '2024-08-30 22:56:37', '2024-08-31 00:43:29'),
+(209, 'App\\Models\\User', 1, 'N9CPVy2zoBqbP1swjU0wVESD5UJZQA7qOU1lmdPIBT4aD3EiM3', 'd8de9da47a696b4df24ed6448a70e039b111fa21351dba60a34d41b0c31fe8c1', '[\"*\"]', '2024-08-31 00:06:41', NULL, '2024-08-30 23:36:00', '2024-08-31 00:06:41'),
+(210, 'App\\Models\\User', 1, 'JMp581srXugtc1BqV3A5gD2ok5ouffNzEMuBcx7rWYAgMGwnZK', 'b9ff20dd142952894bc28750f69063df21f7234253de55e9cffa25ed939cb465', '[\"*\"]', NULL, NULL, '2024-08-31 00:17:10', '2024-08-31 00:17:10'),
+(211, 'App\\Models\\User', 1, '2LbbAwAT1hVOo17B9w2g2ESMVr0BNeGXRn474VHOXU6fUiIJrJ', '903546dc26d3e120d3cb9081541574ef90a80aece8bf993f1b07bbce91876ff2', '[\"*\"]', '2024-08-31 00:44:19', NULL, '2024-08-31 00:19:52', '2024-08-31 00:44:19'),
+(212, 'App\\Models\\User', 2, 'kANRDsmz4shH7RGYVtZd2QcF845atHekKubJeHu0lY7A9A0EqR', 'aa518de037823551be09219e88ff28ba294254d6723e45c222d177f5a3ca73eb', '[\"*\"]', NULL, NULL, '2024-08-31 04:14:47', '2024-08-31 04:14:47'),
+(213, 'App\\Models\\User', 1, '9fzcITZ67kzfrsdYgijBPWSme5vXSUO14OUiqNUVBadJ2nKAuW', '7b8d5d70c5626b289ade2882784a194bf6dcc595c1a3402cbedf6bf785336ff1', '[\"*\"]', NULL, NULL, '2024-08-31 04:15:08', '2024-08-31 04:15:08');
 
 -- --------------------------------------------------------
 
@@ -44352,6 +44396,130 @@ INSERT INTO `region` (`id`, `psgcCode`, `regDesc`, `regCode`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `id` int NOT NULL,
+  `courseID` int DEFAULT NULL,
+  `courseInfoID` int DEFAULT NULL,
+  `section` varchar(255) DEFAULT NULL,
+  `slots` int DEFAULT NULL,
+  `enrolled` int DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `schoolYear` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`id`, `courseID`, `courseInfoID`, `section`, `slots`, `enrolled`, `status`, `schoolYear`, `created_at`, `updated_at`) VALUES
+(17, 18, 11, 'A', 25, 0, 1, '2024-2025', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
+(18, 18, 11, 'B', 25, 0, 1, '2024-2025', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
+(19, 18, 13, 'A', 25, 0, 1, '2024-2025', '2024-08-30 23:02:37', '2024-08-30 23:09:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `id` int NOT NULL,
+  `courseID` int DEFAULT NULL,
+  `courseInfoID` int DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `subjectCode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `units` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `courseID`, `courseInfoID`, `description`, `subjectCode`, `units`, `created_at`, `updated_at`) VALUES
+(21, 18, 11, 'Macro Perspective of Tourism and Hospitality', 'ATH 1103', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
+(22, 18, 11, 'Risk Management as Applied to Safety, Security and Sanitation', 'ATH 1110', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
+(24, 18, 11, 'Physical Education 1', 'PPE 1101', 2, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
+(25, 18, 11, 'Ethics', 'ZGE 1103', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
+(26, 18, 11, 'Purposive Communication', 'ZGE 1105', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
+(27, 18, 11, 'Readings in Philippine History', 'ZGE 1106', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
+(28, 18, 12, 'Kitchen Essentials and Basic Food Preparation', 'AHM 1201', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
+(29, 18, 12, 'Fundamentals in Lodging Operations', 'AHM 1202', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
+(30, 18, 12, 'Micro Perspective of Tourism and Hospitality', 'ATH 1104', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
+(31, 18, 12, 'Philippine Tourism, Culture and Geography', 'ATH 1107', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
+(32, 18, 12, 'Quality Service Management in Tourism and Hospitality', 'ATH 1109', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
+(33, 18, 12, 'Physical Education 2', 'PPE 1102', 2, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
+(34, 18, 12, 'The Contemporary World', 'ZGE 1102', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
+(35, 18, 13, 'Foreign Language Elective 1', 'AFL EL01', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
+(36, 18, 13, 'Culinary Nutrition', 'AHE 4305', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
+(37, 18, 13, 'Applied Business Tools and Technologies (PMS) with lab', 'AHM 2101', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
+(38, 18, 13, 'Supply Chain Management in Tourism and Hospitality Industry', 'AHM 2102', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
+(39, 18, 13, 'Physical Education 3', 'PPE 1103', 2, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
+(40, 18, 13, 'Art Appreciation', 'ZGE 1101', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
+(41, 18, 13, 'Mathematics in the Modern World', 'ZGE 1104', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
+(42, 18, 13, 'Life and Works of Rizal', 'ZGE 1109', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subject_schedule`
+--
+
+CREATE TABLE `subject_schedule` (
+  `id` int NOT NULL,
+  `courseID` int DEFAULT NULL,
+  `courseInfoID` int DEFAULT NULL,
+  `scheduleID` int DEFAULT NULL,
+  `subject` int DEFAULT NULL,
+  `instructor` int DEFAULT NULL,
+  `room` varchar(255) DEFAULT NULL,
+  `mon` int DEFAULT NULL,
+  `tue` int DEFAULT NULL,
+  `wed` int DEFAULT NULL,
+  `thu` int DEFAULT NULL,
+  `fri` int DEFAULT NULL,
+  `sat` int DEFAULT NULL,
+  `fromTime` time DEFAULT NULL,
+  `toTime` time DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `subject_schedule`
+--
+
+INSERT INTO `subject_schedule` (`id`, `courseID`, `courseInfoID`, `scheduleID`, `subject`, `instructor`, `room`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `fromTime`, `toTime`, `created_at`, `updated_at`) VALUES
+(25, 18, 11, 17, 21, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '08:00:00', '10:00:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
+(26, 18, 11, 17, 22, 3, 'Room 2', 0, 1, 0, 0, 1, 0, '15:00:00', '16:30:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
+(27, 18, 11, 17, 24, 4, 'Room 3', 0, 1, 0, 0, 1, 0, '08:00:00', '09:00:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
+(28, 18, 11, 17, 25, 1, 'Room 4', 0, 0, 1, 0, 0, 0, '08:00:00', '12:00:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
+(29, 18, 11, 17, 26, 4, 'Room 5', 1, 0, 0, 1, 0, 0, '17:00:00', '18:30:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
+(30, 18, 11, 17, 27, 3, 'Room 6', 0, 1, 0, 0, 1, 0, '10:00:00', '11:30:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
+(31, 18, 11, 18, 21, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '09:00:00', '10:00:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
+(32, 18, 11, 18, 22, 1, 'Room 2', 0, 1, 0, 0, 1, 0, '14:30:00', '16:00:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
+(33, 18, 11, 18, 24, 3, 'Room 3', 1, 0, 0, 1, 0, 0, '11:30:00', '13:00:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
+(34, 18, 11, 18, 25, 3, 'Room 4', 0, 0, 1, 0, 0, 0, '16:00:00', '17:30:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
+(35, 18, 11, 18, 26, 4, 'Room 5', 0, 1, 0, 0, 1, 0, '07:00:00', '08:30:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
+(36, 18, 11, 18, 27, 3, 'Room 6', 1, 0, 0, 1, 0, 0, '13:00:00', '14:30:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
+(37, 18, 13, 19, 35, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '07:00:00', '08:30:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
+(38, 18, 13, 19, 36, 3, 'Room 3', 0, 1, 0, 0, 1, 0, '13:00:00', '14:30:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
+(39, 18, 13, 19, 37, 4, 'Room 8', 1, 0, 0, 1, 0, 0, '10:00:00', '11:30:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
+(40, 18, 13, 19, 38, 3, 'Room 3', 1, 0, 0, 1, 0, 0, '15:00:00', '16:30:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
+(41, 18, 13, 19, 39, 3, 'Room 4', 0, 1, 0, 0, 1, 0, '08:30:00', '10:00:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
+(42, 18, 13, 19, 40, 1, 'Room 5', 0, 0, 1, 0, 0, 0, '13:00:00', '16:00:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
+(43, 18, 13, 19, 41, 1, 'Room 4', 1, 0, 0, 1, 0, 0, '17:30:00', '19:00:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
+(44, 18, 13, 19, 42, 3, 'Room 9', 0, 1, 0, 0, 1, 0, '17:30:00', '19:00:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tracker`
 --
 
@@ -44362,24 +44530,6 @@ CREATE TABLE `tracker` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tracker`
---
-
-INSERT INTO `tracker` (`id`, `studentID`, `tracker`, `created_at`, `updated_at`) VALUES
-(4, '2', 1, '2024-06-06 00:25:36', '2024-06-06 00:25:36'),
-(6, '3', 1, '2024-06-06 10:25:07', '2024-06-06 10:25:07'),
-(8, '4', 1, '2024-06-09 02:59:36', '2024-06-09 02:59:36'),
-(34, '1', 1, '2024-06-05 12:10:06', '2024-06-05 12:10:06'),
-(47, '4', 2, '2024-06-20 10:39:33', '2024-06-20 10:39:33'),
-(48, '2', 2, '2024-06-20 10:39:33', '2024-06-20 10:39:33'),
-(49, '3', 2, '2024-06-20 10:41:30', '2024-06-20 10:41:30'),
-(50, '1', 2, '2024-06-21 00:17:46', '2024-06-21 00:17:46'),
-(51, '2', 3, '2024-06-21 02:57:36', '2024-06-21 02:57:36'),
-(52, '4', 3, '2024-06-21 02:57:36', '2024-06-21 02:57:36'),
-(53, '2', 4, '2024-06-21 08:31:07', '2024-06-21 08:31:07'),
-(54, '3', 3, '2024-06-23 06:53:17', '2024-06-23 06:53:17');
 
 -- --------------------------------------------------------
 
@@ -44407,11 +44557,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `trainerID`, `studentID`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`) VALUES
 (1, NULL, NULL, 'GJTVS Admin', 'gjtvs@admin.com', NULL, '$2y$10$w.yYSjFQywvVIIqzi2so0uPNYjoulI40WCCp4DzvpL4D85J.Ii1J6', NULL, 1, '2024-06-02 17:42:58', '2024-06-02 17:42:58'),
-(2, NULL, NULL, 'GJTVS Registrar', 'gjtvs@registrar.com', NULL, '$2y$10$rsBSuZbwkVHpmDRmO9wVDeD/vnDyabzMvN3KQHVDBmxvsfU1tXwpe', NULL, 2, NULL, NULL),
-(8, NULL, 1, 'Jemuel Cadayona', 'cdynjm@gmail.com', NULL, '$2y$10$eiMVytMEaCwE465IP2kCpehoQQsjBlPmVqztq71BaCq.oZbzf9Uzq', NULL, 4, '2024-06-05 12:10:06', '2024-06-05 12:10:06'),
-(9, NULL, 2, 'Jaysan Ompod', 'jajaompod20@gmail.com', NULL, '$2y$10$FFWP0aq0Gz4gLF.Dh46mOOtEGat./Bzg0Zx2erAqDi.WusFrkrsia', NULL, 4, '2024-06-06 00:25:36', '2024-06-06 00:25:36'),
-(11, NULL, 3, 'Evelyn Cadayona', 'evelyn@gmail.com', NULL, '$2y$10$peVUgMpGraG5NiL6cWe.SeAaBslYAjwjcQ6NNp2B9wu28oVxXwgce', NULL, 4, '2024-06-06 10:25:07', '2024-06-06 10:25:07'),
-(12, NULL, 4, 'Jessie Cadayona', 'jessie@gmail.com', NULL, '$2y$10$Btu1/nJCN0FLoLv1EntbPuiVIa/8Ayw2eq1p04M4iVqjZavN9Lsxa', NULL, 4, '2024-06-09 02:59:36', '2024-06-09 02:59:36');
+(2, NULL, NULL, 'GJTVS Registrar', 'gjtvs@registrar.com', NULL, '$2y$10$rsBSuZbwkVHpmDRmO9wVDeD/vnDyabzMvN3KQHVDBmxvsfU1tXwpe', NULL, 2, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -44427,6 +44573,12 @@ ALTER TABLE `barangay`
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `course_info`
+--
+ALTER TABLE `course_info`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -44447,6 +44599,12 @@ ALTER TABLE `documents_psa`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `instructors`
+--
+ALTER TABLE `instructors`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `learners_classification`
@@ -44511,6 +44669,24 @@ ALTER TABLE `region`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subject_schedule`
+--
+ALTER TABLE `subject_schedule`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tracker`
 --
 ALTER TABLE `tracker`
@@ -44540,16 +44716,22 @@ ALTER TABLE `courses`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT for table `course_info`
+--
+ALTER TABLE `course_info`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT for table `documents_form137`
 --
 ALTER TABLE `documents_form137`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `documents_psa`
 --
 ALTER TABLE `documents_psa`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -44558,28 +44740,34 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `instructors`
+--
+ALTER TABLE `instructors`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `learners_classification`
 --
 ALTER TABLE `learners_classification`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `learners_course`
 --
 ALTER TABLE `learners_course`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `learners_profile`
 --
 ALTER TABLE `learners_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `learners_working_experience`
 --
 ALTER TABLE `learners_working_experience`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -44597,7 +44785,7 @@ ALTER TABLE `municipal`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
 
 --
 -- AUTO_INCREMENT for table `province`
@@ -44612,16 +44800,34 @@ ALTER TABLE `region`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `schedule`
+--
+ALTER TABLE `schedule`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `subject_schedule`
+--
+ALTER TABLE `subject_schedule`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
 -- AUTO_INCREMENT for table `tracker`
 --
 ALTER TABLE `tracker`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

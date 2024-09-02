@@ -67,3 +67,16 @@ $(document).on('submit', ".sign-in", function(e){
     }, 2000);
 
 });
+
+$(document).on('click', "#admission-closed", function(e){
+
+    SweetAlert.fire({
+        icon: 'info',
+        title: 'Admission Closed',
+        html: `<p style="font-size: 15px" class="text-danger">Application for admission is already closed. Please wait for the announcement from GJTVS regarding the reopening.</p>
+               <p style="font-size: 15px">All applicants must first undergo an on-site orientation before they can apply for admission. This orientation will cover important details about the admission process, the academic programs offered, and the expectations from students.</p>
+               <p style="font-size: 15px">Ensure to bring all required documents for verification during the orientation session.</p>`,
+        confirmButtonColor: "#3a57e8"
+    });
+    
+});

@@ -6,7 +6,7 @@
         </div>
         <div class="card-body">
             @if(Auth::user()->Student->status == 6)
-            <div class="alert alert-solid-danger alert-dismissible d-flex align-items-center" role="alert">
+            <div class="alert alert-solid-warning alert-dismissible d-flex align-items-center" role="alert">
                 <div>
 
                     <i class='bx bxs-info-circle me-1' ></i>
@@ -21,7 +21,7 @@
             </div>
             @endif
             @if(Auth::user()->Student->status == 7)
-            <div class="alert alert-solid-success text-dark alert-dismissible d-flex align-items-center" role="alert">
+            <div class="alert alert-solid-success text-white alert-dismissible d-flex align-items-center" role="alert">
                 <div>
 
                     <i class='bx bxs-info-circle me-1' ></i>

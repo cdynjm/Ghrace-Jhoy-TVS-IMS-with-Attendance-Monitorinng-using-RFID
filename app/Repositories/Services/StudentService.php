@@ -25,6 +25,10 @@ use App\Modes\Region;
 use App\Models\User;
 use App\Models\Courses;
 
+use App\Models\SubjectSchedule;
+use App\Models\StudentYearLevel;
+use App\Models\StudentGrading;
+
 use App\Models\DocumentsPSA;
 use App\Models\DocumentsForm137;
 
@@ -99,6 +103,20 @@ class StudentService implements StudentInterface {
      */
     public function LearnersWork() {
         return LearnersWork::where('studentID', Auth::user()->Student->id)->get();
+    }
+
+    public function yearLevel() {
+        return StudentYearLevel::where('studentID', Auth::user()->Student->id)
+        ->orderBy('scheduleID', 'DESC')
+        ->get();
+    }
+
+    public function subjectSchedule() {
+        return SubjectSchedule::get();
+    }
+
+    public function studentGrading() {
+        return StudentGrading::where('studentID', Auth::user()->Student->id)->get();
     }
 }
 

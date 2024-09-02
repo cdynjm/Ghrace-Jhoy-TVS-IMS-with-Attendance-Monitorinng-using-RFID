@@ -238,9 +238,22 @@ class StudentController extends Controller
             'admission_status' => 0,
             'yearLevel' => 1,
             'semester' => 1,
-            'enrollmentStatus' => 1
+            'enrollmentStatus' => 1,
+            'freshmen' => 1
         ]);
 
         return redirect('/student/dashboard');
+    }
+
+    public function schedule() {
+        $yearLevel = $this->StudentInterface->yearLevel();
+        $subjectSchedule = $this->StudentInterface->subjectSchedule();
+        return view('pages.student.schedule', compact('yearLevel', 'subjectSchedule'));
+    }
+
+    public function grades() {
+        $yearLevel = $this->StudentInterface->yearLevel();
+        $studentGrading = $this->StudentInterface->studentGrading();
+        return view('pages.student.grades', compact('yearLevel', 'studentGrading'));
     }
 }

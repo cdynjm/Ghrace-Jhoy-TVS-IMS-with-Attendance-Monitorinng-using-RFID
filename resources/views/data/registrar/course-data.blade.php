@@ -6,6 +6,7 @@
             <th><small>Qualification</small></th>
             <th><small>Status</small></th>
             <th><small>COPR #</small></th>
+            <th class="text-center"><small>Action</small></th>
         </tr>
     </thead>
     <tbody>
@@ -27,9 +28,19 @@
 
                 ><small>{{ $count }}</small></td>
                 <td><small>{{ $cor->sector }}</small></td>
-                <td><a wire:navigate href="{{ route('registrar.enrollment', ['id' => $aes->encrypt($cor->id)]) }}"><small>{{ $cor->qualification }}</small></a></td>
+                <td><small class="text-primary">{{ $cor->qualification }}</small></td>
                 <td><small>{{ $cor->status }}</small></td>
                 <td><small>{{ $cor->copr }}</small></td>
+                <td class="text-center">
+                    <div class="d-flex">
+                        <a class="btn btn-sm btn-primary flex-fill me-1" wire:navigate href="{{ route('registrar.enrollment', ['id' => $aes->encrypt($cor->id)]) }}">
+                            <iconify-icon icon="ph:student-duotone" width="18" height="18" class="me-1"></iconify-icon> Enrollment
+                        </a>
+                        <a class="btn btn-sm btn-secondary flex-fill" wire:navigate href="{{ route('registrar.grades', ['id' => $aes->encrypt($cor->id)]) }}">
+                            <iconify-icon icon="ic:twotone-grade" width="18" height="18" class="me-1"></iconify-icon> Grades
+                        </a>
+                    </div>                    
+                </td>
             </tr>
             
         @endforeach

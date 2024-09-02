@@ -36,6 +36,7 @@ use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
+use App\Models\AdmissionApplication;
 
 use App\Models\Schedule;
 use App\Models\SubjectSchedule;
@@ -53,14 +54,19 @@ class AdminController extends Controller
         protected AESCipher $aes, 
         protected AdminInterface $AdminInterface
     ) {}
+    public function admissionStatus(Request $request) {
+        AdmissionApplication::where('id', 1)->update(['status' => $this->aes->decrypt($request->status)]);
+    }
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function dashboard() {
-        $logs = $this->AdminInterface->Logs();
-        return view('pages.admin.dashboard', ['logs' => $logs]);
+        $instructors = $this->AdminInterface->Instructors()->count();
+        $courses = $this->AdminInterface->Courses()->count();
+        $student = $this->AdminInterface->Students();
+        return view('pages.admin.dashboard', ['instructors' => $instructors, 'courses' => $courses, 'student' => $student]);
     }
     /**
      * Handle an incoming request.
@@ -294,6 +300,7 @@ class AdminController extends Controller
             'slots' => $request->slots,
             'enrolled' => 0,
             'status' => 1, 
+            'schoolYear' => $request->schoolYear
         ]);
 
         foreach ($request->subjectID as $key => $subjectID) {
@@ -345,6 +352,7 @@ class AdminController extends Controller
        $schedule = Schedule::where('id', $this->aes->decrypt($request->scheduleID))->update([
            'section' => $request->section,
            'slots' => $request->slots,
+           'schoolYear' => $request->schoolYear
        ]);
 
        foreach ($request->subjectID as $key => $subjectID) {
@@ -359,6 +367,7 @@ class AdminController extends Controller
                'sat' => $request->days[$key][5] ?? 0,
                'fromTime' => $request->fromTime[$key],
                'toTime' => $request->toTime[$key],
+               'status' => 1
            ]);
        }
        
@@ -375,4 +384,28 @@ class AdminController extends Controller
        ], Response::HTTP_OK);
 
    }
+
+   public function archiveSubjectSchedule(Request $request) {
+
+    Schedule::where('id', $this->aes->decrypt($request->scheduleID))->update([
+        'status' => 0
+    ]);
+    
+    SubjectSchedule::where('scheduleID', $this->aes->decrypt($request->scheduleID))->update([
+        'status' => 0
+    ]);
+
+    $courseInfo = $this->AdminInterface->getCourseInfo($request);
+    $instructors = $this->AdminInterface->Instructors();
+
+    $schedule = $this->AdminInterface->Schedule($request);
+    $subjectSchedule = $this->AdminInterface->SubjectSchedule($request);
+    $aes = $this->aes;
+
+    return response()->json([
+        'Message' => 'Schedule archived successfully',
+        'Schedule' =>  view('data.admin.schedule-subject-course-data', compact('aes', 'courseInfo', 'instructors', 'schedule', 'subjectSchedule'))->render()
+    ], Response::HTTP_OK);
+
+}
 }

@@ -11,7 +11,7 @@
             <h6 class="text-sm">{{ date('M d, Y', strtotime($examDate)) }}</h6>
             <div class="btn-group">
                 <button class="btn btn-sm btn-primary shadow text-white me-2" id="proceed-to-interview" data-proceed-index="{{ $loop->index }}"><i class="fas fa-check me-1"></i> Proceed</button>
-                <button class="btn btn-sm btn-danger shadow text-white" id=""><i class="fas fa-times me-1"></i> Failed</button>    
+                <button class="btn btn-sm btn-danger shadow text-white" id="failed-exam" data-proceed-index="{{ $loop->index }}"><i class="fas fa-times me-1"></i> Failed</button>    
             </div>
         </div>
         

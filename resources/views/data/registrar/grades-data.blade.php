@@ -1,11 +1,9 @@
-<div id="enrollment-data">
+<div id="grades-data">
     @foreach ($enrollees as $yearLevel => $enrolleesInfo)
-        @php
-            $semesters = $enrolleesInfo->groupBy('semester');
-        @endphp
+        
         <p class="fw-bold">Year Level: {{ $yearLevel }}</p>
         
-        @foreach ($semesters as $semester => $students)
+        
             <table class="table table-sm table-hover text-nowrap mb-4" style="border-bottom: 1px solid rgb(240, 240, 240)">
                 <thead class="text-dark" style="background: rgb(244, 244, 244)">
                     <tr>
@@ -16,10 +14,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="">
-                        <td colspan="10" class="fw-bold text-primary">{{ $semester == 1 ? '1st' : '2nd' }} Semester</td>
-                    </tr>
-                    @foreach ($students as $index => $en)
+                    
+                    @foreach ($enrolleesInfo as $index => $en)
                         <tr>
                             <td
                             id="{{ $aes->encrypt($en->id) }}"
@@ -29,19 +25,15 @@
                             <td><small>{{ $en->Barangay->brgyDesc }}, {{ ucwords(strtolower($en->Municipal->citymunDesc)) }}, {{ ucwords(strtolower($en->Province->provDesc)) }} - {{ $en->Region->regDesc }}</small></td>
                             <td>
                                 <small>
-                                    @if($en->enrollmentStatus == 1 && $en->freshmen == 1)
-                                        <button class="btn btn-sm btn-success" id="enroll-student">Enroll</button>
-                                    @elseif($en->enrollmentStatus == 1)
-                                        <button class="btn btn-sm btn-success" id="enroll-student">Enroll for next sem</button>
-                                    @else
-                                        <span class="text-success">Currently Enrolled</span>
-                                    @endif
+                                    <a wire:navigate class="btn btn-sm btn-primary" href="{{ route('registrar.edit-grades', ['id' => $aes->encrypt($en->id)]) }}">
+                                        <iconify-icon icon="lets-icons:view-duotone" width="18" height="18" class="me-1"></iconify-icon> View
+                                    </a>
                                 </small>
                             </td>                    
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        @endforeach
+       
     @endforeach          
 </div>

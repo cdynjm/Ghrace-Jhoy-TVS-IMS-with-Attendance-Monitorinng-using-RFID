@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         @php
-            $count = 0
+            $count = 0;
         @endphp
         @foreach ($schedule as $sc)
             @php
@@ -23,6 +23,7 @@
                 id="{{ $aes->encrypt($sc->id) }}"
                 courseID="{{ $aes->encrypt($sc->courseID) }}"
                 yearLevel="{{ $aes->encrypt($sc->courseInfoID) }}"
+                schoolYear="{{ $sc->schoolYear }}"
                 section="{{ $sc->section }}"
                 slots="{{ $sc->slots }}"
 
@@ -30,7 +31,12 @@
                     <small>{{ $count }}</small>
                 </td>
                 <td>
-                    <small>{{ $sc->CourseInfo->yearLevel }}</small>
+                    <div>
+                        <small>{{ $sc->CourseInfo->yearLevel }}</small>
+                    </div>
+                    <div>
+                        <small class="fw-bold">{{ $sc->schoolYear }}</small>
+                    </div>
                 </td>
                 <td>
                     <small>{{ $sc->CourseInfo->semester }}</small>
@@ -43,6 +49,9 @@
                             <th><small>Schedule</small></th>
                             <th><small>Instructor</small></th>
                         </tr>
+                        @php
+                            $totalUnits = 0;
+                        @endphp
                         @foreach ($subjectSchedule->where('scheduleID', $sc->id) as $sub)
                            <tr style="border-bottom: transparent">
                                 <td>
@@ -86,7 +95,17 @@
                                 </td>
                                 
                            </tr>
+                           @php
+                                $totalUnits += $sub->Subjects->units;
+                            @endphp
                         @endforeach
+                        
+                            <tr style="border-bottom: transparent">
+                                <td colspan="2" class="text-end"><small><strong>Total Units:</strong></small></td>
+                                <td><small><strong>{{ $totalUnits }}</strong></small></td>
+                                <td colspan="2"></td>
+                            </tr>
+                        
                     </table>
                 </td>
                 <td>
@@ -94,8 +113,8 @@
                         <a href="javascript:;" id="edit-schedule" class="me-2">
                             <i class="fas fa-marker"></i>
                         </a>
-                        <a href="javascript:;" id="delete-course">
-                            <i class="fas fa-trash" class="me-2"></i>
+                        <a href="javascript:;" id="archive-schedule">
+                            <i class="fa-solid fa-box-open"></i>
                         </a>
                     </small>
                 </td>

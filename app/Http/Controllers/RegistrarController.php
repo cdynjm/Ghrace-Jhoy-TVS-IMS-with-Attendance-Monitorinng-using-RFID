@@ -24,6 +24,11 @@ use App\Models\Province;
 use App\Modes\Region;
 use App\Models\User;
 use App\Models\Courses;
+use App\Models\StudentGrading;
+use App\Models\StudentYearLevel;
+use App\Models\Schedule;
+use App\Models\SubjectSchedule;
+use App\Models\AdmissionApplication;
 
 use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
@@ -43,14 +48,17 @@ class RegistrarController extends Controller
         protected AESCipher $aes,
         protected RegistrarInterface $RegistrarInterface
     ) {}
+    public function admissionStatus(Request $request) {
+        AdmissionApplication::where('id', 1)->update(['status' => $this->aes->decrypt($request->status)]);
+    }
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function dashboard() {
-
-        return view('pages.registrar.dashboard');
+        $student = $this->RegistrarInterface->Students();
+        return view('pages.registrar.dashboard', ['student' => $student]);
     }
     /**
      * Handle an incoming request.
@@ -161,6 +169,30 @@ class RegistrarController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    public function failedExam(Request $request) {
+
+        foreach($request->applicant as $key => $value) {
+            LearnersProfile::where('id', $this->aes->decrypt($value))->update([
+                'failed' => 1
+            ]);
+        }
+
+        $learnersProfile = $this->RegistrarInterface->ExamLearnersProfile();
+        $learnersCourse = $this->RegistrarInterface->ExamLearnersCourse();
+        $status = $this->RegistrarInterface->Status();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'Selected Applicant/s has been marked as failed successfully!',
+            'Exam' => view('data.registrar.exam-data', compact('aes', 'learnersProfile', 'learnersCourse'))->render(),
+            'Status' => view('layouts.sidebar', compact('status'))->render()
+        ], Response::HTTP_OK);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function updateProceedToInterview(Request $request) {
 
         foreach($request->applicant as $key => $value) {
@@ -189,6 +221,31 @@ class RegistrarController extends Controller
         return response()->json([
             'Message' => 'Selected Applicant/s has been scheduled for interview successfully!',
             'Exam' => view('data.registrar.exam-data', compact('aes', 'learnersProfile', 'learnersCourse'))->render(),
+            'Status' => view('layouts.sidebar', compact('status'))->render()
+        ], Response::HTTP_OK);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function failedInterview(Request $request) {
+
+        foreach($request->applicant as $key => $value) {
+            LearnersProfile::where('id', $this->aes->decrypt($value))->update([
+                'failed' => 1
+            ]);
+        }
+
+        $learnersProfile = $this->RegistrarInterface->InterviewLearnersProfile();
+        $secondLearnersProfile = $this->RegistrarInterface->SecondInterviewLearnersProfile();
+        $learnersCourse = $this->RegistrarInterface->InterviewLearnersCourse();
+        $status = $this->RegistrarInterface->Status();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'Selected Applicant/s has been marked as failed successfully!',
+            'Interview' => view('data.registrar.interview-data', compact('aes', 'learnersProfile', 'learnersCourse', 'secondLearnersProfile'))->render(),
             'Status' => view('layouts.sidebar', compact('status'))->render()
         ], Response::HTTP_OK);
     }
@@ -297,6 +354,30 @@ class RegistrarController extends Controller
             'Status' => view('layouts.sidebar', compact('status'))->render()
         ], Response::HTTP_OK);
     }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function failedAdmission(Request $request) {
+
+        foreach($request->applicant as $key => $value) {
+            LearnersProfile::where('id', $this->aes->decrypt($value))->update([
+                'failed' => 1
+            ]);
+        }
+
+        $learnersProfile = $this->RegistrarInterface->FinalResultLearnersProfile();
+        $learnersCourse = $this->RegistrarInterface->FinalResultLearnersCourse();
+        $status = $this->RegistrarInterface->Status();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'Selected Applicant/s has been marked as failed successfully!',
+            'FinalResult' => view('data.registrar.final-result-data', compact('aes', 'learnersProfile', 'learnersCourse'))->render(),
+            'Status' => view('layouts.sidebar', compact('status'))->render()
+        ], Response::HTTP_OK);
+    }
 
      /**
      * Handle an incoming request.
@@ -307,6 +388,134 @@ class RegistrarController extends Controller
 
         $course = $this->RegistrarInterface->CourseInfo($request);
         $enrollees = $this->RegistrarInterface->Enrollees($request);
-        return view('pages.registrar.enrollment', compact('course', 'enrollees'));
+        $schedule = $this->RegistrarInterface->Schedule();
+        return view('pages.registrar.enrollment', compact('course', 'enrollees', 'schedule'));
     }
+
+    public function enrollStudent(Request $request) {
+
+        $schedule = Schedule::where('id', $this->aes->decrypt($request->schedule))->first();
+        $schedule->enrolled += 1;
+        Schedule::where('id', $this->aes->decrypt($request->schedule))->update(['enrolled' => $schedule->enrolled]);
+
+        $studentYearLevel = StudentYearLevel::create([
+            'studentID' => $this->aes->decrypt($request->studentID),
+            'scheduleID' => $schedule->id,
+            'courseInfoID' => $schedule->CourseInfo->id
+        ]);
+
+        foreach(SubjectSchedule::where('courseInfoID', $schedule->CourseInfo->id)->where('scheduleID', $schedule->id)->get() as $sub) {
+            StudentGrading::create([
+                'studentYearLevelID' => $studentYearLevel->id,
+                'studentID' => $this->aes->decrypt($request->studentID),
+                'courseInfoID' => $schedule->CourseInfo->id,
+                'subjectID' => $sub->Subjects->id,
+                'instructor' => $sub->instructor,
+                'mt' => 0,
+                'ft' => 0,
+                'avg' => 0
+            ]);
+        }
+
+        $student = LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->first();
+
+        if($student->freshmen == 1) {
+            LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+                'enrollmentStatus' => 0,
+                'freshmen' => 0
+            ]);
+        }
+
+        else if($student->semester == 1) {
+            $student->semester += 1;
+            LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+                'enrollmentStatus' => 0,
+                'semester' =>  $student->semester
+            ]);
+        }
+
+        else if($student->semester == 2) {
+            $student->yearLevel += 1;
+            LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+                'enrollmentStatus' => 0,
+                'semester' =>  1, 
+                'yearLevel' => $student->yearLevel
+            ]);
+        }
+
+        else {
+            
+        }
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $enrollees = $this->RegistrarInterface->Enrollees($request);
+        $schedule = $this->RegistrarInterface->Schedule();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'Student Enrolled Successfully',
+            'Enrollees' => view('data.registrar.enrollment-data', compact('course', 'enrollees', 'schedule', 'aes'))->render(),
+            'Schedule' => view('modals.registrar.update.schedule.schedule-list', compact('schedule', 'aes'))->render(),
+        ], Response::HTTP_OK); 
+    }
+
+    public function grades(Request $request) {
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $enrollees = $this->RegistrarInterface->Enrollees($request);
+        $schedule = $this->RegistrarInterface->Schedule();
+        return view('pages.registrar.grades', compact('course', 'enrollees', 'schedule'));
+    }
+
+    public function editGrades(Request $request) {
+
+        $yearLevel = $this->RegistrarInterface->yearLevel($request);
+        $studentGrading = $this->RegistrarInterface->studentGrading($request);
+        $student = $this->RegistrarInterface->LearnersProfile($request);
+        return view('pages.registrar.edit-grades', compact('yearLevel', 'studentGrading', 'student'));
+    }
+
+    public function updateGrades(Request $request) {
+        $mt = $request->mt;
+        $ft = $request->ft;
+    
+        $avg = ($mt > 0 && $ft > 0) 
+            ? ($mt + $ft) / 2 
+            : ($mt > 0 ? $mt : ($ft > 0 ? $ft : 0));
+    
+        StudentGrading::where('id', $this->aes->decrypt($request->gradeID))->update([
+            'mt' => $mt,
+            'ft' => $ft,
+            'avg' => $avg,
+        ]);
+    
+        $allGraded = StudentGrading::where('studentID', $this->aes->decrypt($request->id))
+            ->where(function ($query) {
+                $query->where('mt', 0)
+                ->orWhere('ft', 0);
+            })
+            ->doesntExist();
+    
+        if($allGraded) {
+            LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
+                'enrollmentStatus' => 1,
+            ]);
+        }
+        else {
+            LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
+                'enrollmentStatus' => 0,
+            ]);
+        }
+    
+        $yearLevel = $this->RegistrarInterface->yearLevel($request);
+        $studentGrading = $this->RegistrarInterface->studentGrading($request);
+        $student = $this->RegistrarInterface->LearnersProfile($request);
+        $aes = $this->aes;
+    
+        return response()->json([
+            'Message' => 'Grades updated successfully',
+            'Grades' => view('data.registrar.edit-grades-data', compact('yearLevel', 'studentGrading', 'student', 'aes'))->render()
+        ], Response::HTTP_OK);
+    }
+    
 }

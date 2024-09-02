@@ -67,7 +67,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" data-navigate-once></script>
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-    
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <!-- Helpers -->
     <script src="/assets/vendor/js/helpers.js?{{ \Str::random(10) }}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -147,7 +147,8 @@
   <script src="/assets/js/app-ecommerce-dashboard.js"></script>
   <script src="/assets/js/form-wizard-icons.js"></script>
   <script src="/assets/js/form-wizard-numbered.js"></script>
-  
+  <script src="/assets/js/app-user-view-account.js"></script>
+  <script src="/assets/js/app-user-view.js"></script>
 
   @livewireScripts
 </body>

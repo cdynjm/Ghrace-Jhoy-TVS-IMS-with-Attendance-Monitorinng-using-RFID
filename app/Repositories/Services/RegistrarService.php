@@ -26,6 +26,9 @@ use App\Modes\Region;
 use App\Models\User;
 use App\Models\Courses;
 
+use App\Models\StudentYearLevel;
+use App\Models\StudentGrading;
+
 use App\Models\DocumentsPSA;
 use App\Models\DocumentsForm137;
 
@@ -33,6 +36,7 @@ use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
+use App\Models\Schedule;
 
 class RegistrarService implements RegistrarInterface {
 
@@ -44,13 +48,17 @@ class RegistrarService implements RegistrarInterface {
     public function __construct(
         protected AESCipher $aes
     ) {}
+
+    public function Students() {
+        return LearnersProfile::where('diploma', null)->get();
+    }
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function UnscheduledLearnersProfile() {
-        return LearnersProfile::where('status', 2)->orderBy('lastname', 'ASC')->get();
+        return LearnersProfile::where('status', 2)->where('failed', null)->orderBy('lastname', 'ASC')->get();
     }
     /**
      * Handle an incoming request.
@@ -114,7 +122,7 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function ExamLearnersProfile() {
-        return LearnersProfile::where('status', 3)->get()->groupBy('exam');
+        return LearnersProfile::where('status', 3)->where('failed', null)->get()->groupBy('exam');
     }
     /**
      * Handle an incoming request.
@@ -130,7 +138,7 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function InterviewLearnersProfile() {
-        return LearnersProfile::where('status', 4)->get()->groupBy('interview');
+        return LearnersProfile::where('status', 4)->where('failed', null)->get()->groupBy('interview');
     }
     /**
      * Handle an incoming request.
@@ -138,7 +146,7 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function SecondInterviewLearnersProfile() {
-        return LearnersProfile::where('status', 5)->get()->groupBy('secondInterview');
+        return LearnersProfile::where('status', 5)->where('failed', null)->get()->groupBy('secondInterview');
     }
     /**
      * Handle an incoming request.
@@ -154,7 +162,7 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function FinalResultLearnersProfile() {
-        return LearnersProfile::where('status', 6)->get();
+        return LearnersProfile::where('status', 6)->where('failed', null)->get();
     }
     /**
      * Handle an incoming request.
@@ -187,8 +195,27 @@ class RegistrarService implements RegistrarInterface {
 
     public function Enrollees($request) {
         return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
-            $query->where('course', $this->aes->decrypt($request->id));
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('yearLevel', '!=', null);
         })->orderBy('lastname', 'ASC')->get()->groupBy('yearLevel');
+    }
+
+    public function Schedule() {
+        return Schedule::where('status', 1)
+                   ->whereColumn('enrolled', '<', 'slots')
+                   ->orderBy('courseInfoID', 'ASC')
+                   ->orderBy('section', 'ASC')
+                   ->get();
+                   
+    }
+
+    public function yearLevel($request) {
+        return StudentYearLevel::where('studentID', $this->aes->decrypt($request->id))->orderBy('scheduleID', 'DESC')->get();
+    }
+
+    public function studentGrading($request) {
+        return StudentGrading::where('studentID', $this->aes->decrypt($request->id))->get();
     }
 
 }

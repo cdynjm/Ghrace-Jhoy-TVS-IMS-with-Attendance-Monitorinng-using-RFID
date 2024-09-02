@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/courses', [AdminController::class, 'courses'])->name('admin.courses');
 			Route::get('/courses-info/{id}', [AdminController::class, 'coursesInfo'])->name('admin.courses-info');
 			Route::get('/schedule', [AdminController::class, 'schedule'])->name('admin.schedule');
-			Route::get('/create-scehdule/{id}', [AdminController::class, 'createSchedule'])->name('admin.create-schedule');
+			Route::get('/create-schedule/{id}', [AdminController::class, 'createSchedule'])->name('admin.create-schedule');
 		});
 	});
 
@@ -53,6 +53,9 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/courses', [RegistrarController::class, 'courses'])->name('registrar.courses');
 			Route::post('/registration-form', [RegistrarController::class, 'registrationForm'])->name('registrar.registrationform');
 			Route::get('/enrollment/{id}', [RegistrarController::class, 'enrollment'])->name('registrar.enrollment');
+			Route::get('/grades/{id}', [RegistrarController::class, 'grades'])->name('registrar.grades');
+			Route::get('/edit-grades/{id}', [RegistrarController::class, 'editGrades'])->name('registrar.edit-grades');
+
 		});
 	});
 
@@ -65,6 +68,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'student'], function () {
 		Route::group(['prefix' => 'student'], function () {
 			Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
+			Route::get('/schedule', [StudentController::class, 'schedule'])->name('student.schedule');
+			Route::get('/grades', [StudentController::class, 'grades'])->name('student.grades');
 			Route::get('/registration-form', [StudentController::class, 'registrationForm'])->name('student.registrationform');
 			Route::get('/proceed-enrollment', [StudentController::class, 'proceedEnrollment'])->name('student.proceed-enrollment');
 		});

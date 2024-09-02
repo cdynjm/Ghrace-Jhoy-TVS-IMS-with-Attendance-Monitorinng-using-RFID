@@ -35,9 +35,9 @@
                               <div class="avatar me-2">
                                 <span class="avatar-initial rounded bg-label-warning"><i class='bx bxs-user-detail'></i></span>
                               </div>
-                              <h4 class="ms-1 mb-0">0</h4>
+                              <h4 class="ms-1 mb-0">{{ $instructors }}</h4>
                             </div>
-                            <p class="mb-1">Trainers</p>
+                            <p class="mb-1">Instructors</p>
                             <p class="mb-0">
                               <small class="text-muted">Total Count</small>
                             </p>
@@ -51,7 +51,7 @@
                               <div class="avatar me-2">
                                 <span class="avatar-initial rounded bg-label-success"><i class='bx bxs-folder-open'></i></span>
                               </div>
-                              <h4 class="ms-1 mb-0">0</h4>
+                              <h4 class="ms-1 mb-0">{{ $courses }}</h4>
                             </div>
                             <p class="mb-1">Courses</p>
                             <p class="mb-0">
@@ -67,7 +67,7 @@
                               <div class="avatar me-2">
                                 <span class="avatar-initial rounded bg-label-danger"><i class='bx bxs-graduation'></i></span>
                               </div>
-                              <h4 class="ms-1 mb-0">0</h4>
+                              <h4 class="ms-1 mb-0">{{ $student->count() }}</h4>
                             </div>
                             <p class="mb-1">Students</p>
                             <p class="mb-0">
@@ -78,30 +78,6 @@
                       </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header">
-                        <h6>Recent Logs</h6>
-                        
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example" class="table table-sm" style="border-bottom: 1px solid rgb(240, 240, 240)">
-                                    <thead class="text-dark" style="background: rgb(244, 244, 244)">
-                                        <tr>
-                                            <th>#</th>
-                                            <th width="50%"><small>Name</small></th>
-                                            <th><small>Logged On</small></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
           </div>
         
           @include('layouts.footer')

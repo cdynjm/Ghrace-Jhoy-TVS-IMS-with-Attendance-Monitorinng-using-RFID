@@ -45,11 +45,13 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::patch('/course', [AdminController::class, 'updateCourse']);
             Route::patch('/instructor', [AdminController::class, 'updateInstructor']);
             Route::patch('/schedule', [AdminController::class, 'updateSubjectSchedule']);
+            Route::patch('/admin/admission-status', [AdminController::class, 'admissionStatus']);
         });
         
         Route::group(['prefix' => 'delete'], function () {
             Route::delete('/course', [AdminController::class, 'deleteCourse']);
             Route::delete('/instructor', [AdminController::class, 'deleteInstructor']);
+            Route::delete('/schedule', [AdminController::class, 'archiveSubjectSchedule']);
         });
 
     });
@@ -65,6 +67,14 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::patch('/proceed-to-second-interview', [RegistrarController::class, 'updateProceedToSecondInterview']);
             Route::patch('/proceed-to-final-result', [RegistrarController::class, 'updateProceedToFinalResult']);
             Route::patch('/admission-passed', [RegistrarController::class, 'updateAdmissionPassed']);
+            Route::patch('/enroll-student', [RegistrarController::class, 'enrollStudent']);
+            Route::patch('/grades', [RegistrarController::class, 'updateGrades']);
+
+            Route::patch('/failed-exam', [RegistrarController::class, 'failedExam']);
+            Route::patch('/failed-interview', [RegistrarController::class, 'failedInterview']);
+            Route::patch('/failed-admission', [RegistrarController::class, 'failedAdmission']);
+
+            Route::patch('/registrar/admission-status', [RegistrarController::class, 'admissionStatus']);
         });
         
         Route::group(['prefix' => 'delete'], function () {

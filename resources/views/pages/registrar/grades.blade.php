@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="layout-page">
-        @include('layouts.navbar', ['page' => 'Enrollment'], 
+        @include('layouts.navbar', ['page' => 'Grades'], 
         ['icon' => '
           
             <lord-icon
@@ -28,7 +28,7 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Enrollment |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Grades |</a>
                   </li>
                   <li class="breadcrumb-item">Data</li>
                 </ol>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                   @include('data.registrar.enrollment-data')
+                                   @include('data.registrar.grades-data')
                                 </div>
                             </div>
                         </div>

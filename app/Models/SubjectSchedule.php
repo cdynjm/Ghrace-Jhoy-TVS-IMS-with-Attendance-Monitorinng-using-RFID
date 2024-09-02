@@ -25,7 +25,8 @@ class SubjectSchedule extends Model
         'fri',
         'sat',
         'fromTime',
-        'toTime'
+        'toTime',
+        'status'
     ];
 
     public function CourseInfo() {

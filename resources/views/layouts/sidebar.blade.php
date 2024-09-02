@@ -116,9 +116,9 @@
           </span>
           <div>Unscheduled
 
-            @if(!empty($status->where('status', 2)->count()))
+            @if(!empty($status->where('status', 2)->where('failed', null)->count()))
             <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('status', 2)->count() }}
+              {{ $status->where('status', 2)->where('failed', null)->count() }}
             </span>
             @endif
 
@@ -138,9 +138,9 @@
           </span>
           <div>Exam
 
-            @if(!empty($status->where('status', 3)->count()))
+            @if(!empty($status->where('status', 3)->where('failed', null)->count()))
             <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('status', 3)->count() }}
+              {{ $status->where('status', 3)->where('failed', null)->count() }}
             </span>
             @endif
 
@@ -160,9 +160,9 @@
           </span>
           <div>Interview
 
-            @if(!empty($status->whereIn('status', [4, 5])->count()))
+            @if(!empty($status->where('failed', null)->whereIn('status', [4, 5])->count()))
             <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->whereIn('status', [4, 5])->count() }}
+              {{ $status->where('failed', null)->whereIn('status', [4, 5])->count() }}
             </span>
             @endif
 
@@ -182,9 +182,9 @@
           </span>
           <div>Final Result
 
-            @if(!empty($status->where('status', 6)->count()))
+            @if(!empty($status->where('status', 6)->where('failed', null)->count()))
             <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('status', 6)->count() }}
+              {{ $status->where('status', 6)->where('failed', null)->count() }}
             </span>
             @endif            
 
@@ -192,7 +192,7 @@
         </a>
       </li>
 
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Enrollment</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Enrollment & Grades</span></li>
 
       <li class="menu-item {{ Route::currentRouteName() == 'registrar.courses' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('registrar.courses') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.courses' ? 'active' : '' }}">
@@ -225,6 +225,34 @@
             </lord-icon>
           </span>
           <div>Dashboard</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'student.schedule' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('student.schedule') }}" class="menu-link {{ Route::currentRouteName() == 'student.schedule' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+              src="https://cdn.lordicon.com/qvyppzqz.json"
+              trigger="in"
+              stroke="bold"
+              style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Schedule</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'student.grades' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('student.grades') }}" class="menu-link {{ Route::currentRouteName() == 'student.grades' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+              src="https://cdn.lordicon.com/lenjvibx.json"
+              trigger="in"
+              stroke="bold"
+              style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Grades</div>
         </a>
       </li>
 

@@ -16,6 +16,9 @@
               <input type="hidden" class="form-control" name="scheduleID" id="schedule-id">
               <input type="hidden" class="form-control course-id" name="id">
 
+              <label for="" style="font-size: 12px;">School Year</label>
+              <input type="text" name="schoolYear" id="school-year" class="form-control mb-2" placeholder="School Year" required>
+
               <label for="" style="font-size: 12px;">Year Level/Semester</label>
               <select name="yearLevel" id="yearLevel" class="form-select yearLevel" disabled>
                   <option value="">Select...</option>
