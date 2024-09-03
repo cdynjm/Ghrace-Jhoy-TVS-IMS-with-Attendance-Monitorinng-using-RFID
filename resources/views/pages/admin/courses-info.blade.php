@@ -5,6 +5,7 @@
 @endphp
 
 @extends('modals.admin.create.course-info-modal')
+@extends('modals.admin.update.course-info-modal')
 
 @extends('app')
 

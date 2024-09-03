@@ -16,7 +16,8 @@ class Subjects extends Model
         'courseInfoID',
         'description',
         'subjectCode',
-        'units'
+        'units',
+        'NC'
     ];
 
     public function courseInfo() {

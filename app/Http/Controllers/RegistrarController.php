@@ -24,6 +24,7 @@ use App\Models\Province;
 use App\Modes\Region;
 use App\Models\User;
 use App\Models\Courses;
+use App\Models\CoursesInfo;
 use App\Models\StudentGrading;
 use App\Models\StudentYearLevel;
 use App\Models\Schedule;
@@ -65,9 +66,18 @@ class RegistrarController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function courses() {
+    public function enrollGrades() {
         $courses = $this->RegistrarInterface->Courses();
-        return view('pages.registrar.courses', ['courses' => $courses]);
+        return view('pages.registrar.enroll-grades', ['courses' => $courses]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function graduates() {
+        $courses = $this->RegistrarInterface->Courses();
+        return view('pages.registrar.graduates', ['courses' => $courses]);
     }
     /**
      * Handle an incoming request.
@@ -379,6 +389,16 @@ class RegistrarController extends Controller
         ], Response::HTTP_OK);
     }
 
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewGraduates(Request $request) {
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $graduates = $this->RegistrarInterface->Graduates($request);
+        return view('pages.registrar.view-graduates', compact('graduates', 'course'));
+    }
      /**
      * Handle an incoming request.
      *
@@ -413,7 +433,8 @@ class RegistrarController extends Controller
                 'instructor' => $sub->instructor,
                 'mt' => 0,
                 'ft' => 0,
-                'avg' => 0
+                'avg' => 0,
+                'assessment' => 0
             ]);
         }
 
@@ -430,7 +451,8 @@ class RegistrarController extends Controller
             $student->semester += 1;
             LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
                 'enrollmentStatus' => 0,
-                'semester' =>  $student->semester
+                'semester' =>  $student->semester,
+                'progress' => $student->progress + 1
             ]);
         }
 
@@ -439,13 +461,12 @@ class RegistrarController extends Controller
             LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
                 'enrollmentStatus' => 0,
                 'semester' =>  1, 
-                'yearLevel' => $student->yearLevel
+                'yearLevel' => $student->yearLevel,
+                'progress' => $student->progress + 1
             ]);
         }
-
-        else {
-            
-        }
+        
+        else {}
 
         $course = $this->RegistrarInterface->CourseInfo($request);
         $enrollees = $this->RegistrarInterface->Enrollees($request);
@@ -462,7 +483,7 @@ class RegistrarController extends Controller
     public function grades(Request $request) {
 
         $course = $this->RegistrarInterface->CourseInfo($request);
-        $enrollees = $this->RegistrarInterface->Enrollees($request);
+        $enrollees = $this->RegistrarInterface->StudentGrades($request);
         $schedule = $this->RegistrarInterface->Schedule();
         return view('pages.registrar.grades', compact('course', 'enrollees', 'schedule'));
     }
@@ -479,43 +500,105 @@ class RegistrarController extends Controller
         $mt = $request->mt;
         $ft = $request->ft;
     
+        // Calculate the average
         $avg = ($mt > 0 && $ft > 0) 
             ? ($mt + $ft) / 2 
             : ($mt > 0 ? $mt : ($ft > 0 ? $ft : 0));
     
+
         StudentGrading::where('id', $this->aes->decrypt($request->gradeID))->update([
             'mt' => $mt,
             'ft' => $ft,
             'avg' => $avg,
+            'assessment' => $request->assessment ?? 0
         ]);
     
+        // Check if all grades, including assessment, are filled for this student
         $allGraded = StudentGrading::where('studentID', $this->aes->decrypt($request->id))
             ->where(function ($query) {
                 $query->where('mt', 0)
-                ->orWhere('ft', 0);
+                      ->orWhere('ft', 0)
+                      ->orWhere(function ($query) {
+                          $query->whereHas('Subjects', function ($query) {
+                              $query->where('NC', 1);
+                          })->where('assessment', 0);
+                      });
             })
             ->doesntExist();
     
+        // Update the enrollment status based on the grading status
+        $statusValue = $allGraded ? 1 : 0;
+        
+        $coursesInfo = CoursesInfo::where('courseID', StudentGrading::where('studentID', $this->aes->decrypt($request->id))->first()->Subjects->courseID)->count();
+        $studentProgress = LearnersProfile::where('id', $this->aes->decrypt($request->id))->first();
+        
         if($allGraded) {
-            LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
-                'enrollmentStatus' => 1,
-            ]);
+            if($coursesInfo == $studentProgress->progress) {
+                LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
+                    'enrollmentStatus' => 2,
+                ]);
+            }
+            else {
+                LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
+                    'enrollmentStatus' => $statusValue,
+                ]);
+            }
         }
         else {
             LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
-                'enrollmentStatus' => 0,
+                'enrollmentStatus' => $statusValue,
             ]);
         }
     
+        // Fetch related data for the response
         $yearLevel = $this->RegistrarInterface->yearLevel($request);
         $studentGrading = $this->RegistrarInterface->studentGrading($request);
         $student = $this->RegistrarInterface->LearnersProfile($request);
         $aes = $this->aes;
     
+        // Return a JSON response
         return response()->json([
             'Message' => 'Grades updated successfully',
             'Grades' => view('data.registrar.edit-grades-data', compact('yearLevel', 'studentGrading', 'student', 'aes'))->render()
         ], Response::HTTP_OK);
+    }
+
+    public function graduateStudent(Request $request) {
+
+        LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+            'diploma' => 1,
+            'dateGraduated' => date('Y-m-d')
+        ]);
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $enrollees = $this->RegistrarInterface->Enrollees($request);
+        $schedule = $this->RegistrarInterface->Schedule();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'Student Information updated Successfully',
+            'Enrollees' => view('data.registrar.enrollment-data', compact('course', 'enrollees', 'schedule', 'aes'))->render(),
+            'Schedule' => view('modals.registrar.update.schedule.schedule-list', compact('schedule', 'aes'))->render(),
+        ], Response::HTTP_OK); 
+    }
+
+    public function updateEmploymentStatus(Request $request) {
+
+        LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+            'graduateEmploymentStatus' => $request->employmentStatus,
+            'company' => $request->company,
+            'dateHired' => $request->dateHired 
+        ]);
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $graduates = $this->RegistrarInterface->Graduates($request);
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'Employment status updated Successfully',
+            'Graduates' => view('data.registrar.view-graduates-data', compact('graduates', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
+    
     }
     
 }

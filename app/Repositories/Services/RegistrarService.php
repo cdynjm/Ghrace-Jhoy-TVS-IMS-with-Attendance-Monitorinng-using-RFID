@@ -198,7 +198,22 @@ class RegistrarService implements RegistrarInterface {
             $query->where('course', $this->aes->decrypt($request->id))
             ->where('diploma', null)
             ->where('yearLevel', '!=', null);
-        })->orderBy('lastname', 'ASC')->get()->groupBy('yearLevel');
+        })->orderBy('yearLevel', 'ASC')
+            ->orderBy('semester', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
+    }
+
+    public function StudentGrades($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('yearLevel', '!=', null);
+        })->orderBy('yearLevel', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
     }
 
     public function Schedule() {
@@ -216,6 +231,15 @@ class RegistrarService implements RegistrarInterface {
 
     public function studentGrading($request) {
         return StudentGrading::where('studentID', $this->aes->decrypt($request->id))->get();
+    }
+
+    public function Graduates($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', 1);
+        })->orderBy('lastname', 'ASC')
+            ->get();
+            
     }
 
 }

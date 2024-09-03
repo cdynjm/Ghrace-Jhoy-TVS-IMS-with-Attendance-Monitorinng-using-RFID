@@ -201,10 +201,46 @@ $(document).on('click', "#delete-course", function(e){
 
 $(document).on('click', '#add-course-info', function() {
     var id = $(this).data('id');
-    $('#course-id').val(id);
+    $('.course-id').val(id);
     $('#create-course-info-modal').modal('show');
 });
 
+$(document).on('click', '#edit-course-info', function() {
+    var id = $(this).data('id');
+    var courseInfoID = $(this).parents('tr').find('td[courseInfoID]').attr("courseInfoID");
+    var yearLevel = $(this).parents('tr').find('td[yearLevel]').attr("yearLevel");
+    var semester = $(this).parents('tr').find('td[semester]').attr("semester");
+
+    $('.course-id').val(id);
+    $('.course-info-id').val(courseInfoID);
+    $('#edit-year-level').val(yearLevel);
+    $('#edit-semester').val(semester);
+
+    const data = { courseInfoID: courseInfoID };
+    async function APIrequest() {
+        return await axios.post('/api/create/course-info-subject', data, {
+            headers: {
+                'Content-Type': 'application/json', 
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $(".edit-course-subject-list-data").html(response.data.Subjects);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+    $('#edit-course-info-modal').modal('show');
+});
 
 document.addEventListener('livewire:navigated', () => { 
 $(document).ready(function() {
@@ -215,8 +251,32 @@ $(document).ready(function() {
                 <input type="text" name="subjectCode[]" class="form-control me-2" placeholder="Code" required>
                 <input type="text" name="description[]" class="form-control me-2" placeholder="Description" required>
                 <input type="number" name="units[]" class="form-control" placeholder="Units" required>
-            </div>`;
+            </div>
+
+            <div class="form-check form-switch my-3">
+                <input type="checkbox" name="NC[]" value="1" class="form-check-input me-2">
+                <label for="" style="font-size: 12px;">Resultant Subject (NC II)</label>
+              </div>
+            
+            `;
         $('#subject-wrapper').append(newInput);
+    });
+
+    $('.edit-add-subject').click(function() {
+        let newInput = `
+            <div class="subject-group mb-2 d-flex">
+                <input type="text" name="subjectCode[]" class="form-control me-2" placeholder="Code" required>
+                <input type="text" name="description[]" class="form-control me-2" placeholder="Description" required>
+                <input type="number" name="units[]" class="form-control" placeholder="Units" required>
+            </div>
+
+            <div class="form-check form-switch my-3">
+                <input type="checkbox" name="NC[]" value="1" class="form-check-input me-2">
+                <label for="" style="font-size: 12px;">Resultant Subject (NC II)</label>
+              </div>
+            
+            `;
+        $('#edit-subject-wrapper').append(newInput);
     });
 
     // Remove the last set of input fields
@@ -224,8 +284,11 @@ $(document).ready(function() {
         if ($('#subject-wrapper .subject-group').length > 1) {
             $('#subject-wrapper .subject-group:last').remove();
         }
+        if ($('#subject-wrapper .form-check').length > 1) {
+            $('#subject-wrapper .form-check:last').remove();
+        }
     });
-});
+    });
 });
 
 
@@ -256,6 +319,53 @@ $(document).on('submit', "#create-course-info", function(e){
         APIrequest().then(response => {
             $('.processing').hide(100);
             $("#create-course-info-modal").modal('hide');
+            $('input').val('');
+            $('#course-info-data').html(response.data.CoursesInfo);
+            SweetAlert.fire({
+                icon: 'success',
+                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            SweetAlert.fire({
+                icon: 'error',
+                html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        });
+    }, 1500);
+});
+
+$(document).on('submit', "#update-course-info", function(e){
+    e.preventDefault();
+    $('.processing').show(100);
+    $('.processing').html(`
+        <div class="col d-flex">
+            <div>
+                <!-- Pluse -->
+                <div class="sk-pulse sk-primary"></div>
+            </div>
+            <div class="text-sm mt-1 ms-4">Processing...</div>
+        </div>
+    `);
+    
+    setTimeout(() => {
+        const formData = new FormData(this);
+        formData.append('_method', 'PATCH');
+        async function APIrequest() {
+            return await axios.post('/api/update/course-info', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                }
+            })
+        }
+        APIrequest().then(response => {
+            $('.processing').hide(100);
+            $("#edit-course-info-modal").modal('hide');
             $('input').val('');
             $('#course-info-data').html(response.data.CoursesInfo);
             SweetAlert.fire({

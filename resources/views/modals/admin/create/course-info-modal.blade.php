@@ -13,7 +13,7 @@
 
               <div class="processing alert alert-success" style="display: none"></div>
 
-             <input type="hidden" id="course-id" name="id" class="form-control" required>
+             <input type="hidden"  name="id" class="form-control course-id" required>
 
               <label for="" style="font-size: 12px;">Year Level</label>
               <input type="text" name="year" class="form-control mb-2" required>
@@ -28,6 +28,12 @@
                     <input type="text" name="description[]" class="form-control me-2" placeholder="Description" required>
                     <input type="number" name="units[]" class="form-control" placeholder="Units" required>
                 </div>
+              
+              <div class="form-check form-switch my-3">
+                <input type="checkbox" name="NC[]" value="1" class="form-check-input me-2">
+                <label for="" style="font-size: 12px;">Resultant Subject (NC II)</label>
+              </div>
+                
             </div>
             <button type="button" class="btn btn-sm btn-success add-subject"><i class="fa-solid fa-plus"></i></button>
             <button type="button" class="btn btn-sm btn-danger remove-subject"><i class="fa-solid fa-trash"></i></button>

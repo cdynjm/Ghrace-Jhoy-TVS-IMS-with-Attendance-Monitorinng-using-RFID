@@ -21,7 +21,8 @@ class StudentGrading extends Model
         'instructor',
         'mt',
         'ft',
-        'avg'
+        'avg',
+        'assessment'
     ];
 
     public function Instructors() {

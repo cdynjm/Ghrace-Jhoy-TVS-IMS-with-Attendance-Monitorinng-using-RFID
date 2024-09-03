@@ -22,6 +22,15 @@
               <label for="" style="font-size: 12px;">Final Term Grade</label>
               <input type="number" min="0" step="0.01" name="ft" id="ft" class="form-control mb-2" required>
 
+              <div class="resultant-subject" style="display: none">
+                <label for="" style="font-size: 12px;">Mandatory Assessment Status</label>
+                <select name="assessment" id="assessment" class="form-select">
+                  <option value="0">Select...</option>
+                  <option value="1">COMPETENT</option>
+                  <option value="2">NOT YET COMPETENT</option>
+                </select>
+              </div>
+
             </div>
           </div>
         </div>

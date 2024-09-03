@@ -192,19 +192,33 @@
         </a>
       </li>
 
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Enrollment & Grades</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Academic Records</span></li>
 
-      <li class="menu-item {{ Route::currentRouteName() == 'registrar.courses' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('registrar.courses') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.courses' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.enroll-grades' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.enroll-grades') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.enroll-grades' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
-                src="https://cdn.lordicon.com/uecgmesg.json"
+                src="https://cdn.lordicon.com/wzrwaorf.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Courses</div>
+          <div>Enrolment & Grades</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.graduates' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.graduates') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.graduates' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/qmsejndz.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Graduates</div>
         </a>
       </li>
 
@@ -246,7 +260,7 @@
         <a wire:navigate href="{{ route('student.grades') }}" class="menu-link {{ Route::currentRouteName() == 'student.grades' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
-              src="https://cdn.lordicon.com/lenjvibx.json"
+              src="https://cdn.lordicon.com/abwrkdvl.json"
               trigger="in"
               stroke="bold"
               style="width:22px;height:22px">

@@ -240,7 +240,8 @@ class AdminController extends Controller
                 'courseInfoID' => $get->id,
                 'description' => $value,   
                 'subjectCode' => $request->subjectCode[$key],                        
-                'units' => $request->units[$key]
+                'units' => $request->units[$key],
+                'NC' => $request->NC[$key] ?? 0
             ]);
         }
         
@@ -252,6 +253,38 @@ class AdminController extends Controller
         
         return response()->json([
             'Message' => 'Course Subjects added successfully',
+            'CoursesInfo' => view('data.admin.course-info-data', compact('course', 'courseInfo', 'subjects', 'aes'))->render()
+        ], Response::HTTP_OK);
+        
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function updateCourseInfo(Request $request) {
+
+        CoursesInfo::where('id', $this->aes->decrypt($request->courseInfoID))->update([
+            'yearLevel' => $request->year,
+            'semester' => $request->semester
+        ]);
+
+        foreach($request->subjectID as $key => $value) {
+            Subjects::where('id', $this->aes->decrypt($value))->update([
+                'description' => $request->description[$key],   
+                'subjectCode' => $request->subjectCode[$key],                        
+                'units' => $request->units[$key],
+                'NC' => $request->NC[$key] ?? 0
+            ]);
+        }
+        
+        $course = $this->AdminInterface->CourseInfo($request);
+        $courseInfo = $this->AdminInterface->getCourseInfo($request);
+        $subjects = $this->AdminInterface->Subjects($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Message' => 'Course Subjects updated successfully',
             'CoursesInfo' => view('data.admin.course-info-data', compact('course', 'courseInfo', 'subjects', 'aes'))->render()
         ], Response::HTTP_OK);
         
@@ -407,5 +440,15 @@ class AdminController extends Controller
         'Schedule' =>  view('data.admin.schedule-subject-course-data', compact('aes', 'courseInfo', 'instructors', 'schedule', 'subjectSchedule'))->render()
     ], Response::HTTP_OK);
 
-}
+    }
+
+    public function getCourseInfoSubject(Request $request) {
+
+        $subjects = Subjects::where('courseInfoID', $this->aes->decrypt($request->courseInfoID))->get();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Subjects' => view('modals.admin.update.subjects.course-subject-list', compact('subjects', 'aes'))->render()
+        ], Response::HTTP_OK);
+    }
 }

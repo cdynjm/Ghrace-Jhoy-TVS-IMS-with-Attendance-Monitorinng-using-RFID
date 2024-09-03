@@ -8,7 +8,7 @@
                 <p class="text-xs" style="font-size: 12px">SLSU | Faculty of CSIT</p>
             </div>
         </div>
-        <hr class="my-1">
+        
         <div class="row mb-4">
 
             <div class="col-md-12">

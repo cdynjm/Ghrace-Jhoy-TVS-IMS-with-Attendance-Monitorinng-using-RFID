@@ -17,7 +17,11 @@
                 $count += 1
             @endphp
             <tr>
-                <td>
+                <td
+                courseInfoID="{{ $aes->encrypt($ci->id) }}"
+                yearLevel="{{ $ci->yearLevel }}"
+                semester="{{ $ci->semester }}"
+                >
                     <small>{{ $count }}</small>
                 </td>
                 <td>
@@ -32,6 +36,7 @@
                             <th><small>Subject Code</small></th>
                             <th><small>Description</small></th>
                             <th><small>Units</small></th>
+                            <th><small>Resultant Sub/NC II</small></th>
                         </tr>
                         @php
                             $totalUnits = 0;
@@ -47,6 +52,11 @@
                                 <td>
                                     <div><small>{{ $sub->units }}</small></div>
                                 </td>
+                                <td>
+                                    @if($sub->NC == 1)
+                                        <small class="fw-bold text-primary">YES</small>
+                                    @endif
+                                </td>
                            </tr>
                            @php
                                 $totalUnits += $sub->units;
@@ -59,7 +69,11 @@
                         </tr>
                     </table>
                 </td>
-                <td></td>
+                <td>
+                    <a href="javascript:;" id="edit-course-info" class="me-2" data-id="{{ $aes->encrypt($course->id) }}">
+                        <i class="fas fa-marker"></i>
+                    </a>
+                </td>
             </tr>
 
         @endforeach

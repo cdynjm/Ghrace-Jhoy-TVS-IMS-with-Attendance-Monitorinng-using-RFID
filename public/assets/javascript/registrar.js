@@ -869,11 +869,21 @@ $(document).on('click', '#edit-grades-value', function() {
     var id = $(this).parents('tr').find('td[id]').attr("id");
     var mt = $(this).parents('tr').find('td[mt]').attr("mt");
     var ft = $(this).parents('tr').find('td[ft]').attr("ft");
+    var nc = $(this).parents('tr').find('td[nc]').attr("nc");
+    var assessment = $(this).parents('tr').find('td[assessment]').attr("assessment");
 
     $('#student-id').val(id);
     $('#grade-id').val(gradeID);
     $('#mt').val(mt);
     $('#ft').val(ft);
+
+    if(nc == 1) {
+        $('#assessment').val(assessment);
+        $('.resultant-subject').show(200);
+    }
+    else {
+        $('.resultant-subject').hide(200);
+    }
 
     $('#edit-grades-modal').modal('show');
 });
@@ -908,6 +918,125 @@ $(document).on('submit', "#update-grades", function(e){
             $("#edit-grades-modal").modal('hide');
             $('input').val('');
             $('#edit-grades-data').html(response.data.Grades);
+            SweetAlert.fire({
+                icon: 'success',
+                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            SweetAlert.fire({
+                icon: 'error',
+                html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        });
+    }, 1500);
+});
+
+$(document).on('click', "#graduate-student", function(e){
+    SweetAlert.fire({
+        icon: 'question',
+        html: 
+        `
+            <h4 class="mb-0">Are you sure?</h4>
+            <small>This will officially mark the student as a <b class="text-primary">Graduate</b>, as they have successfully completed all academic requirements, including their majors and minors. <br><br> The student has also fulfilled all necessary assessments, participated in required internships, and demonstrated proficiency in their field of study. As a result of these accomplishments, they will receive a <b class="text-primary">Diploma</b> and be transitioned to the employment phase, where they can begin their career journey.</small>
+        `,
+        confirmButtonColor: '#160e45',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, I hereby Confirm!',
+    })
+    .then((result) => {
+        if (result.value) {
+            SweetAlert.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Processing...',
+                allowOutsideClick: false,
+                showConfirmButton: false
+            });
+            const data = {
+                studentID: $(this).parents('tr').find('td[id]').attr("id"),
+                id: $(this).parents('tr').find('td[courseID]').attr("courseID"),
+                _method: 'PATCH'
+            };
+            async function APIrequest() {
+                return await axios.post('/api/update/graduate-student', data, {
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                    }
+                })
+            }
+            APIrequest().then(response => {
+                $('.processing').hide(100);
+                $('#enrollment-data').html(response.data.Enrollees);
+                $('#schedule-list').html(response.data.Schedule);
+                SweetAlert.fire({
+                    icon: 'success',
+                    html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                SweetAlert.fire({
+                    icon: 'error',
+                    html: `<h4 class="mb-0">Opss..</h4><small>Something went wrong!</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+            });
+        }
+    });
+});
+
+$(document).on('click', '#edit-employment-status', function() {
+   
+    var id = $(this).parents('tr').find('td[id]').attr("id");
+    var courseID = $(this).parents('tr').find('td[courseID]').attr("courseID");
+    var company = $(this).parents('tr').find('td[company]').attr("company");
+    var dateHired = $(this).parents('tr').find('td[dateHired]').attr("dateHired");
+    var employmentStatus = $(this).parents('tr').find('td[employmentStatus]').attr("employmentStatus");
+    console.log(employmentStatus)
+    $('#student-id').val(id);
+    $('#course-id').val(courseID);
+    $('#graduate-employment-status').val(employmentStatus)
+    $('#date-hired').val(dateHired)
+    $('#company').val(company)
+    $('#edit-employment-status-modal').modal('show');
+});
+
+$(document).on('submit', "#update-employment-status", function(e){
+    e.preventDefault();
+    $('.processing').show(100);
+    $('.processing').html(`
+        <div class="col d-flex">
+            <div>
+                <!-- Pluse -->
+                <div class="sk-pulse sk-primary"></div>
+            </div>
+            <div class="text-sm mt-1 ms-4">Processing...</div>
+        </div>
+    `);
+    
+    setTimeout(() => {
+        const formData = new FormData(this);
+        formData.append('_method', 'PATCH');
+        async function APIrequest() {
+            return await axios.post('/api/update/employment-status', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                }
+            })
+        }
+        APIrequest().then(response => {
+            $('.processing').hide(100);
+            $("#edit-employment-status-modal").modal('hide');
+            $('#view-graduates-data').html(response.data.Graduates);
             SweetAlert.fire({
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,

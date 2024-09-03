@@ -14,7 +14,7 @@
         ['icon' => '
           
             <lord-icon
-                src="https://cdn.lordicon.com/uecgmesg.json"
+                src="https://cdn.lordicon.com/wuvorxbv.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">

@@ -2,6 +2,7 @@
     use Illuminate\Support\Str;
     use App\Http\Controllers\AESCipher;
     $aes = new AESCipher();
+
 @endphp
 
 @extends('modals.admin.create.course-modal')
@@ -48,7 +49,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    @include('data.registrar.course-data')
+                                    @include('data.registrar.graduates-data')
                                 </div>
                             </div>
                         </div>

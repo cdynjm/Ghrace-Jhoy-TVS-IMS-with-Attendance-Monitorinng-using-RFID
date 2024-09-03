@@ -50,7 +50,9 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/exam', [RegistrarController::class, 'exam'])->name('registrar.exam');
 			Route::get('/interview', [RegistrarController::class, 'interview'])->name('registrar.interview');
 			Route::get('/final-result', [RegistrarController::class, 'finalResult'])->name('registrar.final-result');
-			Route::get('/courses', [RegistrarController::class, 'courses'])->name('registrar.courses');
+			Route::get('/enroll-grades', [RegistrarController::class, 'enrollGrades'])->name('registrar.enroll-grades');
+			Route::get('/graduates', [RegistrarController::class, 'graduates'])->name('registrar.graduates');
+			Route::get('/view-graduates/{id}', [RegistrarController::class, 'viewGraduates'])->name('registrar.view-graduates');
 			Route::post('/registration-form', [RegistrarController::class, 'registrationForm'])->name('registrar.registrationform');
 			Route::get('/enrollment/{id}', [RegistrarController::class, 'enrollment'])->name('registrar.enrollment');
 			Route::get('/grades/{id}', [RegistrarController::class, 'grades'])->name('registrar.grades');

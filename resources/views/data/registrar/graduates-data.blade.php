@@ -1,4 +1,4 @@
-<table id="course-data" class="table table-sm table-hover" style="border-bottom: 1px solid rgb(240, 240, 240)">
+<table id="course-data" class="table table-sm table-hover text-nowrap" style="border-bottom: 1px solid rgb(240, 240, 240)">
     <thead class="text-dark" style="background: rgb(244, 244, 244)">
         <tr>
             <th>#</th>
@@ -13,6 +13,7 @@
         @php
             $count = 0
         @endphp
+
         @foreach ($courses as $cor)
             @php
                 $count += 1
@@ -33,11 +34,8 @@
                 <td><small>{{ $cor->copr }}</small></td>
                 <td class="text-center">
                     <div class="d-flex">
-                        <a class="btn btn-sm btn-primary flex-fill me-1" wire:navigate href="{{ route('registrar.enrollment', ['id' => $aes->encrypt($cor->id)]) }}">
-                            <iconify-icon icon="ph:student-duotone" width="18" height="18" class="me-1"></iconify-icon> Enrollment
-                        </a>
-                        <a class="btn btn-sm btn-secondary flex-fill" wire:navigate href="{{ route('registrar.grades', ['id' => $aes->encrypt($cor->id)]) }}">
-                            <iconify-icon icon="ic:twotone-grade" width="18" height="18" class="me-1"></iconify-icon> Grades
+                        <a class="btn btn-sm btn-primary flex-fill me-1" wire:navigate href="{{ route('registrar.view-graduates', ['id' => $aes->encrypt($cor->id)]) }}">
+                            <iconify-icon icon="ph:student-duotone" width="18" height="18" class="me-1"></iconify-icon> View
                         </a>
                     </div>                    
                 </td>

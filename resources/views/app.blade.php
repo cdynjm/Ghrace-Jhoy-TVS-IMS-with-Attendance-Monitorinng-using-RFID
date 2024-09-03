@@ -68,6 +68,7 @@
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!-- Helpers -->
     <script src="/assets/vendor/js/helpers.js?{{ \Str::random(10) }}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -96,6 +97,16 @@
     <script src="/assets/js/pages-auth.js"></script>
 
     
+    <script>
+        window.onpopstate = function(event) {
+            window.location.reload(true);
+        };
+    </script>
+
+  <style>
+    ::-webkit-scrollbar{width:8px;height:5px}::-webkit-scrollbar-track{background:#f1f1f1;border-radius:10px}::-webkit-scrollbar-thumb{background:#888;border-radius:10px}::-webkit-scrollbar-thumb:hover{background:#555}
+  </style>
+
     @livewireStyles
 </head>
 

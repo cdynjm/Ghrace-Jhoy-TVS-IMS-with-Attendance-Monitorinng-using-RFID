@@ -12,7 +12,7 @@
         ['icon' => '
           
             <lord-icon
-              src="https://cdn.lordicon.com/lenjvibx.json"
+              src="https://cdn.lordicon.com/abwrkdvl.json"
               trigger="in"
               stroke="bold"
               style="width:22px;height:22px">
@@ -59,6 +59,7 @@
                                             <th class="text-nowrap"><small>MT</small></th>
                                             <th class="text-nowrap"><small>FT</small></th>
                                             <th class="text-nowrap"><small>AVG</small></th>
+                                            <th class="text-nowrap"><small>Assessment</small></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -66,8 +67,12 @@
                                             $totalUnits = 0;
                                             $totalAvg = 0;
                                             $count = 0;
+                                            $mtValues = [];
+                                            $ftValues = [];
+                                            $avgValues = [];
+                                            $subjectCodes = [];
                                         @endphp
-                                        @foreach ($studentGrading->where('studentYearLevelID', $yl->id) as $sub)
+                                    @foreach ($studentGrading->where('studentYearLevelID', $yl->id) as $sub)
                                         <tr>
                                             <td><small>{{ $sub->Subjects->subjectCode }}</small></td>
                                             <td><small>{{ $sub->Subjects->description }}</small></td>
@@ -93,6 +98,23 @@
                                                      </small>
                                                 </div>
                                             </td>
+                                            <td>
+                                                <small>
+                                                    @if($sub->Subjects->NC == 0)
+                                                    <span style="font-size: 12px">None</span>
+                                                    @else
+                                                        @if($sub->assessment == 0)
+                                                            <i class="fa-solid fa-circle-check text-primary fw-bold"></i> <span class="ms-1" style="font-size: 12px">Not Yet Taken</span>
+                                                        @endif
+                                                        @if($sub->assessment == 1)
+                                                            <i class="fa-solid fa-circle-check text-success fw-bold"></i> <span class="ms-1" style="font-size: 12px">COMPETENT</span>
+                                                        @endif
+                                                        @if($sub->assessment == 2)
+                                                            <i class="fa-solid fa-circle-xmark text-danger fw-bold"></i> <span class="ms-1" style="font-size: 12px">NOT YET COMPETENT</span>
+                                                        @endif
+                                                    @endif
+                                                </small>
+                                            </td>
                                         </tr>
                                         @php
                                             $totalUnits += $sub->Subjects->units;
@@ -100,8 +122,13 @@
                                                 $totalAvg += $sub->avg;
                                                 $count++;
                                             }
+
+                                            $mtValues[] = $sub->mt;
+                                            $ftValues[] = $sub->ft;
+                                            $avgValues[] = $sub->avg;
+                                            $subjectCodes[] = $sub->Subjects->subjectCode;
                                         @endphp
-                                        @endforeach
+                                    @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -113,7 +140,89 @@
                                     </tfoot>
                                 </table>
                                 
-                                
+                                <!-- Chart Container -->
+                            <div id="chart-{{ $yl->id }}" class="overflow-hidden"></div>
+                            
+                        
+                            <script>
+                            
+                                $(document).ready(function() {
+                                    const mtValues = @json($mtValues);
+                                    const ftValues = @json($ftValues);
+                                    const avgValues = @json($avgValues);
+
+                                    // Find the maximum value to calculate inverted values
+                                    const maxValue = Math.max(...mtValues, ...ftValues, ...avgValues);
+
+                                    // Invert the values and round them to a reasonable precision (e.g., 2 decimal places)
+                                    const invertedMtValues = mtValues.map(value => Math.round((maxValue - value) * 100) / 100);
+                                    const invertedFtValues = ftValues.map(value => Math.round((maxValue - value) * 100) / 100);
+                                    const invertedAvgValues = avgValues.map(value => Math.round((maxValue - value) * 100) / 100);
+
+                                    var options = {
+                                        chart: {
+                                            type: 'area',
+                                            height: 300
+                                        },
+                                        series: [
+                                            {
+                                                name: 'MT',
+                                                data: invertedMtValues
+                                            },
+                                            {
+                                                name: 'FT',
+                                                data: invertedFtValues
+                                            },
+                                            {
+                                                name: 'AVG',
+                                                data: invertedAvgValues
+                                            }
+                                        ],
+                                        xaxis: {
+                                            categories: @json($subjectCodes),
+                                        },
+                                        tooltip: {
+                                            shared: true,
+                                            intersect: false,
+                                            y: {
+                                                formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
+                                                    // Show the original value in the tooltip
+                                                    if (seriesIndex === 0) return `${mtValues[dataPointIndex]}`;
+                                                    if (seriesIndex === 1) return `${ftValues[dataPointIndex]}`;
+                                                    if (seriesIndex === 2) return `${avgValues[dataPointIndex]}`;
+                                                }
+                                            }
+                                        },
+                                        dataLabels: {
+                                            enabled: true,
+                                            formatter: function(val, { seriesIndex, dataPointIndex, w }) {
+                                                // Display original values as data labels
+                                                if (seriesIndex === 0) return mtValues[dataPointIndex];
+                                                if (seriesIndex === 1) return ftValues[dataPointIndex];
+                                                if (seriesIndex === 2) return avgValues[dataPointIndex];
+                                            },
+                                        },
+                                        markers: {
+                                            size: 5,
+                                            hover: {
+                                                size: 7
+                                            }
+                                        },
+                                        legend: {
+                                            position: 'bottom'
+                                        },
+                                        plotOptions: {
+                                            area: {
+                                                fillTo: 'origin', // Ensures that the area is filled from the baseline
+                                            },
+                                        },
+                                    };
+
+                                    var chart = new ApexCharts(document.querySelector("#chart-{{ $yl->id }}"), options);
+                                    chart.render();
+                                });
+                            
+                            </script>
                                 
                             </div>
                         </div>

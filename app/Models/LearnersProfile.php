@@ -50,13 +50,22 @@ class LearnersProfile extends Model
         'admission_status',
         'status',
         'failed',
+        'progress',
         'yearLevel',
         'semester',
         'enrollmentStatus',
         'freshmen',
-        'diploma'
+        'diploma',
+        'dateGraduated',
+        'graduateEmploymentStatus',
+        'company',
+        'dateHired'
         
     ];
+
+    public function User() {
+        return $this->hasOne(User::class, 'studentID', 'id');
+    }
 
     public function LearnersCourse() {
         return $this->hasOne(LearnersCourse::class, 'studentID', 'id');

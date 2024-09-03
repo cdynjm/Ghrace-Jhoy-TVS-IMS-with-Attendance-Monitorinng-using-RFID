@@ -8,6 +8,7 @@ interface RegistrarInterface {
     public function CourseInfo($request);
 
     public function Enrollees($request);
+    public function StudentGrades($request);
 
     public function UnscheduledLearnersProfile();
     public function UnscheduledLearnersCourse();
@@ -38,6 +39,8 @@ interface RegistrarInterface {
     public function studentGrading($request);
 
     public function Students();
+
+    public function Graduates($request);
 
 }
 

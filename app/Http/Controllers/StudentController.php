@@ -236,6 +236,7 @@ class StudentController extends Controller
         
         LearnersProfile::where('id', Auth::user()->Student->id)->update([
             'admission_status' => 0,
+            'progress' => 1,
             'yearLevel' => 1,
             'semester' => 1,
             'enrollmentStatus' => 1,

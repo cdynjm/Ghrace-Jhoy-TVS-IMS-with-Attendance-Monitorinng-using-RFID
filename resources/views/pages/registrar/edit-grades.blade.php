@@ -14,7 +14,7 @@
         ['icon' => '
           
             <lord-icon
-              src="https://cdn.lordicon.com/lenjvibx.json"
+              src="https://cdn.lordicon.com/abwrkdvl.json"
               trigger="in"
               stroke="bold"
               style="width:22px;height:22px">
@@ -28,9 +28,12 @@
 
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
-                  <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Grades |</a>
-                  </li>
+                    <li class="breadcrumb-item">
+                        <a wire:navigate href="{{ route('registrar.grades', ['id' => $aes->encrypt2($student->LearnersCourse->course)]) }}" class="fw-bold text-primary">Go Back |</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="javascript:void(0);" class="fw-bold">Grades |</a>
+                    </li>
                   <li class="breadcrumb-item">Data</li>
                 </ol>
             </nav>
@@ -44,7 +47,7 @@
                                 <span class="avatar me-2">
                                     <img src="/assets/user-logo.png" alt class="rounded-circle shadow-lg">
                                 </span>
-                                <span class="me-3 mt-2 fw-medium">{{ $student->lastname }} {{ $student->firstname }} {{ $student->middlename }}</span>
+                                <span class="me-3 mt-2 fw-medium"> {{ $student->lastname }} {{ $student->firstname }} {{ $student->middlename }}</span>
                             </a>
                         </div>
                     </div>

@@ -2,6 +2,10 @@
     use Illuminate\Support\Str;
     use App\Http\Controllers\AESCipher;
     use App\Models\AdmissionApplication;
+    use App\Models\ChMessage;
+
+    $chat = ChMessage::where('to_id', Auth::user()->id)->where('seen', 0)->count();
+
     $aes = new AESCipher();
 @endphp
 
@@ -29,6 +33,21 @@
 
           <!-- User Menu -->
           <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+                @if(Auth::user()->role != 4)
+                <a class="nav-link" href="/messenger">
+                    <i class="bx bx-message-rounded-dots bx-sm"></i>
+                    <span class="badge bg-danger rounded-pill badge-notifications">{{ $chat }}</span>
+                  </a>
+                @else
+                <a class="nav-link" href="/messenger/2">
+                    <i class="bx bx-message-rounded-dots bx-sm"></i>
+                    <span class="badge bg-danger rounded-pill badge-notifications">{{ $chat }}</span>
+                  </a>
+                @endif
+            </li>
+
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow d-flex" href="javascript:void(0);" data-bs-toggle="dropdown">
                       <span class="me-3 mt-2 fw-medium">{{ Auth::user()->name }}</span>

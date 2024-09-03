@@ -304,7 +304,15 @@
                         <div class="user-info text-center">
                           <h5 class="mb-2">{{ Auth::user()->Student->firstname }} {{ Auth::user()->Student->middlename }} {{ Auth::user()->Student->lastname }}</h5>
                           <span class="badge bg-label-secondary">STUDENT</span>
-                          
+                          @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 1)
+                          <div class="mt-2">
+                            <small class="mt-2 fw-bold">GRADUATED</small>
+                         </div>
+                         @elseif(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 0)
+                         <div class="mt-2">
+                            <small class="mt-2 fw-bold text-warning">GRADUATING</small>
+                         </div>
+                          @else
                           @php
                             $ordinals = [
                                 1 => '1st',
@@ -322,7 +330,7 @@
                         <div class="mt-2">
                             <small class="mt-2 fw-bold">{{ $yearLevelDisplay }} Year - {{ $semesterDisplay }} Semester</small>
                         </div>
-
+                        @endif
                         <div class="mt-2">
                             <small class="mt-2 fw-normal">{{ Auth::user()->Student->LearnersCourse->Course->qualification }}</small>
                         </div>
@@ -338,12 +346,24 @@
                         @if(Auth::user()->Student->enrollmentStatus == 1)
                             <span class="badge bg-label-danger p-2 rounded"><i class='bx bx-minus bx-sm'></i></span>
                         @endif
+                        @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 0)
+                            <span class="badge bg-label-danger p-2 rounded"><i class='bx bx-minus bx-sm'></i></span>
+                        @endif
+                        @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 1)
+                            <span class="badge bg-label-success p-2 rounded"><i class='bx bxs-graduation bx-sm'></i></span>
+                        @endif
                         <div>
                           <h6 class="mb-0">Status</h6>
+                          @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 1)
+                          <small>Graduated/Diploma/For Employment</small>
+                          @elseif(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 0)
+                          <small>Pending</small>
+                          @else
                           <small>Enrollment - 
                             @if(Auth::user()->Student->enrollmentStatus == 0) Enrolled @endif
                             @if(Auth::user()->Student->enrollmentStatus == 1) Pending @endif
-                        </small>
+                            </small>
+                          @endif
                         </div>
                       </div>
                       
