@@ -41,6 +41,7 @@ interface RegistrarInterface {
     public function Students();
 
     public function Graduates($request);
+    public function Undergraduates($request);
 
 }
 

@@ -85,6 +85,9 @@
       @if(Auth::user()->role == 4)
         <script src="{{ asset('assets/javascript/student.js?id=109062024') }}" data-navigate-once></script>
       @endif
+      @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+        <script src="{{ asset('assets/javascript/rfid.js?id=04062024') }}" data-navigate-once></script>
+      @endif
     @else
     <script src="{{ asset('assets/javascript/signin.js?id=04062024') }}" data-navigate-once></script>
     @endif
@@ -118,9 +121,11 @@
   <!-- Content -->
 
   @if(Auth::check())
-  <div class="layout-wrapper layout-content-navbar  ">
+  <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            @include('layouts.sidebar')
+          @if (!Route::is('AdminOrRegistrar.rfid-attendance'))
+              @include('layouts.sidebar')
+          @endif
             @yield('content')
         </div>
    </div>

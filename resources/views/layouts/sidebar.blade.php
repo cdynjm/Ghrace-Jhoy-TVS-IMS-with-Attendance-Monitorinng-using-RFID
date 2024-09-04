@@ -81,6 +81,22 @@
         </a>
       </li>
 
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Attendance</span></li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('AdminOrRegistrar.rfid-attendance') }}" class="menu-link {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/eqnxbkyy.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Scan RFID</div>
+        </a>
+      </li>
+
       @endif
 
       @if(Auth::user()->role == 2)
@@ -219,6 +235,50 @@
             </lord-icon>
           </span>
           <div>Graduates</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.undergraduates' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.undergraduates') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.undergraduates' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/bjbmvfnr.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Students <small style="font-size: 11px">(Undergraduates)</small></div>
+        </a>
+      </li>
+
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Attendance</span></li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('AdminOrRegistrar.rfid-attendance') }}" class="menu-link {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/eqnxbkyy.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Scan RFID</div>
+        </a>
+      </li>
+
+      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'registrar.attendance-data' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.attendance-data') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.attendance-data' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/wzwygmng.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Attendance Data</div>
         </a>
       </li>
 

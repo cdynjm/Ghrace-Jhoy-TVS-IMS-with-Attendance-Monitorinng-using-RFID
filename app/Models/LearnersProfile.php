@@ -14,6 +14,7 @@ class LearnersProfile extends Model
     protected $fillable = [
         'IDpicture',
         'ULI',
+        'RFID',
         'entryDate',
         'lastname',
         'firstname',

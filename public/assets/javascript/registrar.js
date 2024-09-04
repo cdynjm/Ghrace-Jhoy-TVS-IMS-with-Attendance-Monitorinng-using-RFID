@@ -999,7 +999,7 @@ $(document).on('click', '#edit-employment-status', function() {
     var company = $(this).parents('tr').find('td[company]').attr("company");
     var dateHired = $(this).parents('tr').find('td[dateHired]').attr("dateHired");
     var employmentStatus = $(this).parents('tr').find('td[employmentStatus]').attr("employmentStatus");
-    console.log(employmentStatus)
+   
     $('#student-id').val(id);
     $('#course-id').val(courseID);
     $('#graduate-employment-status').val(employmentStatus)
@@ -1037,6 +1037,66 @@ $(document).on('submit', "#update-employment-status", function(e){
             $('.processing').hide(100);
             $("#edit-employment-status-modal").modal('hide');
             $('#view-graduates-data').html(response.data.Graduates);
+            SweetAlert.fire({
+                icon: 'success',
+                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            SweetAlert.fire({
+                icon: 'error',
+                html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        });
+    }, 1500);
+});
+
+$(document).on('click', '#edit-student-information', function() {
+   
+    var id = $(this).parents('tr').find('td[id]').attr("id");
+    var courseID = $(this).parents('tr').find('td[courseID]').attr("courseID");
+    var RFID = $(this).parents('tr').find('td[RFID]').attr("RFID");
+    var ULI = $(this).parents('tr').find('td[ULI]').attr("ULI");
+   
+    $('#student-id').val(id);
+    $('#course-id').val(courseID);
+    $('#RFID').val(RFID)
+    $('#ULI').val(ULI)
+    $('#edit-student-information-modal').modal('show');
+});
+
+$(document).on('submit', "#update-student-information", function(e){
+    e.preventDefault();
+    $('.processing').show(100);
+    $('.processing').html(`
+        <div class="col d-flex">
+            <div>
+                <!-- Pluse -->
+                <div class="sk-pulse sk-primary"></div>
+            </div>
+            <div class="text-sm mt-1 ms-4">Processing...</div>
+        </div>
+    `);
+    
+    setTimeout(() => {
+        const formData = new FormData(this);
+        formData.append('_method', 'PATCH');
+        async function APIrequest() {
+            return await axios.post('/api/update/student-information', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                }
+            })
+        }
+        APIrequest().then(response => {
+            $('.processing').hide(100);
+            $("#edit-student-information-modal").modal('hide');
+            $('#view-undergraduates-data').html(response.data.Undergraduates);
             SweetAlert.fire({
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,

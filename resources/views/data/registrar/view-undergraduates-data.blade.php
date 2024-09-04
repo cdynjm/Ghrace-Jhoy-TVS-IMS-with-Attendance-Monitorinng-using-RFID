@@ -1,4 +1,4 @@
-<div id="view-graduates-data">
+<div id="view-undergraduates-data">
     
     
        
@@ -8,10 +8,8 @@
                 <th class="text-nowrap">#</th>
                 <th class="text-nowrap"><small>Student Name</small></th>
                 <th class="text-nowrap"><small>Address</small></th>
-                <th class="text-nowrap"><small>Date Graduated</small></th>
-                <th class="text-nowrap"><small>Employment Status</small></th>
-                <th class="text-nowrap"><small>Company/Establishment</small></th>
-                <th class="text-nowrap"><small>Date Employed</small></th>
+                <th class="text-nowrap"><small>RFID Card Number</small></th>
+                <th class="text-nowrap"><small>ULI</small></th>
                 <th class="text-nowrap"><small>Action</small></th>
             </tr>
         </thead>
@@ -19,33 +17,25 @@
             @php
             $count = 0
         @endphp
-            @foreach ($graduates as $index => $gr)
+            @foreach ($undergraduates as $index => $gr)
             @php
             $count += 1
         @endphp
                 <tr>
                     <td
                     id="{{ $aes->encrypt($gr->id) }}"
-                    company="{{ $gr->company }}"
-                    dateHired="{{ $gr->dateHired }}"
-                    employmentStatus="{{ $gr->graduateEmploymentStatus }}"
+                    RFID="{{ $gr->RFID }}"
+                    ULI="{{ $gr->ULI }}"
                     courseID="{{ $aes->encrypt($course->id) }}"
                     ><small>{{ $index + 1 }}</small></td>
                     <td><small>{{ $gr->lastname }}, {{ $gr->firstname }}, {{ $gr->middlename }}</small></td>
                     <td><small>{{ $gr->Barangay->brgyDesc }}, {{ ucwords(strtolower($gr->Municipal->citymunDesc)) }}, {{ ucwords(strtolower($gr->Province->provDesc)) }} - {{ $gr->Region->regDesc }}</small></td>
-                    <td><small>{{ $gr->dateGraduated ? date('M d, Y', strtotime($gr->dateGraduated)) : '-' }}</small></td>
-                    <td>
-                        @if($gr->graduateEmploymentStatus == 0)
-                            <small class="text-danger">Unemployed</small>
-                        @else
-                            <small class="text-success">Employed</small>
-                        @endif
-                    </td>
-                    <td><small>{{ $gr->company ? $gr->company : '-' }}</small></td>
-                    <td><small>{{ $gr->dateHired ? date('M d, Y', strtotime($gr->dateHired)) : '-' }}</small></td>
+                    
+                    <td><small>{{ $gr->RFID ? $gr->RFID : '-' }}</small></td>
+                    <td><small>{{ $gr->ULI ? $gr->ULI : '-' }}</small></td>
                     <td>
                         <small>
-                            <a href="javascript:;" class="mt-3" id="edit-employment-status">
+                            <a href="javascript:;" class="mt-3" id="edit-student-information">
                                 <iconify-icon icon="fluent:edit-48-filled" width="20" height="20"></iconify-icon>
                             </a>
 

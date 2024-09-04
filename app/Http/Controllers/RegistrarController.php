@@ -84,6 +84,15 @@ class RegistrarController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    public function undergraduates() {
+        $courses = $this->RegistrarInterface->Courses();
+        return view('pages.registrar.undergraduates', ['courses' => $courses]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function unscheduled() {
 
         $learnersProfile = $this->RegistrarInterface->UnscheduledLearnersProfile();
@@ -399,6 +408,16 @@ class RegistrarController extends Controller
         $graduates = $this->RegistrarInterface->Graduates($request);
         return view('pages.registrar.view-graduates', compact('graduates', 'course'));
     }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewUndergraduates(Request $request) {
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $undergraduates = $this->RegistrarInterface->Undergraduates($request);
+        return view('pages.registrar.view-undergraduates', compact('undergraduates', 'course'));
+    }
      /**
      * Handle an incoming request.
      *
@@ -597,6 +616,24 @@ class RegistrarController extends Controller
         return response()->json([
             'Message' => 'Employment status updated Successfully',
             'Graduates' => view('data.registrar.view-graduates-data', compact('graduates', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
+    
+    }
+
+    public function updateStudentInformation(Request $request) {
+
+        LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+            'RFID' => $request->RFID,
+            'ULI' => $request->ULI,
+        ]);
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $undergraduates = $this->RegistrarInterface->Undergraduates($request);
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'RFID & ULI information has been updated Successfully',
+            'Undergraduates' => view('data.registrar.view-undergraduates-data', compact('undergraduates', 'aes', 'course'))->render(),
         ], Response::HTTP_OK); 
     
     }

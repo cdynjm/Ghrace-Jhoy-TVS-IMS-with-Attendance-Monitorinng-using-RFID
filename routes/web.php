@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RegistrarController;
+use App\Http\Controllers\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,13 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
 
     Route::get('/register', [RegisterController::class, 'register'])->name('register');
+
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'AdminOrRegistrar'], function () {
+        Route::get('/rfid-attendance', [AttendanceController::class, 'RFIDattendance'])->name('AdminOrRegistrar.rfid-attendance');
+    });
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -52,11 +60,14 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/final-result', [RegistrarController::class, 'finalResult'])->name('registrar.final-result');
 			Route::get('/enroll-grades', [RegistrarController::class, 'enrollGrades'])->name('registrar.enroll-grades');
 			Route::get('/graduates', [RegistrarController::class, 'graduates'])->name('registrar.graduates');
+			Route::get('/undergraduates', [RegistrarController::class, 'undergraduates'])->name('registrar.undergraduates');
 			Route::get('/view-graduates/{id}', [RegistrarController::class, 'viewGraduates'])->name('registrar.view-graduates');
+			Route::get('/view-undergraduates/{id}', [RegistrarController::class, 'viewUndergraduates'])->name('registrar.view-undergraduates');
 			Route::post('/registration-form', [RegistrarController::class, 'registrationForm'])->name('registrar.registrationform');
 			Route::get('/enrollment/{id}', [RegistrarController::class, 'enrollment'])->name('registrar.enrollment');
 			Route::get('/grades/{id}', [RegistrarController::class, 'grades'])->name('registrar.grades');
 			Route::get('/edit-grades/{id}', [RegistrarController::class, 'editGrades'])->name('registrar.edit-grades');
+			Route::get('/attendance-data', [RegistrarController::class, 'attendanceData'])->name('registrar.attendance-data');
 
 		});
 	});

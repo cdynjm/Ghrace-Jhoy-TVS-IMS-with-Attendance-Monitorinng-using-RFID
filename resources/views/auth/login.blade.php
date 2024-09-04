@@ -8,7 +8,7 @@
   </noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <div style="overflow: hidden">
+  <div style="">
     <div class="authentication-wrapper authentication-cover">
       <div class="authentication-inner row m-0">
         <!-- /Left Text -->
@@ -108,11 +108,7 @@
       </div>
     </div>
   
-    <div class="authentication-wrapper authentication-basic">
-      <span class="authentication-inner">
-          
-      </span>
-    </div>
+    
   </div>
 
 @endsection

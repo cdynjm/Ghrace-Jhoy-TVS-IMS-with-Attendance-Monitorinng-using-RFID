@@ -242,6 +242,15 @@ class RegistrarService implements RegistrarInterface {
             
     }
 
+    public function Undergraduates($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null);
+        })->orderBy('lastname', 'ASC')
+            ->get();
+            
+    }
+
 }
 
 ?>

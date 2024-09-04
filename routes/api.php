@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RegistrarController;
+use App\Http\Controllers\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,13 @@ Route::post('/admission-application', [RegisterController::class, 'AdmissionAppl
 
 Route::middleware('auth:sanctum')->group(function () {
     
+    Route::group(['middleware' => 'AdminOrRegistrar'], function () {
+        
+        Route::group(['prefix' => 'log'], function () {
+            Route::post('/attendance', [AttendanceController::class, 'LogRFIDAttendance']);
+        }); 
+    });
+
     Route::group(['middleware' => 'admin'], function () {
 
         Route::group(['prefix' => 'create'], function () {
@@ -80,6 +88,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
             Route::patch('/graduate-student', [RegistrarController::class, 'graduateStudent']);
             Route::patch('/employment-status', [RegistrarController::class, 'updateEmploymentStatus']);
+            Route::patch('/student-information', [RegistrarController::class, 'updateStudentInformation']);
         });
         
         Route::group(['prefix' => 'delete'], function () {

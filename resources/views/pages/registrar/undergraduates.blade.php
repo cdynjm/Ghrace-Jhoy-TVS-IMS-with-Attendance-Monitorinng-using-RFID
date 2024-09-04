@@ -33,7 +33,7 @@
                   <li class="breadcrumb-item">
                     <a href="javascript:void(0);" class="fw-bold">Courses |</a>
                   </li>
-                  <li class="breadcrumb-item">Graduates</li>
+                  <li class="breadcrumb-item">Undergraduates</li>
                 </ol>
             </nav>
 
@@ -49,7 +49,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    @include('data.registrar.graduates-data')
+                                    @include('data.registrar.undergraduates-data')
                                 </div>
                             </div>
                         </div>
