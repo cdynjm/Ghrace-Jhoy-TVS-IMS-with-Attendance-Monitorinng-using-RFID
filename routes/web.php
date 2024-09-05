@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\AttendanceController;
-
+use App\Http\Controllers\ForgotPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +29,12 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
 
     Route::get('/register', [RegisterController::class, 'register'])->name('register');
+
+	Route::get('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->name('forgot-password');
+	Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+	Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+	Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
+
 
 });
 
@@ -67,7 +73,9 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/enrollment/{id}', [RegistrarController::class, 'enrollment'])->name('registrar.enrollment');
 			Route::get('/grades/{id}', [RegistrarController::class, 'grades'])->name('registrar.grades');
 			Route::get('/edit-grades/{id}', [RegistrarController::class, 'editGrades'])->name('registrar.edit-grades');
-			Route::get('/attendance-data', [RegistrarController::class, 'attendanceData'])->name('registrar.attendance-data');
+			Route::get('/attendance', [RegistrarController::class, 'attendance'])->name('registrar.attendance');
+			Route::get('/view-attendance/{id}', [RegistrarController::class, 'viewAttendance'])->name('registrar.view-attendance');
+			Route::get('/view-student-attendance/{id}', [RegistrarController::class, 'viewStudentAttendance'])->name('registrar.view-student-attendance');
 
 		});
 	});
@@ -85,6 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/grades', [StudentController::class, 'grades'])->name('student.grades');
 			Route::get('/registration-form', [StudentController::class, 'registrationForm'])->name('student.registrationform');
 			Route::get('/proceed-enrollment', [StudentController::class, 'proceedEnrollment'])->name('student.proceed-enrollment');
+			Route::get('/attendance', [StudentController::class, 'attendance'])->name('student.attendance');
 		});
 	});
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');

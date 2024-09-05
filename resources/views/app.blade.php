@@ -63,7 +63,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js" data-navigate-once></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js" data-navigate-once></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous" data-navigate-once></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" data-navigate-once></script>
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
@@ -74,13 +73,14 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
 
+
     @if(Auth::check())
     <script src="{{ asset('assets/javascript/signout.js?id=04062024') }}" data-navigate-once></script>
       @if(Auth::user()->role == 1)
         <script src="{{ asset('assets/javascript/admin.js?id=04062024') }}" data-navigate-once></script>
       @endif
       @if(Auth::user()->role == 2)
-        <script src="{{ asset('assets/javascript/registrar.js?id=05062024') }}" data-navigate-once></script>
+        <script src="{{ asset('assets/javascript/registrar.js?id=0502024') }}" data-navigate-once></script>
       @endif
       @if(Auth::user()->role == 4)
         <script src="{{ asset('assets/javascript/student.js?id=109062024') }}" data-navigate-once></script>
@@ -99,7 +99,10 @@
     <script src="/assets/js/config.js"></script>
     <script src="/assets/js/pages-auth.js"></script>
 
-    
+   
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         window.onpopstate = function(event) {
             window.location.reload(true);

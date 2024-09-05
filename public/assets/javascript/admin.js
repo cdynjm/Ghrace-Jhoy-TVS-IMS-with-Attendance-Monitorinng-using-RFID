@@ -6,6 +6,65 @@ var SweetAlert = Swal.mixin({
     buttonsStyling: false
 });
 
+$(document).on('click', '#edit-sms-token', function() {
+
+    var accessToken = $(this).data('access-token');
+    var mobileIdentity = $(this).data('mobile-identity');
+    $('#SMSAccessToken').val(accessToken);
+    $('#SMSMobileIdentity').val(mobileIdentity)
+    $('#edit-sms-token-modal').modal('show');
+});
+
+$(document).on('submit', "#update-sms-token", function(e){
+    e.preventDefault();
+    $('.processing').show(100);
+    $('.processing').html(`
+        <div class="col d-flex">
+            <div>
+                <!-- Pluse -->
+                <div class="sk-pulse sk-primary"></div>
+            </div>
+            <div class="text-sm mt-1 ms-4">Processing...</div>
+        </div>
+    `);
+    
+    setTimeout(() => {
+        const formData = new FormData(this);
+        formData.append('_method', 'PATCH');
+        async function APIrequest() {
+            return await axios.post('/api/update/sms-token', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                }
+            })
+        }
+        APIrequest().then(response => {
+            $('.processing').hide(100);
+            $("#edit-sms-token-modal").modal('hide');
+            
+            SweetAlert.fire({
+                icon: 'success',
+                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                confirmButtonColor: "#3a57e8"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            SweetAlert.fire({
+                icon: 'error',
+                html: `<h4 class="mb-0">Opss..</h4><small>Something went wrong!</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        });
+    }, 1500);
+});
+
 $(document).on('click', "#admission-status", function(e){
     const status = $(this).is(':checked') ? $(this).val() : 'q0CwLsWJBelHrDYiAuk-xgVVFtLpyPnkGPiDKIk7oC0HMfeSbTU8QnQ49oSI7FfEi1-oTPyckxEcbK4l5UbB3YstLUe1vDtwHWk8BcNl-Oa5qrYVSEd9gbUMifkKmRzZ6xOJqjpf4tXZcreBWVK5vQ:ISlAKCMqZiYlXjEyMzQ1Ng';
     const formData = new FormData();

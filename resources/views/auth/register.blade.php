@@ -489,6 +489,9 @@
                                             <label for="" style="font-size: 11px">Name</label>
                                             <input type="text" name="parent" class="form-control" required>
 
+                                            <label for="" style="font-size: 11px">Parent's Contact Number</label>
+                                            <input type="text" name="parentContact" class="form-control" required>
+
                                             <label for="" style="font-size: 11px">Complete Permanent Mailing Address</label>
                                             <textarea name="parentAddress" id="" cols="30" rows="5" class="form-control" required></textarea>
                                           </div>
@@ -772,10 +775,7 @@
                                       <div class="col-md-12">
                                         <div class="mb-2"><b>IMPORTANT NOTICE:</b></div>
                                           <p>
-                                            The registrar's office will capture and process other sections of the registration form, such the applicant signature and ID pasting. The physical copy of this form, together with the prerequisites listed in the first section, <span class="text-danger fw-bold">must be printed</span> (<i class="fw-bolder">you will have the soft copy of this file after clicking SUBMIT</i>) and handed in to the registrar's office after it has been filed. 
-                                            <div>
-                                              To pass the hard copy of your registration form, you must go to the school registrar whenever it is convenient for you.
-                                            </div>
+                                            The registrar's office will handle the applicant's signature and ID placement on the registration form. After submitting the form online, you can log in with your account credentials to download a soft copy. <b>Please print the form</b>, attach the required documents, and submit them to the registrar's office.
                                           </p>
                                       </div>
                                       <p class="fw-bolder">Sample Printed Form</p>

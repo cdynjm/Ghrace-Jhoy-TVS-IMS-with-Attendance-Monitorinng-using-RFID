@@ -50,6 +50,9 @@
                             </a>
 
                             <a href="/messenger/{{ $gr->User->id }}" class=" ms-2"><iconify-icon icon="solar:chat-dots-bold-duotone" width="20" height="20" class="me-1"></iconify-icon></a>
+                            <a wire:navigate class="" href="{{ route('registrar.edit-grades', ['id' => $aes->encrypt($gr->id)]) }}">
+                                <iconify-icon icon="lets-icons:view-duotone" width="20" height="20" class="me-1"></iconify-icon>
+                            </a>
                         </small>
                     </td>                    
                 </tr>

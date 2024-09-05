@@ -37,6 +37,7 @@ use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
 use App\Models\Schedule;
+use App\Models\RFIDAttendance;
 
 class RegistrarService implements RegistrarInterface {
 
@@ -249,6 +250,25 @@ class RegistrarService implements RegistrarInterface {
         })->orderBy('lastname', 'ASC')
             ->get();
             
+    }
+
+    public function ViewAttendance($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('yearLevel', '!=', null);
+        })->orderBy('yearLevel', 'ASC')
+            ->orderBy('semester', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
+    }
+
+    public function RFIDAttendance($request) {
+        return RFIDAttendance::where('studentID', $this->aes->decrypt($request->id))
+        ->orderBy('created_at', 'DESC')
+        ->get()
+        ->groupBy('yearLevel');
     }
 
 }

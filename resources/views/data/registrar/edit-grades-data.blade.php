@@ -92,9 +92,13 @@
                             </td>
                             <td>
                                 <small>
+                                    @if($student->diploma == null)
                                     <a href="javascript:;" id="edit-grades-value" class="">
                                         <i class="fas fa-marker"></i>
                                     </a>
+                                    @else
+                                    -
+                                    @endif
                                 </small>
                             </td>
                         </tr>

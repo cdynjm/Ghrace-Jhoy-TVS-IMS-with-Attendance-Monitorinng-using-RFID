@@ -93,6 +93,15 @@ class RegistrarController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    public function attendance() {
+        $courses = $this->RegistrarInterface->Courses();
+        return view('pages.registrar.attendance', ['courses' => $courses]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function unscheduled() {
 
         $learnersProfile = $this->RegistrarInterface->UnscheduledLearnersProfile();
@@ -417,6 +426,26 @@ class RegistrarController extends Controller
         $course = $this->RegistrarInterface->CourseInfo($request);
         $undergraduates = $this->RegistrarInterface->Undergraduates($request);
         return view('pages.registrar.view-undergraduates', compact('undergraduates', 'course'));
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewAttendance(Request $request) {
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $attendance = $this->RegistrarInterface->ViewAttendance($request);
+        return view('pages.registrar.view-attendance', compact('attendance', 'course'));
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewStudentAttendance(Request $request) {
+        $attendance = $this->RegistrarInterface->RFIDAttendance($request);
+        $student = $this->RegistrarInterface->LearnersProfile($request);
+        return view('pages.registrar.view-student-attendance', compact('attendance', 'student'));
     }
      /**
      * Handle an incoming request.

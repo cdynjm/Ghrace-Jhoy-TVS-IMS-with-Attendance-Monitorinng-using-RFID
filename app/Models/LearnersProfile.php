@@ -39,6 +39,7 @@ class LearnersProfile extends Model
         'birthplaceCity',
         'education',
         'parent',
+        'parentContact',
         'parentAddress',
         'consent',
         'picture',

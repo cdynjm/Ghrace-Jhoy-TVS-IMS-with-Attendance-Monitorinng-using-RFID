@@ -72,7 +72,7 @@ return [
     |-------------------------------------
     */
     'gravatar' => [
-        'enabled' => true,
+        'enabled' => false,
         'image_size' => 200,
         'imageset' => 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png'
     ],

@@ -2,13 +2,18 @@
     use Illuminate\Support\Str;
     use App\Http\Controllers\AESCipher;
     use App\Models\AdmissionApplication;
+    use App\Models\SMSToken;
     use App\Models\ChMessage;
 
     $chat = ChMessage::where('to_id', Auth::user()->id)->where('seen', 0)->count();
-
+    $sms = SMSToken::first();
     $aes = new AESCipher();
 @endphp
 
+@extends('modals.update-profile')
+@extends('modals.admin.update.edit-sms-token')
+
+<div class="header-navbar-shadow"></div>
 <!-- Navbar -->
 <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar" style="position: fixed; z-index: 9;">
   <div class="container-xxl">
@@ -57,7 +62,20 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                       <li>
-                          <a class="dropdown-item" href="pages-account-settings-account.html">
+                          <a class="dropdown-item" href="javascript:;" id="edit-user-profile"
+                          
+                          @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                            data-name="{{ Auth::user()->name }}"
+                          @endif
+
+                          @if(Auth::user()->role == 4)
+                            data-name="{{ Auth::user()->Student->lastname.' '.Auth::user()->Student->firstname.' '.Auth::user()->Student->middlename}}"
+                          @endif
+
+                            data-email="{{ Auth::user()->email }}"
+                          
+                          
+                          >
                               <div class="d-flex">
                                   <div class="flex-shrink-0 me-3">
                                       <div class="avatar avatar-online">
@@ -83,9 +101,20 @@
                           <div class="dropdown-divider"></div>
                       </li>
                       <li>
-                          <a class="dropdown-item" href="#">
-                              <i class="bx bx-user me-2"></i>
-                              <span class="align-middle">My Profile</span>
+                          <a class="dropdown-item" href="javascript:;" id="edit-user-profile" 
+                          
+                          @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                            data-name="{{ Auth::user()->name }}"
+                          @endif
+
+                          @if(Auth::user()->role == 4)
+                            data-name="{{ Auth::user()->Student->lastname.' '.Auth::user()->Student->firstname.' '.Auth::user()->Student->middlename}}"
+                          @endif
+
+                            data-email="{{ Auth::user()->email }}"                          
+                          >
+                              <i class="bx bxs-lock me-2"></i>
+                              <span class="align-middle">My Account</span>
                           </a>
                       </li>
                       @if(Auth::user()->role == 1 || Auth::user()->role == 2)
@@ -97,6 +126,16 @@
                             </div>
                             <div class="form-check form-switch m-0">
                                 <input class="form-check-input" @checked(AdmissionApplication::where('id', 1)->first()->status == 1) type="checkbox" value="{{ $aes->encrypt('1') }}" id="admission-status">
+                            </div>
+                        </a>
+                    </li>                    
+                      @endif
+                      @if(Auth::user()->role == 1)
+                      <li>
+                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:;" id="edit-sms-token" data-access-token="{{ $sms->access_token }}" data-mobile-identity="{{ $sms->mobile_identity }}">
+                            <div>
+                                <i class="bx bxs-chat me-2"></i>
+                                <span class="align-middle">SMS API</span>
                             </div>
                         </a>
                     </li>                    

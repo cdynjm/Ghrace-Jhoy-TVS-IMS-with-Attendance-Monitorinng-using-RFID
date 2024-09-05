@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ Route::post('/admission-application', [RegisterController::class, 'AdmissionAppl
 
 Route::middleware('auth:sanctum')->group(function () {
     
+    Route::post('/update-profile', [ProfileController::class, 'updateProfile']);
+
     Route::group(['middleware' => 'AdminOrRegistrar'], function () {
         
         Route::group(['prefix' => 'log'], function () {
@@ -56,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::patch('/schedule', [AdminController::class, 'updateSubjectSchedule']);
             Route::patch('/admin/admission-status', [AdminController::class, 'admissionStatus']);
             Route::patch('/course-info', [AdminController::class, 'updateCourseInfo']);
+            Route::patch('/sms-token', [AdminController::class, 'updateSMSToken']);
         });
         
         Route::group(['prefix' => 'delete'], function () {

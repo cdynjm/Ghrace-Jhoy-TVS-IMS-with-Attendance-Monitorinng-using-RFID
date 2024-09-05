@@ -15,6 +15,7 @@ interface StudentInterface {
     public function yearLevel();
     public function subjectSchedule();
     public function studentGrading();
+    public function RFIDAttendance();
     
 }
 

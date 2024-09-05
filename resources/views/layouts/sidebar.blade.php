@@ -268,8 +268,8 @@
         </a>
       </li>
 
-      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'registrar.attendance-data' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('registrar.attendance-data') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.attendance-data' ? 'active' : '' }}">
+      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'registrar.attendance' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.attendance') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.attendance' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
                 src="https://cdn.lordicon.com/wzwygmng.json"
@@ -278,7 +278,7 @@
                 style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Attendance Data</div>
+          <div>Attendance</div>
         </a>
       </li>
 
@@ -327,6 +327,20 @@
             </lord-icon>
           </span>
           <div>Grades</div>
+        </a>
+      </li>
+
+      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'student.attendance' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('student.attendance') }}" class="menu-link {{ Route::currentRouteName() == 'student.attendance' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/wzwygmng.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Attendance</div>
         </a>
       </li>
 

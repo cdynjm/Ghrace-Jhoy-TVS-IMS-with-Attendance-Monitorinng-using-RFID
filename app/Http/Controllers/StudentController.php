@@ -57,9 +57,11 @@ class StudentController extends Controller
         $psa = $this->StudentInterface->PSA();
         $form137 = $this->StudentInterface->Form137();
         $tracker = $this->StudentInterface->Tracker();
+        $yearLevel = $this->StudentInterface->yearLevel();
+        $studentGrading = $this->StudentInterface->studentGrading();
         $showProceed = $this->showProceed();
 
-        return view('pages.student.dashboard', compact('psa', 'form137', 'tracker', 'showProceed'));
+        return view('pages.student.dashboard', compact('psa', 'form137', 'tracker', 'showProceed', 'yearLevel', 'studentGrading'));
     }
     /**
      * Handle an incoming request.
@@ -257,4 +259,9 @@ class StudentController extends Controller
         $studentGrading = $this->StudentInterface->studentGrading();
         return view('pages.student.grades', compact('yearLevel', 'studentGrading'));
     }
+    
+   public function attendance(Request $request) {
+       $attendance = $this->StudentInterface->RFIDAttendance();
+       return view('pages.student.attendance', compact('attendance'));
+   }
 }

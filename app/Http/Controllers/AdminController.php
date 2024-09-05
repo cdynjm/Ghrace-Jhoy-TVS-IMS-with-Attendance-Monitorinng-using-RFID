@@ -40,6 +40,7 @@ use App\Models\AdmissionApplication;
 
 use App\Models\Schedule;
 use App\Models\SubjectSchedule;
+use App\Models\SMSToken;
 
 use Illuminate\Support\Facades\Gate;
 
@@ -54,6 +55,16 @@ class AdminController extends Controller
         protected AESCipher $aes, 
         protected AdminInterface $AdminInterface
     ) {}
+
+    public function updateSMSToken(Request $request) {
+        SMSToken::where('id', 1)->update([
+            'access_token' => $request->SMSAccessToken,
+            'mobile_identity' => $request->SMSMobileIdentity
+        ]);
+
+        return response()->json(['Message' => 'SMS Token updated successfully'], Response::HTTP_OK);
+    }
+
     public function admissionStatus(Request $request) {
         AdmissionApplication::where('id', 1)->update(['status' => $this->aes->decrypt($request->status)]);
     }

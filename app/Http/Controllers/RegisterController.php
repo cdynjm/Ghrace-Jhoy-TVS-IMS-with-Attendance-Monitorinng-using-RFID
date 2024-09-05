@@ -180,6 +180,7 @@ class RegisterController extends Controller
             'birthplaceCity' => $birthplaceMunicipal,
             'education' => $request->education,
             'parent' => $request->parent,
+            'parentContact' => $request->parentContact,
             'parentAddress' => $request->parentAddress,
             'consent' => $request->consent,
             'dateAccomplished' => Carbon::now(),

@@ -39,6 +39,8 @@ use App\Models\LearnersWork;
 
 use App\Models\Tracker;
 
+use App\Models\RFIDAttendance;
+
 class StudentService implements StudentInterface {
     /**
      * Handle an incoming request.
@@ -117,6 +119,13 @@ class StudentService implements StudentInterface {
 
     public function studentGrading() {
         return StudentGrading::where('studentID', Auth::user()->Student->id)->get();
+    }
+
+    public function RFIDAttendance() {
+        return RFIDAttendance::where('studentID', Auth::user()->Student->id)
+        ->orderBy('created_at', 'DESC')
+        ->get()
+        ->groupBy('yearLevel');
     }
 }
 

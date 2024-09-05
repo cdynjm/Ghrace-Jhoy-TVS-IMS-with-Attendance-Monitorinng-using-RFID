@@ -11,9 +11,15 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Carbon;
 use App\Models\LearnersProfile;
 use App\Models\RFIDAttendance;
+use App\Http\Controllers\SMSController;
 
 class AttendanceController extends Controller
 {
+
+    public function __construct(
+        protected SMSController $sms
+    ) {}
+
     public function RFIDattendance()
     {
         return view('pages.RFID-Attendance');
@@ -21,7 +27,7 @@ class AttendanceController extends Controller
 
     public function LogRFIDAttendance(Request $request)
     {
-        $student = LearnersProfile::where('RFID', $request->RFID)->first();
+        $student = LearnersProfile::where('RFID', $request->RFID)->where('diploma', null)->first();
 
         if ($student) {
             $today = Carbon::today();
@@ -39,12 +45,16 @@ class AttendanceController extends Controller
                     'timeIn' => Carbon::now()->toTimeString()
                 ]);
 
+                $this->sms->TimeIn($student);
+
                 return response()->json(['Message' => 'Logged In'], Response::HTTP_OK);
             } else {
                 if (is_null($exist->timeOut)) {
                     $exist->update([
                         'timeOut' => Carbon::now()->toTimeString()
                     ]);
+
+                    $this->sms->TimeOut($student);
 
                     return response()->json(['Message' => 'Logged Out'], Response::HTTP_OK);
                 } else {

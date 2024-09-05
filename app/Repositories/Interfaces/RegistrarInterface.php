@@ -42,6 +42,9 @@ interface RegistrarInterface {
 
     public function Graduates($request);
     public function Undergraduates($request);
+    public function ViewAttendance($request);
+
+    public function RFIDAttendance($request);
 
 }
 
