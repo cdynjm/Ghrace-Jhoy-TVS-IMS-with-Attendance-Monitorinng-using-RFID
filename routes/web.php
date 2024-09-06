@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -60,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'registrar'], function () {
 		Route::group(['prefix' => 'registrar'], function () {
 			Route::get('/dashboard', [RegistrarController::class, 'dashboard'])->name('registrar.dashboard');
-			Route::get('/unscheduled', [RegistrarController::class, 'unscheduled'])->name('registrar.unscheduled');
+			Route::get('/pending', [RegistrarController::class, 'unscheduled'])->name('registrar.unscheduled');
 			Route::get('/exam', [RegistrarController::class, 'exam'])->name('registrar.exam');
 			Route::get('/interview', [RegistrarController::class, 'interview'])->name('registrar.interview');
 			Route::get('/final-result', [RegistrarController::class, 'finalResult'])->name('registrar.final-result');
@@ -82,7 +83,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::group(['middleware' => 'trainer'], function () {
 		Route::group(['prefix' => 'trainer'], function () {
-
+			Route::get('/dashboard', [TrainerController::class, 'dashboard'])->name('trainer.dashboard');
+			Route::get('/students/{id}/{scheduleID}', [TrainerController::class, 'students'])->name('trainer.students');
 		});
 	});
 

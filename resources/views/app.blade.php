@@ -82,6 +82,9 @@
       @if(Auth::user()->role == 2)
         <script src="{{ asset('assets/javascript/registrar.js?id=0502024') }}" data-navigate-once></script>
       @endif
+      @if(Auth::user()->role == 3)
+        <script src="{{ asset('assets/javascript/trainer.js?id=10620924') }}" data-navigate-once></script>
+      @endif
       @if(Auth::user()->role == 4)
         <script src="{{ asset('assets/javascript/student.js?id=109062024') }}" data-navigate-once></script>
       @endif
@@ -99,7 +102,8 @@
     <script src="/assets/js/config.js"></script>
     <script src="/assets/js/pages-auth.js"></script>
 
-   
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.css" rel="stylesheet">
+    <script defer src="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

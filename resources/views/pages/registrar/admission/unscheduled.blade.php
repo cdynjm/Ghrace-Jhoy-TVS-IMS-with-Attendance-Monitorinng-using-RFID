@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="layout-page">
-        @include('layouts.navbar', ['page' => 'Unscheduled'], 
+        @include('layouts.navbar', ['page' => 'Pending'], 
         ['icon' => '
           
             <lord-icon
@@ -27,13 +27,16 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Unscheduled |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Pending |</a>
                   </li>
                   <li class="breadcrumb-item">Data</li>
                 </ol>
             </nav>
 
                 <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <input type="text" class="form-control" placeholder="Search..." id="search-unscheduled">
+                    </div>
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">

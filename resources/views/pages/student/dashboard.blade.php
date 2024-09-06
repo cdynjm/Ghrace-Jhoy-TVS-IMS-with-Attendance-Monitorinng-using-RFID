@@ -327,9 +327,15 @@
                             $semesterDisplay = $ordinals[Auth::user()->Student->semester] ?? Auth::user()->Student->semester;
                         @endphp
 
-                        <div class="mt-2">
+                         @if(Auth::user()->Student->freshmen == 0)
+                         <div class="mt-2">
                             <small class="mt-2 fw-bold">{{ $yearLevelDisplay }} Year - {{ $semesterDisplay }} Semester</small>
                         </div>
+                         @else
+                         <div class="mt-2">
+                            <small class="mt-2 fw-bold">For Enrollment (Freshmen)</small>
+                        </div>
+                         @endif
                         @endif
                         <div class="mt-2">
                             <small class="mt-2 fw-normal">{{ Auth::user()->Student->LearnersCourse->Course->qualification }}</small>
@@ -616,15 +622,15 @@
                 @endforeach
 
                 @if($data == false)
-                    <div class="row">
-                        <div class="col-md-12 mb-4">
+                   
+                        <div class="col-md-8 mb-4">
                             <div class="card">
                                 <div class="card-header text-center">
                                     <p class="my-0">No Records Yet</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
                 @endif
 
           </div>

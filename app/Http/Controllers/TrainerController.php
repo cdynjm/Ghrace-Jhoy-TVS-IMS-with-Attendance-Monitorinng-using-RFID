@@ -32,5 +32,25 @@ use App\Models\LearnersWork;
 
 class TrainerController extends Controller
 {
-    //
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function __construct(
+        protected AESCipher $aes, 
+        protected TrainerInterface $TrainerInterface
+    ) {}
+
+    public function dashboard() {
+        $schedule = $this->TrainerInterface->Schedule();
+        return view('pages.trainer.dashboard', compact('schedule'));
+    }
+
+    public function students(Request  $request) {
+        $students = $this->TrainerInterface->Students($request);
+        $schedule = $this->TrainerInterface->getSchedule($request);
+        return view('pages.trainer.students', compact('students', 'schedule'));
+    }
+
 }

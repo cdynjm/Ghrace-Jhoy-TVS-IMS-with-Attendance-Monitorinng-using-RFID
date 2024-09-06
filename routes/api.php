@@ -68,6 +68,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/schedule', [AdminController::class, 'archiveSubjectSchedule']);
         });
 
+        Route::group(['prefix' => 'search'], function () {
+            Route::post('/course-info', [AdminController::class, 'searchCourseInfo']);
+        });
+
     });
 
     Route::group(['middleware' => 'registrar'], function () {
@@ -96,6 +100,20 @@ Route::middleware('auth:sanctum')->group(function () {
         });
         
         Route::group(['prefix' => 'delete'], function () {
+        });
+
+        Route::group(['prefix' => 'search'], function () {
+            Route::post('/unscheduled', [RegistrarController::class, 'searchUnscheduled']);
+            Route::post('/exam', [RegistrarController::class, 'searchExam']);
+            Route::post('/interview', [RegistrarController::class, 'searchInterview']);
+            Route::post('/final-result', [RegistrarController::class, 'searchFinalResult']);
+            Route::post('/enrollment', [RegistrarController::class, 'searchEnrollment']);
+            Route::post('/grades', [RegistrarController::class, 'searchGrades']);
+            Route::post('/graduates', [RegistrarController::class, 'searchGraduates']);
+            Route::post('/undergraduates', [RegistrarController::class, 'searchUndergraduates']);
+            Route::post('/attendance', [RegistrarController::class, 'searchViewAttendance']);
+
+            Route::post('/specific-schedule', [RegistrarController::class, 'getSpecificSchedule']);
         });
 
     });

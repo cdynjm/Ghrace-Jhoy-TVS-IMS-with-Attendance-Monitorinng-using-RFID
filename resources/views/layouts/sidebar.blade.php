@@ -8,12 +8,12 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme shadow-sm" style="position: fixed; z-index: 10;">
 
   
-    <div class="app-brand demo mt-4">
-      <img style="width: 38px; height: 38px; border-radius: 50px;" src="/assets/school-logo.png" class="me-4 mb-4 mt-2" alt="...">
+    <div class="app-brand demo mt-4 p-3">
+      <img style="width: 55px; height: auto; border-radius: 50px;" src="/assets/school-logo.png" class="me-4 mb-4 mt-2" alt="...">
       <a class="layout-menu-toggle align-items-center d-flex" href="javascript:void(0);">
         <span class="sidebar-text fw-bold fs-3">
             <span class="">GJTVS</span>
-        <p style="font-size:10px;" class="fw-normal mt-1 text-secondary">Information Management System</p>
+        <p style="font-size:11px;" class="fw-normal mt-2 text-secondary">Ghrace Jhoy Technical Vocational School</p>
       </span>
     </a>
     </div>
@@ -130,7 +130,7 @@
                 style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Unscheduled
+          <div>Pending
 
             @if(!empty($status->where('status', 2)->where('failed', null)->count()))
             <span class="ms-2 badge rounded-pill bg-danger">
@@ -279,6 +279,26 @@
             </lord-icon>
           </span>
           <div>Attendance</div>
+        </a>
+      </li>
+
+      @endif
+
+      @if(Auth::user()->role == 3)
+
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Pages</span></li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'trainer.dashboard' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('trainer.dashboard') }}" class="menu-link {{ Route::currentRouteName() == 'trainer.dashboard' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+              src="https://cdn.lordicon.com/xirobkro.json"
+              trigger="in"
+              stroke="bold"
+              style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Dashboard</div>
         </a>
       </li>
 

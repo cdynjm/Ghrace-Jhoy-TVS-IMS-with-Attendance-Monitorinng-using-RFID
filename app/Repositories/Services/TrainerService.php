@@ -29,6 +29,8 @@ use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
+use App\Models\SubjectSchedule;
+use App\Models\StudentYearLevel;
 
 class TrainerService implements TrainerInterface {
     /**
@@ -39,6 +41,36 @@ class TrainerService implements TrainerInterface {
     public function __construct(
         protected AESCipher $aes
     ) {}
+
+    public function Schedule() {
+        return SubjectSchedule::where('status', 1)->where('instructor', Auth::user()->Instructor->id)->get();
+    }
+
+    public function getSchedule($request) {
+        return SubjectSchedule::where('status', 1)
+        ->where('instructor', Auth::user()->Instructor->id)
+        ->where('id', $this->aes->decrypt($request->id))->first();
+    }
+
+    public function Students($request) {
+        return StudentYearLevel::where('scheduleID', $this->aes->decrypt($request->scheduleID))
+            ->whereHas('Student', function($query) {
+                $query->where('diploma', null); // Add condition to filter LearnersProfile where diploma == 0
+            })
+            ->with(['Student' => function($query) {
+                $query->where('diploma', null); // Ensure eager loaded Student has diploma == 0
+            }])
+            ->orderBy(
+                LearnersProfile::select('lastname')
+                    ->whereColumn('learners_profile.id', 'student_year_level.studentID')
+                    ->where('diploma', null), // Order by Student's lastname where diploma == 0
+                'ASC'
+            )
+            ->get();
+    }
+    
+    
+    
 }
 
 ?>

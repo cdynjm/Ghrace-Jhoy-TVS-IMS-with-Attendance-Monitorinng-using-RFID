@@ -95,10 +95,18 @@ class AdminController extends Controller
      */
     public function createInstructor(Request $request) {
 
-        Instructors::create([
+        $instructors = Instructors::create([
            'instructor' => $request->instructor,
            'address' => $request->address,
-           'contactNumber' => $request->contactNumber
+           'contactNumber' => $request->contactNumber,
+           'degree' => $request->degree
+        ]);
+
+        User::create([
+            'trainerID' => $instructors->id,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 3
         ]);
 
         $instructors = $this->AdminInterface->Instructors();
@@ -120,8 +128,19 @@ class AdminController extends Controller
         Instructors::where('id', $this->aes->decrypt($request->id))->update([
            'instructor' => $request->instructor,
            'address' => $request->address,
-           'contactNumber' => $request->contactNumber
+           'contactNumber' => $request->contactNumber,
+           'degree' => $request->degree
         ]);
+
+        User::where('trainerID', $this->aes->decrypt($request->id))->update([
+            'email' => $request->email,
+        ]);
+
+        if(!empty($request->password)) {
+            User::where('trainerID', $this->aes->decrypt($request->id))->update([
+                'password' => Hash::make($request->password)
+            ]);
+        }
 
         $instructors = $this->AdminInterface->Instructors();
         $aes = $this->aes;
@@ -140,6 +159,7 @@ class AdminController extends Controller
     public function deleteInstructor(Request $request) {
 
         Instructors::where('id', $this->aes->decrypt($request->id))->delete();
+        Instructors::where('trainerID', $this->aes->decrypt($request->id))->delete();
 
         $instructors = $this->AdminInterface->Instructors();
         $aes = $this->aes;
@@ -296,6 +316,25 @@ class AdminController extends Controller
         
         return response()->json([
             'Message' => 'Course Subjects updated successfully',
+            'CoursesInfo' => view('data.admin.course-info-data', compact('course', 'courseInfo', 'subjects', 'aes'))->render()
+        ], Response::HTTP_OK);
+        
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchCourseInfo(Request $request) {
+        
+
+        $course = $this->AdminInterface->CourseInfo($request);
+        $courseInfo = $this->AdminInterface->getCourseInfo($request);
+        $subjects = $this->AdminInterface->searchSubjects($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Message' => 'Course Subjects added successfully',
             'CoursesInfo' => view('data.admin.course-info-data', compact('course', 'courseInfo', 'subjects', 'aes'))->render()
         ], Response::HTTP_OK);
         

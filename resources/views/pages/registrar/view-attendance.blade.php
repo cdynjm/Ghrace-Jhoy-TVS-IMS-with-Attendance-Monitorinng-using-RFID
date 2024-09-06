@@ -33,6 +33,9 @@
             </nav>
 
                 <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <input type="text" class="form-control" placeholder="Search..." id="search-attendance" data-id="{{ $aes->encrypt($course->id) }}">
+                    </div>
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">

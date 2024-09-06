@@ -14,6 +14,8 @@
 
               <div class="processing alert alert-success" style="display: none"></div>
 
+              <input type="hidden" name="id" id="course-id" class="form-control mb-2" required>
+
               <label for="" style="font-size: 12px;">Sector</label>
               <input type="text" name="sector" id="sector" class="form-control mb-2" required>
 

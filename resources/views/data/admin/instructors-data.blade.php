@@ -5,6 +5,7 @@
             <th><small>Instructor</small></th>
             <th><small>Address</small></th>
             <th><small>Contact Number</small></th>
+            <th><small>Degree</small></th>
             <th><small>Action</small></th>
         </tr>
     </thead>
@@ -23,11 +24,14 @@
                 instructor="{{ $in->instructor }}"
                 address="{{ $in->address }}"
                 contactNumber="{{ $in->contactNumber }}"
-                
+                degree="{{ $in->degree }}"
+                email="{{ $in->User->email }}"
+
                 ><small>{{ $count }}</small></td>
                 <td><small>{{ $in->instructor }}</small></td>
                 <td><small>{{ $in->address }}</small></td>
                 <td><small>{{ $in->contactNumber }}</small></td>
+                <td><small>{{ $in->degree }}</small></td>
                 <td>
                     <small>
                         <a href="javascript:;" id="edit-instructor" class="me-2">

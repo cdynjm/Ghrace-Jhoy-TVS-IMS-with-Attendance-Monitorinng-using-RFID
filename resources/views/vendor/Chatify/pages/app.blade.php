@@ -14,7 +14,7 @@
                 </nav>
             </nav>
             {{-- Search input --}}
-            @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+            @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
                 <input type="text" class="messenger-search mb-4" placeholder="Search...">
 
                 <div class="messenger-listView-tabs">

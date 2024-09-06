@@ -242,24 +242,24 @@
                                     </p>
                                     
                                     <p>
-                                        <small>
+                                        <small class="text-primary">
                                             Use a unique email address that you have exclusive access to as your primary account credential. Ensure it's an email you regularly monitor, as all communications and updates will be sent there.
                                         </small>
                                     </p>
                                     
                                     <p>
-                                        <small>
+                                        <small class="text-danger">
                                             This email will also be essential for password resets and verifying your identity. Please make sure it is accurate and up-to-date.
                                         </small>
                                     </p>
                                     <hr>
                                     <p>
-                                      <input type="checkbox" id="agreeTerms" name="agreeTerms">
+                                      <!--  <input type="checkbox" id="agreeTerms" name="agreeTerms">
                                       <label for="agreeTerms">
-                                          <small class="text-primary">
+                                        <small class="text-primary">
                                               By checking this box, I confirm that I have read, understood, and agree to abide by the terms and conditions set forth by this application process.
-                                          </small>
-                                      </label>
+                                          </small> 
+                                      </label> -->
                                     </p>
                                   
                                     <div class="col-12 d-flex justify-content-between">
@@ -281,47 +281,48 @@
                                   <div class="col-md-12">
                                       <p>2. Learner/Manpower Profile</p>
                                   
-                                  
+                                      <div class="text-danger mb-2" style="font-size: 13px">* Required</div>
+                                    
                                       <div class="row mb-4">
                                         <div class="col-md-4 mb-4">
                                           <div><b>2.1 Name</b></div>
-                                          <label for="" style="font-size: 11px">Last Name, Extension Name (Jr., Sr.)</label>
+                                          <label for="" style="font-size: 11px">Last Name, Extension Name (Jr., Sr.) <span class="text-danger">*</span></label>
                                           <input type="text" name="lastname" class="form-control" required>
                                           
-                                          <label for="" style="font-size: 11px">First Name</label>
+                                          <label for="" style="font-size: 11px">First Name <span class="text-danger">*</span></label>
                                           <input type="text" name="firstname" class="form-control" required>
         
-                                          <label for="" style="font-size: 11px">Middle Name</label>
+                                          <label for="" style="font-size: 11px">Middle Name <span class="text-danger">*</span></label>
                                           <input type="text" name="middlename" class="form-control" required>
                                         </div>
                                         <div class="col-md-4 mb-4">
                                           <div><b>2.2 Complete Permanent Mailing Address</b></div>
-                                          <label for="" style="font-size: 11px">Region</label>
+                                          <label for="" style="font-size: 11px">Region <span class="text-danger">*</span></label>
                                           @include('auth.address.region')
         
-                                          <label for="" style="font-size: 11px">Province</label>
+                                          <label for="" style="font-size: 11px">Province <span class="text-danger">*</span></label>
                                           @include('auth.address.province')
         
-                                          <label for="" style="font-size: 11px">Municipal</label>
+                                          <label for="" style="font-size: 11px">Municipal <span class="text-danger">*</span></label>
                                           @include('auth.address.municipal')
         
-                                          <label for="" style="font-size: 11px">Barangay</label>
+                                          <label for="" style="font-size: 11px">Barangay <span class="text-danger">*</span></label>
                                           @include('auth.address.barangay')
                                         </div>
                                         <div class="col-md-4">
-                                          <label for="" style="font-size: 11px">District</label>
+                                          <label for="" style="font-size: 11px">District <span class="text-danger">*</span></label>
                                           <input type="text" name="district" class="form-control" required>
         
-                                          <label for="" style="font-size: 11px">Number, Street</label>
+                                          <label for="" style="font-size: 11px">Number, Street <span class="text-danger">*</span></label>
                                           <input type="text" name="street" class="form-control" required>
         
-                                          <label for="" style="font-size: 11px">Email Address/Facebook Account</label>
+                                          <label for="" style="font-size: 11px">Email Address/Facebook Account <span class="text-danger">*</span></label>
                                           <input type="text" name="account" class="form-control" required>
         
-                                          <label for="" style="font-size: 11px">Contact Number</label>
+                                          <label for="" style="font-size: 11px">Contact Number <span class="text-danger">*</span></label>
                                           <input type="number" name="phone" class="form-control" required>
         
-                                          <label for="" style="font-size: 11px">Nationality</label>
+                                          <label for="" style="font-size: 11px">Nationality <span class="text-danger">*</span></label>
                                           <input type="text" name="nationality" class="form-control" required>
                                         </div>
                                       </div>
@@ -346,9 +347,11 @@
                                   <div class="col-md-12">
                                       <p>3. Personal Information</p>
 
+                                      <div class="text-danger mb-2" style="font-size: 13px">* Required</div>
+
                                         <div class="row mb-4">
                                           <div class="col-md-6 mb-4">
-                                            <div><b>3.1 Sex</b></div>
+                                            <div><b>3.1 Sex</b> <span class="text-danger">*</span></div>
                                             <div>
                                               <input type="radio" value="1" name="sex">
                                               <label for="" style="font-size: 13px">Male</label>
@@ -359,7 +362,7 @@
                                             </div>
                                           </div>
                                           <div class="col-md-6 mb-4">
-                                            <div><b>3.2 Civil Status</b></div>
+                                            <div><b>3.2 Civil Status</b> <span class="text-danger">*</span></div>
                                             <div>
                                               <input type="radio" value="1" name="civilStatus">
                                               <label for="" style="font-size: 13px">Single</label>
@@ -382,7 +385,7 @@
                                             </div>
                                           </div>
                                           <div class="col-md-6 mb-4">
-                                            <div><b>3.3 Employment (before the training)</b></div>
+                                            <div><b>3.3 Employment (before the training)</b> <span class="text-danger">*</span></div>
                                             <div class="row">
                                               <div class="col-md-6 mb-4">
                                                 <p class="mb-2">Employment Status</p>
@@ -434,7 +437,7 @@
                                             <div><b>3.4 Birthdate</b></div>
                                             <div class="row mb-2">
                                               <div class="col-md-6">
-                                                <label for="" style="font-size: 11px">Date</label>
+                                                <label for="" style="font-size: 11px">Date <span class="text-danger">*</span></label>
                                                 <input type="date" name="birthdate" id="birthdate" class="form-control" required>
                                               </div>
                                               <div class="col-md-6">
@@ -445,21 +448,21 @@
                                             <div><b>3.5 Birthplace</b></div>
                                             <div class="row">
                                               <div class="col-md-12">
-                                                <label for="" style="font-size: 11px">Region</label>
+                                                <label for="" style="font-size: 11px">Region <span class="text-danger">*</span></label>
                                                 @include('auth.birthplace.region')
                                               </div>
                                               <div class="col-md-6">
-                                                <label for="" style="font-size: 11px">Province</label>
+                                                <label for="" style="font-size: 11px">Province <span class="text-danger">*</span></label>
                                                 @include('auth.birthplace.province')
                                               </div>
                                               <div class="col-md-6">
-                                                <label for="" style="font-size: 11px">City/Municipality</label>
+                                                <label for="" style="font-size: 11px">City/Municipality <span class="text-danger">*</span></label>
                                                 @include('auth.birthplace.municipal')
                                               </div>
                                             </div>
                                           </div>
                                           <div class="col-md-8 mb-4">
-                                            <div><b>3.6 Educational Attainment Before the Training (Trainee)</b></div>
+                                            <div><b>3.6 Educational Attainment Before the Training (Trainee)</b> <span class="text-danger">*</span></div>
                                               @php
                                                 $educ = [];
                                                 $educ[0] = 'No Grade Completed';
@@ -486,13 +489,13 @@
                                           </div>
                                           <div class="col-md-4 mb-4">
                                             <div><b>3.7 Parent/Guardian</b></div>
-                                            <label for="" style="font-size: 11px">Name</label>
+                                            <label for="" style="font-size: 11px">Name <span class="text-danger">*</span></label>
                                             <input type="text" name="parent" class="form-control" required>
 
-                                            <label for="" style="font-size: 11px">Parent's Contact Number</label>
+                                            <label for="" style="font-size: 11px">Parent's Contact Number <span class="text-danger">*</span></label>
                                             <input type="text" name="parentContact" class="form-control" required>
 
-                                            <label for="" style="font-size: 11px">Complete Permanent Mailing Address</label>
+                                            <label for="" style="font-size: 11px">Complete Permanent Mailing Address <span class="text-danger">*</span></label>
                                             <textarea name="parentAddress" id="" cols="30" rows="5" class="form-control" required></textarea>
                                           </div>
                                         </div>
@@ -605,9 +608,10 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <p>5. Name of Course/Qualification</p>
+                                    <div class="text-danger mb-2" style="font-size: 13px">* Required</div>
                                     <div class="row mb-4">
                                       <div class="col-md-12 mb-4">
-                                        <label for="" style="font-size: 11px">Course</label>
+                                        <label for="" style="font-size: 11px">Course <span class="text-danger">*</span></label>
                                         <select name="course" id="" class="form-select" required>
                                             <option value="">Select Course...</option>
                                             @foreach ($courses as $cor)
@@ -688,7 +692,7 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <p>7. Privacy Consent and Disclaimer</p>
-                                    
+                                    <div class="text-danger mb-2" style="font-size: 13px">* Required</div>
                                     <div class="row mb-4">
                                       <div class="col-md-12">
                                           <p>
@@ -700,7 +704,7 @@
 
                                           <div>
                                             <input type="radio" name="consent" value="Yes" required>
-                                            <label for="">Agree</label>
+                                            <label for="">Agree <span class="text-danger">*</span></label>
                                           </div>
                                         
                                           <div>
@@ -730,7 +734,7 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <p>8. Account Credentials for Log in</p>
-                                    
+                                    <div class="text-danger mb-2" style="font-size: 13px">* Required</div>
                                     <div class="mb-2">
                                       <small class="">This account will be your permanent access to all your information within the system. Please ensure you remember your credentials and keep them secure.</small>
                                     </div>
@@ -738,11 +742,11 @@
                                     <div class="row mb-4">
                                       <div class="col-md-12">
                                         <div class="mb-3">
-                                          <label for="email" class="form-label text-capitalize">Email or Username</label>
+                                          <label for="email" class="form-label text-capitalize">Email or Username <span class="text-danger">*</span></label>
                                           <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="" required>
                                         </div>
 
-                                        <label class="form-label text-capitalize" for="password">Password</label>
+                                        <label class="form-label text-capitalize" for="password">Password <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
                                           <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" required/>
                                           <span class="input-group-text cursor-pointer" id="show-password"><i class="far fa-eye-slash"></i></span>

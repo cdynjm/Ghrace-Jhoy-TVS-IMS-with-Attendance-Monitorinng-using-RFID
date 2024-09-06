@@ -51,6 +51,8 @@ $(document).on('submit', "#update-user-profile", function(e){
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
                 confirmButtonColor: "#3a57e8"
+            }).then(() => {
+                window.location.reload(); // Refresh the entire page
             });
         })
         .catch(error => {

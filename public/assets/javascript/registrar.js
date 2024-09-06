@@ -176,6 +176,23 @@ $(document).on('change', '#childCheckbox-interview', function() {
     $('.masterCheckbox-interview-' + parent).prop('checked', allChecked);
 });
 
+$(document).on('change', '#masterCheckbox-second-interview', function() {
+    var index = $(this).data('index');
+    $('.childCheckbox-second-interview-' + index).prop('checked', $(this).prop('checked'));
+});
+
+$(document).on('change', '#childCheckbox-second-interview', function() {
+    var allChecked = true;
+    var parent = $(this).data('parent-index');
+
+    $('.childCheckbox-second-interview-' + parent).each(function() {
+        if (!$(this).prop('checked')) {
+            allChecked = false;
+        }
+    });
+    $('.masterCheckbox-second-interview-' + parent).prop('checked', allChecked);
+});
+
 $(document).on('change', '#masterCheckbox-final', function() {
     $('.childCheckbox-final').prop('checked', $(this).prop('checked'));
 });
@@ -595,7 +612,7 @@ $(document).on('click', '#proceed-to-final-result', function() {
     var proceed = $(this).data('proceed-index');
 
     var hasApplicants = false;
-    $('.childCheckbox-interview-'+ proceed +':checked').each(function() {
+    $('.childCheckbox-second-interview-'+ proceed +':checked').each(function() {
         hasApplicants = true;
     });
 
@@ -630,7 +647,7 @@ $(document).on('click', '#proceed-to-final-result', function() {
             });
 
             var formData = new FormData();
-            $('.childCheckbox-interview-'+ proceed +':checked').each(function() {
+            $('.childCheckbox-second-interview-'+ proceed +':checked').each(function() {
                 formData.append('applicant[]', $(this).val());
             });
             formData.append('_method', 'PATCH');
@@ -813,6 +830,30 @@ $(document).on('click', '#enroll-student', function() {
     var id = $(this).parents('tr').find('td[id]').attr("id");
     $('#student-id').val(id);
     $('#course-id').val(courseID);
+
+    const formData = new FormData();
+    formData.append('id', id);
+    async function APIrequest() {
+        return await axios.post('/api/search/specific-schedule', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#schedule-list').html(response.data.Schedule); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
     $('#enroll-student-modal').modal('show');
 });
 
@@ -1112,4 +1153,252 @@ $(document).on('submit', "#update-student-information", function(e){
             });
         });
     }, 1500);
+});
+
+$(document).on('keyup', "#search-unscheduled", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    async function APIrequest() {
+        return await axios.post('/api/search/unscheduled', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#unscheduled-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-exam", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    async function APIrequest() {
+        return await axios.post('/api/search/exam', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#exam-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-interview", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    async function APIrequest() {
+        return await axios.post('/api/search/interview', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#interview-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-final-result", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    async function APIrequest() {
+        return await axios.post('/api/search/final-result', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#final-result-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-enrollment", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/enrollment', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#enrollment-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-grades", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/grades', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#grades-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-graduates", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/graduates', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-graduates-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-undergraduates", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/undergraduates', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-undergraduates-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-attendance", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/attendance', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-attendance-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
 });

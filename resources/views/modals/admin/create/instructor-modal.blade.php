@@ -22,6 +22,15 @@
               <label for="" style="font-size: 12px;">Contact Number</label>
               <input type="text" name="contactNumber" class="form-control mb-2" required>
 
+              <label for="" style="font-size: 12px;">Degree and Major</label>
+              <input type="text" name="degree" class="form-control mb-2" required>
+
+              <label for="" style="font-size: 12px;">Email</label>
+              <input type="email" name="email" class="form-control mb-2" required>
+
+              <label for="" style="font-size: 12px;">Password</label>
+              <input type="password" name="password" class="form-control mb-2" required>
+
             </div>
           </div>
         </div>

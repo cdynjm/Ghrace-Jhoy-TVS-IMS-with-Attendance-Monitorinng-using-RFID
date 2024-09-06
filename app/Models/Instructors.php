@@ -12,8 +12,14 @@ class Instructors extends Model
     protected $table = 'instructors';
 
     protected $fillable = [
+        'id',
         'instructor',
         'address',
-        'contactNumber'
+        'contactNumber',
+        'degree'
     ];
+
+    public function User() {
+        return $this->hasOne(User::class, 'trainerID', 'id');
+    }
 }

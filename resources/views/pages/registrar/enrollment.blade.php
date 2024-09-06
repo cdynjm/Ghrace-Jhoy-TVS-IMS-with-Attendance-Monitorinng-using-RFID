@@ -35,21 +35,16 @@
             </nav>
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="d-flex flex-row justify-content-between">
-                                    <div>
-                                        <h6 class="text-sm">{{ $course->qualification }}</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                   @include('data.registrar.enrollment-data')
-                                </div>
-                            </div>
+                    <div class="col-md-4 mb-4">
+                        <input type="text" class="form-control" placeholder="Search..." id="search-enrollment" data-id="{{ $aes->encrypt($course->id) }}">
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <div>
+                            <h6 class="text-sm">{{ $course->qualification }}</h6>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        @include('data.registrar.enrollment-data')
                     </div>
                 </div>
           </div>

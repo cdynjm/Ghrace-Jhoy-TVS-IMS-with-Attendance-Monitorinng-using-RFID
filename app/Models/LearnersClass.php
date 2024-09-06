@@ -16,4 +16,5 @@ class LearnersClass extends Model
         'classification',
         'others',        
     ];
+    
 }

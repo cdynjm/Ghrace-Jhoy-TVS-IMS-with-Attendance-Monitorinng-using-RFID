@@ -33,6 +33,10 @@ class SubjectSchedule extends Model
         return $this->hasOne(CoursesInfo::class, 'id', 'courseInfoID');
     }
 
+    public function Schedule() {
+        return $this->hasOne(Schedule::class, 'id', 'scheduleID');
+    }
+
     public function Instructors() {
         return $this->hasOne(Instructors::class, 'id', 'instructor');
     }

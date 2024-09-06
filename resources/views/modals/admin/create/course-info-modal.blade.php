@@ -16,10 +16,21 @@
              <input type="hidden"  name="id" class="form-control course-id" required>
 
               <label for="" style="font-size: 12px;">Year Level</label>
-              <input type="text" name="year" class="form-control mb-2" required>
+              <select name="year" id="" class="form-select mb-2" required>
+                <option value="">Select...</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+                <option value="5th Year">5th Year</option>
+              </select>
 
               <label for="" style="font-size: 12px;">Semester</label>
-              <input type="text" name="semester" class="form-control mb-2" required>
+              <select name="semester" id="" class="form-select mb-2" required>
+                <option value="">Select...</option>
+                <option value="1st Semester">1st Semester</option>
+                <option value="2nd Semester">2nd Semester</option>
+              </select>
 
               <label for="" style="font-size: 13px;">Subject Code | Description | Units</label>
             <div id="subject-wrapper">

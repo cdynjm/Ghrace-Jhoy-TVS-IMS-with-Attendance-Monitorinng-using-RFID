@@ -37,7 +37,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{ $student->where('failed', null)->where('status', 2)->count() }}</h4>
                       </div>
-                      <p class="mb-0">Unscheduled</p>
+                      <p class="mb-0">Pending</p>
                       <p class="mb-0">
                         <small class="text-muted">Admission Application</small>
                       </p>
@@ -87,7 +87,24 @@
                       </div>
                       <p class="mb-0">Enrollment</p>
                       <p class="mb-0">
-                        <small class="text-muted">Students</small>
+                        <small class="text-muted">Pending</small>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-sm-6 col-lg-3 mb-4">
+                  <div class="card card-border-shadow-info h-100">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center mb-2 pb-1">
+                        <div class="avatar me-2">
+                          <span class="avatar-initial rounded bg-label-info"><i class='bx bxs-user-detail' ></i></span>
+                        </div>
+                        <h4 class="ms-1 mb-0">{{ $student->where('enrollmentStatus', 0)->count() }}</h4>
+                      </div>
+                      <p class="mb-0">Students</p>
+                      <p class="mb-0">
+                        <small class="text-muted">Enrolled</small>
                       </p>
                     </div>
                   </div>

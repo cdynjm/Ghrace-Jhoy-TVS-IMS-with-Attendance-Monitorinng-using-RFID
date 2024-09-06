@@ -70,11 +70,43 @@ class AdminService implements AdminInterface {
     }
 
     public function getCourseInfo($request) {
-        return CoursesInfo::where('courseID', $this->aes->decrypt($request->id))->get();
+        return CoursesInfo::where('courseID', $this->aes->decrypt($request->id))
+        ->orderBy('yearLevel', 'ASC')
+        ->orderBy('semester', 'ASC')
+        ->get();
+    }
+
+    public function searchCourseInfo($request) {
+        $courseID = $this->aes->decrypt($request->id);
+
+        // Search course info and related subjects
+        return CoursesInfo::with('subjects')
+            ->where('courseID', $courseID)
+            ->where(function ($query) use ($request) {
+                if ($request->has('search')) {
+                    $searchTerm = $request->search;
+                    // You can add more conditions if necessary
+                    $query->where('yearLevel', 'LIKE', '%' . $searchTerm . '%')
+                          ->orWhereHas('subjects', function($q) use ($searchTerm) {
+                              $q->where('description', 'LIKE', '%' . $searchTerm . '%')
+                                ->orWhere('subjectCode', 'LIKE', '%' . $searchTerm . '%');
+                          });
+                }
+            })
+            ->get();
     }
 
     public function Subjects($request) {
         return Subjects::where('courseID', $this->aes->decrypt($request->id))->get();
+    }
+
+
+    public function searchSubjects($request) {
+        
+        return Subjects::where('courseID', $this->aes->decrypt($request->id))
+        ->where('subjectCode', 'LIKE', '%' . $request->search . '%')
+        ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+        ->get();
     }
 
     public function Instructors() {

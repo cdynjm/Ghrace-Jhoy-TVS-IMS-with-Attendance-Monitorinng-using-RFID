@@ -192,6 +192,27 @@ class RegistrarController extends Controller
             'Status' => view('layouts.sidebar', compact('status'))->render()
         ], Response::HTTP_OK);
     }
+
+     /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchUnscheduled(Request $request) {
+
+        $learnersProfile = $this->RegistrarInterface->searchUnscheduledLearnersProfile($request);
+        $learnersCourse = $this->RegistrarInterface->UnscheduledLearnersCourse();
+        $psa = $this->RegistrarInterface->PSA();
+        $form137 = $this->RegistrarInterface->Form137();
+        $status = $this->RegistrarInterface->Status();
+        $aes = $this->aes;
+
+        return response()->json([
+            
+            'Search' => view('data.registrar.unscheduled-data', compact('aes', 'psa', 'form137', 'learnersProfile', 'learnersCourse'))->render(),
+           
+        ], Response::HTTP_OK);
+    }
     /**
      * Handle an incoming request.
      *
@@ -257,6 +278,24 @@ class RegistrarController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    public function searchExam(Request $request) {
+
+        $learnersProfile = $this->RegistrarInterface->searchExamLearnersProfile($request);
+        $learnersCourse = $this->RegistrarInterface->ExamLearnersCourse();
+        $status = $this->RegistrarInterface->Status();
+        $aes = $this->aes;
+
+        return response()->json([
+            
+            'Search' => view('data.registrar.exam-data', compact('aes', 'learnersProfile', 'learnersCourse'))->render(),
+           
+        ], Response::HTTP_OK);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function failedInterview(Request $request) {
 
         foreach($request->applicant as $key => $value) {
@@ -311,6 +350,25 @@ class RegistrarController extends Controller
         return response()->json([
             'Message' => 'Selected Applicant/s has been scheduled for second interview successfully!',
             'Interview' => view('data.registrar.interview-data', compact('aes', 'learnersProfile', 'learnersCourse', 'secondLearnersProfile'))->render(),
+        ], Response::HTTP_OK);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchInterview(Request $request) {
+
+        $learnersProfile = $this->RegistrarInterface->searchInterviewLearnersProfile($request);
+        $secondLearnersProfile = $this->RegistrarInterface->searchSecondInterviewLearnersProfile($request);
+        $learnersCourse = $this->RegistrarInterface->InterviewLearnersCourse();
+        $status = $this->RegistrarInterface->Status();
+        $aes = $this->aes;
+
+        return response()->json([
+            
+            'Search' => view('data.registrar.interview-data', compact('aes', 'learnersProfile', 'learnersCourse', 'secondLearnersProfile'))->render(),
+           
         ], Response::HTTP_OK);
     }
     /**
@@ -387,6 +445,24 @@ class RegistrarController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    public function searchFinalResult(Request $request) {
+
+        $learnersProfile = $this->RegistrarInterface->searchFinalResultLearnersProfile($request);
+        $learnersCourse = $this->RegistrarInterface->InterviewLearnersCourse();
+        $status = $this->RegistrarInterface->Status();
+        $aes = $this->aes;
+
+        return response()->json([
+            
+            'Search' => view('data.registrar.final-result-data', compact('aes', 'learnersProfile', 'learnersCourse'))->render(),
+           
+        ], Response::HTTP_OK);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function failedAdmission(Request $request) {
 
         foreach($request->applicant as $key => $value) {
@@ -437,6 +513,16 @@ class RegistrarController extends Controller
         $attendance = $this->RegistrarInterface->ViewAttendance($request);
         return view('pages.registrar.view-attendance', compact('attendance', 'course'));
     }
+    public function searchViewAttendance(Request $request) {
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $attendance = $this->RegistrarInterface->searchViewAttendance($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Search' => view('data.registrar.view-attendance-data', compact('attendance', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
+    }
     /**
      * Handle an incoming request.
      *
@@ -458,6 +544,31 @@ class RegistrarController extends Controller
         $enrollees = $this->RegistrarInterface->Enrollees($request);
         $schedule = $this->RegistrarInterface->Schedule();
         return view('pages.registrar.enrollment', compact('course', 'enrollees', 'schedule'));
+    }
+    public function getSpecificSchedule(Request $request) {
+
+        $schedule = $this->RegistrarInterface->getSpecificSchedule($request);
+        $aes = $this->aes;
+        return response()->json([
+            'Schedule' => view('modals.registrar.update.schedule.schedule-list', compact('schedule', 'aes'))->render(),
+        ], Response::HTTP_OK); 
+    }
+
+     /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchEnrollment(Request $request) {
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $enrollees = $this->RegistrarInterface->searchEnrollees($request);
+        $schedule = $this->RegistrarInterface->Schedule();
+        $aes = $this->aes;
+
+        return response()->json([
+            'Search' => view('data.registrar.enrollment-data', compact('course', 'enrollees', 'schedule', 'aes'))->render(),
+        ], Response::HTTP_OK); 
     }
 
     public function enrollStudent(Request $request) {
@@ -534,6 +645,18 @@ class RegistrarController extends Controller
         $enrollees = $this->RegistrarInterface->StudentGrades($request);
         $schedule = $this->RegistrarInterface->Schedule();
         return view('pages.registrar.grades', compact('course', 'enrollees', 'schedule'));
+    }
+
+    public function searchGrades(Request $request) {
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $enrollees = $this->RegistrarInterface->searchStudentGrades($request);
+        $schedule = $this->RegistrarInterface->Schedule();
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Search' => view('data.registrar.grades-data', compact('course', 'enrollees', 'schedule', 'aes'))->render(),
+        ], Response::HTTP_OK); 
     }
 
     public function editGrades(Request $request) {
@@ -649,6 +772,17 @@ class RegistrarController extends Controller
     
     }
 
+    public function searchGraduates(Request $request) {
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $graduates = $this->RegistrarInterface->searchGraduates($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Search' => view('data.registrar.view-graduates-data', compact('graduates', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
+    }
+
     public function updateStudentInformation(Request $request) {
 
         LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
@@ -665,6 +799,17 @@ class RegistrarController extends Controller
             'Undergraduates' => view('data.registrar.view-undergraduates-data', compact('undergraduates', 'aes', 'course'))->render(),
         ], Response::HTTP_OK); 
     
+    }
+
+    public function searchUndergraduates(Request $request) {
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $undergraduates = $this->RegistrarInterface->searchUndergraduates($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Search' => view('data.registrar.view-undergraduates-data', compact('undergraduates', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
     }
     
 }

@@ -10,6 +10,7 @@ interface AdminInterface {
 
     public function CourseInfo($request);
     public function getCourseInfo($request);
+    public function searchCourseInfo($request);
     public function Subjects($request);
 
     public function Schedule($request);

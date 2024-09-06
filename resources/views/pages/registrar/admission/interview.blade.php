@@ -34,6 +34,9 @@
             </nav>
 
                 <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <input type="text" class="form-control" placeholder="Search..." id="search-interview">
+                    </div>
                     <div class="col-md-12 mb-4">
                         @include('data.registrar.interview-data')
                     </div>

@@ -17,11 +17,22 @@
 
              <input type="hidden" name="courseInfoID" class="form-control course-info-id" required>
 
-              <label for="" style="font-size: 12px;">Year Level</label>
-              <input type="text" name="year" id="edit-year-level" class="form-control mb-2" required>
+             <label for="" style="font-size: 12px;">Year Level</label>
+              <select name="year" id="edit-year-level" class="form-select mb-2" required>
+                <option value="">Select...</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+                <option value="5th Year">5th Year</option>
+              </select>
 
               <label for="" style="font-size: 12px;">Semester</label>
-              <input type="text" name="semester" id="edit-semester" class="form-control mb-2" required>
+              <select name="semester" id="edit-semester" class="form-select mb-2" required>
+                <option value="">Select...</option>
+                <option value="1st Semester">1st Semester</option>
+                <option value="2nd Semester">2nd Semester</option>
+              </select>
 
             <label for="" style="font-size: 13px;">Subject Code | Description | Units</label>
             @include('modals.admin.update.subjects.course-subject-list')

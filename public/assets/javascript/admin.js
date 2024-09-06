@@ -150,7 +150,7 @@ $(document).on('click', "#edit-course", function(e){
     var status = $(this).parents('tr').find('td[status]').attr("status");
     var copr = $(this).parents('tr').find('td[copr]').attr("copr");
 
-    $('#id').val(id);
+    $('#course-id').val(id);
     $('#sector').val(sector);
     $('#qualification').val(qualification);
     $('#status').val(status);
@@ -500,11 +500,15 @@ $(document).on('click', "#edit-instructor", function(e){
     var instructor = $(this).parents('tr').find('td[instructor]').attr("instructor");
     var address = $(this).parents('tr').find('td[address]').attr("address");
     var contactNumber = $(this).parents('tr').find('td[contactNumber]').attr("contactNumber");
+    var degree = $(this).parents('tr').find('td[degree]').attr("degree");
+    var email = $(this).parents('tr').find('td[email]').attr("email");
 
     $('#instructor-id').val(id);
     $('#instructor').val(instructor);
     $('#address').val(address);
     $('#contactNumber').val(contactNumber);
+    $('#degree').val(degree);
+    $('#email').val(email);
 
     $("#edit-instructor-modal").modal('show');
 });
@@ -828,4 +832,33 @@ $(document).on('click', "#archive-schedule", function(e){
             });
         }
     });
+});
+
+$(document).on('keyup', "#search-course-info", function(e){
+  
+        const formData = new FormData();
+        formData.append('search', $(this).val());
+        formData.append('id', $(this).data('id'));
+        async function APIrequest() {
+            return await axios.post('/api/search/course-info', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                }
+            })
+        }
+        APIrequest().then(response => {
+            $('#course-info-data').html(response.data.CoursesInfo);
+            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            SweetAlert.fire({
+                icon: 'error',
+                html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        });
+ 
 });

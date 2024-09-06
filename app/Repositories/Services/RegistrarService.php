@@ -25,6 +25,7 @@ use App\Models\Province;
 use App\Modes\Region;
 use App\Models\User;
 use App\Models\Courses;
+use App\Models\CoursesInfo;
 
 use App\Models\StudentYearLevel;
 use App\Models\StudentGrading;
@@ -61,6 +62,18 @@ class RegistrarService implements RegistrarInterface {
     public function UnscheduledLearnersProfile() {
         return LearnersProfile::where('status', 2)->where('failed', null)->orderBy('lastname', 'ASC')->get();
     }
+    public function searchUnscheduledLearnersProfile($request) {
+        return LearnersProfile::where('status', 2)
+            ->where('failed', null)
+            ->where(function($query) use ($request) {
+                $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                      ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                      ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+            })
+            ->orderBy('lastname', 'ASC')
+            ->get();
+    }
+    
     /**
      * Handle an incoming request.
      *
@@ -123,7 +136,22 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function ExamLearnersProfile() {
-        return LearnersProfile::where('status', 3)->where('failed', null)->get()->groupBy('exam');
+        return LearnersProfile::where('status', 3)->where('failed', null)->orderBy('lastname', 'ASC')->get()->groupBy('exam');
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchExamLearnersProfile($request) {
+        return LearnersProfile::where('status', 3)->where('failed', null)
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('lastname', 'ASC')
+        ->get()->groupBy('exam');
     }
     /**
      * Handle an incoming request.
@@ -139,7 +167,7 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function InterviewLearnersProfile() {
-        return LearnersProfile::where('status', 4)->where('failed', null)->get()->groupBy('interview');
+        return LearnersProfile::where('status', 4)->where('failed', null)->orderBy('lastname', 'ASC')->get()->groupBy('interview');
     }
     /**
      * Handle an incoming request.
@@ -147,7 +175,35 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function SecondInterviewLearnersProfile() {
-        return LearnersProfile::where('status', 5)->where('failed', null)->get()->groupBy('secondInterview');
+        return LearnersProfile::where('status', 5)->where('failed', null)->orderBy('lastname', 'ASC')->get()->groupBy('secondInterview');
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchInterviewLearnersProfile($request) {
+        return LearnersProfile::where('status', 4)->where('failed', null)
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('lastname', 'ASC')->get()->groupBy('interview');
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchSecondInterviewLearnersProfile($request) {
+        return LearnersProfile::where('status', 5)->where('failed', null)
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('lastname', 'ASC')->get()->groupBy('secondInterview');
     }
     /**
      * Handle an incoming request.
@@ -163,7 +219,22 @@ class RegistrarService implements RegistrarInterface {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function FinalResultLearnersProfile() {
-        return LearnersProfile::where('status', 6)->where('failed', null)->get();
+        return LearnersProfile::where('status', 6)->where('failed', null)->orderBy('lastname', 'ASC')->get();
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchFinalResultLearnersProfile($request) {
+        return LearnersProfile::where('status', 6)->where('failed', null)
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('lastname', 'ASC')
+        ->get();
     }
     /**
      * Handle an incoming request.
@@ -202,16 +273,52 @@ class RegistrarService implements RegistrarInterface {
         })->orderBy('yearLevel', 'ASC')
             ->orderBy('semester', 'ASC')
             ->orderBy('lastname', 'ASC')
-            ->get()
-            ->groupBy('yearLevel');
+            ->get();
     }
+
+    public function searchEnrollees($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+                $query->where('course', $this->aes->decrypt($request->id))
+                      ->where('diploma', null)
+                      ->where('yearLevel', '!=', null);
+            })
+            ->where(function($query) use ($request) {
+                $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                      ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                      ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+            })
+            ->orderBy('yearLevel', 'ASC')
+            ->orderBy('semester', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get();
+    }
+    
 
     public function StudentGrades($request) {
         return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
             $query->where('course', $this->aes->decrypt($request->id))
             ->where('diploma', null)
+            ->where('freshmen', 0)
             ->where('yearLevel', '!=', null);
         })->orderBy('yearLevel', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
+    }
+
+    public function searchStudentGrades($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('freshmen', 0)
+            ->where('yearLevel', '!=', null);
+        })
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('yearLevel', 'ASC')
             ->orderBy('lastname', 'ASC')
             ->get()
             ->groupBy('yearLevel');
@@ -223,6 +330,41 @@ class RegistrarService implements RegistrarInterface {
                    ->orderBy('courseInfoID', 'ASC')
                    ->orderBy('section', 'ASC')
                    ->get();
+                   
+    }
+
+    public function getSpecificSchedule($request) {
+
+
+        $student = LearnersProfile::where('id', $this->aes->decrypt($request->id))->first();
+
+        if($student->freshmen == 1) {
+            $courseInfo = CoursesInfo::where('courseID', $student->LearnersCourse->course)
+            ->orderBy('yearLevel', 'ASC')
+            ->orderBy('semester', 'ASC')
+            ->first();
+
+            return Schedule::where('status', 1)->where('courseInfoID', $courseInfo->id)
+                   ->whereColumn('enrolled', '<', 'slots')
+                   ->orderBy('courseInfoID', 'ASC')
+                   ->orderBy('section', 'ASC')
+                   ->get();
+        }
+        else {
+            
+            $courseInfo = CoursesInfo::where('courseID', $student->LearnersCourse->course)
+            ->orderBy('yearLevel', 'ASC')
+            ->orderBy('semester', 'ASC')
+            ->skip($student->progress)
+            ->take(1)
+            ->first();
+
+            return Schedule::where('status', 1)->where('courseInfoID', $courseInfo->id)
+                   ->whereColumn('enrolled', '<', 'slots')
+                   ->orderBy('courseInfoID', 'ASC')
+                   ->orderBy('section', 'ASC')
+                   ->get();
+        }
                    
     }
 
@@ -243,11 +385,45 @@ class RegistrarService implements RegistrarInterface {
             
     }
 
+    public function searchGraduates($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', 1);
+        })
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('lastname', 'ASC')
+            ->get();
+            
+    }
+
     public function Undergraduates($request) {
         return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
             $query->where('course', $this->aes->decrypt($request->id))
-            ->where('diploma', null);
+            ->where('diploma', null)
+            ->where('freshmen', 0)
+            ->where('yearLevel', '!=', null);
         })->orderBy('lastname', 'ASC')
+            ->get();
+            
+    }
+
+    public function searchUndergraduates($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('freshmen', 0)
+            ->where('yearLevel', '!=', null);
+        })
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('lastname', 'ASC')
             ->get();
             
     }
@@ -256,8 +432,30 @@ class RegistrarService implements RegistrarInterface {
         return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
             $query->where('course', $this->aes->decrypt($request->id))
             ->where('diploma', null)
+            ->where('freshmen', 0)
             ->where('yearLevel', '!=', null);
         })->orderBy('yearLevel', 'ASC')
+            ->orderBy('semester', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
+    }
+
+    public function searchViewAttendance($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('freshmen', 0)
+            ->where('yearLevel', '!=', null);
+        })
+        
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+
+        ->orderBy('yearLevel', 'ASC')
             ->orderBy('semester', 'ASC')
             ->orderBy('lastname', 'ASC')
             ->get()

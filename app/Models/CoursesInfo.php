@@ -18,4 +18,7 @@ class CoursesInfo extends Model
     ];
 
 
+    public function subjects() {
+        return $this->hasMany(Subjects::class, 'courseInfoID');
+    }
 }

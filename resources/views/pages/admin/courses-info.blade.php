@@ -29,7 +29,7 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Courses |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Prospectus |</a>
                   </li>
                   <li class="breadcrumb-item">Data</li>
                 </ol>
@@ -39,9 +39,18 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
+                                <div class="row mb-4">
+                                    <div class="col-md-8">
+                                        <h6 class="text-sm">{{ $course->qualification }}</h6>
+                                    </div>
+                                   
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" placeholder="Search Subjects..." id="search-course-info" data-id="{{ $aes->encrypt($course->id) }}">
+                                    </div>
+                                </div>
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
-                                        <h6 class="text-sm">{{ $course->qualification }}</h6>
+                                        
                                     </div>
                                     <button class="btn btn-sm btn-primary shadow text-white" id="add-course-info" data-id="{{ $aes->encrypt($course->id) }}">+ Add</button>
                                 </div>

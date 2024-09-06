@@ -87,7 +87,7 @@
         
         <div class="card-body">
             <div class="mb-2">
-                <input type="checkbox" class="me-2 masterCheckbox-interview-{{ $loop->index }}" id="masterCheckbox-interview" data-index="{{ $loop->index }}">
+                <input type="checkbox" class="me-2 masterCheckbox-second-interview-{{ $loop->index }}" id="masterCheckbox-second-interview" data-index="{{ $loop->index }}">
                 <label for="masterCheckbox-exam-{{ $loop->index }}"><small>Select All</small></label>
             </div>
             <div class="table-responsive">
@@ -108,7 +108,7 @@
                                 $count += 1;
                             @endphp
                             <tr>
-                                <td class="text-nowrap"><small><input type="checkbox" class="childCheckbox-interview-{{ $loop->parent->index }} me-2" id="childCheckbox-interview" data-parent-index="{{ $loop->parent->index }}" name="applicant[]" value="{{ $aes->encrypt2($lp->id) }}"> {{ $count }}</small></td>
+                                <td class="text-nowrap"><small><input type="checkbox" class="childCheckbox-second-interview-{{ $loop->parent->index }} me-2" id="childCheckbox-second-interview" data-parent-index="{{ $loop->parent->index }}" name="applicant[]" value="{{ $aes->encrypt2($lp->id) }}"> {{ $count }}</small></td>
                                 <td class="text-nowrap"><small>{{ $lp->lastname }}, {{ $lp->firstname }} {{ $lp->middlename }}</small></td>
                                 <td class="text-nowrap"><small>{{ $lp->Barangay->brgyDesc }}, {{ ucwords(strtolower($lp->Municipal->citymunDesc)) }}, {{ ucwords(strtolower($lp->Province->provDesc)) }} - {{ $lp->Region->regDesc }}</small></td>
                                 <td class="text-nowrap"><small>{{ date('M d, Y', strtotime($lp->created_at)) }}</small></td>

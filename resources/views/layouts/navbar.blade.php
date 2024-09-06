@@ -64,7 +64,7 @@
                       <li>
                           <a class="dropdown-item" href="javascript:;" id="edit-user-profile"
                           
-                          @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                          @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
                             data-name="{{ Auth::user()->name }}"
                           @endif
 
@@ -89,7 +89,7 @@
                                       @elseif(Auth::user()->role == 2)
                                           <small>Registrar</small>
                                       @elseif(Auth::user()->role == 3)
-                                          <small>Trainer</small>
+                                          <small>Instructor</small>
                                       @elseif(Auth::user()->role == 4)
                                           <small>Student</small>
                                       @endif
@@ -103,7 +103,7 @@
                       <li>
                           <a class="dropdown-item" href="javascript:;" id="edit-user-profile" 
                           
-                          @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                          @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
                             data-name="{{ Auth::user()->name }}"
                           @endif
 
@@ -119,7 +119,7 @@
                       </li>
                       @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                       <li>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:;">
                             <div>
                                 <i class="bx bx-podcast me-2"></i>
                                 <span class="align-middle">Admission Status</span>

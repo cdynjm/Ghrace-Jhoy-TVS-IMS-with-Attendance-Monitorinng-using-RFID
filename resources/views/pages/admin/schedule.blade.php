@@ -26,9 +26,9 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Schedule |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Courses |</a>
                   </li>
-                  <li class="breadcrumb-item">Data</li>
+                  <li class="breadcrumb-item">Schedule</li>
                 </ol>
             </nav>
 
