@@ -37,7 +37,7 @@
                             <td><small>{{ $en->Barangay->brgyDesc }}, {{ ucwords(strtolower($en->Municipal->citymunDesc)) }}, {{ ucwords(strtolower($en->Province->provDesc)) }} - {{ $en->Region->regDesc }}</small></td>
                             <td>
                                 <small>
-                                    <a wire:navigate class="btn btn-sm btn-primary" href="{{ route('registrar.view-student-attendance', ['id' => $aes->encrypt($en->id)]) }}" style="font-size: 12px">
+                                    <a wire:navigate class="btn btn-sm btn-primary" href="{{ route('admin.view-student-attendance', ['id' => $aes->encrypt($en->id)]) }}" style="font-size: 12px">
                                         <iconify-icon icon="lets-icons:view-duotone" width="18" height="18" class="me-1"></iconify-icon> View
                                     </a>
                                     <a href="/messenger/{{ $en->User->id }}" class="btn btn-sm btn-primary ms-2" style="font-size: 12px"><iconify-icon icon="solar:chat-dots-bold-duotone" width="18" height="18" class="me-1"></iconify-icon> Chat</a>

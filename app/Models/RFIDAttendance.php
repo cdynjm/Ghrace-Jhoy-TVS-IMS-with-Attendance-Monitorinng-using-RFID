@@ -20,6 +20,8 @@ class RFIDAttendance extends Model
         'year',
         'date',
         'timeIn',
-        'timeOut'
+        'timeOut',
+        'smsIn',
+        'smsOut'
     ];
 }

@@ -31,7 +31,7 @@
 <body>
     <div id="content">
         <div class="page">
-            <table>
+            <table id="table-form">
                 <tr>
                     <td style="text-center">
                         <div><img src="/assets/tesda-logo.png" style="width: 40px; height: auto; display: block; margin: auto;" alt=""></div>
@@ -80,7 +80,33 @@
 
                     <td style="padding: 3px; border-right: none; border-left: none;" width="30%">
                         <span>
-                            <table>
+
+                            @php
+                                // Split the ULI string into an array of characters
+                                $uli = str_split($learnersProfile->ULI);
+                            @endphp
+                            @if(!empty($uli))
+                            <table id="table-form">
+                                <tr>
+                                    @foreach ($uli as $index => $char)
+                                        @if ($index == 10)
+                                            <!-- Insert dash after the 10th cell -->
+                                            <td style="text-align: center;" width='3%'><span>-</span></td>
+                                        @endif
+
+                                        <td style="padding: 5px; text-align: center;">
+                                            {{ $char }}
+                                        </td>
+                                    @endforeach
+
+                                    @for($i = count($uli); $i < 13; $i++)
+                                        <!-- Add empty cells to ensure there are 13 cells in total -->
+                                        <td style="padding: 5px; text-align: center;"></td>
+                                    @endfor
+                                </tr>
+                            </table>
+                            @else
+                            <table id="table-form">
                                 <tr>
                                     <td style="padding-bottom: 25px; padding-right: 5px;"></td>
                                     <td style="padding-bottom: 25px; padding-right: 5px;"></td>
@@ -98,6 +124,7 @@
                                     <td style="padding-bottom: 25px; padding-right: 5px;"></td>
                                 </tr>
                             </table>
+                            @endif
                         </span>
                     </td>
                     <td colspan="2" style="padding: 3px; border-left: none;">
@@ -645,7 +672,7 @@
                 </tr>
             </table>
 
-            <table>
+            <table id="table-form">
                 <tr>
                     <td colspan="6">
                         <div style="font-weight: bold; font-size: 14px">Working Experience </div>

@@ -32,13 +32,11 @@
                   <li class="breadcrumb-item">Data</li>
                 </ol>
             </nav>
+            <a href="javascript:;" id="downloadPDF" class="mb-4"><i class="fab fa-wpforms me-1 mb-4" data-value="{{ strtolower(Auth::user()->Student->firstname) }}-{{ strtolower(Auth::user()->Student->lastname) }}"></i> Download your Registration Form here!</a>
 
             @if(Auth::user()->Student->admission_status == 1)
                 <div class="row">
-                    <div class="col-md-12">
-
-                        <a href="javascript:;" id="downloadPDF" class="mb-4"><i class="fab fa-wpforms me-1" data-value="{{ strtolower(Auth::user()->Student->firstname) }}-{{ strtolower(Auth::user()->Student->lastname) }}"></i> Download your Registration Form here!</a>
-                        
+                    <div class="col-md-12">                        
                         <p class="text-light fw-medium mt-2">Your Admission Application Progress</p>
                     
                         <!-- Default Wizard -->
@@ -361,7 +359,7 @@
                         <div>
                           <h6 class="mb-0">Status</h6>
                           @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 1)
-                          <small>Graduated/Diploma/For Employment</small>
+                          <small>Graduated - For Employment</small>
                           @elseif(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 0)
                           <small>Pending</small>
                           @else
@@ -377,6 +375,14 @@
                     <h6 class="pb-2 fw-normal border-bottom mb-4">Details</h6>
                     <div class="info-container">
                       <ul class="list-unstyled" style="font-size: 14px">
+                        <li class="mb-3">
+                            <span class="fw-bold me-2">ULI No. <span style="font-size: 11px">(Unique Learner Identifier)</span>:</span>
+                            <span>{{ Auth::user()->Student->ULI }}</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-bold me-2">RFID Card No.:</span>
+                            <span class="text-primary">{{ Auth::user()->Student->RFID }}</span>
+                          </li>
                         <li class="mb-3">
                           <span class="fw-bold me-2">Email:</span>
                           <span>{{ Auth::user()->email }}</span>

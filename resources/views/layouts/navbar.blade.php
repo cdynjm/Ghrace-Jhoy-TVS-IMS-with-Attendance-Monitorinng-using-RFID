@@ -117,11 +117,11 @@
                               <span class="align-middle">My Account</span>
                           </a>
                       </li>
-                      @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                      @if(Auth::user()->role == 2)
                       <li>
                         <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:;">
                             <div>
-                                <i class="bx bx-podcast me-2"></i>
+                                <i class="bx bxs-box me-2"></i>
                                 <span class="align-middle">Admission Status</span>
                             </div>
                             <div class="form-check form-switch m-0">
@@ -130,7 +130,7 @@
                         </a>
                     </li>                    
                       @endif
-                      @if(Auth::user()->role == 1)
+                      @if(Auth::user()->role == 2)
                       <li>
                         <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:;" id="edit-sms-token" data-access-token="{{ $sms->access_token }}" data-mobile-identity="{{ $sms->mobile_identity }}">
                             <div>

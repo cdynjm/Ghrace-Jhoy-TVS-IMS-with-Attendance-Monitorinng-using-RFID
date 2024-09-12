@@ -34,7 +34,7 @@ class AttendanceController extends Controller
             $exist = RFIDAttendance::where('RFID', $student->RFID)->whereDate('date', $today)->first();
 
             if (!$exist) {
-                RFIDAttendance::create([
+                $attendance = RFIDAttendance::create([
                     'studentID' => $student->id,
                     'RFID' => $student->RFID,
                     'yearLevel' => $student->yearLevel,
@@ -47,7 +47,10 @@ class AttendanceController extends Controller
 
                 $this->sms->TimeIn($student);
 
+                RFIDAttendance::where('id', $attendance->id)->update(['smsIn' => 1]);
+
                 return response()->json(['Message' => 'Logged In'], Response::HTTP_OK);
+                
             } else {
                 if (is_null($exist->timeOut)) {
                     $exist->update([
@@ -55,6 +58,10 @@ class AttendanceController extends Controller
                     ]);
 
                     $this->sms->TimeOut($student);
+
+                    $exist->update([
+                        'smsOut' => 1
+                    ]);
 
                     return response()->json(['Message' => 'Logged Out'], Response::HTTP_OK);
                 } else {

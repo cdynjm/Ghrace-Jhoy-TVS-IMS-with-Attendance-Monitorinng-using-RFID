@@ -1,4 +1,4 @@
-<table id="instructors-data" class="table table-sm table-hover" style="border-bottom: 1px solid rgb(240, 240, 240)">
+<table id="instructors-data" class="table table-sm table-hover text-nowrap" style="border-bottom: 1px solid rgb(240, 240, 240)">
     <thead class="text-dark" style="background: rgb(244, 244, 244)">
         <tr>
             <th>#</th>
@@ -6,7 +6,9 @@
             <th><small>Address</small></th>
             <th><small>Contact Number</small></th>
             <th><small>Degree</small></th>
+            @if(Auth::user()->role == 2)
             <th><small>Action</small></th>
+            @endif
         </tr>
     </thead>
     <tbody>
@@ -32,6 +34,7 @@
                 <td><small>{{ $in->address }}</small></td>
                 <td><small>{{ $in->contactNumber }}</small></td>
                 <td><small>{{ $in->degree }}</small></td>
+                @if(Auth::user()->role == 2)
                 <td>
                     <small>
                         <a href="javascript:;" id="edit-instructor" class="me-2">
@@ -42,6 +45,7 @@
                         </a>
                     </small>
                 </td>
+                @endif
             </tr>
         @endforeach
         @if($count == 0)

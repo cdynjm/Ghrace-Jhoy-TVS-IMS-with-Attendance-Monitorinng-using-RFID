@@ -435,7 +435,6 @@ class RegistrarService implements RegistrarInterface {
             ->where('freshmen', 0)
             ->where('yearLevel', '!=', null);
         })->orderBy('yearLevel', 'ASC')
-            ->orderBy('semester', 'ASC')
             ->orderBy('lastname', 'ASC')
             ->get()
             ->groupBy('yearLevel');
@@ -452,7 +451,8 @@ class RegistrarService implements RegistrarInterface {
         ->where(function($query) use ($request) {
             $query->where('lastname', 'LIKE', '%'.$request->search.'%')
                   ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
-                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('RFID', 'LIKE', '%'.$request->search.'%');
         })
 
         ->orderBy('yearLevel', 'ASC')
@@ -470,5 +470,7 @@ class RegistrarService implements RegistrarInterface {
     }
 
 }
+
+
 
 ?>

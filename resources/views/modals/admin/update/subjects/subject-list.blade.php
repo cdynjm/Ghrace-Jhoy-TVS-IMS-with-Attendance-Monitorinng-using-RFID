@@ -13,8 +13,10 @@
 
             <div class="mb-2">
                 @foreach($days as $i => $day)
-                    <input type="checkbox" name="days[{{ $key }}][{{ $i }}]" value="1" @checked($day)>
-                    <label for="" style="font-size: 12px" class="me-2">{{ $label[$i] }}</label>
+                <div class="form-check form-switch d-inline-flex align-items-center me-2">
+                    <input type="checkbox" class="form-check-input" name="days[{{ $key }}][{{ $i }}]" value="1" @checked($day)>
+                    <label class="form-check-label ms-1" for="" style="font-size: 12px" class="me-2">{{ $label[$i] }}</label>
+                </div>
                 @endforeach
             </div>
 

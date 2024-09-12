@@ -5,8 +5,10 @@
             <th><small>Year</small></th>
             <th><small>Semester</small></th>
             <th><small>Section</small></th>
-            <th><small>Subjects</small></th>
+            <th><small>Information</small></th>
+            @if(Auth::user()->role == 2)
             <th><small>Action</small></th>
+            @endif
         </tr>
     </thead>
     <tbody>
@@ -108,6 +110,7 @@
                         
                     </table>
                 </td>
+                @if(Auth::user()->role == 2)
                 <td>
                     <small>
                         <a href="javascript:;" id="edit-schedule" class="me-2">
@@ -118,6 +121,7 @@
                         </a>
                     </small>
                 </td>
+                @endif
             </tr>
 
         @endforeach

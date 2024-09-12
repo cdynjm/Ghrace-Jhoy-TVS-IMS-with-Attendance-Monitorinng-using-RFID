@@ -12,11 +12,11 @@
 
 @section('content')
     <div class="layout-page">
-        @include('layouts.navbar', ['page' => 'Courses'], 
+        @include('layouts.navbar', ['page' => 'Enrolment & Grades'], 
         ['icon' => '
           
             <lord-icon
-                src="https://cdn.lordicon.com/uecgmesg.json"
+                src="https://cdn.lordicon.com/wzrwaorf.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">
@@ -31,7 +31,7 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Courses |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Categories |</a>
                   </li>
                   <li class="breadcrumb-item">Enrollment & Grades</li>
                 </ol>
@@ -43,7 +43,7 @@
                             <div class="card-header">
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
-                                        <h6 class="text-sm">Courses/Qualifications</h6>
+                                        <h6 class="text-sm">Courses/Programs</h6>
                                     </div>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 31, 2024 at 04:15 AM
+-- Generation Time: Sep 07, 2024 at 05:31 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.2
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `gjtvs_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admission_application`
+--
+
+CREATE TABLE `admission_application` (
+  `id` int NOT NULL,
+  `status` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `admission_application`
+--
+
+INSERT INTO `admission_application` (`id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 0, NULL, '2024-09-06 10:03:48');
 
 -- --------------------------------------------------------
 
@@ -42122,6 +42142,52 @@ INSERT INTO `barangay` (`id`, `brgyCode`, `brgyDesc`, `regCode`, `provCode`, `ci
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ch_favorites`
+--
+
+CREATE TABLE `ch_favorites` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint NOT NULL,
+  `favorite_id` bigint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ch_messages`
+--
+
+CREATE TABLE `ch_messages` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `from_id` bigint NOT NULL,
+  `to_id` bigint NOT NULL,
+  `body` varchar(5000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attachment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seen` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ch_messages`
+--
+
+INSERT INTO `ch_messages` (`id`, `from_id`, `to_id`, `body`, `attachment`, `seen`, `created_at`, `updated_at`) VALUES
+('032ce13a-b128-43eb-8b18-a2dd51321b17', 2, 18, 'good morning ms joan', NULL, 1, '2024-09-04 03:40:07', '2024-09-04 03:41:05'),
+('198320a7-56b2-4dde-8d9f-5092c949a047', 17, 2, 'naa ko question maam ☺️', NULL, 1, '2024-09-05 01:24:42', '2024-09-05 01:24:43'),
+('42357983-ff70-44af-932f-da84e574a284', 2, 17, 'good afternoon ms ompod', NULL, 1, '2024-09-03 07:11:00', '2024-09-03 07:18:56'),
+('53fcaf28-fede-4f6d-8de0-35afd2bb3928', 17, 2, 'hello', NULL, 1, '2024-09-05 04:29:15', '2024-09-05 04:52:05'),
+('5dfa8791-2a26-4b1b-83a4-106315e2119d', 18, 2, 'good morning maam', NULL, 1, '2024-09-04 03:41:18', '2024-09-04 08:15:38'),
+('65de34a0-ef19-4333-8628-b1e238d58c2e', 17, 2, 'good morning maam', NULL, 1, '2024-09-05 01:24:23', '2024-09-05 01:24:24'),
+('90cafb3b-3303-47ad-be42-d32c84a6ebeb', 2, 18, 'maam', NULL, 0, '2024-09-05 04:53:51', '2024-09-05 04:53:51'),
+('914fce56-5a51-4380-9424-eb9172a8df32', 2, 17, 'hello maam', NULL, 1, '2024-09-05 04:54:01', '2024-09-05 04:54:01'),
+('e7a17042-c955-426e-98fb-abcbce6d2651', 17, 2, 'hello', NULL, 1, '2024-09-05 05:09:47', '2024-09-05 05:10:16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `courses`
 --
 
@@ -42140,7 +42206,7 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `sector`, `qualification`, `status`, `copr`, `created_at`, `updated_at`) VALUES
-(18, 'Tourism (Hotel and Restaurant)', 'Three (3) Year Diploma Program in Hospitality Management', 'NTR-PQF Level 5 (Diploma)', '000-014', '2024-06-05 06:06:29', '2024-08-30 06:41:23');
+(18, 'Tourism (Hotel and Restaurant)', 'Diploma in Hospitality Management', 'NTR-PQF Level 5 (Diploma)', '000-014', '2024-06-05 06:06:29', '2024-09-06 06:39:56');
 
 -- --------------------------------------------------------
 
@@ -42162,9 +42228,10 @@ CREATE TABLE `course_info` (
 --
 
 INSERT INTO `course_info` (`id`, `courseID`, `yearLevel`, `semester`, `created_at`, `updated_at`) VALUES
-(11, 18, '1st year', '1st Semester', '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
-(12, 18, '1st year', '2nd Semester', '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
-(13, 18, '2nd Year', '1st Semester', '2024-08-30 22:58:58', '2024-08-30 22:58:58');
+(11, 18, '1st Year', '1st Semester', '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(12, 18, '1st Year', '2nd Semester', '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
+(13, 18, '2nd Year', '1st Semester', '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(14, 18, '2nd Year', '2nd Semester', '2024-09-02 06:04:21', '2024-09-02 06:51:36');
 
 -- --------------------------------------------------------
 
@@ -42180,6 +42247,17 @@ CREATE TABLE `documents_form137` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `documents_form137`
+--
+
+INSERT INTO `documents_form137` (`id`, `studentID`, `filename`, `created_at`, `updated_at`) VALUES
+(1, '1', 'jaysan-ompodjajaompod20-gmail-com-0e37acdd-36a3-4f11-8b38-53372de12628-2024-09-01-073220.pdf', '2024-08-31 23:32:20', '2024-08-31 23:32:20'),
+(2, '2', 'grade-7-filipino-1st-quarter-promeds-2024-09-01-094825.pdf', '2024-09-01 01:48:25', '2024-09-01 01:48:25'),
+(3, '3', 'jaysan-ompodjajaompod20-gmail-com-0e37acdd-36a3-4f11-8b38-53372de12628-2024-09-02-072310.pdf', '2024-09-01 23:23:10', '2024-09-01 23:23:10'),
+(4, '4', '457528421-482935651320672-2242020760959862523-n-2024-09-06-080831.jpg', '2024-09-06 00:08:31', '2024-09-06 00:08:31'),
+(5, '5', 'jaysan-ompodjajaompod20-gmail-com-0e37acdd-36a3-4f11-8b38-53372de12628-2024-09-06-081516.pdf', '2024-09-06 00:15:16', '2024-09-06 00:15:16');
+
 -- --------------------------------------------------------
 
 --
@@ -42193,6 +42271,17 @@ CREATE TABLE `documents_psa` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `documents_psa`
+--
+
+INSERT INTO `documents_psa` (`id`, `studentID`, `filename`, `created_at`, `updated_at`) VALUES
+(2, '1', 'jemuel-cadayona-reg-form-2-2024-09-01-073242.pdf', '2024-08-31 23:32:43', '2024-08-31 23:32:43'),
+(3, '2', 'jaysan-ompodjajaompod20-gmail-com-0e37acdd-36a3-4f11-8b38-53372de12628-2024-09-01-094817.pdf', '2024-09-01 01:48:18', '2024-09-01 01:48:18'),
+(4, '3', 'jemuel-cadayona-reg-form-2-2024-09-02-072304.pdf', '2024-09-01 23:23:04', '2024-09-01 23:23:04'),
+(5, '4', '457745705-1278031426905103-5585589673942593401-n-2024-09-06-080826.jpg', '2024-09-06 00:08:26', '2024-09-06 00:08:26'),
+(6, '5', '457528421-482935651320672-2242020760959862523-n-2024-09-06-081506.jpg', '2024-09-06 00:15:06', '2024-09-06 00:15:06');
 
 -- --------------------------------------------------------
 
@@ -42221,6 +42310,7 @@ CREATE TABLE `instructors` (
   `instructor` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `contactNumber` varchar(255) DEFAULT NULL,
+  `degree` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -42229,10 +42319,10 @@ CREATE TABLE `instructors` (
 -- Dumping data for table `instructors`
 --
 
-INSERT INTO `instructors` (`id`, `instructor`, `address`, `contactNumber`, `created_at`, `updated_at`) VALUES
-(1, 'Sample Instructor 1', 'Bontoc Southern Leyte', '09661195690', '2024-08-30 04:15:12', '2024-08-31 00:21:41'),
-(3, 'Sample Instructor 2', 'Sogod Southern Leyte', '09661195690', '2024-08-30 04:25:31', '2024-08-30 09:50:08'),
-(4, 'Sample Instructor 3', 'Libagon Southern Leyte', '09661195690', '2024-08-30 04:25:41', '2024-08-30 04:25:41');
+INSERT INTO `instructors` (`id`, `instructor`, `address`, `contactNumber`, `degree`, `created_at`, `updated_at`) VALUES
+(1, 'Sample Instructor 1', 'Bontoc Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:15:12', '2024-09-06 09:57:44'),
+(3, 'Sample Instructor 2', 'Sogod Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:25:31', '2024-09-06 07:36:27'),
+(4, 'Sample Instructor 3', 'Libagon Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:25:41', '2024-09-06 07:36:50');
 
 -- --------------------------------------------------------
 
@@ -42264,6 +42354,17 @@ CREATE TABLE `learners_course` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `learners_course`
+--
+
+INSERT INTO `learners_course` (`id`, `studentID`, `course`, `scholarship`, `created_at`, `updated_at`) VALUES
+(1, '1', '18                                                                                                    ', NULL, '2024-08-31 23:31:31', '2024-08-31 23:31:31'),
+(2, '2', '18                                                                                                    ', NULL, '2024-09-01 01:47:58', '2024-09-01 01:47:58'),
+(3, '3', '18                                                                                                    ', NULL, '2024-09-01 23:22:25', '2024-09-01 23:22:25'),
+(4, '4', '18                                                                                                    ', NULL, '2024-09-06 00:07:39', '2024-09-06 00:07:39'),
+(5, '5', '18                                                                                                    ', NULL, '2024-09-06 00:14:48', '2024-09-06 00:14:48');
+
 -- --------------------------------------------------------
 
 --
@@ -42274,6 +42375,7 @@ CREATE TABLE `learners_profile` (
   `id` int NOT NULL,
   `IDpicture` varchar(255) DEFAULT NULL,
   `ULI` varchar(255) DEFAULT NULL,
+  `RFID` varchar(255) DEFAULT NULL,
   `entryDate` date DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   `firstname` varchar(255) DEFAULT NULL,
@@ -42298,6 +42400,7 @@ CREATE TABLE `learners_profile` (
   `birthplaceCity` varchar(255) DEFAULT NULL,
   `education` varchar(255) DEFAULT NULL,
   `parent` varchar(255) DEFAULT NULL,
+  `parentContact` varchar(255) DEFAULT NULL,
   `parentAddress` varchar(255) DEFAULT NULL,
   `consent` varchar(255) DEFAULT NULL,
   `picture` varchar(255) DEFAULT NULL,
@@ -42309,12 +42412,31 @@ CREATE TABLE `learners_profile` (
   `secondInterview` date DEFAULT NULL,
   `admission_status` int DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
+  `failed` int DEFAULT NULL,
+  `progress` int DEFAULT NULL,
   `yearLevel` int DEFAULT NULL,
   `semester` int DEFAULT NULL,
   `enrollmentStatus` int DEFAULT NULL,
+  `freshmen` int DEFAULT NULL,
+  `diploma` int DEFAULT NULL,
+  `dateGraduated` date DEFAULT NULL,
+  `graduateEmploymentStatus` int DEFAULT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `dateHired` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `learners_profile`
+--
+
+INSERT INTO `learners_profile` (`id`, `IDpicture`, `ULI`, `RFID`, `entryDate`, `lastname`, `firstname`, `middlename`, `region`, `province`, `city`, `barangay`, `district`, `street`, `account`, `phone`, `nationality`, `sex`, `civilStatus`, `employmentStatus`, `employmentType`, `birthdate`, `age`, `birthplaceRegion`, `birthplaceProvince`, `birthplaceCity`, `education`, `parent`, `parentContact`, `parentAddress`, `consent`, `picture`, `dateAccomplished`, `registrar`, `dateReceived`, `exam`, `interview`, `secondInterview`, `admission_status`, `status`, `failed`, `progress`, `yearLevel`, `semester`, `enrollmentStatus`, `freshmen`, `diploma`, `dateGraduated`, `graduateEmploymentStatus`, `company`, `dateHired`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, NULL, NULL, 'Cadayona', 'Jemuel', 'Hinay', '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '086402029                                                                                                    ', 'Bontoc', 'PUROK 3', 'JEM CDYN', '09275021810', 'Filipino', '1', '1', '1', '6', '2001-08-03', 23, '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '7', 'Evelyn Cadayona', '09275021810', 'Bontoc Southern Leyte', 'Yes', NULL, '2024-08-31 23:31:31', NULL, NULL, '2024-09-04', '2024-09-06', '2024-09-09', 0, '7', NULL, 4, 2, 2, 2, 0, 1, '2024-09-03', 1, 'Five Star Hotel in Cebu', '2024-09-11', '2024-08-31 23:31:31', '2024-09-06 01:48:35'),
+(2, NULL, 'OJP-2024', '0007783785', NULL, 'Ompod', 'Jaysan', 'Penaredondo', '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '086405008                                                                                                    ', 'Libagon', 'PUROK 3', 'Ja Estrella', '09275021810', 'Filipino', '2', '1', '4', NULL, '2003-07-14', 21, '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '7', 'Mae Ompod', '09661195690', 'PUROK 3', 'Yes', NULL, '2024-09-01 01:47:58', NULL, NULL, '2024-09-10', '2024-09-12', '2024-09-17', 0, '7', NULL, 3, 2, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '2024-09-01 01:47:58', '2024-09-06 04:09:22'),
+(3, NULL, 'MJT-2024', '0001297626', NULL, 'Mirasol', 'Joann', 'Timkang', '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '086405010                                                                                                    ', 'Libagon', 'PUROK 3', 'Joann Mirasol', '09275021810', 'Filipino', '2', '1', '4', NULL, '2003-07-01', 21, '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '7', 'Mirasol', '09061958437', 'PUROK 3', 'Yes', NULL, '2024-09-01 23:22:25', NULL, NULL, '2024-09-04', '2024-09-06', '2024-09-10', 0, '7', NULL, 4, 2, 2, 0, 0, NULL, NULL, NULL, NULL, NULL, '2024-09-01 23:22:25', '2024-09-05 03:25:41'),
+(4, NULL, NULL, NULL, NULL, 'Dela Cruz', 'Juan', 'Caballero', '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '086402014                                                                                                    ', 'Bontoc', 'Purok 3', 'Juan Dela Cruz', '09061958437', 'Filipino', '1', '1', '4', NULL, '2004-05-03', 20, '08                                                                                                    ', '0826                                                                                                    ', '082615                                                                                                    ', '7', 'Juana Dela Cruz', '09661195690', 'Bontoc Southern Leyte', 'Yes', NULL, '2024-09-06 00:07:39', NULL, NULL, '2024-09-10', '2024-09-09', '2024-09-18', 0, '7', NULL, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-06 00:07:39', '2024-09-06 02:26:06'),
+(5, NULL, NULL, NULL, NULL, 'Magallanes', 'Miguel', 'Todavia', '02                                                                                                    ', '0250                                                                                                    ', '025005                                                                                                    ', '025005019                                                                                                    ', 'Bontoc', 'PUROK 3', 'Miguel Magallanes', '09275021810', 'Filipino', '1', '1', '4', NULL, '2000-05-09', 24, '16                                                                                                    ', '1602                                                                                                    ', '160211                                                                                                    ', '7', 'Sample Parent', '09275021810', 'PUROK 3', 'Yes', NULL, '2024-09-06 00:14:48', NULL, NULL, '2024-09-12', '2024-09-12', '2024-09-20', 0, '7', NULL, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-06 00:14:48', '2024-09-06 01:02:26');
 
 -- --------------------------------------------------------
 
@@ -42355,7 +42477,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2024_09_03_999999_add_active_status_to_users', 2),
+(6, '2024_09_03_999999_add_avatar_to_users', 2),
+(7, '2024_09_03_999999_add_dark_mode_to_users', 2),
+(8, '2024_09_03_999999_add_messenger_color_to_users', 2),
+(9, '2024_09_03_999999_create_chatify_favorites_table', 2),
+(10, '2024_09_03_999999_create_chatify_messages_table', 2);
 
 -- --------------------------------------------------------
 
@@ -44038,6 +44166,13 @@ CREATE TABLE `password_reset_tokens` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('cdynjm@gmail.com', '$2y$10$yUZsTWDIT6fAuYWXq6Zjg.dShd2n6PjFMjzUq1F1z75HDOgHV6a.6', '2024-09-05 00:45:24');
+
 -- --------------------------------------------------------
 
 --
@@ -44247,7 +44382,203 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (210, 'App\\Models\\User', 1, 'JMp581srXugtc1BqV3A5gD2ok5ouffNzEMuBcx7rWYAgMGwnZK', 'b9ff20dd142952894bc28750f69063df21f7234253de55e9cffa25ed939cb465', '[\"*\"]', NULL, NULL, '2024-08-31 00:17:10', '2024-08-31 00:17:10'),
 (211, 'App\\Models\\User', 1, '2LbbAwAT1hVOo17B9w2g2ESMVr0BNeGXRn474VHOXU6fUiIJrJ', '903546dc26d3e120d3cb9081541574ef90a80aece8bf993f1b07bbce91876ff2', '[\"*\"]', '2024-08-31 00:44:19', NULL, '2024-08-31 00:19:52', '2024-08-31 00:44:19'),
 (212, 'App\\Models\\User', 2, 'kANRDsmz4shH7RGYVtZd2QcF845atHekKubJeHu0lY7A9A0EqR', 'aa518de037823551be09219e88ff28ba294254d6723e45c222d177f5a3ca73eb', '[\"*\"]', NULL, NULL, '2024-08-31 04:14:47', '2024-08-31 04:14:47'),
-(213, 'App\\Models\\User', 1, '9fzcITZ67kzfrsdYgijBPWSme5vXSUO14OUiqNUVBadJ2nKAuW', '7b8d5d70c5626b289ade2882784a194bf6dcc595c1a3402cbedf6bf785336ff1', '[\"*\"]', NULL, NULL, '2024-08-31 04:15:08', '2024-08-31 04:15:08');
+(213, 'App\\Models\\User', 1, '9fzcITZ67kzfrsdYgijBPWSme5vXSUO14OUiqNUVBadJ2nKAuW', '7b8d5d70c5626b289ade2882784a194bf6dcc595c1a3402cbedf6bf785336ff1', '[\"*\"]', '2024-08-31 04:17:23', NULL, '2024-08-31 04:15:08', '2024-08-31 04:17:23'),
+(214, 'App\\Models\\User', 1, 'qqBxqXiSTPGS0HR63UK5mr8mkz9hpmzLkS7X79ovNrB62MoF5v', 'f8f92f05fb075dd1e67c7c71bc11a75f4102c977909c1df7765b423bfbf91d3c', '[\"*\"]', '2024-08-31 23:26:21', NULL, '2024-08-31 23:26:14', '2024-08-31 23:26:21'),
+(215, 'App\\Models\\User', 2, 'o10xQ5OLqsyWTm7atHW0qSFyTviUXeMPsc0EqSqav4mqi8x7go', '304c502b2af0ef1c3747fb18e25ddedb3c94c847a020901519f94ba4edb6abf0', '[\"*\"]', '2024-09-01 02:08:58', NULL, '2024-08-31 23:26:43', '2024-09-01 02:08:58'),
+(216, 'App\\Models\\User', 16, '1Lcmpnc33YS0BZXkkrq2tU1m75iaJLuPYCEc3G3bNQrXsPwifV', '91a5cbc7eda9a2d8af21065e4db4519f9c70c9454d5d83071001c3f92ce43d89', '[\"*\"]', '2024-08-31 23:32:45', NULL, '2024-08-31 23:31:52', '2024-08-31 23:32:45'),
+(217, 'App\\Models\\User', 17, '6gysikg9mOl2XTr1fjYO6w1qZBjRcJPenhSLDKZysnFf0zpzJE', '28da4db6cc5f796acb1e01cb2ff08a5d0b9106d420a9d6748a7921c3a94a0672', '[\"*\"]', '2024-09-01 01:48:27', NULL, '2024-09-01 01:48:07', '2024-09-01 01:48:27'),
+(218, 'App\\Models\\User', 16, 'PJrIpunqOk6mv75EQBcB4xxxeZqTAXr48Pzo09eEHcW9PBYDQv', '8948374f395785898eb6fe6b6e648d7c7ef7d6de8c7a14412b2232166aa736c9', '[\"*\"]', NULL, NULL, '2024-09-01 02:09:43', '2024-09-01 02:09:43'),
+(219, 'App\\Models\\User', 16, 'gv1YWdT0WT3YJQiKXGiGILO1S0Iav6fKTwsLHQsc7BCK8QFuTU', '671611176508379ad634892e2d517d016693c672bfd8d9489cfd11c0cad95403', '[\"*\"]', NULL, NULL, '2024-09-01 02:15:45', '2024-09-01 02:15:45'),
+(220, 'App\\Models\\User', 17, 'gADIBQlssOU0ZJEMSvy7RIlKwMlabMeNLhfhnUMoCacZLc0SY9', 'd971e688515dcbd33cc05c83db9cc656e2e679d2f768b33b280621b90d9054d1', '[\"*\"]', NULL, NULL, '2024-09-01 02:26:48', '2024-09-01 02:26:48'),
+(221, 'App\\Models\\User', 16, 'OBiRQ7UNOO3RHID24z7eCdMKqk9Y7DJjD791et0kyLDYlOApzz', '49f95075c26948c8767c979a2c5c0bf4610ce31b54f146c07c3e397f1d7f8006', '[\"*\"]', NULL, NULL, '2024-09-01 02:29:39', '2024-09-01 02:29:39'),
+(222, 'App\\Models\\User', 16, '7mscQm5Ls8o9XmNlho8ZhSIb7Ru5wHEveN2Bdl7wzIA1Wv850z', '1ca9b7b4943f8e06faa77409e2ad72d998761228e2f6ddc1fe6eff3096bf5a3c', '[\"*\"]', NULL, NULL, '2024-09-01 02:35:07', '2024-09-01 02:35:07'),
+(223, 'App\\Models\\User', 16, 'b8QxzQT332HtX714GPOoG9zAXQpQym2nskACNXICgy50aEZWgW', '66762ce093b796c8018eb07e3617e18a0a5aefb707355915ccff898c8250868c', '[\"*\"]', NULL, NULL, '2024-09-01 02:40:01', '2024-09-01 02:40:01'),
+(224, 'App\\Models\\User', 2, 'j3Xm6MXhVesSSajT90WJeMbIYTk9h8El23U9MEjLMCR1eY5moT', '21214a246198eeab586a0c20d0b10e216bae63c11db2b5716727089caf5ce6ed', '[\"*\"]', NULL, NULL, '2024-09-01 02:44:50', '2024-09-01 02:44:50'),
+(225, 'App\\Models\\User', 17, 'WkgauySr7beKyhiOp33wbFlWY87uKyvymhPTzi1uxZFVrPYyAW', '80892fc9e66a981c78c96e0f0a8f7d57ee5b1be22f50cbcd5d2ebb36488062bd', '[\"*\"]', NULL, NULL, '2024-09-01 02:45:29', '2024-09-01 02:45:29'),
+(226, 'App\\Models\\User', 1, 'E1FjfwGbvsTRvVuJxOvFzPR1YHL7y03m0bMPdEUI2XJ4MgfTD0', 'adbc56f54e563f16ad3a8803e1e99f2414e163fb2838ce4b5c6cb7e630fde179', '[\"*\"]', '2024-09-01 04:16:51', NULL, '2024-09-01 03:25:47', '2024-09-01 04:16:51'),
+(227, 'App\\Models\\User', 17, 'V9EznShFILWHVmXmqsTMzwyQL68rJgGjoxxCoTM3sM5uxWnJxO', '03a13db3868940ac71afc64ce80ce9d8ce19e6a59f88ebd88ae31008cf6d323c', '[\"*\"]', NULL, NULL, '2024-09-01 04:41:29', '2024-09-01 04:41:29'),
+(228, 'App\\Models\\User', 2, 'GIxmCPvfyrSGW4tRub2BIAyI6j0bdL7noKAHaFOytIxkYWLodD', '4dc402847e6ea1fda72658aaceafb47cd4968914259916799b0112a6902367b6', '[\"*\"]', '2024-09-01 04:42:28', NULL, '2024-09-01 04:42:10', '2024-09-01 04:42:28'),
+(229, 'App\\Models\\User', 17, 'UFEcnqVHDwaw47dizTnrAK6CNBdGdInW6HLscS6aujZQvR1ohl', 'b868c9e49033af754c40cb1ca728d976eb89f406066f6318165464d7c72bcbb6', '[\"*\"]', NULL, NULL, '2024-09-01 04:42:58', '2024-09-01 04:42:58'),
+(230, 'App\\Models\\User', 17, 'dIsf9DKJU3HYFPz5yXiD0I7X7KNCzrEqKcSpVk4huH5B0hNQV4', '1510683b1b7e3aa4749d6e89401cd741fbd2612624040500c8935f35daafde47', '[\"*\"]', NULL, NULL, '2024-09-01 05:26:42', '2024-09-01 05:26:42'),
+(231, 'App\\Models\\User', 2, '71OToVNv7EO23vjumRmTH15FLLGgFXxIhXFH8XJvybWG4blDxX', '6dcd5251d7bb04d44559a04eb692c7e88d48c6f5904e44bd7bb64af9f9924c16', '[\"*\"]', '2024-09-01 10:04:27', NULL, '2024-09-01 07:36:55', '2024-09-01 10:04:27'),
+(232, 'App\\Models\\User', 2, 'u7y3ZVl5zweeaTlZg68m9zl3tdfMxEFGJnPmp8WgWIy0m0QETP', '3728572bd1fe69da157b08aa9a64ac9fbdb377932709023caa78ccf0fcb9686a', '[\"*\"]', NULL, NULL, '2024-09-01 08:26:50', '2024-09-01 08:26:50'),
+(233, 'App\\Models\\User', 1, 'TzLBJcN8ZY6HFeO2Rin2Ktb2WRrYngB9bZ7330GC9Y4ipJxZy7', 'e05c55d9741a16c98f911136b3609dddb23e87f327fafd9a9cc28b9c34e9d515', '[\"*\"]', '2024-09-01 08:50:19', NULL, '2024-09-01 08:47:53', '2024-09-01 08:50:19'),
+(234, 'App\\Models\\User', 17, 'WNTAhXUQhp802xgl4ieuNWPqQY7M7YRd7rdp67ZeO5svslXAMA', '2f309813506e78198ccfe4cb939a05a35b3d99267c0068fcb62d432bc9af3a50', '[\"*\"]', NULL, NULL, '2024-09-01 08:51:18', '2024-09-01 08:51:18'),
+(235, 'App\\Models\\User', 2, 'EEs6AQRdzFJ4q0Xcpi02J5FizsL1rHP2WU6xLn24jjff0hxyNG', 'b771136f9dddc015e1e6cb4f4b9102a16c91b74ed03a0a4a05f6fa2dbf2db5f3', '[\"*\"]', '2024-09-01 08:53:13', NULL, '2024-09-01 08:52:00', '2024-09-01 08:53:13'),
+(236, 'App\\Models\\User', 16, 'IfDf1ga0KBzpGDzsLMg8NY0Whvdx1ZzlFcq5GdhYCkfwe3Mkbs', 'fa808803bc3f930aa5b5cbe6bd81758ebd0c361e30f28c128333868d533069b2', '[\"*\"]', NULL, NULL, '2024-09-01 10:04:47', '2024-09-01 10:04:47'),
+(237, 'App\\Models\\User', 1, 'boYh6y9rFL1JaQdPBpqBLejkj9VfTdy6WkdT4CIDaOMn7oOs90', '7b2b2c06532284b9e8ac6a3b058de3993986f58ecf66cad8a7208452e3f74787', '[\"*\"]', '2024-09-01 11:07:42', NULL, '2024-09-01 11:04:48', '2024-09-01 11:07:42'),
+(238, 'App\\Models\\User', 2, '0B2f4DDupOowfzg2JwwmSCKZDYrQo8rTsBLByaKCHADxlTVsJB', '9878fe90cb8d333535f44b2d671610f1f7f9889a617242fa8f872065e545668c', '[\"*\"]', NULL, NULL, '2024-09-01 11:06:47', '2024-09-01 11:06:47'),
+(239, 'App\\Models\\User', 18, 'Jxp3brmownpYIr8IdV1KSd6GXa1PZwiCsfeIduRnSmlUxJnRkf', 'bd83ec1e79d8e867ad3ecdfb6bae53543e48868f4308b7bde52e4e61dff05fc2', '[\"*\"]', '2024-09-01 23:23:17', NULL, '2024-09-01 23:22:37', '2024-09-01 23:23:17'),
+(240, 'App\\Models\\User', 2, 'JwM3rKzPksBbAx48jR1VV99aQmJpgLsRemeKh1X0JH75nwpV3f', '7fffbbd8a7deb65ffdecc773ad6b229ac589d41bbc074704fe2559ff01b0876e', '[\"*\"]', '2024-09-02 00:27:58', NULL, '2024-09-01 23:22:46', '2024-09-02 00:27:58'),
+(241, 'App\\Models\\User', 2, 'No2QAb2hbHDMLJOJrUM698EvH87wnIjFESbWAsgmL6HcpWiBuc', '34b3b7b083d542e2ba85d7a438322667996ab09a81dbb5d0440b387e8c3da174', '[\"*\"]', NULL, NULL, '2024-09-02 00:44:03', '2024-09-02 00:44:03'),
+(242, 'App\\Models\\User', 1, 'YU0I48i6qoUgfZEENsMKnPZIMGnCD2isP6g7hKiDvI9f5JQquH', 'd77eddd39a5fcd406bd924de36b407ff5f49bd76ed2ef7267c9c34b085ba9fd7', '[\"*\"]', '2024-09-02 01:11:19', NULL, '2024-09-02 00:44:11', '2024-09-02 01:11:19'),
+(243, 'App\\Models\\User', 2, 'kTtYHTGAz3M6TQl6ZB0eLN67dqyco8gWAopH4pDl2t51Wvibo7', 'b13e86b75f87f5d09961f1df43d50ee288819cb63028ef22a7fbd4f4cb88ff06', '[\"*\"]', NULL, NULL, '2024-09-02 01:23:53', '2024-09-02 01:23:53'),
+(244, 'App\\Models\\User', 2, 'Vh2MoD1u9kPBXh28GXFy6KvV0Qf8RKWOlu9AQCEKhbW1OVbndU', '12e6644b97be3d6122738923dc6d3cb10da634a61920e9419fa438bada819f09', '[\"*\"]', '2024-09-02 01:25:51', NULL, '2024-09-02 01:24:44', '2024-09-02 01:25:51'),
+(245, 'App\\Models\\User', 2, 'WLapiL9VZnzInCqe7uAg0Evnd3E1MnoBTFNj7qVF05PoAHQ0sw', 'fb207de8cd0a7074b2d05f4e7a9e4ea785fe5a1875bc9dbb92af18acfadf7446', '[\"*\"]', '2024-09-02 01:29:21', NULL, '2024-09-02 01:26:10', '2024-09-02 01:29:21'),
+(246, 'App\\Models\\User', 1, 'CY9shkqgxkj8MtxtLKaVSPw0H9ASDxsIGwnhxiK9MyQajgwTsa', 'a46843c7dcd0bc2795e351bd32529ce9774b8ce552ce10d9b25029c57ad4ffec', '[\"*\"]', '2024-09-02 01:29:06', NULL, '2024-09-02 01:26:40', '2024-09-02 01:29:06');
+INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
+(247, 'App\\Models\\User', 2, 'p5odnv1OKeMfH8BuYGoYbOjXsjmgcFspGNSvSelmdPvqugtpXU', '725b4bbed911e0f97be5c29fa1a85fb2edc61f05002891a2d4712a094da5dfce', '[\"*\"]', '2024-09-02 01:36:45', NULL, '2024-09-02 01:33:34', '2024-09-02 01:36:45'),
+(248, 'App\\Models\\User', 17, 'ZTHOU66dxrDLhQL8IZ2zMAFufaZ0GRVo4wV1P8U5wmucmpsNhB', '8c6ad558a3f18c9103d84ea927f4eecaff8b882e34a5d65327f64605a39f018e', '[\"*\"]', NULL, NULL, '2024-09-02 01:34:31', '2024-09-02 01:34:31'),
+(249, 'App\\Models\\User', 18, '566V8vhiXKfyjj8NO9oOX7B0jOfyoHXdjRfds8vQfbzIj06JyE', '51a3315f3c8cc695d5295b9222cdc945b98437f1dd7c77bd07c99963448e06f5', '[\"*\"]', NULL, NULL, '2024-09-02 01:37:13', '2024-09-02 01:37:13'),
+(250, 'App\\Models\\User', 17, 'VO2dfXs6CikIOnms8Dt847nFC2cDOukTOyrdjybRMGHLAoFbE9', '956fad722c877a585e7e72d5d432ac58d3b89e96af8d1cdeb3d8bd0b26c357a7', '[\"*\"]', NULL, NULL, '2024-09-02 01:37:31', '2024-09-02 01:37:31'),
+(251, 'App\\Models\\User', 2, 'ARIYSPj3etMsmgHzCJ0xUjyFcpPGm8bWZU7TIwdpQfUsUufHkj', 'b1ce0b2f64d9a9e2698d928ed44ec90fccadbb24ce6e4b34f28febbead45c668', '[\"*\"]', '2024-09-02 01:51:58', NULL, '2024-09-02 01:41:30', '2024-09-02 01:51:58'),
+(252, 'App\\Models\\User', 1, 'iK1tdJWbD9H5Eehx1lInhaBbg2We6g9qPdlHXAc62x8FaPFTrC', '17840f2ec09e08da2687db29b80646cb3e53b3bb80eede0a82e64c3722d46267', '[\"*\"]', NULL, NULL, '2024-09-02 02:00:23', '2024-09-02 02:00:23'),
+(253, 'App\\Models\\User', 2, 'sUnKga2ziINY00OiBKVS5LU2qDo1BbZE7xVIMGixIfXLcJc2J2', '659bb63a119ea4bf8adc83963360f3fa4a9a22152bd3e09e44af92445e725e24', '[\"*\"]', '2024-09-02 02:02:46', NULL, '2024-09-02 02:01:07', '2024-09-02 02:02:46'),
+(254, 'App\\Models\\User', 18, '6u5v2H4Csu8CY2tqpMJAA3EA7CIru62ZmKcw53JWbeNTIPLjiJ', '711f51cca5ec2f088f49325fadca9c2714c8023e5e423a3bb7a3ab66c56c0093', '[\"*\"]', NULL, NULL, '2024-09-02 02:03:10', '2024-09-02 02:03:10'),
+(255, 'App\\Models\\User', 18, 'HyBMliB68HCCbefRhkM5aAoARghTb9xxWQJDyogeoX8CjdvPWL', '55599e92523aa36bfa6857b097fe61157ffe5cf0ebb7510b079cc7e6b9ff5f1f', '[\"*\"]', NULL, NULL, '2024-09-02 02:16:45', '2024-09-02 02:16:45'),
+(256, 'App\\Models\\User', 18, 'u5BL0f5S6tHOIDQ3x4s4YUtVixoQL67j9BbUxku3Ki00xVQyc2', '80c670648814e7bc08c3eb117eab5eec96c91061dd218b5b1f0ed2394d985b5f', '[\"*\"]', NULL, NULL, '2024-09-02 02:25:57', '2024-09-02 02:25:57'),
+(257, 'App\\Models\\User', 2, 'FTyXXQe3r5Yen22YBerYowkJKWlOn3so8fXht7IkvK2E5XstZg', '60154d0eb8b29d664669e2458ec0083790ecc8022111bf8da0e3d227a50d7160', '[\"*\"]', NULL, NULL, '2024-09-02 02:27:26', '2024-09-02 02:27:26'),
+(258, 'App\\Models\\User', 2, '3rtPpRlOJWfEck66XuPngSJkOrfIUmS96XPt2QHJV8oxPqwnHm', 'fec588e9a1d8945f98d1cc4ca5b81e37ff063e44e992baf1086f264dced97ed3', '[\"*\"]', NULL, NULL, '2024-09-02 02:41:14', '2024-09-02 02:41:14'),
+(259, 'App\\Models\\User', 2, '2r9AfbVYtNaneZWljlqfThVwgcs2zMhJfuiAl87JIOuHnecGGS', '540a087c50fafb7024dc508adc205f6077b0700fd011bc039c2fb026fff4410b', '[\"*\"]', '2024-09-02 02:47:13', NULL, '2024-09-02 02:47:10', '2024-09-02 02:47:13'),
+(260, 'App\\Models\\User', 2, 'iZ9NQaDCKpESSdGYZAQ8133Z5Q4hobzFM6ND8RPrK3Gns7t9Uc', 'e80ae61bd03a326a64f7ffc87277c324adf60a3c9966c1909ad0a5581fc3d7ce', '[\"*\"]', '2024-09-02 03:01:15', NULL, '2024-09-02 02:55:24', '2024-09-02 03:01:15'),
+(261, 'App\\Models\\User', 2, 'wsglMvro0OBCldihto87XIS9SHkhisBWsWoisgt9GaHBqMiKdv', 'd6bfff2fee27738aff25fabaf24c82dce411decdf79db895f4b8fe8cd4258a9b', '[\"*\"]', '2024-09-02 03:06:21', NULL, '2024-09-02 03:01:47', '2024-09-02 03:06:21'),
+(262, 'App\\Models\\User', 2, 'JthwSLcY9SiiSuvQP2fAPdbzab7DpgUzH8yXkliJAUdsPptVTh', 'bf9d92e581c240f66f4643b6a749acf6ad443b8178339ce4bcfc07f91308e3fa', '[\"*\"]', NULL, NULL, '2024-09-02 03:05:58', '2024-09-02 03:05:58'),
+(263, 'App\\Models\\User', 17, 'qEKPVDKaJzN09Gxq6vlfQNgktmSUEiD5lRqn8oIMz8TbHSxega', '90995e6119daf141a0f8d17da028c22bf29bb88cb6b65eb301f8c99ddffbef33', '[\"*\"]', NULL, NULL, '2024-09-02 03:06:38', '2024-09-02 03:06:38'),
+(264, 'App\\Models\\User', 1, 'KVNyWCgeVS2KdhYbLxP6ij5kZZEA9sdOFWkl3sBfswcTtiwh8h', '085faffc5156ee87e41da824185b2601d9fe2126201b020dc32fb94c5dac6f39', '[\"*\"]', '2024-09-02 03:08:47', NULL, '2024-09-02 03:07:39', '2024-09-02 03:08:47'),
+(265, 'App\\Models\\User', 2, '9Pn8QxxZWjA1sMxP7s1hiV1LCLF6pcge42W9BDZnE4b3GMN2Wl', 'aab94f3a7f62bec2c7496cab6f577eeeb340b8eea3bac5e6373808b521edb761', '[\"*\"]', '2024-09-02 03:09:39', NULL, '2024-09-02 03:08:21', '2024-09-02 03:09:39'),
+(266, 'App\\Models\\User', 17, 'xEOGtPxxIrkCFT0v1WsOdKdTZZxc3UH2U194AimFQATfxVJagi', 'f13870d191df759d79412a1daef257d7074b8855d612b37cb6663fe3c7e2e7a6', '[\"*\"]', NULL, NULL, '2024-09-02 03:10:01', '2024-09-02 03:10:01'),
+(267, 'App\\Models\\User', 2, '3zPgHQpLYzcvzPE310l2UktCAvQQJmR3OTwYxrN4tWoFbQaNBq', 'c55b2c36a96bd57da6f73cb22e7f29e0b0cc17536cffd107f6404caa952ce064', '[\"*\"]', '2024-09-02 04:17:54', NULL, '2024-09-02 04:09:28', '2024-09-02 04:17:54'),
+(268, 'App\\Models\\User', 17, 'funXT10o5KqTvHlk6pPV1ZXyqe2lfe1ugRc6YrZsKiZs0zuFru', '7fe11843455e1a27e0c697af0ba519b6c3d650db3c3c00d3c418b3b4a9982811', '[\"*\"]', NULL, NULL, '2024-09-02 04:19:31', '2024-09-02 04:19:31'),
+(269, 'App\\Models\\User', 2, 'zMpMrPfeYFsGzXK2bQYouWRrKOawaQGusaEZdQT4jKhWyVyAAC', 'b623983e3de3a812be237b59631dcc99af57249b4dc6998609384d656815d017', '[\"*\"]', '2024-09-02 08:17:07', NULL, '2024-09-02 04:21:06', '2024-09-02 08:17:07'),
+(270, 'App\\Models\\User', 2, 'OgQCM4EFHyOe5N4iwwMp1EJ4OQphkeoDmxabRTnZIRrdBvwdT2', '932f852045cdd6e4da41b3353bbd8743e7ea99a076dab5743a8d4aaf22877a6b', '[\"*\"]', '2024-09-02 04:25:36', NULL, '2024-09-02 04:22:58', '2024-09-02 04:25:36'),
+(271, 'App\\Models\\User', 1, 'qigVlnEbMAO4QSfzw0FVoGhm0syJdaRzFw8WTfv1yCQbkhyJ90', 'f38c5d583f36449780dd1d1337d8e6f89d7170d5b15a078447ff866e74c2cfcf', '[\"*\"]', '2024-09-02 06:52:51', NULL, '2024-09-02 05:45:42', '2024-09-02 06:52:51'),
+(272, 'App\\Models\\User', 2, 'RIb7dPyB5BkE8A7MpdAG8VELCpH48OO2J3InDpVSON3fMrmvtg', 'c7e5f41ee51913102933cb41904bb54402c6a054ea049e6d2b2af7ad521ef8c5', '[\"*\"]', '2024-09-02 07:48:11', NULL, '2024-09-02 06:56:11', '2024-09-02 07:48:11'),
+(273, 'App\\Models\\User', 1, 'Vc1peQ1sWCIlekmyhEjmxzZlloEFMHZlMUJE5fig6TZnhUM8xv', '75736385eefd603f270ff581520bcda5f6df0237ea3e2c27c23fc9728560c6e7', '[\"*\"]', '2024-09-02 08:08:09', NULL, '2024-09-02 08:00:41', '2024-09-02 08:08:09'),
+(274, 'App\\Models\\User', 17, 'k3V313nP2F8yig7c8Uxr02jc5e36A8musaAHIrQwLgautVRZu3', '5694bac315ff70fdf6aec71e4a18870fa08082ad314fd20e00d712166169b64e', '[\"*\"]', NULL, NULL, '2024-09-02 08:13:12', '2024-09-02 08:13:12'),
+(275, 'App\\Models\\User', 18, 'gz080I3b53MWx8qpHhJamaFD6KFrFInJYNl3GNwVcb7Gfyz1Ok', '1830100741ef86ac07890fd80ed8eaf92c8224ad9541b3db5a0b84a347daad8b', '[\"*\"]', NULL, NULL, '2024-09-02 08:16:07', '2024-09-02 08:16:07'),
+(276, 'App\\Models\\User', 2, 'kx264gpUc692yvfCrwfVFBxo56o6V78QQZlrDvpK3SrwnFl3wN', '97bba480422575e7d9b3451f3104529c56249c694af10875e323ca590674dd6a', '[\"*\"]', '2024-09-02 08:56:19', NULL, '2024-09-02 08:17:33', '2024-09-02 08:56:19'),
+(277, 'App\\Models\\User', 1, '5fJ6FGeWDXDsezddDNXB5paP0w25xULqnXXfjN2p29Jqw8HpbY', '8053dae0a8182b8393d82881a2a47b7b63d2849c5569f28af9720551d192a1b7', '[\"*\"]', '2024-09-02 09:02:01', NULL, '2024-09-02 09:01:28', '2024-09-02 09:02:01'),
+(278, 'App\\Models\\User', 2, 'K1ZANSvekQSb4F69DqHEqc4DUkrPC5M5xjEQYWXgII9otbhfEC', 'a143391cde0579b6919e6a34db0acc6f6853eaf3a3f0c0f9a021a471e886e224', '[\"*\"]', '2024-09-03 03:13:05', NULL, '2024-09-02 09:06:34', '2024-09-03 03:13:05'),
+(279, 'App\\Models\\User', 16, 'FyLvcwB8sxnaAfejWPQSshqKr1kAX19BfqL8Zw1eJNWmOjeTAq', 'e74aa2fe65612a725b73ae9c3b443038d9b42f8c755d5268159b7a3c6658d634', '[\"*\"]', NULL, NULL, '2024-09-02 09:12:15', '2024-09-02 09:12:15'),
+(280, 'App\\Models\\User', 2, 'GVHF0ch2tj5T2UJ9kkduoAJl4S4pWpcYssgucYgUzOsZhMNcQR', '27b2da648f338163d510b1c1f3bc6d51fc17321d440564f62af13b510db42fcd', '[\"*\"]', NULL, NULL, '2024-09-02 09:25:44', '2024-09-02 09:25:44'),
+(281, 'App\\Models\\User', 2, 'cXbeB7zk96u0regfersGNENwvUkLhKizYTTKKjYUCubKR6JPed', '4fd56e30039fc985dd66f721b4567d45ac2a081bb7d72df2fd7cbf54051e8755', '[\"*\"]', NULL, NULL, '2024-09-03 00:04:03', '2024-09-03 00:04:03'),
+(282, 'App\\Models\\User', 1, '0UBospurmyzZMiSSEHIjxB9uxDqKdSvqbd8ZPfhUYSRrraZhO8', '31e7cc9c09b9fba4587deacc3c83786d5d1a56ab73dab4cdeb9af3d84b3447bc', '[\"*\"]', '2024-09-03 00:14:48', NULL, '2024-09-03 00:10:38', '2024-09-03 00:14:48'),
+(283, 'App\\Models\\User', 2, '7Xv0VIuyJzNqi1KPlLhMfi9NVP00gWKi8qOve9KpBwf7oRoLpy', 'e2062ade011fbdae382b27142a81a1660701b619ae9099eb76bd3a1190084df4', '[\"*\"]', '2024-09-03 01:14:22', NULL, '2024-09-03 00:15:05', '2024-09-03 01:14:22'),
+(284, 'App\\Models\\User', 16, 'rfit72fDG68UUAQolCRty1Sii4ZRuusM9XOu9RPBXRCHYtuzvi', '4d2ea197553b7f44d24b68f3146823a89f77dfb1a33a0543a0c34d6b2e227ec2', '[\"*\"]', NULL, NULL, '2024-09-03 01:14:44', '2024-09-03 01:14:44'),
+(285, 'App\\Models\\User', 2, '2aS2Om8vCDGalygWMdHMvKu8FtAsebmx6xfHlVcWQCAiBU9u0Y', '1affa51a36dd8c3ec99a25df66f24b4723454e0c700a67b4a805dc52d620ebdd', '[\"*\"]', NULL, NULL, '2024-09-03 01:49:06', '2024-09-03 01:49:06'),
+(286, 'App\\Models\\User', 16, 'eiEsK9U9copELTao2V5AVqH8Q6Sl54HtI0vHyowV7hpdewE0v5', 'd0c0dbe9d0c209356759323e84267a6ff97effd7bf5b5f5d684a7632b1db611d', '[\"*\"]', NULL, NULL, '2024-09-03 01:55:36', '2024-09-03 01:55:36'),
+(287, 'App\\Models\\User', 2, 'H0rSGoJrDudK4N6CpN5CWM8E1Sn8tgW3Bi69wdK4K1j0IFaO18', '0b67ca55722f00436e8261536b4a8feb593033140fa7e91d3228840ac05d6fd3', '[\"*\"]', '2024-09-03 04:31:30', NULL, '2024-09-03 01:56:30', '2024-09-03 04:31:30'),
+(288, 'App\\Models\\User', 2, 'eafLSm3npWL1wkpd00eQV5ff6lLQLFM8GgEkLpvc48ekhnLCFF', 'c0db38b96efe784272fc0087a248658bf6b829ae9ac450372ac008dd2f6e131a', '[\"*\"]', NULL, NULL, '2024-09-03 03:14:50', '2024-09-03 03:14:50'),
+(289, 'App\\Models\\User', 2, 'rICBSRntpHLmWZNmrsOv4EDl5ezpF6Mx1ACHpJfLhaOuWfEFA0', '30abd117ae191a0b1cd701e12a7acb0dbda0292e00b9d332b9acfec368ce5c19', '[\"*\"]', NULL, NULL, '2024-09-03 04:40:59', '2024-09-03 04:40:59'),
+(290, 'App\\Models\\User', 2, 'vaiGbH3o3S6a7YfkWBggaJpUkkezxyLIB1NHOvvhUUyH0xqWMQ', '7d4d212273b879172fec1c7658826a6d00eff92f8bc62ff842407e9e8adebdaa', '[\"*\"]', NULL, NULL, '2024-09-03 05:00:36', '2024-09-03 05:00:36'),
+(291, 'App\\Models\\User', 2, 'S8mJ9EHOcK5V0lgH39N7rzPk9kkGNk24cjs8VTSyiAn6tENLkj', '60a22921516f2f2dc57469e017382bbba3253859d3dd6d0e04afbcc05f422244', '[\"*\"]', NULL, NULL, '2024-09-03 05:34:49', '2024-09-03 05:34:49'),
+(292, 'App\\Models\\User', 2, 'nInQfTdqG3XjrXd0f5OJuPLjEvKy44o6C4XVQqO970jOvAYVxM', '4f054fc5897dde715d542862041e9be54041dfbf6a04d2a48dd6ffd30361e764', '[\"*\"]', NULL, NULL, '2024-09-03 06:41:50', '2024-09-03 06:41:50'),
+(293, 'App\\Models\\User', 16, 'KmGXCTAvEQ66nX2sM9mjmza4LtzCYzqEGYmhQPuz1AT31zF2uE', 'b348f32628c74ebf5a070fb5cd9d40704a182ca4b53e00e86d4cb3e193fc487b', '[\"*\"]', NULL, NULL, '2024-09-03 06:52:02', '2024-09-03 06:52:02'),
+(294, 'App\\Models\\User', 2, 'gP3vsnpeV3xQG17QPl607IvrYCMvMEVwE447ijG4SkD33aqhD5', 'd1bbbea18805d4b85bb79cf34f6855d4431c55eb818b56ae32a0980eb193dba8', '[\"*\"]', NULL, NULL, '2024-09-03 07:05:53', '2024-09-03 07:05:53'),
+(295, 'App\\Models\\User', 17, 'rsIOOcFwqPTQWKAa2LvWB60E0Vc4GQHpZlfSrnbEmxZrKpksn6', '150c7e3b8749be2d73f25fb1ebd0ef88870e5e18bd6d91d9235d923c2cd73d54', '[\"*\"]', NULL, NULL, '2024-09-03 07:18:38', '2024-09-03 07:18:38'),
+(296, 'App\\Models\\User', 16, 'Qc0j1bKKJxultTCiqhnEl0HVRaciC4u59Gr54deOTaoYTrw6Xf', 'd9dc6adbcccb3f2fcf4a74945fdd2d9477fd6eda4b8934b2e5b2a48917adaed4', '[\"*\"]', NULL, NULL, '2024-09-03 07:28:27', '2024-09-03 07:28:27'),
+(297, 'App\\Models\\User', 17, 'dKedkpS0gcROclRQvmiz5qkhWKSoaBJImYoqkk1LUyog1MP3Uo', '95de5311f9bbd5c1b5e96e5e507f03484da1d0d678c8c5c750305e6e5a760f9b', '[\"*\"]', NULL, NULL, '2024-09-03 08:39:39', '2024-09-03 08:39:39'),
+(298, 'App\\Models\\User', 2, 'F891KWlKiCvYlEx4VR5kpHhA2hu2u2k4to3hRmfBTULLXsX7MH', '810a80a74fe75e3a4aab0b4d3422ec06653840e802842406b08ede8b0b95799d', '[\"*\"]', NULL, NULL, '2024-09-03 08:40:01', '2024-09-03 08:40:01'),
+(299, 'App\\Models\\User', 16, 'BGfAmlzZGpYPAzYhqIw4uWzRmlyXzjAvf9iksZxuKxGF0qq8el', 'a7988a2f6287a4bf4a6a42ee8fbe72488f0174e7fd272b0e25269e1e4b1937b3', '[\"*\"]', NULL, NULL, '2024-09-03 08:42:11', '2024-09-03 08:42:11'),
+(300, 'App\\Models\\User', 2, 'S6GgYhS36KADJTtJln5MEMsF2Y10or1wPxaUyQ4PRTVV7Jq5f1', '4d362b4a47c58825af51536554d64de63ccd343b5258768de32b671e1c049ce0', '[\"*\"]', '2024-09-03 08:51:40', NULL, '2024-09-03 08:43:19', '2024-09-03 08:51:40'),
+(301, 'App\\Models\\User', 2, 'MdnizjCw5kpVf6mx6K442DUp5mFNv3AT4jVewXqgvvHMiKxTYb', 'c81a51e8d3f480677a009732f4a5684e0cf7195b637a86dda75b45fe55949b86', '[\"*\"]', NULL, NULL, '2024-09-03 08:52:00', '2024-09-03 08:52:00'),
+(302, 'App\\Models\\User', 1, 'PRlkO4p0VLoakXHs9nqfU1zLMN5tOWIlo7vkaTTY746wALFRQL', 'bb11fb1ce95b734a69048c4fef8c063fce8de59c10ab04600b878050f8c327cf', '[\"*\"]', '2024-09-03 08:52:56', NULL, '2024-09-03 08:52:35', '2024-09-03 08:52:56'),
+(303, 'App\\Models\\User', 2, 'GAP5VsQAam36YigJCMSKhT6I8OItrSxD9PWuRNP69ggL5CQj38', '1842595430af218e923b4bdb9db2456860129533c84277d5e4dad45dfe960a0f', '[\"*\"]', NULL, NULL, '2024-09-03 22:56:42', '2024-09-03 22:56:42'),
+(304, 'App\\Models\\User', 16, 'T1BMXMxBi4RPFC6uXskT5gSJ5quFMHQaLoU8EwuWBpbOm0Vybs', 'bc2edf9bc02562c131648fe6c67c369be11ab127ffd78d2cfb42618bdaca0c23', '[\"*\"]', NULL, NULL, '2024-09-03 22:57:20', '2024-09-03 22:57:20'),
+(305, 'App\\Models\\User', 16, 'LGZyZGJRa0sqJQB1ViiJL6jqGS9d3Dn6NtOkK1rdXiuG8ndNlT', '4ff5ea4972d89e83ccd6288c334b35bba5dab3d2fafb6a66d06603d15482dfbc', '[\"*\"]', NULL, NULL, '2024-09-03 22:58:58', '2024-09-03 22:58:58'),
+(306, 'App\\Models\\User', 2, 'GtndkZNltHyoZ0uFVz9htI7IfvlLZ9vadZnBOs2SqP6jPZdbeF', '4cdbf348e57af1c65e0abf0bc282a09ed8dc0e7a20a7b98fad37315495fea603', '[\"*\"]', NULL, NULL, '2024-09-03 22:59:35', '2024-09-03 22:59:35'),
+(307, 'App\\Models\\User', 1, 'yb96lnTxLifqfKPW4qzBwk9rjJOMM7ok5t8esU9jV8STuqOWiS', 'a25949a3ba847e335cd43044c100300d71f0a9d32de3e031513236bcc08e9a06', '[\"*\"]', NULL, NULL, '2024-09-03 23:01:10', '2024-09-03 23:01:10'),
+(308, 'App\\Models\\User', 2, '7xPwexMtSKnYE6qCsFqDeTXRLd2xPlikcusZZn4B2B54xC26dL', '57e3d422a5200cb6ad7f0a43c4dfed01716451102f80965f749992e418f32257', '[\"*\"]', NULL, NULL, '2024-09-03 23:04:52', '2024-09-03 23:04:52'),
+(309, 'App\\Models\\User', 16, '0eBXYkxMliMS6jsxFazSdF5OWj9nn7XKDxGecsarJ9t8Hn6iqy', 'fd1152ee8681228534ab1198b9dfeed84e0272709f699464c81f226b4c3ea0de', '[\"*\"]', NULL, NULL, '2024-09-03 23:05:06', '2024-09-03 23:05:06'),
+(310, 'App\\Models\\User', 1, 'RHdWNGc7eiPVmtVe13DL3ca11hQH7lkRtuMrx3Em3qXMVP8qfA', '7d8f059349980ec54f3dc607092309c724ac546242a7e1599b7003d9bf3e08be', '[\"*\"]', '2024-09-03 23:08:35', NULL, '2024-09-03 23:05:57', '2024-09-03 23:08:35'),
+(311, 'App\\Models\\User', 2, 'yl2bIYP1WWJN29W3VnQDdjgTcGXmBzSqGQc4fjHeyyXfvfxl45', 'e0b751c47331ebf263855f1e7121c74ac56e341201ada3281bc599986e6e0a3a', '[\"*\"]', '2024-09-04 00:01:46', NULL, '2024-09-03 23:21:55', '2024-09-04 00:01:46'),
+(312, 'App\\Models\\User', 2, 'F3fcOdS21ba8iQLYR1DlEm9G0jqul8wVSlROZI5O4tXmloFEr0', '4753a10dcc44321f87ea666544ad76883887c029bfb93a533f750fd047bb429d', '[\"*\"]', '2024-09-04 02:15:52', NULL, '2024-09-03 23:30:57', '2024-09-04 02:15:52'),
+(313, 'App\\Models\\User', 1, 'pYoEaxlR3yLSgAZhnuhA00jFa156efIYBKvreS4FWhZsI0NeIh', '7118b7130481fc3c5d5ade7994f26f1d12050c2bc099c6798bd0f38e4c2892dd', '[\"*\"]', NULL, NULL, '2024-09-04 00:17:20', '2024-09-04 00:17:20'),
+(314, 'App\\Models\\User', 2, 'TLP7WjnhmawOvWXfICBFmVd3YuV7g9oQn4mlT982yOvHExthrX', 'b25a97b020bafe48588bc1a552f99a900de1c7e41a9479f161243e0cc5f91039', '[\"*\"]', '2024-09-04 03:37:38', NULL, '2024-09-04 00:21:52', '2024-09-04 03:37:38'),
+(315, 'App\\Models\\User', 16, 'VctpoewUOUg47bsbHSuwhU6eTUVtWP4I84BlQU18UK8HeEKC95', '73c4a0a5d4f53d0572870a9a0055a7b36210d4ba73967611eff6ccaa96a2a357', '[\"*\"]', NULL, NULL, '2024-09-04 02:40:53', '2024-09-04 02:40:53'),
+(316, 'App\\Models\\User', 2, 'qOP8WookhzteuapK3aliSJxB0oekagf1WoWTj8rpOzgOffpQ2F', '1ca7824ce73720466b5f338a22bdb7b96c26fcf3272545097710fbefbf69ec75', '[\"*\"]', '2024-09-04 04:41:44', NULL, '2024-09-04 02:45:32', '2024-09-04 04:41:44'),
+(317, 'App\\Models\\User', 18, 'hOUzOzMY63BZ3KMBxAbkMjpdapF3q89TnIQE4O0rhShS7arva1', '5bd84a5c31409abb33417b4e958e86eda9953118666a1b409664e103ab25df1a', '[\"*\"]', NULL, NULL, '2024-09-04 03:40:22', '2024-09-04 03:40:22'),
+(318, 'App\\Models\\User', 18, 'iUNvj1hzujarsVHMQlXDZjEuKAcPkNbjsLtjeJBwK7Jq0VFEmG', 'd5e5425e4095aa6cef4b779814704a7e578544ca365022d04463da91f44b54ab', '[\"*\"]', NULL, NULL, '2024-09-04 03:43:14', '2024-09-04 03:43:14'),
+(319, 'App\\Models\\User', 2, 'nSANuQKyDHQMyUNyF0S0UN4pA499uTBFlUN0j4wOAhdBHD4mCY', '77f7cd9afb93dd7c8c3722bb3a4075f5bf015d09f4d72ed1c936082b624faeeb', '[\"*\"]', '2024-09-04 05:01:29', NULL, '2024-09-04 03:44:13', '2024-09-04 05:01:29'),
+(320, 'App\\Models\\User', 2, '4kjXXPvS26O1lkxIDQ12zOlha01VAwjaEakXRAdNlRTLfkm7VR', '2f3bf4c8fb3128225de6184f82eaa2c1c6bb2d5813eb23cc8cc19c153e04d106', '[\"*\"]', '2024-09-04 06:25:34', NULL, '2024-09-04 04:48:05', '2024-09-04 06:25:34'),
+(321, 'App\\Models\\User', 2, 'klHLJN7VMApc4MMlNRuIiNa3VmVDy6feDqXRTfDPk6MKuMnKm3', 'c52c61d39d6f4fd07203c150b45520a1fe8a0c379be3cbb7692f73eff406736c', '[\"*\"]', NULL, NULL, '2024-09-04 05:30:45', '2024-09-04 05:30:45'),
+(322, 'App\\Models\\User', 2, '88c1ta20fT2pe46MV760YneqSbANbl4Q0yqY0n2WFJ79OS7mhs', '9a86fcfd7aac195ccb049c4e04131f958e225752a78dd74e0c17683b96cddaa0', '[\"*\"]', '2024-09-04 06:42:15', NULL, '2024-09-04 06:30:45', '2024-09-04 06:42:15'),
+(323, 'App\\Models\\User', 18, 'izYyZRH3Wwn2D3EDYw7Dxic2U7JFlhr3dSgktIbM5t8yShFDTp', '3693b7abaaf125504aa5ad5c0ee09e204e7370fc12c3d6b48d0918b1966e5c53', '[\"*\"]', NULL, NULL, '2024-09-04 06:31:34', '2024-09-04 06:31:34'),
+(324, 'App\\Models\\User', 16, 'CccBcUKEviP4x7ZpwI9WpU0AGokdQeQxCUUjFY8yoaZ11wX7rM', '4f521eae9730e1b8ed6869dd216f77a997a7cf023e2d271fcdfc1a26a162966f', '[\"*\"]', NULL, NULL, '2024-09-04 06:38:11', '2024-09-04 06:38:11'),
+(325, 'App\\Models\\User', 18, '8gLGjNk4w17ey9ANQ0KBSioxAqMjbJbHTl4gyU902Kylyj4Myg', '99245934d482cf835092dedf61942eca806229acc1eac6f43883d4340c2d3de0', '[\"*\"]', NULL, NULL, '2024-09-04 06:38:26', '2024-09-04 06:38:26'),
+(326, 'App\\Models\\User', 16, 'W7cm30B0vSCyGlxGE5IjWSiBCogEATijAaVyOncWqArmTSGOFX', '311bf822ea237c06f34727c4f8f15aa5fb02186e6c26f5c155d109e243368f56', '[\"*\"]', NULL, NULL, '2024-09-04 06:51:45', '2024-09-04 06:51:45'),
+(327, 'App\\Models\\User', 16, 'XlapavP80vqHL5BYf2xJLieraDnf2tVTd5bVA91o4DaIhtvZ1B', 'a92b1d2d2b24200e533e4b3d29d00549d3f417ee541470c10bc8a60e16db4326', '[\"*\"]', NULL, NULL, '2024-09-04 06:53:23', '2024-09-04 06:53:23'),
+(328, 'App\\Models\\User', 17, 'eeKr5cvG67vHFIThh77LLPoizTZZgcJiknS9ITsJo2Uln9nuC1', '9d8b9fc40c9dfdf5d27a9f3cdd353a626a85ea7a6986fcae832a4ead0ae02b66', '[\"*\"]', NULL, NULL, '2024-09-04 06:54:21', '2024-09-04 06:54:21'),
+(329, 'App\\Models\\User', 2, '6b7C1oQ4lO9kyjQkBjpsvCX0c9uY4MhI46X9AExWpEhBwdhrf0', '5a5d31d5f95363b9f884bc9e46bf8fe7bab57da3443452d54d522101d10c3b93', '[\"*\"]', '2024-09-04 07:52:18', NULL, '2024-09-04 06:55:42', '2024-09-04 07:52:18'),
+(330, 'App\\Models\\User', 2, 'jdI5mSg0USrbyiY8XXCa8ZZGAaWEDPuc47lp2fg1ZOCFJAbE3b', '91b3774fb79a410d6151a724b30a7d2584df6c12acd2e084bbbbfe05b2added7', '[\"*\"]', NULL, NULL, '2024-09-04 07:05:45', '2024-09-04 07:05:45'),
+(331, 'App\\Models\\User', 16, 'Fi3Me69onrH26H3M3r0Jp5XHd7ai6Cx4KlNGZdd3U9HSB1PqbF', 'de1bc66640a325aa7548b97a1fb8fd2404ae2ba6e089276900492ad04246347e', '[\"*\"]', '2024-09-04 07:25:01', NULL, '2024-09-04 07:15:57', '2024-09-04 07:25:01'),
+(332, 'App\\Models\\User', 1, 'oQ3PNhrXEmj3EGvUW8hwlLvmrRam75pe1vAQhb3D8vcLOdWrUB', 'dcfb55b14a1db6686d84d460cdeb71915338bff1f843ece72c42e3522625fe72', '[\"*\"]', '2024-09-04 07:38:47', NULL, '2024-09-04 07:25:57', '2024-09-04 07:38:47'),
+(333, 'App\\Models\\User', 1, 'GiyKXeWU2588gNiEanaWrdsZGzNjSm4BEDIp17fNkxD6lVOwkc', 'c7cf1a3a7fe7e438ad9a5e0c1e219fa0ed51f98e0ba73e3c33f621e3a7bd8398', '[\"*\"]', NULL, NULL, '2024-09-04 07:39:00', '2024-09-04 07:39:00'),
+(334, 'App\\Models\\User', 1, 'IANRpVDJ9i1SWTovOSBcy2ZyGvhLJ27vYBMOvnVZjIofSmXSkI', 'b44cc40d4632b751d7a1ff3d8ff58dc112f2330cd505a0f39df2503a17b71066', '[\"*\"]', '2024-09-04 07:39:21', NULL, '2024-09-04 07:39:14', '2024-09-04 07:39:21'),
+(335, 'App\\Models\\User', 16, 'PCTfwFXYQjX1SLpCP1k4NhQ3hx2XHUKF5drxxfrkCJo9qdxztS', '6912ca808f4c41aea151909862ea4d9446ada07b375007877fa38c2a94f902e8', '[\"*\"]', '2024-09-04 07:39:49', NULL, '2024-09-04 07:39:41', '2024-09-04 07:39:49'),
+(336, 'App\\Models\\User', 16, 'gZ2dujc0irE8b5kapxEj4ghqJ43FbQgTzsX9dHpKR2rR9ah4Kf', '881c1cf76847f88a85136fe889d756f4160ce38db1016220a6458b697c18536d', '[\"*\"]', '2024-09-04 07:40:17', NULL, '2024-09-04 07:40:01', '2024-09-04 07:40:17'),
+(337, 'App\\Models\\User', 2, 'rIN1LYMhm4du4RFns56QcpkzPI9YSr7LvnIsDjOITyWUg8sCpW', '389af7e67a89546a806c955548f419812dcfe5eefc7fe9b56cb47dad03802b7b', '[\"*\"]', '2024-09-04 07:49:01', NULL, '2024-09-04 07:42:42', '2024-09-04 07:49:01'),
+(338, 'App\\Models\\User', 1, '5ASn3fhwwguj5HYM2brKhgggwKhrAuuLUajILIeHonoVzCR1vR', 'dfce4bfb7f6e2d243d0f8a6633921552dd023d418df7ae8eab0272f339889ebb', '[\"*\"]', '2024-09-04 07:49:25', NULL, '2024-09-04 07:49:15', '2024-09-04 07:49:25'),
+(339, 'App\\Models\\User', 16, 'sFGszdxlp9DyOkMZd063y9KnRWjyvbB4cKLno8gggK0nYXYIxb', '056409fd5d391a972d98d1e5c616ac87404d65e348ac4b4c5803dc61ffcbc1db', '[\"*\"]', NULL, NULL, '2024-09-04 07:49:43', '2024-09-04 07:49:43'),
+(340, 'App\\Models\\User', 16, 'EkbCsqAuPLCPLvRNpu2vMiAT9VmlMzjgK1jolFt274EqLUnqpO', '29d2ada601081fbea3e9388f52398d52380cb5a8b32ad06155cc85450390f114', '[\"*\"]', NULL, NULL, '2024-09-04 07:54:59', '2024-09-04 07:54:59'),
+(341, 'App\\Models\\User', 1, '0rbMPVEELcAJWYMz2OSyjX3sMFBrc3u6HguUioiJTvyLjN17Yv', '84d035dcef3e4242dc9dd0c3fec949eb7520c18a120955b79e374bb8b4bb4bd8', '[\"*\"]', '2024-09-04 07:55:59', NULL, '2024-09-04 07:55:17', '2024-09-04 07:55:59'),
+(342, 'App\\Models\\User', 2, 'XgyPCg3mFPrsRTTxri1mpBAqKBKJrZQKA36x77NmhGUSp7ii6G', 'b90b71dd1b8aded74196fa66592df58d85eb1ca1db46731b74071f956cf37c0b', '[\"*\"]', '2024-09-04 09:35:07', NULL, '2024-09-04 07:56:48', '2024-09-04 09:35:07'),
+(343, 'App\\Models\\User', 16, 'qROQ7UFtC0B7iDT8natgQZ9qXxM7I5KeSOrmsZWJ1C4GyHZApN', 'c56b6a7cdb3d71e9bd41f934f7b4cdb710cac0bdb9f8f15691a80ee9b23387ee', '[\"*\"]', NULL, NULL, '2024-09-04 23:21:03', '2024-09-04 23:21:03'),
+(344, 'App\\Models\\User', 1, 'LousjemFNOTRQhkdbH1ZNV6mn9dZLRNOiHT8Y4oMUlMwvmiMqY', '54d6399915bc08e3f40b4693a335fa7094e89929283c60a103a799f33687f3ff', '[\"*\"]', '2024-09-05 00:09:10', NULL, '2024-09-04 23:24:05', '2024-09-05 00:09:10'),
+(345, 'App\\Models\\User', 17, 'a4K6WpHfyBiFFKY87DzS2D9mDQjXK0ZWvHtwDCvh7ZVZYx6Tow', 'a5a6655a7ead5c93261024674722a59693c80e8dd119d4c8c9944aa9f2033537', '[\"*\"]', NULL, NULL, '2024-09-04 23:24:40', '2024-09-04 23:24:40'),
+(346, 'App\\Models\\User', 18, 'beb6SQAyL1QZbaWXF3IRbd13Vo4o39MvmYnNAPD64tbjLb8ec2', '3b63fc88ed74a6503a596855afb0f3f71b4a888e217d0e3023948f25a89cbe2e', '[\"*\"]', NULL, NULL, '2024-09-05 00:10:20', '2024-09-05 00:10:20'),
+(347, 'App\\Models\\User', 2, 'fpqqegUN8JMdXELR9UOTMuCTdP0VsOfZuoCo8EJXJfBrCQYZxx', '776e9a4fe08a721c78fab3bef128b070618363a44f8bbfe6d779628da9a8db80', '[\"*\"]', '2024-09-05 00:15:07', NULL, '2024-09-05 00:11:56', '2024-09-05 00:15:07'),
+(348, 'App\\Models\\User', 1, 'TodBrUhmS4e6dyoPQCPl7TCJ9ab4W9XxQ6YhQnTW41C8XbKy8k', '40720531d3f7a1a3bfee7d8417215440631158080913f3b4e3e69e012278c6db', '[\"*\"]', '2024-09-05 00:15:50', NULL, '2024-09-05 00:15:41', '2024-09-05 00:15:50'),
+(349, 'App\\Models\\User', 16, 'XfFEp6ifLhdeeEVsp2PyyGP8B9Hqtw1Xx9MS90GN8G4RPehHDI', 'da2e332db1c7297c93112e625999ef38e0062663cc4eb839a70e81ba726b9f1d', '[\"*\"]', NULL, NULL, '2024-09-05 00:35:08', '2024-09-05 00:35:08'),
+(350, 'App\\Models\\User', 16, 'aXnoeeK95rimQeiYZFIwxjUXdRCRGtg3bJvTJVtGUoGTPGtYvZ', 'b4d6286ffeb21e4b2e53943e868319b050952c33b240b21f53d0dc7664bb723d', '[\"*\"]', NULL, NULL, '2024-09-05 00:36:37', '2024-09-05 00:36:37'),
+(351, 'App\\Models\\User', 16, 'jKJYZb2jQNzrh4RlFANVkWf867zYFB6ZDbNhveAVjBLdqGahU9', '7f7fe649a7d3552b79cdcbefeb4212e7871ab11ce04b99e609b985b4156d7fc5', '[\"*\"]', NULL, NULL, '2024-09-05 00:39:39', '2024-09-05 00:39:39'),
+(352, 'App\\Models\\User', 16, 'KX2DQtwT9VFn4UfaK4BZTKie8DgkFQssxiXmZ9SlBMwbgFwa35', '99251417c4e9ca2540535d88f4bc5b356d30ba6965515b61de805f7f295e898b', '[\"*\"]', NULL, NULL, '2024-09-05 00:44:11', '2024-09-05 00:44:11'),
+(353, 'App\\Models\\User', 16, 'ntTwcmfvfrEk38sz33CIVkjI5SdgzbVSiPkjfZDxeBqdYjKo5P', 'f2c325101240af26004d6e1add2e122e404428dadd8b8b872f38b5486343fc82', '[\"*\"]', NULL, NULL, '2024-09-05 00:46:24', '2024-09-05 00:46:24'),
+(354, 'App\\Models\\User', 1, 'gNNosP8xKRTSiH2P98y4ED0BjIZtYo5paQ0T4gdhWsFgPigYF5', '7322e49ac1b1c976f63cd71f9f73f78072920afb04520340efe202969665082f', '[\"*\"]', '2024-09-05 00:58:15', NULL, '2024-09-05 00:52:25', '2024-09-05 00:58:15'),
+(355, 'App\\Models\\User', 2, 'bIDFUcuasQTDtRVtrfWLE1brJDcs7bMfoUNE1kWcXcvmM8qYBO', '41a64d038b4ac09a5fcb154fc64d053b25bda02e18d78def0fb2f14b30f3af57', '[\"*\"]', NULL, NULL, '2024-09-05 01:17:37', '2024-09-05 01:17:37'),
+(356, 'App\\Models\\User', 1, 'WMc6tGWI7oevrfYMShRiSYaVgzCE8RGtIkeM9vCX9eP9t1ritn', '44cfef2a705de41fe24f1a28580bd8b60bbd59575dfb6384ee1a774be160ebb0', '[\"*\"]', '2024-09-05 01:19:00', NULL, '2024-09-05 01:17:50', '2024-09-05 01:19:00'),
+(357, 'App\\Models\\User', 2, 'nSXJnDZDXdqRPDRUXeQ2XeW9nL8L5MWcz3peiq5ME3KCp0ywBk', '5bc798043acc3aa50a7ce7fbf6db42f6a1114b2719edf8c1274816c68cfb1db5', '[\"*\"]', NULL, NULL, '2024-09-05 01:20:05', '2024-09-05 01:20:05'),
+(358, 'App\\Models\\User', 17, '2na8V808boqxb3i2YqJVZ92EOqoCLhSGtcKu3FzHJHfvzM0ZTL', 'ef88aa565a5fbc7c0a52a3845d2d88a7b6ceb9efc9a1f21887395a2fa19c3c28', '[\"*\"]', NULL, NULL, '2024-09-05 01:21:53', '2024-09-05 01:21:53'),
+(359, 'App\\Models\\User', 16, 'CCTsDpjI2NywFR7TSoTRqq9a2MEH1RY2rv2Njsg9ub6jU7T0B8', '125a37043a4e160a03db6aced448b320cd78d0d00c4b1bb33ddd1d5518ec7f3a', '[\"*\"]', NULL, NULL, '2024-09-05 01:22:08', '2024-09-05 01:22:08'),
+(360, 'App\\Models\\User', 17, 'dpha1kynW5ZmvMx4KZwduHWksLuiOR09Xi0Z6bdQNVwTVoo88g', '2fcf4a7b2441170b9449667c98d92c2da2a5b3b2e50c2c779307aa9864dfbfcf', '[\"*\"]', NULL, NULL, '2024-09-05 01:22:33', '2024-09-05 01:22:33'),
+(361, 'App\\Models\\User', 2, 'Uto1jqRW3WDC0NXfXZezwGhjZL4Sxy0Ivh2rMWnQguIziOEl8k', '2be50ba1ad1db58fff353dc9d8bbed0db859a42e514893c47989adb0fd6fc734', '[\"*\"]', NULL, NULL, '2024-09-05 01:23:09', '2024-09-05 01:23:09'),
+(362, 'App\\Models\\User', 2, 'voESEWauBjfeLqkhYh2vfkB5lR5wRCNXFmMZQqEhyX6pqjjSlI', '449e455a5f5d29f9e713c8cc4b3833048a5bfbb63427cca81cfde516f2c6de83', '[\"*\"]', NULL, NULL, '2024-09-05 01:24:01', '2024-09-05 01:24:01'),
+(363, 'App\\Models\\User', 17, 'VnyyosKDQuigeUP4vOFjV5xjsDONErGfxQ1eIcLTnRLy19IPaI', 'e8174373a4a24932a471d72af6738553ac2dadabc93abf9b9e3b7445fa151197', '[\"*\"]', NULL, NULL, '2024-09-05 01:24:09', '2024-09-05 01:24:09'),
+(364, 'App\\Models\\User', 2, '9NVmVt4Uqke4GLrvWMNQcaGYNZceLDCqpLbbOlkYcRfCqg31lT', 'ea1f92331c56b6d44d3f3298fc83f6d75ca31543ae171d11994ce7e529c75507', '[\"*\"]', NULL, NULL, '2024-09-05 01:25:59', '2024-09-05 01:25:59'),
+(365, 'App\\Models\\User', 2, 'IoYStuP8A00psj7naDdbviQ1nE8ZPpXZBk6sXouZyIPAT59m6a', 'b0ad603d7fbc0bbed551e1679c04460583712843f4aa4f9f364840cc567198b2', '[\"*\"]', '2024-09-05 03:54:56', NULL, '2024-09-05 01:32:45', '2024-09-05 03:54:56'),
+(366, 'App\\Models\\User', 2, 'LVTYvmFIL2dgbqPp0Lt8RGXLV8hf0PLukP4iSIbOXdM509wpVD', '8429da31a861bd05811a4d1a4bec2b0a24a4476175298b6b05e3d55de83f64bf', '[\"*\"]', '2024-09-05 08:27:14', NULL, '2024-09-05 03:55:22', '2024-09-05 08:27:14'),
+(367, 'App\\Models\\User', 1, 'rTjN6yG4jN8KW3OHH3JiDVtd30tSZRABBMuv358JaZrJzbs1wQ', 'a277f50699063e9308222d5ff43e143913775982ae37b850b4414d416dcf9277', '[\"*\"]', NULL, NULL, '2024-09-05 06:43:49', '2024-09-05 06:43:49'),
+(368, 'App\\Models\\User', 2, 'RDTMJW7XxlnbKmvfQig1rpOnHO014q7ehXvRrXf6wu52nGR0cf', '1e8d3a278d689ec11a82525911f05d29ecf2afbd4640d5970024a6f544203694', '[\"*\"]', NULL, NULL, '2024-09-05 06:45:11', '2024-09-05 06:45:11'),
+(369, 'App\\Models\\User', 2, 'jbQFpbBvuWsfOMa501N1QsxH4yuN1kxUEw1ofwaoV3mniUHrUU', 'ed968afaa23efba4555a8fc49957eaf9bc0bb58b799df7f5976c7473d3afd8ab', '[\"*\"]', '2024-09-05 08:39:23', NULL, '2024-09-05 07:07:20', '2024-09-05 08:39:23'),
+(370, 'App\\Models\\User', 1, 'EJnBerDe1TkikJImFCVfJRFvTzTWBDOUzKpyFpcQlIkOu6sNKQ', '4d2248ef2bcde87cf323895242b9313ddb3b7888dc8cd5095e4657b2d90802b0', '[\"*\"]', '2024-09-05 23:48:59', NULL, '2024-09-05 22:37:42', '2024-09-05 23:48:59'),
+(371, 'App\\Models\\User', 2, 'iMuxuNCvyRo8cJSDYgfRg6hRNRcPHm6gM8qbkc7kcrp6PaxmiZ', '9e6c647ee143738ba7023edcc65666384cab594b0409d7c7e16fba52276bee2d', '[\"*\"]', '2024-09-05 23:49:53', NULL, '2024-09-05 23:49:43', '2024-09-05 23:49:53'),
+(372, 'App\\Models\\User', 1, '90hJNiduhk0AqHvCVljqxyJJnU0OTjiVaO2a7PX76fUKyVHXdb', 'd64d2a0bc23fa0c5f0cc3ec28d52458dd711ad762bdc62f85a100a997230e73c', '[\"*\"]', '2024-09-05 23:52:57', NULL, '2024-09-05 23:52:55', '2024-09-05 23:52:57'),
+(373, 'App\\Models\\User', 2, '3I7GNu2wVPcADpspuudVpftxIhc4NX99I02UJYOwlvgsgrGyZW', '4e05ba0c988d8f8b8cc3ea5042ea0cfabe9c62ca6ac20ee0ac8570f0ae7c7b9e', '[\"*\"]', NULL, NULL, '2024-09-06 00:05:18', '2024-09-06 00:05:18'),
+(374, 'App\\Models\\User', 19, 'ZjotsRA2cFYk0RR9Tg2xCD96hALwHktqjSEHeVX2MoXWKFVoiq', 'a84f1c32a643e15ca117cf70345f7b9b25c2deb4396d384bedb0acc85df29d7a', '[\"*\"]', '2024-09-06 00:08:34', NULL, '2024-09-06 00:07:48', '2024-09-06 00:08:34'),
+(375, 'App\\Models\\User', 2, 'rHJwdLK9JnIra5g9LTKJO7kvrTdisa5MXBi4ys6mgAvhclrshL', 'ce767aeea8bc6a15a5769f48b4d19935a880841b3ac69fd7b77b92d2d03c072a', '[\"*\"]', '2024-09-06 02:54:30', NULL, '2024-09-06 00:10:48', '2024-09-06 02:54:30'),
+(376, 'App\\Models\\User', 20, 'vfK5GtaJxm968gVECux1aYCPdsAc13R0x2VPfDgHKVdhuzyapy', '75714938fdaab696d3af9585bc4ced4ef709041beeb4723346ac654a1b56938b', '[\"*\"]', '2024-09-06 00:15:18', NULL, '2024-09-06 00:14:56', '2024-09-06 00:15:18'),
+(377, 'App\\Models\\User', 20, 'ApL5ChcOnoURveUdH9Jo9QRXLaRTaZs3OCz0DhXTlX5tBWf306', '05e6f2c3be852a479b1443d9ae560482f90313e90e16b0fc5a393ee0b2dcde3d', '[\"*\"]', NULL, NULL, '2024-09-06 01:08:17', '2024-09-06 01:08:17'),
+(378, 'App\\Models\\User', 2, 'sPADgB7rC079hwFaWdxlZVVv8evxPW7ncZE2OoI0Xj1Q0O1xpj', '26f8fe2b09eb56350c2d1d06ba0709be59a2ec4494e76f0117e80070b0e494fa', '[\"*\"]', '2024-09-06 02:03:09', NULL, '2024-09-06 01:11:49', '2024-09-06 02:03:09'),
+(379, 'App\\Models\\User', 1, 'Ir3lVEZmVBFftLa4QL4iXwHRF86mDpTM46WitoU46ys8zbSQc3', '4f51e013f74ddcd4de86204b6275bb7102c53aef6bf905ca505e39b13d5e7b52', '[\"*\"]', '2024-09-06 02:20:26', NULL, '2024-09-06 02:14:17', '2024-09-06 02:20:26'),
+(380, 'App\\Models\\User', 19, 't8gJeVGV7wGf49yDsU4FbSkcQFJhj9eME3N5gtQR2dCuz4htcu', '1d104af4abe0cdece7065811abd04062600d52912968b3e34c775cf427ab7d63', '[\"*\"]', NULL, NULL, '2024-09-06 02:26:03', '2024-09-06 02:26:03'),
+(381, 'App\\Models\\User', 18, 'fTnQF1ZJACLGDpUeG6MmDJ73nbJ36oeWgxqpbr8fTOr9kud4EC', '2ee18f7e658b9a3fde771ff7634eb18410e93a7d758f1cd647d4c60c7139c0f1', '[\"*\"]', NULL, NULL, '2024-09-06 02:57:01', '2024-09-06 02:57:01'),
+(382, 'App\\Models\\User', 20, 'RgLXujhN1VdUaJOox1xQ5qr1fbBefmzqRP0jUL1W9VMnSbntpR', '2c8118d2230a4a2bc8a7ff2e58847d6bcab49a9cd7c66b5335473ddf0796a98e', '[\"*\"]', NULL, NULL, '2024-09-06 02:57:16', '2024-09-06 02:57:16'),
+(383, 'App\\Models\\User', 2, '6pyPx3HvRAMXKfSCzKtKZL8sIZw4XzEp6Gw4ouMlQK2JO6TWGr', '3337ba0a0ceb1891a863486bd2286784e3006a6ed43df6549e4c4529b7bdb9ec', '[\"*\"]', NULL, NULL, '2024-09-06 02:57:53', '2024-09-06 02:57:53'),
+(384, 'App\\Models\\User', 1, 'k0smfNaCZyzKsqE1wKTLhaKP3UI6bYngfMAep4yaB7jzTN51NS', '8fa14ffcd192460f6a340fb2fd260905a285d1aecc35ac429e2c538aea110086', '[\"*\"]', NULL, NULL, '2024-09-06 03:42:47', '2024-09-06 03:42:47'),
+(385, 'App\\Models\\User', 2, 'udssV7oW3QPfz7NVE1bmXQxRvzIImCkHQ5tbscyfpEJxJxzqnN', '0b3ac42b8edba5e85ff0135459f81301956bc2427195e973468ff6cf312b9fdc', '[\"*\"]', '2024-09-06 04:24:15', NULL, '2024-09-06 03:44:28', '2024-09-06 04:24:15'),
+(386, 'App\\Models\\User', 1, '6vLZzanoF2WsnrETAE7LI6ekhxKySNXPXTJfJudO3dYltr9nbY', '61b72ac53dcf549cbc5cd8ecbf673bd22160f1a4abf8739865f99a774685ab9d', '[\"*\"]', NULL, NULL, '2024-09-06 04:06:05', '2024-09-06 04:06:05'),
+(387, 'App\\Models\\User', 2, 'iVob27oBzF1r2WA1LB85StgRgNLK0ytnvyDsA9zrqCHxJPUyO4', '6f0bcbef1e679daa82f6b372d0d6ef71f38c691c3c5633e66530b314424f5510', '[\"*\"]', '2024-09-06 05:06:20', NULL, '2024-09-06 04:09:06', '2024-09-06 05:06:20'),
+(388, 'App\\Models\\User', 2, 'slnztysbo2gBJvCUFo04vJ2CF4s2TLfnfkn4mgWKIaBiQhPOyc', '89b0f2a463f87d19bd1069752685713c364a2a16f5432d8bd93d59b6f1747c35', '[\"*\"]', '2024-09-06 06:30:46', NULL, '2024-09-06 04:33:40', '2024-09-06 06:30:46'),
+(389, 'App\\Models\\User', 2, 'Iir4hiQCDBZqsbLysEE1mVgv8NinbpCna87PhKiBnsbXK9EOJo', '2a691f86140bff39749c6c2d89c5955b273aade4cf3eb920c66dd40e29a50a0f', '[\"*\"]', '2024-09-06 06:22:38', NULL, '2024-09-06 05:27:31', '2024-09-06 06:22:38'),
+(390, 'App\\Models\\User', 1, 'X5VihXnvUVPBOXOJwhCTLOS2FS1Gv1Ce1wbWEPKj7MjBi0rwIb', 'c7fd127d5cdfbc551ac536a031707684419ffb293e696e8749bf081bcc740333', '[\"*\"]', '2024-09-06 06:39:56', NULL, '2024-09-06 06:35:45', '2024-09-06 06:39:56'),
+(391, 'App\\Models\\User', 2, 'KkiBvuPrLpTyWYGclbw7Y7Ncg8S0Wl8FpUOLsd1qoLsqfUt78s', 'debb6e5651034bbb5131a1dfd32cd46ca141b8a27cfcd32e698adc9ab8a938c7', '[\"*\"]', NULL, NULL, '2024-09-06 06:40:18', '2024-09-06 06:40:18'),
+(392, 'App\\Models\\User', 16, 'VNnYfs4glasQw4bd4oCNuVDqZNcVlaWuuInD1BIsp2oGDvE3aw', 'c489cc39a56128eb992df7ceb386774d9fc364e360a6ff45168f5220de6c3ce4', '[\"*\"]', NULL, NULL, '2024-09-06 06:40:34', '2024-09-06 06:40:34'),
+(393, 'App\\Models\\User', 1, '7H7KBV5wfQq35p3KpvtnnlGg6gN7oZhsY2NaRbCbwsNJ7wbbQw', 'aebc9cddd394eb860ebc80fbbcd7db1d4c564b01d4594cb4c35d0491128287e1', '[\"*\"]', '2024-09-06 07:36:50', NULL, '2024-09-06 07:21:44', '2024-09-06 07:36:50'),
+(394, 'App\\Models\\User', 21, 'HoTaZXgMTjlc2u0PhgCoVCaZGjzC2QnaFSnoZRUmV7JTfDLStu', 'da8b4c89846800405a1890c183fec4d7c73a23e61024a304073124ba59273143', '[\"*\"]', '2024-09-06 07:51:09', NULL, '2024-09-06 07:40:53', '2024-09-06 07:51:09'),
+(395, 'App\\Models\\User', 1, 'N9CILxs3ABHI4nUg07cQ5lkm4Ahsdv3TbQ5QLTCI95EbIYXrs9', '841573d35bf9081953395fc0a1ac074a39929b753f8a78fe28a82eb2c50ba627', '[\"*\"]', '2024-09-06 07:43:13', NULL, '2024-09-06 07:42:10', '2024-09-06 07:43:13'),
+(396, 'App\\Models\\User', 2, 'q3MOZ7q405pyzufBGkVOgcjPM9Bzhba98uWYvgCOkDtTQ68AsB', 'ead8f6ad6928b37701208713328c30b7e506f224d9da03bbc2fcdd6831215d91', '[\"*\"]', NULL, NULL, '2024-09-06 07:59:12', '2024-09-06 07:59:12'),
+(397, 'App\\Models\\User', 22, 'IkFRUMGbu04QfOG5yU0ILPoNuQgHHg2LDI317ZpDzUUgfAT9VM', '52de3eab86ae7b13e0797bc2cb0eb79045ce8c90fed7695ff6fa92fd52b944c3', '[\"*\"]', NULL, NULL, '2024-09-06 08:14:46', '2024-09-06 08:14:46'),
+(398, 'App\\Models\\User', 22, '9vh0DA5qntrieOJblWesCPfDdZlOyceZRWFnTWh4wgLwPLgFi6', '9a8fba0f443da54889a697ae3aa77ed4c2b26c795bda06482ebb4ba4a22fb90a', '[\"*\"]', NULL, NULL, '2024-09-06 08:22:02', '2024-09-06 08:22:02'),
+(399, 'App\\Models\\User', 23, 'TXVeC1efzZRVh946rqgpMMq9PsqNV74YSzNxXfhWyhQaaiNqv3', '5770797b74d2817c35bfa9488f3ed2125a551c646c1dcc4d82f79efdad92afed', '[\"*\"]', NULL, NULL, '2024-09-06 08:34:08', '2024-09-06 08:34:08'),
+(400, 'App\\Models\\User', 21, 'tSVZyV34nCloNLRxxJI0Gp3iBSklVjiES1OX0chqLQDBBZDVg0', '1d807d0264971d66972865c2a796301b5bcbee3904ca5c66664c8df3a823cdf7', '[\"*\"]', NULL, NULL, '2024-09-06 09:18:36', '2024-09-06 09:18:36'),
+(401, 'App\\Models\\User', 2, 'iO7jLJQiyDRz2bCQmssZIoO1oDcwfb1K7qEHIOVVyWuIBsLWef', '4a97465f7d65938101e6faeb1a408eda26870d4149056ce97460d011a6d4d4fb', '[\"*\"]', '2024-09-06 09:25:09', NULL, '2024-09-06 09:24:29', '2024-09-06 09:25:09'),
+(402, 'App\\Models\\User', 22, 'Y2rUpnv7MXHQcbR4RMKBuYQALmki7XXZh4AEvnpTHESlhyCfFn', 'b71ec32a727631174b4049ec9bcecc6af5776c7b53db4cd206f00c7a9c5dffa9', '[\"*\"]', NULL, NULL, '2024-09-06 09:26:07', '2024-09-06 09:26:07'),
+(403, 'App\\Models\\User', 2, 'qsAwUZFb3iF0OzcbPwm7pzmoZQM2ltCGty8KKtbhONNFthG4Iu', '0d5c264894911e9ee5104213bc88b98deb15224b9cfdd45b091cf6d7e391993b', '[\"*\"]', '2024-09-06 09:26:42', NULL, '2024-09-06 09:26:26', '2024-09-06 09:26:42'),
+(404, 'App\\Models\\User', 18, '8SAB8I39kN5k6RjEVd3tosFBTLyqbrgVheP5B0hgBoXBg8e2dr', '07274ab1df74a1e5715ad35bf86375c9a2fb9b6be6ec163f3ce0581de0767be7', '[\"*\"]', NULL, NULL, '2024-09-06 09:28:28', '2024-09-06 09:28:28'),
+(405, 'App\\Models\\User', 22, 'LEN5kmxj1bGOsNbEBWB6voNhqwZrbYmidMkPzXeWzbkqCx6PA5', '335bcb9683696f6d88d24751faf4218f551b6e001d2bd6ed84027c00eaf85e90', '[\"*\"]', NULL, NULL, '2024-09-06 09:29:18', '2024-09-06 09:29:18'),
+(406, 'App\\Models\\User', 1, 'lOMGL43SJeQRafMjW5zAieHBkMPTJevAq1D3wDLPfrFfQT6psP', '965df532a477311b917b40436102aa00411af8beca92c9c5edbed7a039c23844', '[\"*\"]', '2024-09-06 09:57:44', NULL, '2024-09-06 09:32:12', '2024-09-06 09:57:44'),
+(407, 'App\\Models\\User', 2, 't6rSRyk6enRwCipGNny4blHU3k2YtYf1EE0COlPAxad0QDZe31', '4ffec7b29968cdb373064616f527d22a12495704bafd4f47de0c14480e202868', '[\"*\"]', '2024-09-06 10:03:48', NULL, '2024-09-06 09:38:56', '2024-09-06 10:03:48'),
+(408, 'App\\Models\\User', 2, 'q01BYjIOhjAIQAOMH5leMYZFbn3n94zXU0nixdjUscltQI6Xao', 'cae0cecf175c5aaaf8afa22c638694728ff8714f76bc95554266cc72f9fc8a4b', '[\"*\"]', '2024-09-06 10:13:03', NULL, '2024-09-06 10:03:58', '2024-09-06 10:13:03');
 
 -- --------------------------------------------------------
 
@@ -44396,6 +44727,38 @@ INSERT INTO `region` (`id`, `psgcCode`, `regDesc`, `regCode`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rfid_attendance`
+--
+
+CREATE TABLE `rfid_attendance` (
+  `id` bigint NOT NULL,
+  `studentID` int DEFAULT NULL,
+  `RFID` varchar(255) DEFAULT NULL,
+  `yearLevel` int DEFAULT NULL,
+  `semester` int DEFAULT NULL,
+  `month` int DEFAULT NULL,
+  `year` int DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `timeIn` time DEFAULT NULL,
+  `timeOut` time DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `rfid_attendance`
+--
+
+INSERT INTO `rfid_attendance` (`id`, `studentID`, `RFID`, `yearLevel`, `semester`, `month`, `year`, `date`, `timeIn`, `timeOut`, `created_at`, `updated_at`) VALUES
+(12, 3, '0001297626', 2, 1, 9, 2024, '2024-09-04', '11:23:34', '11:23:46', '2024-09-04 03:23:34', '2024-09-04 03:23:46'),
+(13, 2, '0007783785', 2, 1, 9, 2024, '2024-09-04', '11:23:41', '14:18:00', '2024-09-04 03:23:41', '2024-09-04 06:18:00'),
+(22, 3, '0001297626', 2, 2, 9, 2024, '2024-09-05', '08:14:40', '15:23:08', '2024-09-05 00:14:40', '2024-09-05 07:23:08'),
+(23, 2, '0007783785', 2, 1, 9, 2024, '2024-09-05', '08:15:07', '11:56:48', '2024-09-05 00:15:07', '2024-09-05 03:56:48'),
+(24, 2, '0007783785', 2, 1, 9, 2024, '2024-09-06', '09:56:51', '17:25:02', '2024-09-06 01:56:51', '2024-09-06 09:25:02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `schedule`
 --
 
@@ -44417,9 +44780,173 @@ CREATE TABLE `schedule` (
 --
 
 INSERT INTO `schedule` (`id`, `courseID`, `courseInfoID`, `section`, `slots`, `enrolled`, `status`, `schoolYear`, `created_at`, `updated_at`) VALUES
-(17, 18, 11, 'A', 25, 0, 1, '2024-2025', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
-(18, 18, 11, 'B', 25, 0, 1, '2024-2025', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
-(19, 18, 13, 'A', 25, 0, 1, '2024-2025', '2024-08-30 23:02:37', '2024-08-30 23:09:33');
+(17, 18, 11, 'A', 25, 2, 0, '2024-2025', '2024-08-30 09:30:50', '2024-09-06 09:32:36'),
+(18, 18, 11, 'B', 25, 1, 0, '2024-2025', '2024-08-30 09:44:26', '2024-09-06 09:32:39'),
+(19, 18, 13, 'A', 25, 0, 0, '2024-2025', '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(20, 18, 12, 'A', 25, 3, 0, '2024-2025', '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
+(21, 18, 12, 'A', 25, 0, 0, '2025-2026', '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
+(22, 18, 13, 'A', 25, 3, 0, '2025-2026', '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(23, 18, 14, 'A', 25, 2, 0, '2025-2026', '2024-09-03 00:12:55', '2024-09-06 09:32:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sms_token`
+--
+
+CREATE TABLE `sms_token` (
+  `id` int NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `access_token` varchar(255) DEFAULT NULL,
+  `mobile_identity` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `sms_token`
+--
+
+INSERT INTO `sms_token` (`id`, `url`, `access_token`, `mobile_identity`, `created_at`, `updated_at`) VALUES
+(1, 'https://api.pushbullet.com/v2/texts', 'o.QZdPjAHHhYdBpJgf1PgrWCCg6wrDUlTf --', 'ujvUXBTRPTEsjyzlSV4qya --', NULL, '2024-09-05 00:15:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_grading`
+--
+
+CREATE TABLE `student_grading` (
+  `id` int NOT NULL,
+  `studentYearLevelID` int DEFAULT NULL,
+  `studentID` int DEFAULT NULL,
+  `courseInfoID` int DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `subjectCode` varchar(255) DEFAULT NULL,
+  `subjectID` int DEFAULT NULL,
+  `instructor` int DEFAULT NULL,
+  `mt` decimal(11,2) DEFAULT NULL,
+  `ft` decimal(11,2) DEFAULT NULL,
+  `avg` decimal(11,2) DEFAULT NULL,
+  `assessment` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `student_grading`
+--
+
+INSERT INTO `student_grading` (`id`, `studentYearLevelID`, `studentID`, `courseInfoID`, `description`, `subjectCode`, `subjectID`, `instructor`, `mt`, `ft`, `avg`, `assessment`, `created_at`, `updated_at`) VALUES
+(70, 13, 1, 11, NULL, NULL, 21, 1, 1.50, 1.60, 1.55, 0, '2024-09-01 10:04:27', '2024-09-02 07:26:28'),
+(71, 13, 1, 11, NULL, NULL, 22, 3, 1.80, 1.90, 1.85, 1, '2024-09-01 10:04:27', '2024-09-02 07:48:04'),
+(72, 13, 1, 11, NULL, NULL, 24, 4, 1.70, 1.40, 1.55, 0, '2024-09-01 10:04:27', '2024-09-02 07:26:50'),
+(73, 13, 1, 11, NULL, NULL, 25, 1, 1.80, 1.20, 1.50, 0, '2024-09-01 10:04:27', '2024-09-02 07:26:58'),
+(74, 13, 1, 11, NULL, NULL, 26, 4, 1.90, 1.20, 1.55, 0, '2024-09-01 10:04:27', '2024-09-02 07:27:07'),
+(75, 13, 1, 11, NULL, NULL, 27, 3, 1.70, 1.70, 1.70, 0, '2024-09-01 10:04:27', '2024-09-02 07:44:19'),
+(76, 14, 2, 11, NULL, NULL, 21, 1, 1.20, 2.30, 1.75, 0, '2024-09-02 01:34:13', '2024-09-02 03:04:33'),
+(77, 14, 2, 11, NULL, NULL, 22, 3, 1.20, 1.30, 1.25, 1, '2024-09-02 01:34:13', '2024-09-02 08:31:38'),
+(78, 14, 2, 11, NULL, NULL, 24, 4, 1.50, 1.90, 1.70, 0, '2024-09-02 01:34:13', '2024-09-02 03:05:34'),
+(79, 14, 2, 11, NULL, NULL, 25, 1, 1.80, 1.60, 1.70, 0, '2024-09-02 01:34:13', '2024-09-02 03:05:48'),
+(80, 14, 2, 11, NULL, NULL, 26, 4, 1.70, 1.40, 1.55, 0, '2024-09-02 01:34:13', '2024-09-02 03:05:56'),
+(81, 14, 2, 11, NULL, NULL, 27, 3, 1.80, 2.20, 2.00, 0, '2024-09-02 01:34:13', '2024-09-02 03:06:21'),
+(82, 15, 3, 11, NULL, NULL, 21, 1, 1.20, 1.40, 1.30, 0, '2024-09-02 01:36:45', '2024-09-02 01:51:58'),
+(83, 15, 3, 11, NULL, NULL, 22, 1, 2.30, 1.20, 1.75, 1, '2024-09-02 01:36:45', '2024-09-02 07:52:04'),
+(84, 15, 3, 11, NULL, NULL, 24, 3, 1.40, 1.90, 1.65, 0, '2024-09-02 01:36:45', '2024-09-02 01:47:08'),
+(85, 15, 3, 11, NULL, NULL, 25, 3, 1.60, 1.80, 1.70, 0, '2024-09-02 01:36:45', '2024-09-02 01:47:16'),
+(86, 15, 3, 11, NULL, NULL, 26, 4, 1.80, 1.40, 1.60, 0, '2024-09-02 01:36:45', '2024-09-02 01:47:52'),
+(87, 15, 3, 11, NULL, NULL, 27, 3, 1.50, 2.50, 2.00, 0, '2024-09-02 01:36:45', '2024-09-02 01:49:40'),
+(88, 16, 3, 12, NULL, NULL, 28, 3, 1.50, 1.70, 1.60, 1, '2024-09-02 02:02:46', '2024-09-02 07:51:12'),
+(89, 16, 3, 12, NULL, NULL, 29, 1, 1.70, 1.40, 1.55, 0, '2024-09-02 02:02:46', '2024-09-02 07:49:40'),
+(90, 16, 3, 12, NULL, NULL, 30, 3, 1.90, 1.30, 1.60, 0, '2024-09-02 02:02:46', '2024-09-02 07:49:48'),
+(91, 16, 3, 12, NULL, NULL, 31, 3, 1.40, 1.90, 1.65, 1, '2024-09-02 02:02:46', '2024-09-05 03:25:41'),
+(92, 16, 3, 12, NULL, NULL, 32, 3, 1.80, 1.20, 1.50, 0, '2024-09-02 02:02:46', '2024-09-02 07:50:22'),
+(93, 16, 3, 12, NULL, NULL, 33, 4, 1.20, 1.80, 1.50, 0, '2024-09-02 02:02:46', '2024-09-02 07:50:29'),
+(94, 16, 3, 12, NULL, NULL, 34, 3, 1.20, 1.30, 1.25, 0, '2024-09-02 02:02:46', '2024-09-02 07:50:39'),
+(95, 17, 2, 12, NULL, NULL, 28, 3, 1.60, 1.80, 1.70, 1, '2024-09-02 03:09:39', '2024-09-02 08:31:48'),
+(96, 17, 2, 12, NULL, NULL, 29, 1, 1.10, 1.00, 1.05, 0, '2024-09-02 03:09:39', '2024-09-04 06:57:41'),
+(97, 17, 2, 12, NULL, NULL, 30, 3, 1.90, 1.90, 1.90, 1, '2024-09-02 03:09:39', '2024-09-02 08:32:08'),
+(98, 17, 2, 12, NULL, NULL, 31, 3, 1.70, 1.20, 1.45, 1, '2024-09-02 03:09:39', '2024-09-02 08:33:13'),
+(99, 17, 2, 12, NULL, NULL, 32, 3, 2.80, 2.90, 2.85, 0, '2024-09-02 03:09:39', '2024-09-02 08:32:27'),
+(100, 17, 2, 12, NULL, NULL, 33, 4, 1.10, 1.60, 1.35, 0, '2024-09-02 03:09:39', '2024-09-02 08:32:36'),
+(101, 17, 2, 12, NULL, NULL, 34, 3, 1.90, 2.20, 2.05, 0, '2024-09-02 03:09:39', '2024-09-02 08:32:46'),
+(102, 18, 1, 12, NULL, NULL, 28, 3, 1.30, 1.10, 1.20, 1, '2024-09-02 07:48:11', '2024-09-02 08:52:52'),
+(103, 18, 1, 12, NULL, NULL, 29, 1, 1.50, 1.60, 1.55, 1, '2024-09-02 07:48:11', '2024-09-02 08:53:00'),
+(104, 18, 1, 12, NULL, NULL, 30, 3, 1.20, 1.00, 1.10, 0, '2024-09-02 07:48:11', '2024-09-02 08:53:19'),
+(105, 18, 1, 12, NULL, NULL, 31, 3, 1.70, 1.50, 1.60, 1, '2024-09-02 07:48:11', '2024-09-02 08:55:40'),
+(106, 18, 1, 12, NULL, NULL, 32, 3, 1.20, 1.60, 1.40, 1, '2024-09-02 07:48:11', '2024-09-02 08:53:36'),
+(107, 18, 1, 12, NULL, NULL, 33, 4, 1.10, 1.20, 1.15, 1, '2024-09-02 07:48:11', '2024-09-02 08:53:44'),
+(108, 18, 1, 12, NULL, NULL, 34, 3, 1.60, 1.70, 1.65, 0, '2024-09-02 07:48:11', '2024-09-02 08:55:27'),
+(109, 19, 3, 13, NULL, NULL, 35, 1, 1.30, 1.60, 1.45, 0, '2024-09-02 08:07:21', '2024-09-04 03:38:17'),
+(110, 19, 3, 13, NULL, NULL, 36, 3, 1.90, 2.70, 2.30, 0, '2024-09-02 08:07:21', '2024-09-04 03:38:29'),
+(111, 19, 3, 13, NULL, NULL, 37, 3, 1.90, 1.20, 1.55, 0, '2024-09-02 08:07:21', '2024-09-04 03:38:40'),
+(112, 19, 3, 13, NULL, NULL, 38, 3, 2.90, 2.80, 2.85, 1, '2024-09-02 08:07:21', '2024-09-04 03:42:07'),
+(113, 19, 3, 13, NULL, NULL, 39, 1, 2.10, 2.20, 2.15, 0, '2024-09-02 08:07:21', '2024-09-04 03:39:03'),
+(114, 19, 3, 13, NULL, NULL, 40, 3, 1.10, 1.90, 1.50, 0, '2024-09-02 08:07:21', '2024-09-04 03:39:15'),
+(115, 19, 3, 13, NULL, NULL, 41, 3, 1.80, 2.90, 2.35, 0, '2024-09-02 08:07:21', '2024-09-04 03:39:25'),
+(116, 19, 3, 13, NULL, NULL, 42, 3, 1.30, 1.90, 1.60, 0, '2024-09-02 08:07:21', '2024-09-04 03:40:52'),
+(117, 20, 2, 13, NULL, NULL, 35, 1, 1.40, 1.20, 1.30, 0, '2024-09-02 08:33:23', '2024-09-06 04:07:39'),
+(118, 20, 2, 13, NULL, NULL, 36, 3, 1.80, 1.20, 1.50, 0, '2024-09-02 08:33:23', '2024-09-06 04:07:47'),
+(119, 20, 2, 13, NULL, NULL, 37, 3, 1.10, 1.20, 1.15, 0, '2024-09-02 08:33:23', '2024-09-06 04:07:54'),
+(120, 20, 2, 13, NULL, NULL, 38, 3, 1.50, 1.20, 1.35, 1, '2024-09-02 08:33:23', '2024-09-06 04:09:22'),
+(121, 20, 2, 13, NULL, NULL, 39, 1, 1.80, 1.70, 1.75, 0, '2024-09-02 08:33:23', '2024-09-06 04:08:50'),
+(122, 20, 2, 13, NULL, NULL, 40, 3, 1.30, 1.20, 1.25, 0, '2024-09-02 08:33:23', '2024-09-06 04:08:27'),
+(123, 20, 2, 13, NULL, NULL, 41, 3, 1.30, 1.20, 1.25, 0, '2024-09-02 08:33:23', '2024-09-06 04:08:35'),
+(124, 20, 2, 13, NULL, NULL, 42, 3, 1.20, 1.70, 1.45, 0, '2024-09-02 08:33:23', '2024-09-04 08:10:27'),
+(125, 21, 1, 13, NULL, NULL, 35, 1, 1.50, 1.78, 1.64, 0, '2024-09-02 08:56:19', '2024-09-02 09:11:07'),
+(126, 21, 1, 13, NULL, NULL, 36, 3, 1.30, 1.20, 1.25, 0, '2024-09-02 08:56:19', '2024-09-02 09:11:16'),
+(127, 21, 1, 13, NULL, NULL, 37, 3, 2.20, 1.70, 1.95, 0, '2024-09-02 08:56:19', '2024-09-02 09:11:23'),
+(128, 21, 1, 13, NULL, NULL, 38, 3, 1.90, 1.10, 1.50, 1, '2024-09-02 08:56:19', '2024-09-03 00:08:12'),
+(129, 21, 1, 13, NULL, NULL, 39, 1, 1.30, 1.10, 1.20, 0, '2024-09-02 08:56:19', '2024-09-02 09:25:12'),
+(130, 21, 1, 13, NULL, NULL, 40, 3, 1.60, 1.20, 1.40, 0, '2024-09-02 08:56:19', '2024-09-02 09:12:03'),
+(131, 21, 1, 13, NULL, NULL, 41, 3, 1.90, 1.10, 1.50, 0, '2024-09-02 08:56:19', '2024-09-02 09:12:38'),
+(132, 21, 1, 13, NULL, NULL, 42, 3, 1.10, 1.80, 1.45, 0, '2024-09-02 08:56:19', '2024-09-02 09:33:32'),
+(133, 22, 1, 14, NULL, NULL, 43, 3, 1.70, 1.80, 1.75, 0, '2024-09-03 00:13:47', '2024-09-03 00:24:29'),
+(134, 22, 1, 14, NULL, NULL, 44, 3, 1.80, 1.20, 1.50, 0, '2024-09-03 00:13:47', '2024-09-03 00:24:57'),
+(135, 22, 1, 14, NULL, NULL, 45, 3, 1.90, 1.00, 1.45, 1, '2024-09-03 00:13:47', '2024-09-03 00:50:01'),
+(136, 22, 1, 14, NULL, NULL, 46, 1, 1.40, 1.90, 1.65, 1, '2024-09-03 00:13:47', '2024-09-03 00:57:13'),
+(137, 22, 1, 14, NULL, NULL, 47, 1, 2.30, 1.20, 1.75, 0, '2024-09-03 00:13:47', '2024-09-03 00:48:45'),
+(138, 22, 1, 14, NULL, NULL, 48, 3, 1.80, 1.20, 1.50, 0, '2024-09-03 00:13:47', '2024-09-03 00:49:02'),
+(139, 22, 1, 14, NULL, NULL, 49, 3, 1.00, 1.00, 1.00, 0, '2024-09-03 00:13:47', '2024-09-03 00:49:12'),
+(140, 23, 3, 14, NULL, NULL, 43, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
+(141, 23, 3, 14, NULL, NULL, 44, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
+(142, 23, 3, 14, NULL, NULL, 45, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
+(143, 23, 3, 14, NULL, NULL, 46, 1, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
+(144, 23, 3, 14, NULL, NULL, 47, 1, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
+(145, 23, 3, 14, NULL, NULL, 48, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
+(146, 23, 3, 14, NULL, NULL, 49, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_year_level`
+--
+
+CREATE TABLE `student_year_level` (
+  `id` int NOT NULL,
+  `studentID` int DEFAULT NULL,
+  `scheduleID` int DEFAULT NULL,
+  `courseInfoID` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `student_year_level`
+--
+
+INSERT INTO `student_year_level` (`id`, `studentID`, `scheduleID`, `courseInfoID`, `created_at`, `updated_at`) VALUES
+(13, 1, 17, 11, '2024-09-01 10:04:27', '2024-09-01 10:04:27'),
+(14, 2, 17, 11, '2024-09-02 01:34:13', '2024-09-02 01:34:13'),
+(15, 3, 18, 11, '2024-09-02 01:36:45', '2024-09-02 01:36:45'),
+(16, 3, 20, 12, '2024-09-02 02:02:46', '2024-09-02 02:02:46'),
+(17, 2, 20, 12, '2024-09-02 03:09:39', '2024-09-02 03:09:39'),
+(18, 1, 20, 12, '2024-09-02 07:48:11', '2024-09-02 07:48:11'),
+(19, 3, 22, 13, '2024-09-02 08:07:21', '2024-09-02 08:07:21'),
+(20, 2, 22, 13, '2024-09-02 08:33:23', '2024-09-02 08:33:23'),
+(21, 1, 22, 13, '2024-09-02 08:56:19', '2024-09-02 08:56:19'),
+(22, 1, 23, 14, '2024-09-03 00:13:47', '2024-09-03 00:13:47'),
+(23, 3, 23, 14, '2024-09-04 03:43:03', '2024-09-04 03:43:03');
 
 -- --------------------------------------------------------
 
@@ -44434,6 +44961,7 @@ CREATE TABLE `subjects` (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `subjectCode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `units` int DEFAULT NULL,
+  `NC` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -44442,28 +44970,35 @@ CREATE TABLE `subjects` (
 -- Dumping data for table `subjects`
 --
 
-INSERT INTO `subjects` (`id`, `courseID`, `courseInfoID`, `description`, `subjectCode`, `units`, `created_at`, `updated_at`) VALUES
-(21, 18, 11, 'Macro Perspective of Tourism and Hospitality', 'ATH 1103', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
-(22, 18, 11, 'Risk Management as Applied to Safety, Security and Sanitation', 'ATH 1110', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
-(24, 18, 11, 'Physical Education 1', 'PPE 1101', 2, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
-(25, 18, 11, 'Ethics', 'ZGE 1103', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
-(26, 18, 11, 'Purposive Communication', 'ZGE 1105', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
-(27, 18, 11, 'Readings in Philippine History', 'ZGE 1106', 3, '2024-08-30 01:39:35', '2024-08-30 01:39:35'),
-(28, 18, 12, 'Kitchen Essentials and Basic Food Preparation', 'AHM 1201', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
-(29, 18, 12, 'Fundamentals in Lodging Operations', 'AHM 1202', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
-(30, 18, 12, 'Micro Perspective of Tourism and Hospitality', 'ATH 1104', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
-(31, 18, 12, 'Philippine Tourism, Culture and Geography', 'ATH 1107', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
-(32, 18, 12, 'Quality Service Management in Tourism and Hospitality', 'ATH 1109', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
-(33, 18, 12, 'Physical Education 2', 'PPE 1102', 2, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
-(34, 18, 12, 'The Contemporary World', 'ZGE 1102', 3, '2024-08-30 01:45:09', '2024-08-30 01:45:09'),
-(35, 18, 13, 'Foreign Language Elective 1', 'AFL EL01', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
-(36, 18, 13, 'Culinary Nutrition', 'AHE 4305', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
-(37, 18, 13, 'Applied Business Tools and Technologies (PMS) with lab', 'AHM 2101', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
-(38, 18, 13, 'Supply Chain Management in Tourism and Hospitality Industry', 'AHM 2102', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
-(39, 18, 13, 'Physical Education 3', 'PPE 1103', 2, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
-(40, 18, 13, 'Art Appreciation', 'ZGE 1101', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
-(41, 18, 13, 'Mathematics in the Modern World', 'ZGE 1104', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58'),
-(42, 18, 13, 'Life and Works of Rizal', 'ZGE 1109', 3, '2024-08-30 22:58:58', '2024-08-30 22:58:58');
+INSERT INTO `subjects` (`id`, `courseID`, `courseInfoID`, `description`, `subjectCode`, `units`, `NC`, `created_at`, `updated_at`) VALUES
+(21, 18, 11, 'Macro Perspective of Tourism and Hospitality', 'ATH 1103', 3, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(22, 18, 11, 'Risk Management as Applied to Safety, Security and Sanitation', 'ATH 1110', 3, 1, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(24, 18, 11, 'Physical Education 1', 'PPE 1101', 2, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(25, 18, 11, 'Ethics', 'ZGE 1103', 3, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(26, 18, 11, 'Purposive Communication', 'ZGE 1105', 3, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(27, 18, 11, 'Readings in Philippine History', 'ZGE 1106', 3, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(28, 18, 12, 'Kitchen Essentials and Basic Food Preparation', 'AHM 1201', 3, 1, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
+(29, 18, 12, 'Fundamentals in Lodging Operations', 'AHM 1202', 3, 0, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
+(30, 18, 12, 'Micro Perspective of Tourism and Hospitality', 'ATH 1104', 3, 0, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
+(31, 18, 12, 'Philippine Tourism, Culture and Geography', 'ATH 1107', 3, 1, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
+(32, 18, 12, 'Quality Service Management in Tourism and Hospitality', 'ATH 1109', 3, 0, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
+(33, 18, 12, 'Physical Education 2', 'PPE 1102', 2, 0, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
+(34, 18, 12, 'The Contemporary World', 'ZGE 1102', 3, 0, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
+(35, 18, 13, 'Foreign Language Elective 1', 'AFL EL01', 3, 0, '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(36, 18, 13, 'Culinary Nutrition', 'AHE 4305', 3, 0, '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(37, 18, 13, 'Applied Business Tools and Technologies (PMS) with lab', 'AHM 2101', 3, 0, '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(38, 18, 13, 'Supply Chain Management in Tourism and Hospitality Industry', 'AHM 2102', 3, 1, '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(39, 18, 13, 'Physical Education 3', 'PPE 1103', 2, 0, '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(40, 18, 13, 'Art Appreciation', 'ZGE 1101', 3, 0, '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(41, 18, 13, 'Mathematics in the Modern World', 'ZGE 1104', 3, 0, '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(42, 18, 13, 'Life and Works of Rizal', 'ZGE 1109', 3, 0, '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
+(43, 18, 14, 'Foreign Language Elective 2', 'AFL EL02', 3, 0, '2024-09-02 06:04:21', '2024-09-02 06:51:36'),
+(44, 18, 14, 'Bakery Science', 'AHE 4302', 3, 0, '2024-09-02 06:04:21', '2024-09-02 06:51:36'),
+(45, 18, 14, 'Housekeeping Procedures', 'AHE 4307', 3, 1, '2024-09-02 06:04:21', '2024-09-02 06:51:36'),
+(46, 18, 14, 'Fundamentals of Food Service Operations', 'AHM 2201', 3, 1, '2024-09-02 06:04:21', '2024-09-02 06:51:36'),
+(47, 18, 14, 'Front Office Procedures', 'ATH 4301', 3, 0, '2024-09-02 06:04:21', '2024-09-02 06:51:36'),
+(48, 18, 14, 'Physical Education 4', 'PPE 1104', 2, 0, '2024-09-02 06:04:21', '2024-09-02 06:51:36'),
+(49, 18, 14, 'Science, Technology, and Society', 'ZGE 1107', 3, 0, '2024-09-02 06:04:21', '2024-09-02 06:51:36');
 
 -- --------------------------------------------------------
 
@@ -44487,6 +45022,7 @@ CREATE TABLE `subject_schedule` (
   `sat` int DEFAULT NULL,
   `fromTime` time DEFAULT NULL,
   `toTime` time DEFAULT NULL,
+  `status` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -44495,27 +45031,56 @@ CREATE TABLE `subject_schedule` (
 -- Dumping data for table `subject_schedule`
 --
 
-INSERT INTO `subject_schedule` (`id`, `courseID`, `courseInfoID`, `scheduleID`, `subject`, `instructor`, `room`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `fromTime`, `toTime`, `created_at`, `updated_at`) VALUES
-(25, 18, 11, 17, 21, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '08:00:00', '10:00:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
-(26, 18, 11, 17, 22, 3, 'Room 2', 0, 1, 0, 0, 1, 0, '15:00:00', '16:30:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
-(27, 18, 11, 17, 24, 4, 'Room 3', 0, 1, 0, 0, 1, 0, '08:00:00', '09:00:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
-(28, 18, 11, 17, 25, 1, 'Room 4', 0, 0, 1, 0, 0, 0, '08:00:00', '12:00:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
-(29, 18, 11, 17, 26, 4, 'Room 5', 1, 0, 0, 1, 0, 0, '17:00:00', '18:30:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
-(30, 18, 11, 17, 27, 3, 'Room 6', 0, 1, 0, 0, 1, 0, '10:00:00', '11:30:00', '2024-08-30 09:30:50', '2024-08-31 00:43:29'),
-(31, 18, 11, 18, 21, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '09:00:00', '10:00:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
-(32, 18, 11, 18, 22, 1, 'Room 2', 0, 1, 0, 0, 1, 0, '14:30:00', '16:00:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
-(33, 18, 11, 18, 24, 3, 'Room 3', 1, 0, 0, 1, 0, 0, '11:30:00', '13:00:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
-(34, 18, 11, 18, 25, 3, 'Room 4', 0, 0, 1, 0, 0, 0, '16:00:00', '17:30:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
-(35, 18, 11, 18, 26, 4, 'Room 5', 0, 1, 0, 0, 1, 0, '07:00:00', '08:30:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
-(36, 18, 11, 18, 27, 3, 'Room 6', 1, 0, 0, 1, 0, 0, '13:00:00', '14:30:00', '2024-08-30 09:44:26', '2024-08-31 00:41:21'),
-(37, 18, 13, 19, 35, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '07:00:00', '08:30:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
-(38, 18, 13, 19, 36, 3, 'Room 3', 0, 1, 0, 0, 1, 0, '13:00:00', '14:30:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
-(39, 18, 13, 19, 37, 4, 'Room 8', 1, 0, 0, 1, 0, 0, '10:00:00', '11:30:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
-(40, 18, 13, 19, 38, 3, 'Room 3', 1, 0, 0, 1, 0, 0, '15:00:00', '16:30:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
-(41, 18, 13, 19, 39, 3, 'Room 4', 0, 1, 0, 0, 1, 0, '08:30:00', '10:00:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
-(42, 18, 13, 19, 40, 1, 'Room 5', 0, 0, 1, 0, 0, 0, '13:00:00', '16:00:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
-(43, 18, 13, 19, 41, 1, 'Room 4', 1, 0, 0, 1, 0, 0, '17:30:00', '19:00:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33'),
-(44, 18, 13, 19, 42, 3, 'Room 9', 0, 1, 0, 0, 1, 0, '17:30:00', '19:00:00', '2024-08-30 23:02:37', '2024-08-30 23:09:33');
+INSERT INTO `subject_schedule` (`id`, `courseID`, `courseInfoID`, `scheduleID`, `subject`, `instructor`, `room`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `fromTime`, `toTime`, `status`, `created_at`, `updated_at`) VALUES
+(25, 18, 11, 17, 21, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '08:00:00', '10:00:00', 0, '2024-08-30 09:30:50', '2024-09-06 09:32:36'),
+(26, 18, 11, 17, 22, 3, 'Room 2', 0, 1, 0, 0, 1, 0, '15:00:00', '16:30:00', 0, '2024-08-30 09:30:50', '2024-09-06 09:32:36'),
+(27, 18, 11, 17, 24, 4, 'Room 3', 0, 1, 0, 0, 1, 0, '08:00:00', '09:00:00', 0, '2024-08-30 09:30:50', '2024-09-06 09:32:36'),
+(28, 18, 11, 17, 25, 1, 'Room 4', 0, 0, 1, 0, 0, 0, '08:00:00', '12:00:00', 0, '2024-08-30 09:30:50', '2024-09-06 09:32:36'),
+(29, 18, 11, 17, 26, 4, 'Room 5', 1, 0, 0, 1, 0, 0, '17:00:00', '18:30:00', 0, '2024-08-30 09:30:50', '2024-09-06 09:32:36'),
+(30, 18, 11, 17, 27, 3, 'Room 6', 0, 1, 0, 0, 1, 0, '10:00:00', '11:30:00', 0, '2024-08-30 09:30:50', '2024-09-06 09:32:36'),
+(31, 18, 11, 18, 21, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '09:00:00', '10:00:00', 0, '2024-08-30 09:44:26', '2024-09-06 09:32:39'),
+(32, 18, 11, 18, 22, 1, 'Room 2', 0, 1, 0, 0, 1, 0, '14:30:00', '16:00:00', 0, '2024-08-30 09:44:26', '2024-09-06 09:32:39'),
+(33, 18, 11, 18, 24, 3, 'Room 3', 1, 0, 0, 1, 0, 0, '11:30:00', '13:00:00', 0, '2024-08-30 09:44:26', '2024-09-06 09:32:39'),
+(34, 18, 11, 18, 25, 3, 'Room 4', 0, 0, 1, 0, 0, 0, '16:00:00', '17:30:00', 0, '2024-08-30 09:44:26', '2024-09-06 09:32:39'),
+(35, 18, 11, 18, 26, 4, 'Room 5', 0, 1, 0, 0, 1, 0, '07:00:00', '08:30:00', 0, '2024-08-30 09:44:26', '2024-09-06 09:32:39'),
+(36, 18, 11, 18, 27, 3, 'Room 6', 1, 0, 0, 1, 0, 0, '13:00:00', '14:30:00', 0, '2024-08-30 09:44:26', '2024-09-06 09:32:39'),
+(37, 18, 13, 19, 35, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '07:00:00', '08:30:00', 0, '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(38, 18, 13, 19, 36, 3, 'Room 3', 0, 1, 0, 0, 1, 0, '13:00:00', '14:30:00', 0, '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(39, 18, 13, 19, 37, 4, 'Room 8', 1, 0, 0, 1, 0, 0, '10:00:00', '11:30:00', 0, '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(40, 18, 13, 19, 38, 3, 'Room 3', 1, 0, 0, 1, 0, 0, '15:00:00', '16:30:00', 0, '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(41, 18, 13, 19, 39, 3, 'Room 4', 0, 1, 0, 0, 1, 0, '08:30:00', '10:00:00', 0, '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(42, 18, 13, 19, 40, 1, 'Room 5', 0, 0, 1, 0, 0, 0, '13:00:00', '16:00:00', 0, '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(43, 18, 13, 19, 41, 1, 'Room 4', 1, 0, 0, 1, 0, 0, '17:30:00', '19:00:00', 0, '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(44, 18, 13, 19, 42, 3, 'Room 9', 0, 1, 0, 0, 1, 0, '17:30:00', '19:00:00', 0, '2024-08-30 23:02:37', '2024-09-06 09:32:45'),
+(45, 18, 12, 20, 28, 3, 'Room 1', 1, 0, 0, 1, 0, 0, '08:30:00', '10:00:00', 0, '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
+(46, 18, 12, 20, 29, 1, 'Room 5', 0, 1, 0, 0, 1, 0, '13:00:00', '14:30:00', 0, '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
+(47, 18, 12, 20, 30, 3, 'Room 10', 1, 0, 0, 1, 0, 0, '10:00:00', '11:30:00', 0, '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
+(48, 18, 12, 20, 31, 3, 'Room 3', 0, 0, 1, 0, 0, 0, '08:30:00', '11:00:00', 0, '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
+(49, 18, 12, 20, 32, 3, 'Room 2', 0, 1, 0, 0, 1, 0, '15:00:00', '16:30:00', 0, '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
+(50, 18, 12, 20, 33, 4, 'Room 2', 1, 0, 0, 1, 0, 0, '18:00:00', '19:00:00', 0, '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
+(51, 18, 12, 20, 34, 3, 'Room 2', 0, 0, 1, 0, 0, 0, '16:00:00', '17:00:00', 0, '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
+(52, 18, 12, 21, 28, 1, 'Room 2', 0, 1, 0, 0, 1, 0, '08:30:00', '10:00:00', 0, '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
+(53, 18, 12, 21, 29, 3, 'Room 9', 0, 0, 1, 0, 0, 0, '09:00:00', '12:00:00', 0, '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
+(54, 18, 12, 21, 30, 4, 'Room 1', 1, 0, 0, 1, 0, 0, '13:00:00', '14:30:00', 0, '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
+(55, 18, 12, 21, 31, 3, 'Room 8', 1, 0, 0, 1, 0, 0, '07:00:00', '09:00:00', 0, '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
+(56, 18, 12, 21, 32, 3, 'Room 6', 0, 1, 0, 0, 1, 0, '15:00:00', '17:30:00', 0, '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
+(57, 18, 12, 21, 33, 4, 'Room 7', 1, 0, 0, 1, 0, 0, '17:00:00', '19:00:00', 0, '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
+(58, 18, 12, 21, 34, 3, 'Room 7', 1, 0, 0, 1, 0, 0, '13:00:00', '14:30:00', 0, '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
+(59, 18, 13, 22, 35, 1, 'Room 2', 1, 0, 0, 1, 0, 0, '09:00:00', '10:00:00', 0, '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(60, 18, 13, 22, 36, 3, 'Room 6', 1, 0, 0, 1, 0, 0, '10:00:00', '11:00:00', 0, '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(61, 18, 13, 22, 37, 3, 'Room 8', 0, 1, 0, 0, 1, 0, '08:00:00', '09:00:00', 0, '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(62, 18, 13, 22, 38, 3, 'Room 1', 0, 1, 0, 0, 1, 0, '13:00:00', '14:00:00', 0, '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(63, 18, 13, 22, 39, 1, 'Room 3', 0, 0, 1, 0, 0, 0, '13:00:00', '16:00:00', 0, '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(64, 18, 13, 22, 40, 3, 'Room 9', 1, 0, 0, 1, 0, 0, '09:00:00', '12:00:00', 0, '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(65, 18, 13, 22, 41, 3, 'Room 2', 0, 1, 0, 0, 1, 0, '16:00:00', '17:00:00', 0, '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(66, 18, 13, 22, 42, 3, 'Room 2', 0, 1, 0, 0, 1, 0, '19:00:00', '20:00:00', 0, '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
+(67, 18, 14, 23, 43, 3, 'Room 2', 1, 0, 0, 1, 0, 1, '08:00:00', '09:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
+(68, 18, 14, 23, 44, 3, 'Room 4', 1, 0, 0, 1, 0, 1, '09:00:00', '10:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
+(69, 18, 14, 23, 45, 3, 'Room 6', 1, 0, 0, 1, 0, 1, '10:00:00', '12:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
+(70, 18, 14, 23, 46, 1, 'Room 3', 0, 1, 0, 0, 1, 1, '13:00:00', '14:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
+(71, 18, 14, 23, 47, 1, 'Room 10', 0, 0, 1, 0, 0, 1, '08:00:00', '09:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
+(72, 18, 14, 23, 48, 3, 'Room 10', 0, 1, 0, 0, 1, 1, '16:00:00', '17:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
+(73, 18, 14, 23, 49, 3, 'Room 8', 0, 1, 0, 0, 1, 1, '17:00:00', '18:03:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50');
 
 -- --------------------------------------------------------
 
@@ -44530,6 +45095,47 @@ CREATE TABLE `tracker` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tracker`
+--
+
+INSERT INTO `tracker` (`id`, `studentID`, `tracker`, `created_at`, `updated_at`) VALUES
+(1, '1', 1, '2024-08-31 23:31:31', '2024-08-31 23:31:31'),
+(2, '1', 2, '2024-08-31 23:32:45', '2024-08-31 23:32:45'),
+(3, '1', 3, '2024-08-31 23:33:11', '2024-08-31 23:33:11'),
+(4, '1', 4, '2024-08-31 23:33:39', '2024-08-31 23:33:39'),
+(5, '1', 5, '2024-08-31 23:34:03', '2024-08-31 23:34:03'),
+(6, '1', 6, '2024-08-31 23:34:17', '2024-08-31 23:34:17'),
+(7, '1', 7, '2024-08-31 23:38:32', '2024-08-31 23:38:32'),
+(8, '2', 1, '2024-09-01 01:47:58', '2024-09-01 01:47:58'),
+(9, '2', 2, '2024-09-01 01:48:27', '2024-09-01 01:48:27'),
+(10, '2', 3, '2024-09-01 01:50:26', '2024-09-01 01:50:26'),
+(11, '2', 4, '2024-09-01 01:50:34', '2024-09-01 01:50:34'),
+(12, '2', 5, '2024-09-01 01:50:52', '2024-09-01 01:50:52'),
+(13, '2', 6, '2024-09-01 01:50:57', '2024-09-01 01:50:57'),
+(14, '2', 7, '2024-09-01 01:51:07', '2024-09-01 01:51:07'),
+(15, '3', 1, '2024-09-01 23:22:25', '2024-09-01 23:22:25'),
+(16, '3', 2, '2024-09-01 23:23:17', '2024-09-01 23:23:17'),
+(17, '3', 3, '2024-09-01 23:25:26', '2024-09-01 23:25:26'),
+(18, '3', 4, '2024-09-02 00:00:19', '2024-09-02 00:00:19'),
+(19, '3', 5, '2024-09-02 00:11:21', '2024-09-02 00:11:21'),
+(20, '3', 6, '2024-09-02 00:22:01', '2024-09-02 00:22:01'),
+(21, '3', 7, '2024-09-02 00:27:58', '2024-09-02 00:27:58'),
+(22, '4', 1, '2024-09-06 00:07:39', '2024-09-06 00:07:39'),
+(23, '4', 2, '2024-09-06 00:08:34', '2024-09-06 00:08:34'),
+(24, '5', 1, '2024-09-06 00:14:48', '2024-09-06 00:14:48'),
+(25, '5', 2, '2024-09-06 00:15:18', '2024-09-06 00:15:18'),
+(26, '4', 3, '2024-09-06 00:24:12', '2024-09-06 00:24:12'),
+(27, '5', 3, '2024-09-06 00:24:27', '2024-09-06 00:24:27'),
+(28, '4', 4, '2024-09-06 00:31:00', '2024-09-06 00:31:00'),
+(29, '5', 4, '2024-09-06 00:31:07', '2024-09-06 00:31:07'),
+(30, '4', 5, '2024-09-06 00:37:40', '2024-09-06 00:37:40'),
+(33, '5', 5, '2024-09-06 00:44:59', '2024-09-06 00:44:59'),
+(34, '4', 6, '2024-09-06 00:46:41', '2024-09-06 00:46:41'),
+(35, '5', 6, '2024-09-06 00:46:45', '2024-09-06 00:46:45'),
+(36, '5', 7, '2024-09-06 01:02:01', '2024-09-06 01:02:01'),
+(37, '4', 7, '2024-09-06 02:25:50', '2024-09-06 02:25:50');
 
 -- --------------------------------------------------------
 
@@ -44548,25 +45154,55 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `active_status` tinyint(1) NOT NULL DEFAULT '0',
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'avatar.png',
+  `dark_mode` tinyint(1) NOT NULL DEFAULT '0',
+  `messenger_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `trainerID`, `studentID`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'GJTVS Admin', 'gjtvs@admin.com', NULL, '$2y$10$w.yYSjFQywvVIIqzi2so0uPNYjoulI40WCCp4DzvpL4D85J.Ii1J6', NULL, 1, '2024-06-02 17:42:58', '2024-06-02 17:42:58'),
-(2, NULL, NULL, 'GJTVS Registrar', 'gjtvs@registrar.com', NULL, '$2y$10$rsBSuZbwkVHpmDRmO9wVDeD/vnDyabzMvN3KQHVDBmxvsfU1tXwpe', NULL, 2, NULL, NULL);
+INSERT INTO `users` (`id`, `trainerID`, `studentID`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`, `active_status`, `avatar`, `dark_mode`, `messenger_color`) VALUES
+(1, NULL, NULL, 'GJTVS Admin', 'gjtvs@admin.com', NULL, '$2y$10$OcVzE8w6xmG1syGqey8t6OIg8XJsTVJol6f.oXKnJdk6QKtjn4UWq', NULL, 1, '2024-06-02 17:42:58', '2024-09-06 07:43:13', 0, 'avatar.png', 0, NULL),
+(2, NULL, NULL, 'GJTVS Registrar', 'gjtvs@registrar.com', NULL, '$2y$10$h46Q075StE7I100ZkJKpHuQqyiZOyfFJoXfr09WoP7QNGH2wNLIai', NULL, 2, NULL, '2024-09-05 23:49:53', 0, 'avatar.png', 0, '#2180f3'),
+(16, NULL, 1, 'Jemuel Cadayona', 'cdynjm@gmail.com', NULL, '$2y$10$HmU9kHDgQDNuEDEzQJSK5.6G/m8UTj2V.5s0NDJUMTsnSMvCsuJhO', '53Nz5PYS4yxX3OleXwgeGi5U9wi4FBnFIvMfsXQj8HE321NOsQMtvyIJtMLx', 4, '2024-08-31 23:31:31', '2024-09-05 00:44:02', 0, 'avatar.png', 0, NULL),
+(17, NULL, 2, 'Jaysan Ompod', 'jajaompod20@gmail.com', NULL, '$2y$10$.Hjv9nwzhJHQ8j.eJalZz.5ryktOg/.Ri2pxbLfdYSTTgp1vHs2/6', 'vNSseKTYykgn1xvrBStveN811YhLpt31wxubxYTJCnnlwXYt6oUdSpjdjun5', 4, '2024-09-01 01:47:58', '2024-09-05 05:17:03', 1, 'avatar.png', 0, NULL),
+(18, NULL, 3, 'Joann Mirasol', 'joan@gmail.com', NULL, '$2y$10$lUPtrWEESxi70ZtZ9ZkaEuvJr6V2etcaHKWFZjZjC5771bC3fog1i', 'nlcQyoiGI48eKCCXACvStIEFvo2Lw2NDTrJ6FL2FMtrrEY5IclH2Z3R7T4bi', 4, '2024-09-01 23:22:25', '2024-09-04 03:41:28', 0, 'avatar.png', 0, NULL),
+(19, NULL, 4, 'Juan Dela Cruz', 'juan@gmail.com', NULL, '$2y$10$tfQyGonY9OzmKHUPMXLNiOkjNqd2WkHhE4uuwRxkwV3ZcHrYMEPTG', '9mm6niFiouy4enbywIOPKsOsteEuhHZTrRhINWqDzT2lD8th3ZMVJlvctUpn', 4, '2024-09-06 00:07:39', '2024-09-06 00:07:39', 0, 'avatar.png', 0, NULL),
+(20, NULL, 5, 'Miguel Magallanes', 'miguel@gmail.com', NULL, '$2y$10$GEsMzULurkQ1exP/Ds2RbONbdpfbF1WZCtwfVy4a.GBDX2rJAssX2', 'Dhcn2ZwpL4sX3jJQJa5gpi16nvtQaed3c9hRxp15CUSoaQ384bAtxCD6XxV6', 4, '2024-09-06 00:14:48', '2024-09-06 00:14:48', 0, 'avatar.png', 0, NULL),
+(21, 1, NULL, 'Sample Instructor 1', 'sample1@gmail.com', NULL, '$2y$10$xNHtkt1DwWXcaqUx0fUYIOwCUq3FwJ1w28SL9iCEPSnzQ0qdmgWX2', NULL, 3, NULL, '2024-09-06 09:57:44', 0, 'avatar.png', 0, NULL),
+(22, 3, NULL, 'Sample Instructor 2', 'sample2@gmail.com', NULL, '$2y$10$L7M6t6SJDhNd1lw9MHXC1uSfTuwSdqpnq.naAh2qE6WZFbYJdyrwa', NULL, 3, NULL, '2024-09-06 07:36:27', 0, 'avatar.png', 0, NULL),
+(23, 4, NULL, 'Sample Instructor 3', 'sample3@gmail.com', NULL, '$2y$10$YIwRBAWECgbfF7Hj8.EW9eEJ.XyzmxzHRmvEQTx0C83nk34LTzerO', NULL, 3, NULL, '2024-09-06 07:36:50', 0, 'avatar.png', 0, NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `admission_application`
+--
+ALTER TABLE `admission_application`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `barangay`
 --
 ALTER TABLE `barangay`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ch_favorites`
+--
+ALTER TABLE `ch_favorites`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ch_messages`
+--
+ALTER TABLE `ch_messages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -44669,9 +45305,33 @@ ALTER TABLE `region`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rfid_attendance`
+--
+ALTER TABLE `rfid_attendance`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sms_token`
+--
+ALTER TABLE `sms_token`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_grading`
+--
+ALTER TABLE `student_grading`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_year_level`
+--
+ALTER TABLE `student_year_level`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -44704,6 +45364,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `admission_application`
+--
+ALTER TABLE `admission_application`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `barangay`
 --
 ALTER TABLE `barangay`
@@ -44713,25 +45379,25 @@ ALTER TABLE `barangay`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `course_info`
 --
 ALTER TABLE `course_info`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `documents_form137`
 --
 ALTER TABLE `documents_form137`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `documents_psa`
 --
 ALTER TABLE `documents_psa`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -44755,13 +45421,13 @@ ALTER TABLE `learners_classification`
 -- AUTO_INCREMENT for table `learners_course`
 --
 ALTER TABLE `learners_course`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `learners_profile`
 --
 ALTER TABLE `learners_profile`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `learners_working_experience`
@@ -44773,7 +45439,7 @@ ALTER TABLE `learners_working_experience`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `municipal`
@@ -44785,7 +45451,7 @@ ALTER TABLE `municipal`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=409;
 
 --
 -- AUTO_INCREMENT for table `province`
@@ -44800,34 +45466,58 @@ ALTER TABLE `region`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `rfid_attendance`
+--
+ALTER TABLE `rfid_attendance`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `sms_token`
+--
+ALTER TABLE `sms_token`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `student_grading`
+--
+ALTER TABLE `student_grading`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+
+--
+-- AUTO_INCREMENT for table `student_year_level`
+--
+ALTER TABLE `student_year_level`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `subject_schedule`
 --
 ALTER TABLE `subject_schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `tracker`
 --
 ALTER TABLE `tracker`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

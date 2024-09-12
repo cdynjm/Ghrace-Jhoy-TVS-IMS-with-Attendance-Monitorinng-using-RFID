@@ -27,7 +27,7 @@
 
                 ><small>{{ $count }}</small></td>
                 <td><small>{{ $cor->sector }}</small></td>
-                <td><a wire:navigate href="{{ route('admin.create-schedule', ['id' => $aes->encrypt($cor->id)]) }}"><small>{{ $cor->qualification }}</small></a></td>
+                <td><a wire:navigate href="{{ route(Auth::user()->role == 1 ? 'admin.create-schedule' : 'registrar.create-schedule', ['id' => $aes->encrypt($cor->id)]) }}"><small>{{ $cor->qualification }}</small></a></td>
                 <td><small>{{ $cor->status }}</small></td>
                 <td><small>{{ $cor->copr }}</small></td>
             </tr>

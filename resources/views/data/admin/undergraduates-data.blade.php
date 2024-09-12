@@ -1,4 +1,4 @@
-<table id="course-data" class="table table-sm table-hover" style="border-bottom: 1px solid rgb(240, 240, 240)">
+<table id="course-data" class="table table-sm table-hover text-nowrap" style="border-bottom: 1px solid rgb(240, 240, 240)">
     <thead class="text-dark" style="background: rgb(244, 244, 244)">
         <tr>
             <th>#</th>
@@ -6,15 +6,14 @@
             <th><small>Qualification</small></th>
             <th><small>Status</small></th>
             <th><small>COPR #</small></th>
-            @if(Auth::user()->role == 2)
-            <th><small>Action</small></th>
-            @endif
+            <th class="text-center"><small>Action</small></th>
         </tr>
     </thead>
     <tbody>
         @php
             $count = 0
         @endphp
+
         @foreach ($courses as $cor)
             @php
                 $count += 1
@@ -30,21 +29,16 @@
 
                 ><small>{{ $count }}</small></td>
                 <td><small>{{ $cor->sector }}</small></td>
-                <td><a wire:navigate href="{{ route(Auth::user()->role == 1 ? 'admin.courses-info' : 'registrar.courses-info', ['id' => $aes->encrypt($cor->id)]) }}"><small>{{ $cor->qualification }}</small></a></td>
+                <td><small class="text-primary">{{ $cor->qualification }}</small></td>
                 <td><small>{{ $cor->status }}</small></td>
                 <td><small>{{ $cor->copr }}</small></td>
-                @if(Auth::user()->role == 2)
-                <td>
-                    <small>
-                        <a href="javascript:;" id="edit-course" class="me-2">
-                            <i class="fas fa-marker"></i>
+                <td class="text-center">
+                    <div class="d-flex">
+                        <a class="btn btn-sm btn-primary flex-fill me-1" wire:navigate href="{{ route('admin.view-undergraduates', ['id' => $aes->encrypt($cor->id)]) }}">
+                            <iconify-icon icon="fluent:person-chat-16-regular" width="18" height="18" class="me-1"></iconify-icon> View
                         </a>
-                        <a href="javascript:;" id="delete-course">
-                            <i class="fas fa-trash" class="me-2"></i>
-                        </a>
-                    </small>
+                    </div>                    
                 </td>
-                @endif
             </tr>
             
         @endforeach

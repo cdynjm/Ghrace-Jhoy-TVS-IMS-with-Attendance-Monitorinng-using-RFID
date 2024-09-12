@@ -4,24 +4,23 @@
     $aes = new AESCipher();
 @endphp
 
-@extends('modals.admin.create.schedule-modal')
-@extends('modals.admin.update.schedule-modal')
+@extends('modals.registrar.update.edit-employment-status')
 
 @extends('app')
 
 @section('content')
     <div class="layout-page">
-        @include('layouts.navbar', ['page' => 'Schedule'], 
+        @include('layouts.navbar', ['page' => 'Graduates'], 
         ['icon' => '
           
             <lord-icon
-                src="https://cdn.lordicon.com/qvyppzqz.json"
+                src="https://cdn.lordicon.com/qmsejndz.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">
             </lord-icon>
           
-        '])      
+        '])
 
       <div class="content-wrapper">
         
@@ -29,13 +28,16 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Schedule |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Graduates |</a>
                   </li>
                   <li class="breadcrumb-item">Data</li>
                 </ol>
             </nav>
 
                 <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <input type="text" class="form-control" placeholder="Search..." id="search-graduates" data-id="{{ $aes->encrypt($course->id) }}">
+                    </div>
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -43,21 +45,18 @@
                                     <div>
                                         <h6 class="text-sm">{{ $course->qualification }}</h6>
                                     </div>
-                                    @if(Auth::user()->role == 2)
-                                    <button class="btn btn-sm btn-primary shadow text-white" id="add-schedule" data-id="{{ $aes->encrypt($course->id) }}">+ Create</button>
-                                    @endif
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    @include('data.admin.schedule-subject-course-data')
+                                   @include('data.admin.view-graduates-data')
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
           </div>
-        
+          
           @include('layouts.footer')
           <div class="content-backdrop fade"></div>
        </div>

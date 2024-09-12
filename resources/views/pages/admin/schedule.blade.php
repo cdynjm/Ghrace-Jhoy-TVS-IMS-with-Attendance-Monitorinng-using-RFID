@@ -26,7 +26,7 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Courses |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Categories |</a>
                   </li>
                   <li class="breadcrumb-item">Schedule</li>
                 </ol>
@@ -38,7 +38,7 @@
                             <div class="card-header">
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
-                                        <h6 class="text-sm">Courses/Qualifications</h6>
+                                        <h6 class="text-sm">Courses/Programs</h6>
                                     </div>
                                 </div>
                             </div>

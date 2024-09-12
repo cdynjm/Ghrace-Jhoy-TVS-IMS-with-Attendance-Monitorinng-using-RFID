@@ -17,7 +17,34 @@
               <input type="hidden" class="form-control course-id" name="id">
 
               <label for="" style="font-size: 12px;">School Year</label>
-              <input type="text" name="schoolYear" id="school-year" class="form-control mb-2" placeholder="School Year" required>
+              @php
+                $currentYear = date('Y'); // Get the current year
+                $currentMonth = date('n'); // Get the current month
+                
+                // Determine the current school year based on the current date
+                if ($currentMonth >= 8) {
+                    // If current month is August (8) or later, it's the next school year
+                    $selectedYear = $currentYear;
+                } else {
+                    // If current month is before August, it's still the previous school year
+                    $selectedYear = $currentYear - 1;
+                }
+
+                // Generate only the previous, current, and next school years
+                $years = [
+                    $selectedYear - 1,  // Previous school year
+                    $selectedYear,      // Current school year
+                    $selectedYear + 1   // Next school year
+                ];
+            @endphp
+
+            <select name="schoolYear" class="form-select mb-2" id="school-year">
+                @foreach ($years as $year)
+                    <option value="{{ $year }}-{{ $year + 1 }}" {{ $selectedYear == $year ? 'selected' : '' }}>
+                        {{ $year }}-{{ $year + 1 }}
+                    </option>
+                @endforeach
+            </select>
 
               <label for="" style="font-size: 12px;">Year Level/Semester</label>
               <select name="yearLevel" id="yearLevel" class="form-select yearLevel" disabled>

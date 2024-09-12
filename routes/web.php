@@ -55,6 +55,15 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/courses-info/{id}', [AdminController::class, 'coursesInfo'])->name('admin.courses-info');
 			Route::get('/schedule', [AdminController::class, 'schedule'])->name('admin.schedule');
 			Route::get('/create-schedule/{id}', [AdminController::class, 'createSchedule'])->name('admin.create-schedule');
+
+			Route::get('/graduates', [AdminController::class, 'graduates'])->name('admin.graduates');
+			Route::get('/undergraduates', [AdminController::class, 'undergraduates'])->name('admin.undergraduates');
+			Route::get('/view-graduates/{id}', [AdminController::class, 'viewGraduates'])->name('admin.view-graduates');
+			Route::get('/view-undergraduates/{id}', [AdminController::class, 'viewUndergraduates'])->name('admin.view-undergraduates');
+			Route::get('/attendance', [AdminController::class, 'attendance'])->name('admin.attendance');
+			Route::get('/view-attendance/{id}', [AdminController::class, 'viewAttendance'])->name('admin.view-attendance');
+			Route::get('/view-student-attendance/{id}', [AdminController::class, 'viewStudentAttendance'])->name('admin.view-student-attendance');
+			Route::get('/edit-grades/{id}', [AdminController::class, 'editGrades'])->name('admin.edit-grades');
 		});
 	});
 
@@ -78,6 +87,11 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/view-attendance/{id}', [RegistrarController::class, 'viewAttendance'])->name('registrar.view-attendance');
 			Route::get('/view-student-attendance/{id}', [RegistrarController::class, 'viewStudentAttendance'])->name('registrar.view-student-attendance');
 
+			Route::get('/courses', [AdminController::class, 'courses'])->name('registrar.courses');
+			Route::get('/courses-info/{id}', [AdminController::class, 'coursesInfo'])->name('registrar.courses-info');
+			Route::get('/schedule', [AdminController::class, 'schedule'])->name('registrar.schedule');
+			Route::get('/instructors', [AdminController::class, 'instructors'])->name('registrar.instructors');
+			Route::get('/create-schedule/{id}', [AdminController::class, 'createSchedule'])->name('registrar.create-schedule');
 		});
 	});
 

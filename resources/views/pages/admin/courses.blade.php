@@ -44,7 +44,9 @@
                                     <div>
                                         <h6 class="text-sm">Courses/Qualifications</h6>
                                     </div>
+                                    @if(Auth::user()->role == 2)
                                     <button class="btn btn-sm btn-primary shadow text-white" id="add-course">+ Add</button>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-body">

@@ -13,7 +13,7 @@
       <a class="layout-menu-toggle align-items-center d-flex" href="javascript:void(0);">
         <span class="sidebar-text fw-bold fs-3">
             <span class="">GJTVS</span>
-        <p style="font-size:11px;" class="fw-normal mt-2 text-secondary">Ghrace Jhoy Technical Vocational School</p>
+        <p style="font-size:10px;" class="fw-normal mt-2 text-secondary">Ghrace Jhoy Technical Vocational School</p>
       </span>
     </a>
     </div>
@@ -23,7 +23,7 @@
 
       @if(Auth::user()->role == 1)
 
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Pages</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">General</span></li>
 
       <li class="menu-item {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('admin.dashboard') }}" class="menu-link {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
@@ -81,19 +81,45 @@
         </a>
       </li>
 
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Attendance</span></li>
-
-      <li class="menu-item {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('AdminOrRegistrar.rfid-attendance') }}" class="menu-link {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'admin.graduates' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('admin.graduates') }}" class="menu-link {{ Route::currentRouteName() == 'admin.graduates' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
-                src="https://cdn.lordicon.com/eqnxbkyy.json"
+                src="https://cdn.lordicon.com/qmsejndz.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Scan RFID</div>
+          <div>Graduates</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'admin.undergraduates' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('admin.undergraduates') }}" class="menu-link {{ Route::currentRouteName() == 'admin.undergraduates' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/bjbmvfnr.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Students <small style="font-size: 11px">(Undergraduates)</small></div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'admin.attendance' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('admin.attendance') }}" class="menu-link {{ Route::currentRouteName() == 'admin.attendance' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/wzwygmng.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Attendance</div>
         </a>
       </li>
 
@@ -101,7 +127,7 @@
 
       @if(Auth::user()->role == 2)
 
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Pages</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">General</span></li>
 
       <li class="menu-item {{ Route::currentRouteName() == 'registrar.dashboard' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('registrar.dashboard') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.dashboard' ? 'active' : '' }}">
@@ -117,98 +143,155 @@
         </a>
       </li>
 
-
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Admission</span></li>
-
-      <li class="menu-item {{ Route::currentRouteName() == 'registrar.unscheduled' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('registrar.unscheduled') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.unscheduled' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.instructors' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.instructors') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.instructors' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
-                src="https://cdn.lordicon.com/qvyppzqz.json"
+                src="https://cdn.lordicon.com/wzrwaorf.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+        </span>
+          <div>Instructors</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.courses' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.courses') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.courses' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/uecgmesg.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Pending
-
-            @if(!empty($status->where('status', 2)->where('failed', null)->count()))
-            <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('status', 2)->where('failed', null)->count() }}
-            </span>
-            @endif
-
-          </div>
+          <div>Courses</div>
         </a>
       </li>
 
-      <li class="menu-item {{ Route::currentRouteName() == 'registrar.exam' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('registrar.exam') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.exam' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.schedule' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.schedule') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.schedule' ? 'active' : '' }}">
           <span class="me-2">
-            <lord-icon
-                src="https://cdn.lordicon.com/ghhwiltn.json"
-                trigger="in"
-                stroke="bold"
-                style="width:22px;height:22px">
-            </lord-icon>
+              <lord-icon
+                  src="https://cdn.lordicon.com/qvyppzqz.json"
+                  trigger="in"
+                  stroke="bold"
+                  style="width:22px;height:22px">
+              </lord-icon>
           </span>
-          <div>Exam
-
-            @if(!empty($status->where('status', 3)->where('failed', null)->count()))
-            <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('status', 3)->where('failed', null)->count() }}
-            </span>
-            @endif
-
-          </div>
+          <div>Schedule</div>
         </a>
       </li>
-
-      <li class="menu-item {{ Route::currentRouteName() == 'registrar.interview' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('registrar.interview') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.interview' ? 'active' : '' }}">
-          <span class="me-2">
-            <lord-icon
-                src="https://cdn.lordicon.com/jibstvae.json"
-                trigger="in"
-                stroke="bold"
-                style="width:22px;height:22px">
-            </lord-icon>
-          </span>
-          <div>Interview
-
-            @if(!empty($status->where('failed', null)->whereIn('status', [4, 5])->count()))
-            <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('failed', null)->whereIn('status', [4, 5])->count() }}
+  
+      <li class="menu-item {{ in_array(Route::currentRouteName(), ['registrar.unscheduled', 'registrar.exam', 'registrar.interview', 'registrar.final-result']) ? 'active open' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <span class="me-2">
+                <lord-icon
+                    src="https://cdn.lordicon.com/kpxbczav.json"
+                    trigger="in"
+                    stroke="bold"
+                    style="width:22px;height:22px">
+                </lord-icon>
             </span>
-            @endif
+            <div>Admission</div>
+            <div class="badge bg-danger rounded-pill ms-auto">
+            {{ 
+              $status->where('status', 2)->where('failed', null)->count() +
+              $status->where('status', 3)->where('failed', null)->count() +
+              $status->where('failed', null)->whereIn('status', [4, 5])->count() +
+              $status->where('status', 6)->where('failed', null)->count()
 
-          </div>
+            }}
+            </div>
         </a>
-      </li>
+    
+        <ul class="menu-sub">
+            <li class="menu-item {{ Route::currentRouteName() == 'registrar.unscheduled' ? 'active' : '' }}">
+                <a wire:navigate href="{{ route('registrar.unscheduled') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.unscheduled' ? 'active' : '' }}">
+                    <span class="me-2">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/qvyppzqz.json"
+                            trigger="in"
+                            stroke="bold"
+                            style="width:22px;height:22px">
+                        </lord-icon>
+                    </span>
+                    <div>Pending
+                        @if(!empty($status->where('status', 2)->where('failed', null)->count()))
+                        <span class="ms-2 badge rounded-pill bg-danger">
+                            {{ $status->where('status', 2)->where('failed', null)->count() }}
+                        </span>
+                        @endif
+                    </div>
+                </a>
+            </li>
+    
+            <li class="menu-item {{ Route::currentRouteName() == 'registrar.exam' ? 'active' : '' }}">
+                <a wire:navigate href="{{ route('registrar.exam') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.exam' ? 'active' : '' }}">
+                    <span class="me-2">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/ghhwiltn.json"
+                            trigger="in"
+                            stroke="bold"
+                            style="width:22px;height:22px">
+                        </lord-icon>
+                    </span>
+                    <div>Exam
+                        @if(!empty($status->where('status', 3)->where('failed', null)->count()))
+                        <span class="ms-2 badge rounded-pill bg-danger">
+                            {{ $status->where('status', 3)->where('failed', null)->count() }}
+                        </span>
+                        @endif
+                    </div>
+                </a>
+            </li>
+    
+            <li class="menu-item {{ Route::currentRouteName() == 'registrar.interview' ? 'active' : '' }}">
+                <a wire:navigate href="{{ route('registrar.interview') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.interview' ? 'active' : '' }}">
+                    <span class="me-2">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/jibstvae.json"
+                            trigger="in"
+                            stroke="bold"
+                            style="width:22px;height:22px">
+                        </lord-icon>
+                    </span>
+                    <div>Interview
+                        @if(!empty($status->where('failed', null)->whereIn('status', [4, 5])->count()))
+                        <span class="ms-2 badge rounded-pill bg-danger">
+                            {{ $status->where('failed', null)->whereIn('status', [4, 5])->count() }}
+                        </span>
+                        @endif
+                    </div>
+                </a>
+            </li>
+    
+            <li class="menu-item {{ Route::currentRouteName() == 'registrar.final-result' ? 'active' : '' }}">
+                <a wire:navigate href="{{ route('registrar.final-result') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.final-result' ? 'active' : '' }}">
+                    <span class="me-2">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/rahouxil.json"
+                            trigger="in"
+                            stroke="bold"
+                            style="width:22px;height:22px">
+                        </lord-icon>
+                    </span>
+                    <div>Final Result
+                        @if(!empty($status->where('status', 6)->where('failed', null)->count()))
+                        <span class="ms-2 badge rounded-pill bg-danger">
+                            {{ $status->where('status', 6)->where('failed', null)->count() }}
+                        </span>
+                        @endif
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </li>
+    
 
-      <li class="menu-item {{ Route::currentRouteName() == 'registrar.final-result' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('registrar.final-result') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.final-result' ? 'active' : '' }}">
-          <span class="me-2">
-            <lord-icon
-                src="https://cdn.lordicon.com/rahouxil.json"
-                trigger="in"
-                stroke="bold"
-                style="width:22px;height:22px">
-            </lord-icon>
-          </span>
-          <div>Final Result
-
-            @if(!empty($status->where('status', 6)->where('failed', null)->count()))
-            <span class="ms-2 badge rounded-pill bg-danger">
-              {{ $status->where('status', 6)->where('failed', null)->count() }}
-            </span>
-            @endif            
-
-          </div>
-        </a>
-      </li>
-
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Academic Records</span></li>
+      <li class="menu-header small text-uppercase mt-0"><span class="menu-header-text">Academic Records</span></li>
 
       <li class="menu-item {{ Route::currentRouteName() == 'registrar.enroll-grades' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('registrar.enroll-grades') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.enroll-grades' ? 'active' : '' }}">
@@ -252,7 +335,7 @@
         </a>
       </li>
 
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Attendance</span></li>
+      <li class="menu-header small text-uppercase mt-0"><span class="menu-header-text">Attendance</span></li>
 
       <li class="menu-item {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('AdminOrRegistrar.rfid-attendance') }}" class="menu-link {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
@@ -286,7 +369,7 @@
 
       @if(Auth::user()->role == 3)
 
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Pages</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">General</span></li>
 
       <li class="menu-item {{ Route::currentRouteName() == 'trainer.dashboard' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('trainer.dashboard') }}" class="menu-link {{ Route::currentRouteName() == 'trainer.dashboard' ? 'active' : '' }}">
@@ -306,7 +389,7 @@
 
       @if(Auth::user()->role == 4)
 
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Pages</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">General</span></li>
 
       <li class="menu-item {{ Route::currentRouteName() == 'student.dashboard' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('student.dashboard') }}" class="menu-link {{ Route::currentRouteName() == 'student.dashboard' ? 'active' : '' }}">
@@ -374,7 +457,7 @@
           <a wire:navigate href="{{ route('register') }}" class="menu-link {{ Route::currentRouteName() == 'register' ? 'active' : '' }}">
               <span class="me-2">
                   <lord-icon
-                      src="https://cdn.lordicon.com/wuvorxbv.json"
+                      src="https://cdn.lordicon.com/kpxbczav.json"
                       trigger="in"
                       stroke="bold"
                       style="width:22px;height:22px">

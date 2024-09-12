@@ -840,7 +840,7 @@ $(document).on('keyup', "#search-course-info", function(e){
         formData.append('search', $(this).val());
         formData.append('id', $(this).data('id'));
         async function APIrequest() {
-            return await axios.post('/api/search/course-info', formData, {
+            return await axios.post('/api/search/admin/course-info', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -860,5 +860,88 @@ $(document).on('keyup', "#search-course-info", function(e){
                 confirmButtonColor: "#3a57e8"
             });
         });
- 
+});
+
+$(document).on('keyup', "#search-graduates", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/admin/graduates', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-graduates-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-undergraduates", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/admin/undergraduates', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-undergraduates-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+$(document).on('keyup', "#search-attendance", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/admin/attendance', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-attendance-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
 });

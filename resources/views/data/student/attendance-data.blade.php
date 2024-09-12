@@ -67,9 +67,9 @@
                                 <tr>
                                     <td><small>{{ $index +1 }}</small></td>
                                     <td><small class="fw-bold">{{ $sa->RFID }}</small></td>
-                                    <td><small>{{ date('M. d, Y | D', strtotime($sa->date)) }}</small></td>
-                                    <td><small>{{ date('h:i A', strtotime($sa->timeIn)) }}</small></td>
-                                    <td><small>{{ $sa->timeOut ? date('h:i A', strtotime($sa->timeOut)) : '-' }}</small></td>
+                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ date('M. d, Y | D', strtotime($sa->date)) }}</small></td>
+                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ date('h:i A', strtotime($sa->timeIn)) }}</small></td>
+                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeOut ? date('h:i A', strtotime($sa->timeOut)) : '-' }}</small></td>
                                 </tr>
                             @endforeach
                         </tbody>

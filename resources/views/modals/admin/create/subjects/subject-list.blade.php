@@ -19,8 +19,10 @@
 
             <div class="mb-2">
                 @for($i = 0; $i < 6; $i++)
-                    <input type="checkbox" name="days[{{ $key }}][{{ $i }}]" value="1" class="">
-                    <label for="" style="font-size: 12px" class="me-2">{{ $label[$i] }}</label>
+                    <div class="form-check form-switch d-inline-flex align-items-center me-2">
+                        <input type="checkbox" class="form-check-input" name="days[{{ $key }}][{{ $i }}]" value="1">
+                        <label class="form-check-label ms-1" style="font-size: 12px">{{ $label[$i] }}</label>
+                    </div>
                 @endfor
             </div>
 

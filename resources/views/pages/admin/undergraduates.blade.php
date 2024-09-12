@@ -2,20 +2,21 @@
     use Illuminate\Support\Str;
     use App\Http\Controllers\AESCipher;
     $aes = new AESCipher();
+
 @endphp
 
-@extends('modals.admin.create.schedule-modal')
-@extends('modals.admin.update.schedule-modal')
+@extends('modals.admin.create.course-modal')
+@extends('modals.admin.update.course-modal')
 
 @extends('app')
 
 @section('content')
     <div class="layout-page">
-        @include('layouts.navbar', ['page' => 'Schedule'], 
+        @include('layouts.navbar', ['page' => 'Students'], 
         ['icon' => '
           
             <lord-icon
-                src="https://cdn.lordicon.com/qvyppzqz.json"
+                src="https://cdn.lordicon.com/bjbmvfnr.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">
@@ -26,12 +27,13 @@
       <div class="content-wrapper">
         
           <div class="container-xxl flex-grow-1 container-p-y">
+
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Schedule |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Categories |</a>
                   </li>
-                  <li class="breadcrumb-item">Data</li>
+                  <li class="breadcrumb-item">Undergraduates</li>
                 </ol>
             </nav>
 
@@ -41,16 +43,13 @@
                             <div class="card-header">
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
-                                        <h6 class="text-sm">{{ $course->qualification }}</h6>
+                                        <h6 class="text-sm">Courses/Programs</h6>
                                     </div>
-                                    @if(Auth::user()->role == 2)
-                                    <button class="btn btn-sm btn-primary shadow text-white" id="add-schedule" data-id="{{ $aes->encrypt($course->id) }}">+ Create</button>
-                                    @endif
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    @include('data.admin.schedule-subject-course-data')
+                                    @include('data.admin.undergraduates-data')
                                 </div>
                             </div>
                         </div>

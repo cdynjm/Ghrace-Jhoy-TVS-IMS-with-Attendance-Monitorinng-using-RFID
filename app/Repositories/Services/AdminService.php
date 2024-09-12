@@ -28,12 +28,19 @@ use App\Models\Subjects;
 use App\Models\CoursesInfo;
 use App\Models\Instructors;
 
+use App\Models\StudentYearLevel;
+use App\Models\StudentGrading;
+
+use App\Models\DocumentsPSA;
+use App\Models\DocumentsForm137;
+
 use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
-
 use App\Models\Schedule;
+use App\Models\RFIDAttendance;
+
 use App\Models\SubjectSchedule;
 
 class AdminService implements AdminInterface {
@@ -122,6 +129,115 @@ class AdminService implements AdminInterface {
 
     public function SubjectSchedule($request) {
         return SubjectSchedule::where('courseID', $this->aes->decrypt($request->id))->get();
+    }
+
+    public function Graduates($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', 1);
+        })->orderBy('lastname', 'ASC')
+            ->get();
+            
+    }
+
+    public function searchGraduates($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', 1);
+        })
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('lastname', 'ASC')
+            ->get();
+            
+    }
+
+    public function Undergraduates($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('freshmen', 0)
+            ->where('yearLevel', '!=', null);
+        })->orderBy('yearLevel', 'ASC')
+        ->orderBy('lastname', 'ASC')
+        ->get()
+        ->groupBy('yearLevel');
+            
+    }
+
+    public function searchUndergraduates($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('freshmen', 0)
+            ->where('yearLevel', '!=', null);
+        })
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
+        })
+        ->orderBy('yearLevel', 'ASC')
+        ->orderBy('lastname', 'ASC')
+        ->get()
+        ->groupBy('yearLevel');
+            
+    }
+
+    public function ViewAttendance($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('freshmen', 0)
+            ->where('yearLevel', '!=', null);
+        })->orderBy('yearLevel', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
+    }
+
+    public function searchViewAttendance($request) {
+        return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
+            $query->where('course', $this->aes->decrypt($request->id))
+            ->where('diploma', null)
+            ->where('freshmen', 0)
+            ->where('yearLevel', '!=', null);
+        })
+        
+        ->where(function($query) use ($request) {
+            $query->where('lastname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('middlename', 'LIKE', '%'.$request->search.'%')
+                  ->orWhere('RFID', 'LIKE', '%'.$request->search.'%');
+        })
+
+        ->orderBy('yearLevel', 'ASC')
+            ->orderBy('semester', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
+    }
+
+    public function RFIDAttendance($request) {
+        return RFIDAttendance::where('studentID', $this->aes->decrypt($request->id))
+        ->orderBy('created_at', 'DESC')
+        ->get()
+        ->groupBy('yearLevel');
+    }
+
+    public function LearnersProfile($request) {
+        return LearnersProfile::where('id', $this->aes->decrypt($request->id))->first();
+    }
+
+    public function yearLevel($request) {
+        return StudentYearLevel::where('studentID', $this->aes->decrypt($request->id))->orderBy('scheduleID', 'DESC')->get();
+    }
+
+    public function studentGrading($request) {
+        return StudentGrading::where('studentID', $this->aes->decrypt($request->id))->get();
     }
 }
 

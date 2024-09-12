@@ -95,6 +95,18 @@ class AdminController extends Controller
      */
     public function createInstructor(Request $request) {
 
+        if(Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')
+            ]
+        ])->fails()) { 
+            return response()->json(['Message' => 'Email is already taken'], Response::HTTP_INTERNAL_SERVER_ERROR);
+         }
+
         $instructors = Instructors::create([
            'instructor' => $request->instructor,
            'address' => $request->address,
@@ -104,6 +116,7 @@ class AdminController extends Controller
 
         User::create([
             'trainerID' => $instructors->id,
+            'name' => $request->instructor,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 3
@@ -125,32 +138,57 @@ class AdminController extends Controller
      */
     public function updateInstructor(Request $request) {
 
-        Instructors::where('id', $this->aes->decrypt($request->id))->update([
-           'instructor' => $request->instructor,
-           'address' => $request->address,
-           'contactNumber' => $request->contactNumber,
-           'degree' => $request->degree
+        $instructorID = $this->aes->decrypt($request->id);
+    
+        // Fetch the user associated with this instructor
+        $user = User::where('trainerID', $instructorID)->first();
+    
+        // Validate the email, ignoring the current instructor's email
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($user->id)
+            ]
         ]);
-
-        User::where('trainerID', $this->aes->decrypt($request->id))->update([
+    
+        if ($validator->fails()) {
+            return response()->json(['Message' => 'Email is already taken'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    
+        // Update the instructor's details
+        Instructors::where('id', $instructorID)->update([
+            'instructor' => $request->instructor,
+            'address' => $request->address,
+            'contactNumber' => $request->contactNumber,
+            'degree' => $request->degree
+        ]);
+    
+        // Update the user email
+        User::where('trainerID', $instructorID)->update([
             'email' => $request->email,
+            'name' => $request->instructor
         ]);
-
-        if(!empty($request->password)) {
-            User::where('trainerID', $this->aes->decrypt($request->id))->update([
+    
+        // If a new password is provided, update the password
+        if (!empty($request->password)) {
+            User::where('trainerID', $instructorID)->update([
                 'password' => Hash::make($request->password)
             ]);
         }
-
+    
+        // Reload instructors list
         $instructors = $this->AdminInterface->Instructors();
         $aes = $this->aes;
-        
+    
         return response()->json([
             'Message' => 'Instructor updated successfully',
             'Instructors' => view('data.admin.instructors-data', compact('instructors', 'aes'))->render()
         ], Response::HTTP_OK);
-        
     }
+    
     /**
      * Handle an incoming request.
      *
@@ -159,7 +197,7 @@ class AdminController extends Controller
     public function deleteInstructor(Request $request) {
 
         Instructors::where('id', $this->aes->decrypt($request->id))->delete();
-        Instructors::where('trainerID', $this->aes->decrypt($request->id))->delete();
+        User::where('trainerID', $this->aes->decrypt($request->id))->delete();
 
         $instructors = $this->AdminInterface->Instructors();
         $aes = $this->aes;
@@ -500,5 +538,108 @@ class AdminController extends Controller
         return response()->json([
             'Subjects' => view('modals.admin.update.subjects.course-subject-list', compact('subjects', 'aes'))->render()
         ], Response::HTTP_OK);
+    }
+
+    public function graduates() {
+        $courses = $this->AdminInterface->Courses();
+        return view('pages.admin.graduates', ['courses' => $courses]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function undergraduates() {
+        $courses = $this->AdminInterface->Courses();
+        return view('pages.admin.undergraduates', ['courses' => $courses]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function attendance() {
+        $courses = $this->AdminInterface->Courses();
+        return view('pages.admin.attendance', ['courses' => $courses]);
+    }
+    public function searchGraduates(Request $request) {
+
+        $course = $this->AdminInterface->CourseInfo($request);
+        $graduates = $this->AdminInterface->searchGraduates($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Search' => view('data.admin.view-graduates-data', compact('graduates', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
+    }
+
+    public function searchUndergraduates(Request $request) {
+
+        $course = $this->AdminInterface->CourseInfo($request);
+        $undergraduates = $this->AdminInterface->searchUndergraduates($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Search' => view('data.admin.view-undergraduates-data', compact('undergraduates', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewGraduates(Request $request) {
+        $course = $this->AdminInterface->CourseInfo($request);
+        $graduates = $this->AdminInterface->Graduates($request);
+        return view('pages.admin.view-graduates', compact('graduates', 'course'));
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewUndergraduates(Request $request) {
+        $course = $this->AdminInterface->CourseInfo($request);
+        $undergraduates = $this->AdminInterface->Undergraduates($request);
+        return view('pages.admin.view-undergraduates', compact('undergraduates', 'course'));
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewAttendance(Request $request) {
+        $course = $this->AdminInterface->CourseInfo($request);
+        $attendance = $this->AdminInterface->ViewAttendance($request);
+        return view('pages.admin.view-attendance', compact('attendance', 'course'));
+    }
+    public function searchViewAttendance(Request $request) {
+
+        $course = $this->AdminInterface->CourseInfo($request);
+        $attendance = $this->AdminInterface->searchViewAttendance($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Search' => view('data.admin.view-attendance-data', compact('attendance', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewStudentAttendance(Request $request) {
+        $attendance = $this->AdminInterface->RFIDAttendance($request);
+        $student = $this->AdminInterface->LearnersProfile($request);
+        return view('pages.admin.view-student-attendance', compact('attendance', 'student'));
+    }
+
+    public function editGrades(Request $request) {
+
+        $yearLevel = $this->AdminInterface->yearLevel($request);
+        $studentGrading = $this->AdminInterface->studentGrading($request);
+        $student = $this->AdminInterface->LearnersProfile($request);
+        return view('pages.admin.edit-grades', compact('yearLevel', 'studentGrading', 'student'));
     }
 }

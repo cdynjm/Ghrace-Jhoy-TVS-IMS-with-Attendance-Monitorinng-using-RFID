@@ -5,7 +5,9 @@
             <th><small>Year</small></th>
             <th><small>Semester</small></th>
             <th><small>Subjects</small></th>
+            @if(Auth::user()->role == 2)
             <th><small>Action</small></th>
+            @endif
         </tr>
     </thead>
     <tbody>
@@ -69,11 +71,13 @@
                         </tr>
                     </table>
                 </td>
+                @if(Auth::user()->role == 2)
                 <td>
                     <a href="javascript:;" id="edit-course-info" class="me-2" data-id="{{ $aes->encrypt($course->id) }}">
                         <i class="fas fa-marker"></i>
                     </a>
                 </td>
+                @endif
             </tr>
 
         @endforeach

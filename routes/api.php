@@ -69,7 +69,10 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
         Route::group(['prefix' => 'search'], function () {
-            Route::post('/course-info', [AdminController::class, 'searchCourseInfo']);
+            Route::post('/admin/course-info', [AdminController::class, 'searchCourseInfo']);
+            Route::post('/admin/graduates', [AdminController::class, 'searchGraduates']);
+            Route::post('/admin/undergraduates', [AdminController::class, 'searchUndergraduates']);
+            Route::post('/admin/attendance', [AdminController::class, 'searchViewAttendance']);
         });
 
     });
@@ -77,6 +80,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['middleware' => 'registrar'], function () {
         
         Route::group(['prefix' => 'create'], function () {
+
+            Route::post('/course', [AdminController::class, 'createCourse']);
+            Route::post('/course-info', [AdminController::class, 'createCourseInfo']);
+            Route::post('/instructor', [AdminController::class, 'createInstructor']);
+            Route::post('/schedule', [AdminController::class, 'createSubjectSchedule']);
+            Route::post('/subjects', [AdminController::class, 'getSubjects']);
+            Route::post('/subject-schedule', [AdminController::class, 'getSubjectSchedule']);
+            Route::post('/course-info-subject', [AdminController::class, 'getCourseInfoSubject']);
+
         }); 
 
         Route::group(['prefix' => 'update'], function () { 
@@ -97,9 +109,18 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::patch('/graduate-student', [RegistrarController::class, 'graduateStudent']);
             Route::patch('/employment-status', [RegistrarController::class, 'updateEmploymentStatus']);
             Route::patch('/student-information', [RegistrarController::class, 'updateStudentInformation']);
+
+            Route::patch('/course', [AdminController::class, 'updateCourse']);
+            Route::patch('/instructor', [AdminController::class, 'updateInstructor']);
+            Route::patch('/schedule', [AdminController::class, 'updateSubjectSchedule']);
+            Route::patch('/course-info', [AdminController::class, 'updateCourseInfo']);
+            Route::patch('/sms-token', [AdminController::class, 'updateSMSToken']);
         });
         
         Route::group(['prefix' => 'delete'], function () {
+            Route::delete('/course', [AdminController::class, 'deleteCourse']);
+            Route::delete('/instructor', [AdminController::class, 'deleteInstructor']);
+            Route::delete('/schedule', [AdminController::class, 'archiveSubjectSchedule']);
         });
 
         Route::group(['prefix' => 'search'], function () {
@@ -114,6 +135,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/attendance', [RegistrarController::class, 'searchViewAttendance']);
 
             Route::post('/specific-schedule', [RegistrarController::class, 'getSpecificSchedule']);
+            Route::post('/course-info', [AdminController::class, 'searchCourseInfo']);
         });
 
     });
