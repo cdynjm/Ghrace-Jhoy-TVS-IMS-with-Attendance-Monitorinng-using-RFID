@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Subjects extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'subjects';
 
@@ -21,6 +21,6 @@ class Subjects extends Model
     ];
 
     public function courseInfo() {
-        return $this->hasOne(CourseInfo::class, 'id', 'courseInfoID');
+        return $this->hasOne(CourseInfo::class, 'id', 'courseInfoID')->withTrashed();
     }
 }

@@ -440,6 +440,7 @@ class AdminController extends Controller
                 'sat' => $request->days[$key][5] ?? 0,
                 'fromTime' => $request->fromTime[$key],
                 'toTime' => $request->toTime[$key],
+                'status' => 1
             ]);
         }
         

@@ -32,6 +32,7 @@
                 <option value="">Select...</option>
                 <option value="1st Semester">1st Semester</option>
                 <option value="2nd Semester">2nd Semester</option>
+                <option value="Summer">Summer</option>
               </select>
 
             <label for="" style="font-size: 13px;">Subject Code | Description | Units</label>

@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class SubjectSchedule extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'subject_schedule';
 
@@ -30,18 +30,18 @@ class SubjectSchedule extends Model
     ];
 
     public function CourseInfo() {
-        return $this->hasOne(CoursesInfo::class, 'id', 'courseInfoID');
+        return $this->hasOne(CoursesInfo::class, 'id', 'courseInfoID')->withTrashed();
     }
 
     public function Schedule() {
-        return $this->hasOne(Schedule::class, 'id', 'scheduleID');
+        return $this->hasOne(Schedule::class, 'id', 'scheduleID')->withTrashed();
     }
 
     public function Instructors() {
-        return $this->hasOne(Instructors::class, 'id', 'instructor');
+        return $this->hasOne(Instructors::class, 'id', 'instructor')->withTrashed();
     }
 
     public function Subjects() {
-        return $this->hasOne(Subjects::class, 'id', 'subject');
+        return $this->hasOne(Subjects::class, 'id', 'subject')->withTrashed();
     }
 }

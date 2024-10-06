@@ -326,9 +326,17 @@
                         @endphp
 
                          @if(Auth::user()->Student->freshmen == 0)
-                         <div class="mt-2">
-                            <small class="mt-2 fw-bold">{{ $yearLevelDisplay }} Year - {{ $semesterDisplay }} Semester</small>
-                        </div>
+                         
+                            @if(Auth::user()->Student->semester == 3)
+                                <div class="mt-2">
+                                    <small class="mt-2 fw-bold">{{ $yearLevelDisplay }} Year - Summer</small>
+                                </div>
+                            @else
+                                <div class="mt-2">
+                                    <small class="mt-2 fw-bold">{{ $yearLevelDisplay }} Year - {{ $semesterDisplay }} Semester</small>
+                                </div>
+                            @endif
+
                          @else
                          <div class="mt-2">
                             <small class="mt-2 fw-bold">For Enrollment (Freshmen)</small>

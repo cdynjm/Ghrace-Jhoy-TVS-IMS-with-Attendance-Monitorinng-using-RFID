@@ -77,3 +77,12 @@ $(document).on('input', '#rfid-number', function() {
     }
 
 });
+
+document.addEventListener('livewire:navigated', () => { 
+
+    const input = document.getElementById('rfid-number');
+    input.addEventListener('blur', (event) => {
+        event.target.focus();
+    });
+
+});

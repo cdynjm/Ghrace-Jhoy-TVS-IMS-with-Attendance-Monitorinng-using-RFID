@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Schedule extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'schedule';
 
@@ -22,7 +22,7 @@ class Schedule extends Model
     ];
 
     public function CourseInfo() {
-        return $this->hasOne(CoursesInfo::class, 'id', 'courseInfoID');
+        return $this->hasOne(CoursesInfo::class, 'id', 'courseInfoID')->withTrashed();
     }
 }
 

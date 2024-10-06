@@ -30,6 +30,7 @@
                 <option value="">Select...</option>
                 <option value="1st Semester">1st Semester</option>
                 <option value="2nd Semester">2nd Semester</option>
+                <option value="Summer">Summer</option>
               </select>
 
               <label for="" style="font-size: 13px;">Subject Code | Description | Units</label>
@@ -41,8 +42,8 @@
                 </div>
               
               <div class="form-check form-switch my-3">
-                <input type="checkbox" name="NC[]" value="1" class="form-check-input me-2">
-                <label for="" style="font-size: 12px;">Resultant Subject (NC II)</label>
+                <input type="checkbox" name="NC[0]" value="1" class="form-check-input me-2">
+                <label for="" style="font-size: 12px;">Resultant Subject (NC)</label>
               </div>
                 
             </div>

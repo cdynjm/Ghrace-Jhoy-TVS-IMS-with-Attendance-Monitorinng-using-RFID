@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Instructors extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'instructors';
 
@@ -20,6 +20,6 @@ class Instructors extends Model
     ];
 
     public function User() {
-        return $this->hasOne(User::class, 'trainerID', 'id');
+        return $this->hasOne(User::class, 'trainerID', 'id')->withTrashed();
     }
 }

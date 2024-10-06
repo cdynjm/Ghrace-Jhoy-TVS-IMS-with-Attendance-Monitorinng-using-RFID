@@ -31,6 +31,7 @@ use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
 use App\Models\SubjectSchedule;
 use App\Models\StudentYearLevel;
+use App\Models\StudentGrading;
 
 class TrainerService implements TrainerInterface {
     /**
@@ -55,21 +56,28 @@ class TrainerService implements TrainerInterface {
     public function Students($request) {
         return StudentYearLevel::where('scheduleID', $this->aes->decrypt($request->scheduleID))
             ->whereHas('Student', function($query) {
-                $query->where('diploma', null); // Add condition to filter LearnersProfile where diploma == 0
+                $query->where('diploma', null); 
             })
             ->with(['Student' => function($query) {
-                $query->where('diploma', null); // Ensure eager loaded Student has diploma == 0
+                $query->where('diploma', null);
             }])
             ->orderBy(
                 LearnersProfile::select('lastname')
                     ->whereColumn('learners_profile.id', 'student_year_level.studentID')
-                    ->where('diploma', null), // Order by Student's lastname where diploma == 0
+                    ->where('diploma', null),
                 'ASC'
             )
             ->get();
     }
-    
-    
+
+    public function Grading($request) {
+        return StudentGrading::where('courseInfoID', $this->aes->decrypt($request->courseInfoID))
+            ->where('subjectID', $this->aes->decrypt($request->subjectID))
+            ->whereHas('StudentYearLevel.Schedule', function($query) {
+                $query->where('status', 1);
+            })
+            ->get();
+    }
     
 }
 

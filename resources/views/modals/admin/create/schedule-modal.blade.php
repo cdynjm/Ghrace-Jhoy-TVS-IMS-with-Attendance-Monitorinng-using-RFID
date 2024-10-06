@@ -57,7 +57,7 @@
               <input type="text" name="section" class="form-control mb-2" placeholder="Section" required>
               
               <label for="" style="font-size: 12px;">Slots</label>
-              <input type="number" class="form-control mb-2" name="slots" placeholder="Slots" required>
+              <input type="number" class="form-control mb-4" name="slots" placeholder="Slots" required>
 
               @include('modals.admin.create.subjects.subject-list')
 

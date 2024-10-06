@@ -11,7 +11,7 @@
       
         <div class="form-check form-switch my-3">
             <input type="checkbox" name="NC[{{ $key }}]" value="1" class="form-check-input me-2" @checked($sub->NC == 1)>
-            <label for="" style="font-size: 12px;">Resultant Subject (NC II)</label>
+            <label for="" style="font-size: 12px;">Resultant Subject (NC)</label>
         </div>
         @endforeach
     @endif

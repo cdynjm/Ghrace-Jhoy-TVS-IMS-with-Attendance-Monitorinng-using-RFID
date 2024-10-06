@@ -302,24 +302,30 @@ $(document).on('click', '#edit-course-info', function() {
 });
 
 document.addEventListener('livewire:navigated', () => { 
+    let checkboxIndex = 0;
+
 $(document).ready(function() {
     // Add new set of input fields
     $('.add-subject').click(function() {
+        // Get the current number of checkboxes with name "NC[]"
+         checkboxIndex++;
+        
         let newInput = `
             <div class="subject-group mb-2 d-flex">
                 <input type="text" name="subjectCode[]" class="form-control me-2" placeholder="Code" required>
                 <input type="text" name="description[]" class="form-control me-2" placeholder="Description" required>
                 <input type="number" name="units[]" class="form-control" placeholder="Units" required>
             </div>
-
+    
             <div class="form-check form-switch my-3">
-                <input type="checkbox" name="NC[]" value="1" class="form-check-input me-2">
+                <input type="checkbox" name="NC[${checkboxIndex}]" value="1" class="form-check-input me-2">
                 <label for="" style="font-size: 12px;">Resultant Subject (NC II)</label>
-              </div>
-            
-            `;
+            </div>
+        `;
+    
         $('#subject-wrapper').append(newInput);
     });
+    
 
     $('.edit-add-subject').click(function() {
         let newInput = `

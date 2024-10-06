@@ -598,6 +598,7 @@ class RegistrarController extends Controller
         }
 
         $student = LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->first();
+        $courseInfo = CoursesInfo::where('id', $schedule->CourseInfo->id)->first();
 
         if($student->freshmen == 1) {
             LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
@@ -606,21 +607,28 @@ class RegistrarController extends Controller
             ]);
         }
 
-        else if($student->semester == 1) {
-            $student->semester += 1;
+        else if($courseInfo->semester == '1st Semester') {
+            $student->yearLevel += 1;
             LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
                 'enrollmentStatus' => 0,
-                'semester' =>  $student->semester,
+                'semester' =>  1,
+                'yearLevel' => $student->yearLevel,
+                'progress' => $student->progress + 1,
+            ]);
+        }
+
+        else if($courseInfo->semester == '2nd Semester') {
+            LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+                'enrollmentStatus' => 0,
+                'semester' =>  2,
                 'progress' => $student->progress + 1
             ]);
         }
 
-        else if($student->semester == 2) {
-            $student->yearLevel += 1;
+        else if($courseInfo->semester == 'Summer') {
             LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
                 'enrollmentStatus' => 0,
-                'semester' =>  1, 
-                'yearLevel' => $student->yearLevel,
+                'semester' =>  3,
                 'progress' => $student->progress + 1
             ]);
         }
@@ -784,6 +792,19 @@ class RegistrarController extends Controller
     }
 
     public function updateStudentInformation(Request $request) {
+
+
+        $learnersProfile = LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->where('diploma', null)->first();
+
+        if(Validator::make($request->all(), [
+            'RFID' => [
+                'required',
+                'string',
+                Rule::unique('learners_profile', 'RFID')->ignore($learnersProfile->id)
+            ]
+        ])->fails()) { 
+            return response()->json(['Message' => 'RFID Card Number is already taken'], Response::HTTP_INTERNAL_SERVER_ERROR);
+         }
 
         LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
             'RFID' => $request->RFID,

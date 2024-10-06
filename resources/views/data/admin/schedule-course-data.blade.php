@@ -6,6 +6,7 @@
             <th><small>Qualification</small></th>
             <th><small>Status</small></th>
             <th><small>COPR #</small></th>
+            <th class="text-center"><small>Action</small></th>
         </tr>
     </thead>
     <tbody>
@@ -27,9 +28,16 @@
 
                 ><small>{{ $count }}</small></td>
                 <td><small>{{ $cor->sector }}</small></td>
-                <td><a wire:navigate href="{{ route(Auth::user()->role == 1 ? 'admin.create-schedule' : 'registrar.create-schedule', ['id' => $aes->encrypt($cor->id)]) }}"><small>{{ $cor->qualification }}</small></a></td>
+                <td><small class="text-primary">{{ $cor->qualification }}</small></td>
                 <td><small>{{ $cor->status }}</small></td>
                 <td><small>{{ $cor->copr }}</small></td>
+                <td class="text-center">
+                    <div class="d-flex">
+                    <a wire:navigate class="btn btn-sm btn-primary flex-fill me-1" href="{{ route(Auth::user()->role == 1 ? 'admin.create-schedule' : 'registrar.create-schedule', ['id' => $aes->encrypt($cor->id)]) }}">
+                        <iconify-icon icon="icon-park-twotone:time" width="18" height="18" class="me-1"></iconify-icon> View
+                    </a>
+                    </div>
+                </td>
             </tr>
             
         @endforeach

@@ -89,8 +89,10 @@
                             </thead>
                             <tbody>
                                 <tr class="">
-                                    <td colspan="10" class="fw-bold text-primary">{{ $semester == 1 ? '1st' : '2nd' }} Semester</td>
-                                </tr>
+                                    <td colspan="10" class="fw-bold text-primary">
+                                        {{ $semester == 1 ? '1st Semester' : ($semester == 2 ? '2nd Semester' : 'Summer') }}
+                                    </td>
+                                                                    </tr>
                                 @foreach ($students as $index => $en)
                                     <tr>
                                         <td

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 07, 2024 at 05:31 AM
+-- Generation Time: Sep 13, 2024 at 10:47 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.2
 
@@ -39,7 +39,7 @@ CREATE TABLE `admission_application` (
 --
 
 INSERT INTO `admission_application` (`id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 0, NULL, '2024-09-06 10:03:48');
+(1, 1, NULL, '2024-09-08 08:21:00');
 
 -- --------------------------------------------------------
 
@@ -42181,8 +42181,11 @@ INSERT INTO `ch_messages` (`id`, `from_id`, `to_id`, `body`, `attachment`, `seen
 ('53fcaf28-fede-4f6d-8de0-35afd2bb3928', 17, 2, 'hello', NULL, 1, '2024-09-05 04:29:15', '2024-09-05 04:52:05'),
 ('5dfa8791-2a26-4b1b-83a4-106315e2119d', 18, 2, 'good morning maam', NULL, 1, '2024-09-04 03:41:18', '2024-09-04 08:15:38'),
 ('65de34a0-ef19-4333-8628-b1e238d58c2e', 17, 2, 'good morning maam', NULL, 1, '2024-09-05 01:24:23', '2024-09-05 01:24:24'),
+('87e3d5aa-cafc-4994-9b63-08370bb6d6c4', 16, 2, 'you shit', NULL, 1, '2024-09-09 02:05:07', '2024-09-09 02:05:08'),
 ('90cafb3b-3303-47ad-be42-d32c84a6ebeb', 2, 18, 'maam', NULL, 0, '2024-09-05 04:53:51', '2024-09-05 04:53:51'),
 ('914fce56-5a51-4380-9424-eb9172a8df32', 2, 17, 'hello maam', NULL, 1, '2024-09-05 04:54:01', '2024-09-05 04:54:01'),
+('97f65c34-5d1c-4f9b-ae98-3d08c7498557', 2, 16, 'gopd mornig', NULL, 1, '2024-09-09 02:04:42', '2024-09-09 02:04:59'),
+('b8c57d61-8dba-4f25-a3e2-de6feb2c154e', 16, 2, 'godo mronig shit', NULL, 1, '2024-09-09 02:05:03', '2024-09-09 02:05:04'),
 ('e7a17042-c955-426e-98fb-abcbce6d2651', 17, 2, 'hello', NULL, 1, '2024-09-05 05:09:47', '2024-09-05 05:10:16');
 
 -- --------------------------------------------------------
@@ -42206,7 +42209,7 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `sector`, `qualification`, `status`, `copr`, `created_at`, `updated_at`) VALUES
-(18, 'Tourism (Hotel and Restaurant)', 'Diploma in Hospitality Management', 'NTR-PQF Level 5 (Diploma)', '000-014', '2024-06-05 06:06:29', '2024-09-06 06:39:56');
+(18, 'Tourism (Hotel and Restaurant)', 'Diploma in Hospitality Management', 'NTR-PQF Level 5 (Diploma)', '000-014', '2024-06-05 06:06:29', '2024-09-09 00:00:42');
 
 -- --------------------------------------------------------
 
@@ -42228,7 +42231,7 @@ CREATE TABLE `course_info` (
 --
 
 INSERT INTO `course_info` (`id`, `courseID`, `yearLevel`, `semester`, `created_at`, `updated_at`) VALUES
-(11, 18, '1st Year', '1st Semester', '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(11, 18, '1st Year', '1st Semester', '2024-08-30 01:39:35', '2024-09-08 00:16:17'),
 (12, 18, '1st Year', '2nd Semester', '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
 (13, 18, '2nd Year', '1st Semester', '2024-08-30 22:58:58', '2024-09-02 06:52:51'),
 (14, 18, '2nd Year', '2nd Semester', '2024-09-02 06:04:21', '2024-09-02 06:51:36');
@@ -42320,7 +42323,7 @@ CREATE TABLE `instructors` (
 --
 
 INSERT INTO `instructors` (`id`, `instructor`, `address`, `contactNumber`, `degree`, `created_at`, `updated_at`) VALUES
-(1, 'Sample Instructor 1', 'Bontoc Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:15:12', '2024-09-06 09:57:44'),
+(1, 'Sample Instructor 1', 'Bontoc Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:15:12', '2024-09-09 05:34:36'),
 (3, 'Sample Instructor 2', 'Sogod Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:25:31', '2024-09-06 07:36:27'),
 (4, 'Sample Instructor 3', 'Libagon Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:25:41', '2024-09-06 07:36:50');
 
@@ -42433,8 +42436,8 @@ CREATE TABLE `learners_profile` (
 
 INSERT INTO `learners_profile` (`id`, `IDpicture`, `ULI`, `RFID`, `entryDate`, `lastname`, `firstname`, `middlename`, `region`, `province`, `city`, `barangay`, `district`, `street`, `account`, `phone`, `nationality`, `sex`, `civilStatus`, `employmentStatus`, `employmentType`, `birthdate`, `age`, `birthplaceRegion`, `birthplaceProvince`, `birthplaceCity`, `education`, `parent`, `parentContact`, `parentAddress`, `consent`, `picture`, `dateAccomplished`, `registrar`, `dateReceived`, `exam`, `interview`, `secondInterview`, `admission_status`, `status`, `failed`, `progress`, `yearLevel`, `semester`, `enrollmentStatus`, `freshmen`, `diploma`, `dateGraduated`, `graduateEmploymentStatus`, `company`, `dateHired`, `created_at`, `updated_at`) VALUES
 (1, NULL, NULL, NULL, NULL, 'Cadayona', 'Jemuel', 'Hinay', '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '086402029                                                                                                    ', 'Bontoc', 'PUROK 3', 'JEM CDYN', '09275021810', 'Filipino', '1', '1', '1', '6', '2001-08-03', 23, '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '7', 'Evelyn Cadayona', '09275021810', 'Bontoc Southern Leyte', 'Yes', NULL, '2024-08-31 23:31:31', NULL, NULL, '2024-09-04', '2024-09-06', '2024-09-09', 0, '7', NULL, 4, 2, 2, 2, 0, 1, '2024-09-03', 1, 'Five Star Hotel in Cebu', '2024-09-11', '2024-08-31 23:31:31', '2024-09-06 01:48:35'),
-(2, NULL, 'OJP-2024', '0007783785', NULL, 'Ompod', 'Jaysan', 'Penaredondo', '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '086405008                                                                                                    ', 'Libagon', 'PUROK 3', 'Ja Estrella', '09275021810', 'Filipino', '2', '1', '4', NULL, '2003-07-14', 21, '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '7', 'Mae Ompod', '09661195690', 'PUROK 3', 'Yes', NULL, '2024-09-01 01:47:58', NULL, NULL, '2024-09-10', '2024-09-12', '2024-09-17', 0, '7', NULL, 3, 2, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '2024-09-01 01:47:58', '2024-09-06 04:09:22'),
-(3, NULL, 'MJT-2024', '0001297626', NULL, 'Mirasol', 'Joann', 'Timkang', '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '086405010                                                                                                    ', 'Libagon', 'PUROK 3', 'Joann Mirasol', '09275021810', 'Filipino', '2', '1', '4', NULL, '2003-07-01', 21, '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '7', 'Mirasol', '09061958437', 'PUROK 3', 'Yes', NULL, '2024-09-01 23:22:25', NULL, NULL, '2024-09-04', '2024-09-06', '2024-09-10', 0, '7', NULL, 4, 2, 2, 0, 0, NULL, NULL, NULL, NULL, NULL, '2024-09-01 23:22:25', '2024-09-05 03:25:41'),
+(2, NULL, 'OJP-2024', '0006917440', NULL, 'Ompod', 'Jaysan', 'Penaredondo', '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '086405008                                                                                                    ', 'Libagon', 'PUROK 3', 'Ja Estrella', '09275021810', 'Filipino', '2', '1', '4', NULL, '2003-07-14', 21, '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '7', 'Mae Ompod', '09661195690', 'PUROK 3', 'Yes', NULL, '2024-09-01 01:47:58', NULL, NULL, '2024-09-10', '2024-09-12', '2024-09-17', 0, '7', NULL, 3, 2, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, '2024-09-01 01:47:58', '2024-09-13 06:57:58'),
+(3, NULL, 'MJT1021021MJT', '0008243677', NULL, 'Mirasol', 'Joann', 'Timkang', '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '086405010                                                                                                    ', 'Libagon', 'PUROK 3', 'Joann Mirasol', '09275021810', 'Filipino', '2', '1', '4', NULL, '2003-07-01', 21, '08                                                                                                    ', '0864                                                                                                    ', '086405                                                                                                    ', '7', 'Mirasol', '09061958437', 'PUROK 3', 'Yes', NULL, '2024-09-01 23:22:25', NULL, NULL, '2024-09-04', '2024-09-06', '2024-09-10', 0, '7', NULL, 4, 2, 2, 0, 0, NULL, NULL, NULL, NULL, NULL, '2024-09-01 23:22:25', '2024-09-13 07:49:58'),
 (4, NULL, NULL, NULL, NULL, 'Dela Cruz', 'Juan', 'Caballero', '08                                                                                                    ', '0864                                                                                                    ', '086402                                                                                                    ', '086402014                                                                                                    ', 'Bontoc', 'Purok 3', 'Juan Dela Cruz', '09061958437', 'Filipino', '1', '1', '4', NULL, '2004-05-03', 20, '08                                                                                                    ', '0826                                                                                                    ', '082615                                                                                                    ', '7', 'Juana Dela Cruz', '09661195690', 'Bontoc Southern Leyte', 'Yes', NULL, '2024-09-06 00:07:39', NULL, NULL, '2024-09-10', '2024-09-09', '2024-09-18', 0, '7', NULL, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-06 00:07:39', '2024-09-06 02:26:06'),
 (5, NULL, NULL, NULL, NULL, 'Magallanes', 'Miguel', 'Todavia', '02                                                                                                    ', '0250                                                                                                    ', '025005                                                                                                    ', '025005019                                                                                                    ', 'Bontoc', 'PUROK 3', 'Miguel Magallanes', '09275021810', 'Filipino', '1', '1', '4', NULL, '2000-05-09', 24, '16                                                                                                    ', '1602                                                                                                    ', '160211                                                                                                    ', '7', 'Sample Parent', '09275021810', 'PUROK 3', 'Yes', NULL, '2024-09-06 00:14:48', NULL, NULL, '2024-09-12', '2024-09-12', '2024-09-20', 0, '7', NULL, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-06 00:14:48', '2024-09-06 01:02:26');
 
@@ -44197,388 +44200,38 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(28, 'App\\Models\\User', 5, 'QPk3e0JuiIGY4IEAznOW5HV9UTvAgGuCXXeRt1HQUYsRtvRKnW', 'eb6e57f21842e785ce4ef9e98f4dda9902a70fd86904dff39906c88cacd4a1d4', '[\"*\"]', NULL, NULL, '2024-06-05 03:50:19', '2024-06-05 03:50:19'),
-(29, 'App\\Models\\User', 1, 'Pwrb6TGy4bqAMgavRbxQmxacP5VZKlc6GIXxcZ0T44pNUjUzmq', '4db6d5c38c36a84e95538b3201ed9d54866d22626ef832613de4107c07f2fb58', '[\"*\"]', '2024-06-05 03:59:06', NULL, '2024-06-05 03:50:38', '2024-06-05 03:59:06'),
-(30, 'App\\Models\\User', 1, 'FFQIiFRxExmSNMX7lrMtc5VMEWD8CTGlAjuOoHBcL4x9oUDga8', '0fea125e1020111a26c23615446c256a61727aeafb602d10d63bdd93256f01fb', '[\"*\"]', '2024-06-05 04:45:19', NULL, '2024-06-05 04:10:12', '2024-06-05 04:45:19'),
-(31, 'App\\Models\\User', 6, 'b80cuGMcrKdNw7Js8Y15d7R902YNlaQp5YuwbVGGS0Fc11nib1', '07fe103e4800acbf08737548850b7db4ab1cdbab4b23f57449ac999881d385d8', '[\"*\"]', NULL, NULL, '2024-06-05 04:11:31', '2024-06-05 04:11:31'),
-(32, 'App\\Models\\User', 1, 'Bt9qOEiXIMIVsiPlnvlLylLLz0s3eV4GHk1PlkOGWSw6wPNdks', '1454b9b3346aa903dc3a65fe090838a651c7faf5127ce112fced67d158a876a5', '[\"*\"]', NULL, NULL, '2024-06-05 04:58:17', '2024-06-05 04:58:17'),
-(33, 'App\\Models\\User', 7, 'YxaTVjhEgKaVkfmIjSoI7Fa28PvMLXudeWkrDN251TbogZGjGh', '220092016163e2ce14954fa30a61ce98251cfc4d11950a663a39a2ad3906cb6a', '[\"*\"]', NULL, NULL, '2024-06-05 04:59:47', '2024-06-05 04:59:47'),
-(34, 'App\\Models\\User', 7, 'Znja8DqhjY3Ym1jVAntbHFoZZ2ReRRo9tyg3vfs6Mszp7RasA4', 'ca61d2770e87d1d33b9239b0260799106758de58ca640f72036639a54c264950', '[\"*\"]', NULL, NULL, '2024-06-05 05:05:08', '2024-06-05 05:05:08'),
-(35, 'App\\Models\\User', 1, 'ZZ0pq3xc7Abbq8nmCoNR8wNj4zw1zEOGS1SJDqib3qjbvXZcll', '340bcef2ec3ce7e625a6a83cc6d65b10915d92672329ed632c52b00f28aac842', '[\"*\"]', '2024-06-05 05:38:29', NULL, '2024-06-05 05:08:33', '2024-06-05 05:38:29'),
-(36, 'App\\Models\\User', 7, 'u16dgOB6rSjpP06CXB4AYvpz3CYcJvxDgh5o3nLNUzEPIy07mB', '1d0313f3757067f4bf8564bfb2a3926d48d7049ac3a63eb675eba37692edc4f8', '[\"*\"]', NULL, NULL, '2024-06-05 05:57:59', '2024-06-05 05:57:59'),
-(37, 'App\\Models\\User', 1, 'D2QH5Rl5mBiN3TGVxonNtwbRlUChNdinWbZd2hDeXIuW9Ia0qn', '67a0b1e69e02e93e9b3efa818355edd55614d80ef968d92687604324e71bdc30', '[\"*\"]', '2024-06-05 06:10:49', NULL, '2024-06-05 05:58:34', '2024-06-05 06:10:49'),
-(38, 'App\\Models\\User', 1, 'fYrDIZ2zk2deFohl9RXqWGn9g0KiuWB3NKlLIUp4PlDhBE2d2F', '025c986c750a51f2ff3a722653932d0593721f5e94b7b8436bfad94371c89497', '[\"*\"]', '2024-06-05 06:33:19', NULL, '2024-06-05 06:17:37', '2024-06-05 06:33:19'),
-(39, 'App\\Models\\User', 7, '61BLGMjUh90LOqXosX7ml5QrUngr8ifcbGfaIoOSELVKnXJXDY', '287a950377e82518487e27f3ef0119013f8e73a4dff0eaf5274e9872d4fdcaf5', '[\"*\"]', NULL, NULL, '2024-06-05 06:18:35', '2024-06-05 06:18:35'),
-(40, 'App\\Models\\User', 1, 'A1NccbIYhJZJCGQgIp85DcceLnp2DCwWGnL3xLm7HzxEDwe2yk', '600663858ad29af39159dac5899df9f2964c52866a8dcc987dd336113bae35f1', '[\"*\"]', '2024-06-05 06:42:56', NULL, '2024-06-05 06:18:50', '2024-06-05 06:42:56'),
-(41, 'App\\Models\\User', 7, 'caITATeohjAr95MkRMPCJC1T4bWsgDd3RfevJfSTk8KSy7OXat', '9c0c50551fdad47a800353d17cfd7bf88f0802c78ba81fbe83c427070c37410c', '[\"*\"]', '2024-06-05 12:03:43', NULL, '2024-06-05 07:10:41', '2024-06-05 12:03:43'),
-(42, 'App\\Models\\User', 7, 'i4Ir0xP6rE6sQmbTnhBGH0N9xsTarfTKcH79eBPLB8gxyAAiyS', '8fe7e39fad0cc26cf8c4092d6f9bc6685ec2ec05da8d75303f146570a644bf5c', '[\"*\"]', NULL, NULL, '2024-06-05 07:43:06', '2024-06-05 07:43:06'),
-(43, 'App\\Models\\User', 7, 'vgXMiIGr4BWt74iXjve0YacV59VKayooahYCn7CC96tVwlVR3n', 'e28b52e05335536dfef3e8a785ff5fb0033658b4ce6c257a88eef50aa9d94741', '[\"*\"]', NULL, NULL, '2024-06-05 09:06:27', '2024-06-05 09:06:27'),
-(44, 'App\\Models\\User', 1, 'fTSHCxxAflfCkYssPAPme9lGqMmscjQDeZgQeCVMdqWiZo91QZ', 'bc98dab27825fb5ee003608c1c2ed8b62121b1002bb4699697a36c7209d4e658', '[\"*\"]', '2024-06-05 09:50:26', NULL, '2024-06-05 09:47:35', '2024-06-05 09:50:26'),
-(45, 'App\\Models\\User', 7, 'jOoKyuFmDjVZ9dBlK31p1phpd12oDk7QGuBpeV3Gm0yVz2Bq2p', 'a29b47cbc58095408e2c86bd65873656c65994bd3161d8f6f0870260af6692dd', '[\"*\"]', NULL, NULL, '2024-06-05 10:52:11', '2024-06-05 10:52:11'),
-(46, 'App\\Models\\User', 7, 'eNAyUue9YKBxyrJf6HyWgZUExYxJgQFla6yTTCWcShqIHuMaCj', 'd51e5ead5425baa7f5a8cb76ac5a23120c6bd1ed87f6126213de95ef0b7ce46e', '[\"*\"]', '2024-06-05 11:50:37', NULL, '2024-06-05 10:56:57', '2024-06-05 11:50:37'),
-(47, 'App\\Models\\User', 7, 'vD0s7ZVf1ksrpQbOh2L6T7pgR7MlTcAmAhzLdWbHAPBIVydx78', 'cee9f998ee2b38af04c1df211a26e1a04961366f1586d530fd259a5de252723d', '[\"*\"]', NULL, NULL, '2024-06-05 11:55:52', '2024-06-05 11:55:52'),
-(48, 'App\\Models\\User', 8, 'ww2a4c8V9arsCNuL9uYmbhvatdtTUmCUZnjyUxv98YCK7bvlM7', '31da719aee359456227660d920c4b8ad4b27c46603f619b3948e5f42ef02d447', '[\"*\"]', NULL, NULL, '2024-06-05 12:10:19', '2024-06-05 12:10:19'),
-(49, 'App\\Models\\User', 8, 'bmb3SGqy5GtDR4UPWv90wZd9Bh6APUqMsyHTP7uIqoOUCoGKGD', 'baeacb4926684512e628137b211b58fb20feadeeec4b8a60dc18bd5644f6a7fa', '[\"*\"]', NULL, NULL, '2024-06-05 12:12:20', '2024-06-05 12:12:20'),
-(50, 'App\\Models\\User', 1, 'brEZcr3LpszbHox7Zh7ag4VKuk81F9sVhGI6oaAt8FV0h9CiA8', 'd8cfdcf72bbc32fe43b5c3a88118816d63e49f90cfb0230ee652a0e20d791365', '[\"*\"]', '2024-06-05 12:18:01', NULL, '2024-06-05 12:17:27', '2024-06-05 12:18:01'),
-(51, 'App\\Models\\User', 8, 'gyvEtDg7UfuSw9eC3PWEmpvG3UkFva0l4EvYguNuBypO7qBZ9W', '5d8126e174547be483c97d869500d614949ea3d43430c6fb12885b1928a43749', '[\"*\"]', NULL, NULL, '2024-06-05 23:44:09', '2024-06-05 23:44:09'),
-(52, 'App\\Models\\User', 8, 'BdsV9bMz2FiRt8EReIIOfKFh4dlBLllOhgqqAmUcmlFiWF9NaZ', 'a513a5c850ed0bde049af4fc59d3b3e5402998f6af4c06623bdfcae48d6c7339', '[\"*\"]', '2024-06-06 00:09:49', NULL, '2024-06-05 23:48:36', '2024-06-06 00:09:49'),
-(53, 'App\\Models\\User', 9, 'Hv0it1As02lieAjtAJRHF0jAzX1Ww2ONEil9Ni8yGlhDzDWqU5', '24e20f8401995e45f4e7ccdf450c46df4e544e61f7e89e5596026109dbddf237', '[\"*\"]', '2024-06-06 00:37:12', NULL, '2024-06-06 00:25:55', '2024-06-06 00:37:12'),
-(54, 'App\\Models\\User', 8, 'cBbyddRjTgPK0nzT6k8jEs2dF1tToEcAvIQvc96JoeQzLOIfVz', 'c07871e810806f715cd7cb7ebd1397696bb318c8cbea377af13083b0e5c7840a', '[\"*\"]', '2024-06-06 00:35:44', NULL, '2024-06-06 00:31:59', '2024-06-06 00:35:44'),
-(55, 'App\\Models\\User', 1, 'jWShwByesjUEfpv5HDqvUKMNltUn3oF789Js8wHKioJIl4QWMT', 'ac4f5f3493627eadf9ff806367b7e89aca5b3aafd5e4cf89dff96d647407a6ee', '[\"*\"]', '2024-06-06 00:45:49', NULL, '2024-06-06 00:44:32', '2024-06-06 00:45:49'),
-(56, 'App\\Models\\User', 1, 'ljlIsXeVHtXSTx5mYKdQVQ6C3RsBFwD2VlB8GaO5UDv1g0mbDa', '0689ca828d5f14e25cb92d66345b42d7c43746d2cdb99a379040a32312161067', '[\"*\"]', NULL, NULL, '2024-06-06 00:49:12', '2024-06-06 00:49:12'),
-(57, 'App\\Models\\User', 2, 'T0dOKhhd4EYoBrfITBXrqsmVlYyPIKs7t4Tf1Vdh1GMcEGP97y', '246c212b652f384fb40e825ebd7c0bac9d627b3699fea3ed11499dbe7fbef077', '[\"*\"]', NULL, NULL, '2024-06-06 00:49:41', '2024-06-06 00:49:41'),
-(58, 'App\\Models\\User', 9, 'oayOIleHHTFiHt0e5sCtRfeg3ikaucjNdkr91jmX0cCTOHbD3N', 'b09bd5ffb716847427527977163848665a7f8984d13b1a12f6c19cfe5d14e77f', '[\"*\"]', NULL, NULL, '2024-06-06 01:05:40', '2024-06-06 01:05:40'),
-(59, 'App\\Models\\User', 1, 'jmd90sbNdLU1UjNgGMLd8zYDMIK0MWUluiC469g5UqCuNTVEHR', 'b9e2604cad89df9c809ec5d873b6daa0e61ab170b4d1e3121f2777d5fa41c365', '[\"*\"]', '2024-06-06 06:30:58', NULL, '2024-06-06 06:30:47', '2024-06-06 06:30:58'),
-(60, 'App\\Models\\User', 9, 'o9HIig0ctcCAxddyJqijHCo8PuDIPyAK8M4lX86lkdQeobpYn4', '6e531307d107e68774f10d2c214a7207dc03a2970c25f3dcfb79a463f61112d8', '[\"*\"]', NULL, NULL, '2024-06-06 06:31:17', '2024-06-06 06:31:17'),
-(61, 'App\\Models\\User', 8, 'EupJiMsfy9lf1moTEoIObkpBpHXH3dVKP09GDEGhMO3DvCuGws', 'd45636eb1053bea6a7c41b965f8426bc7b4f8ebcc552d1d3c38a569eebb28d8a', '[\"*\"]', NULL, NULL, '2024-06-06 09:51:06', '2024-06-06 09:51:06'),
-(62, 'App\\Models\\User', 11, 'ADway82yfnCuW0wGAQQtcvkF1dWemNmjeUwn7ZC5jEV6RVcRFw', '3a1f9b75b22dd0ae14db376e16a05c0a40850779a34b6be6d8cfa16abc5bd38c', '[\"*\"]', '2024-06-06 10:29:45', NULL, '2024-06-06 10:25:18', '2024-06-06 10:29:45'),
-(63, 'App\\Models\\User', 1, 'hbrxwVt3vU1Z5fzopEvgvy6Ztvqabjx4USXqSTReOyQ3lzjlkS', 'b4f5988e7fb6083567ea3ee9841c28bef9991d266e3f2d3259dbbe264a1ff97c', '[\"*\"]', '2024-06-06 10:38:03', NULL, '2024-06-06 10:37:12', '2024-06-06 10:38:03'),
-(64, 'App\\Models\\User', 11, '1kBzpjsaYBe91Fg2qGj2Qmgq31yfpcCtcvs4wfPLnu5agdNPeZ', '360173bc4529110f298e27338e2b789d25df4ae8507c0d516f3f892b8a979634', '[\"*\"]', NULL, NULL, '2024-06-06 10:46:26', '2024-06-06 10:46:26'),
-(65, 'App\\Models\\User', 11, '57GYY9jS9IbCOi9VRWGrk53RAvMm8j9JbfbHWNEdNDyBnyKSqO', '390fbc11a6fcd4816d1c921a24079bebc04c1527461594017ee223510d73337f', '[\"*\"]', NULL, NULL, '2024-06-06 22:48:31', '2024-06-06 22:48:31'),
-(66, 'App\\Models\\User', 1, 'MdQm3Nq1PnvSHP2BSk2GVFpZK22cPPMSGq97aSta8iqz386wzc', 'd2f37f5b333e59d6ff8cf01510ba3e9aa5e587bdb8bdc2609778361f5f04c55c', '[\"*\"]', '2024-06-06 23:17:41', NULL, '2024-06-06 23:17:27', '2024-06-06 23:17:41'),
-(67, 'App\\Models\\User', 1, 'ATs5fVvmWytes2U4GkAMyKGAnEfJGJSoKHZsvk8onmJbLFr0vk', 'f85e9c3ed7391e5b5c4930a16f83cf25694daaf70699a38dd7841550b47c3c4e', '[\"*\"]', '2024-06-09 00:51:35', NULL, '2024-06-09 00:51:22', '2024-06-09 00:51:35'),
-(68, 'App\\Models\\User', 11, '6oy4aAyDyEKYlXfcmewKgBVNdTnRvFbH5qreJ2DqDnSuyo7XqK', 'e905a192790b91ba2179a20d882b329bb119e69b612e507ac8b8aa1553b03c24', '[\"*\"]', NULL, NULL, '2024-06-09 00:52:05', '2024-06-09 00:52:05'),
-(69, 'App\\Models\\User', 8, 'CqFGeroLrrBj4OKzxeFZN2fiZhkIfhK8Zce9EoAbHNpMbGCx4Y', 'b95f3c335a1ecc24872a65579ea80801feeb5cefb82756f777c252df0ca4daa4', '[\"*\"]', NULL, NULL, '2024-06-09 00:53:53', '2024-06-09 00:53:53'),
-(70, 'App\\Models\\User', 8, 'HcGs4fwM8xrk20qvLLqBErzqptqDa22AAAKh3NQ0oG1tz170cY', '3c68cbd25f46f44e7963ae3260382dbea644df8b37017a04053496a1209a7c26', '[\"*\"]', NULL, NULL, '2024-06-09 01:45:19', '2024-06-09 01:45:19'),
-(71, 'App\\Models\\User', 2, 'Rt1CcfKk5SBnOLIvRmZtjj99VOm0fDXyd5T6bM1PAUV2RhMy5e', '152fba265df5a796a18b516b1ca33dfdf23386ad7d7e8c27f1a68e42001b2866', '[\"*\"]', NULL, NULL, '2024-06-09 01:46:41', '2024-06-09 01:46:41'),
-(72, 'App\\Models\\User', 1, 'Mv4eNo9yoRi90rbLhT4H5HvQLWvkJo2vCC08WMlmRTDBZuaGMc', '1f70d0b283a5e0e39df76c1887cd887e52ffd5aba80a75a49419dc9a87390bf8', '[\"*\"]', '2024-06-09 02:23:50', NULL, '2024-06-09 02:23:32', '2024-06-09 02:23:50'),
-(73, 'App\\Models\\User', 2, 'V24RpyNvnAnzjfkxswOoDiDbP7muPpMI0hU7tNTzrDXDAkBPye', '5acc84d78890140353dcdaab4b198986312240de77221f7802b06aff1c47ab79', '[\"*\"]', NULL, NULL, '2024-06-09 02:42:53', '2024-06-09 02:42:53'),
-(74, 'App\\Models\\User', 8, 'jVUMzTdvdRh0DPBFK9O15qahR3PAyRNPCGZjIhplxIev9NxD6i', '2c39461c5e70f7cad20e69898d00a2598cbefff325fd1453b553b00ee4e9f722', '[\"*\"]', NULL, NULL, '2024-06-09 02:43:09', '2024-06-09 02:43:09'),
-(75, 'App\\Models\\User', 12, 'K7ZHLvjLkq1zxx7AHlSu9dKpdScejHV4WdreisVFMUPP6B5Ro3', '5eb9abaabaaf78ccab20339f1a95f424fcba509017a46f2d0429a844949d775d', '[\"*\"]', '2024-06-09 03:00:37', NULL, '2024-06-09 02:59:47', '2024-06-09 03:00:37'),
-(76, 'App\\Models\\User', 1, 'TQNm3TAcnSNhAUycEsQORNupIplXd84BoEoPZYFAJJEdOZlTks', '6491fc56f10d96dbb14f3cd9de252887ed844b0aea1f9992cfdee0205294045a', '[\"*\"]', '2024-06-09 04:14:41', NULL, '2024-06-09 03:02:41', '2024-06-09 04:14:41'),
-(77, 'App\\Models\\User', 1, 'B8QqWA2B2R0NmUG9hqr2ZWUmWUuk8apqjbkGNFsUtRkL1UCIrr', 'acf4ac2c5cee9c3fe058f0cf006c514a260e0d10b1ca786e2c3a55b8e3db9a41', '[\"*\"]', '2024-06-09 05:16:44', NULL, '2024-06-09 05:16:05', '2024-06-09 05:16:44'),
-(78, 'App\\Models\\User', 12, 'WPKsMI7qmT6BSdp8TyFg4QfATFhFGZxkbvCbFYj5YkUOrGeill', '8fedf0c36426fe56cc39903fb9010a57994bb504e57cb37d478959ad15c25786', '[\"*\"]', NULL, NULL, '2024-06-09 05:17:00', '2024-06-09 05:17:00'),
-(79, 'App\\Models\\User', 12, 'oETeZ0t2yYKdTVzntcbeGDXyHoVKCwWrFquW1OdeO25Figi3v5', '92687b18b2660ebd9a42296655a74ddc61f8bd763f09ddcfd2d76737cdf02b9a', '[\"*\"]', NULL, NULL, '2024-06-09 07:40:03', '2024-06-09 07:40:03'),
-(80, 'App\\Models\\User', 1, 'R1GnAVaYEcJiPrNHaEbdvqBleVxAo9JcqAjTM6EqCKxNxuEtxx', '209018554552972ffd10d4304724549e327928e09c33d3b8d250fac9e500dab2', '[\"*\"]', '2024-06-09 07:40:26', NULL, '2024-06-09 07:40:04', '2024-06-09 07:40:26'),
-(81, 'App\\Models\\User', 8, 'mrAVQeumrwHhYnQFZtxdudBveKTBCJwOMU2CYv8GGKTjpfEpMO', '8169bc29dfafe25a60322ac23d5b34412d090ec5a8e448453fac79cd965da47c', '[\"*\"]', NULL, NULL, '2024-06-09 07:45:10', '2024-06-09 07:45:10'),
-(82, 'App\\Models\\User', 2, 'NfNbkgFlFB9XOlE1M77Twm5bft28SkTZH3Qq4xLu1je4XSVAhO', '21db26e44ed4456f682ddaddd9459f0e6d5e60cc9b3555f8217cac6cecf8f711', '[\"*\"]', NULL, NULL, '2024-06-09 07:48:04', '2024-06-09 07:48:04'),
-(83, 'App\\Models\\User', 1, 'AM2CwDoQT8bPiRwxrdRgbTyAVOs6HbRq1fou8PExMJC7arW3k7', '4975628dc66e4a853f5718b80ff0755adce024f96c1191c2aadff75c89714584', '[\"*\"]', '2024-06-09 09:11:15', NULL, '2024-06-09 08:17:35', '2024-06-09 09:11:15'),
-(84, 'App\\Models\\User', 9, '3FS35DCpBNhL3unoDQEUZNsXM2DI4shp3OQoEjW7Fli2AMNXQr', '0b32867ba644100f4163f2ba80358df433e82582d0fec74c654654e6102c44a6', '[\"*\"]', NULL, NULL, '2024-06-09 09:29:04', '2024-06-09 09:29:04'),
-(85, 'App\\Models\\User', 8, 'QV0kMtaTrgE7aS5hGzm6TlsdRrPCR9tgDW5tSPZEfuf1vvgVTe', 'dc6210a98e2e95c0e685d44b7fc184a63c1c5b139bbb59b55d7053aaaab24294', '[\"*\"]', NULL, NULL, '2024-06-09 10:11:46', '2024-06-09 10:11:46'),
-(86, 'App\\Models\\User', 2, 'orcl7bjpn55pohHFcPtQR2hTtzQMub87hvUnKiPTzzcEJ3GCB1', '2844cd1f2599521774a2cbb15c3e1bd7ac73e2f7f7a505a93f86d651def2a2eb', '[\"*\"]', NULL, NULL, '2024-06-09 23:24:13', '2024-06-09 23:24:13'),
-(87, 'App\\Models\\User', 1, 'PHpBabZrg7mIVTAZprcvGdD8k9JrdFDQLEvHwPWxTbXLO4RQYS', '2553081b705c923e467f89c86ff09601c91723d9fa08eb025c020a054ffeedaa', '[\"*\"]', '2024-06-09 23:35:18', NULL, '2024-06-09 23:35:08', '2024-06-09 23:35:18'),
-(88, 'App\\Models\\User', 12, '01Zwt33jDBZQVkfrV94yzh2fhY4nClPm9wATvKz9EnzQS1uJqw', 'd34c672f003236ee02454290156907aaa7ef382769801bd042ed9a2acee95fbe', '[\"*\"]', NULL, NULL, '2024-06-09 23:35:30', '2024-06-09 23:35:30'),
-(89, 'App\\Models\\User', 2, 'xa1osRkoWEEuIBfSMrgpLmVoPk1dldH0QzyBiR04n3Ov8JeNI2', '8a6ff6f1a96a388216226e0baf67126652d00cd11f91d6d0d884636643b83bb1', '[\"*\"]', NULL, NULL, '2024-06-09 23:47:33', '2024-06-09 23:47:33'),
-(90, 'App\\Models\\User', 12, 'hxxkH2MzCU5lm1YG0jVvT1N4wpKVhnGiC4dyb6IDkhirKo6Y33', '4a861227dff73d9671ea1cf031979f3271170d50462d8523eeba545cd3aa510a', '[\"*\"]', '2024-06-10 01:27:25', NULL, '2024-06-09 23:58:50', '2024-06-10 01:27:25'),
-(91, 'App\\Models\\User', 2, 'Oa9HAT9b135e2skZWpW0oUm9ZwwRQLZ2qyQ63OAPc8C1kW0jT1', '848e4db672ee3ce8bf2c8c9e632820c309294630dbac7e2039b11819630df804', '[\"*\"]', NULL, NULL, '2024-06-10 01:37:00', '2024-06-10 01:37:00'),
-(92, 'App\\Models\\User', 9, 'HhIjXVAGMh4YIUIHaXJM8JYLhmARvTVDXl1i8kzpznClhPfF11', '14649c612080477dc7917b5cba226155235c96c7b59b94a4a4a683e80ca018c8', '[\"*\"]', '2024-06-10 02:38:42', NULL, '2024-06-10 02:37:02', '2024-06-10 02:38:42'),
-(93, 'App\\Models\\User', 8, 'KvDbmBGfZOx8JDAulPaeVrZx0ORRec4WwsYnTlSPYCnWACe6m8', 'e3bdab617a6222e7adaf30cfc611864bbe3dec5d00148a205e3adf01cf71b361', '[\"*\"]', NULL, NULL, '2024-06-10 02:40:55', '2024-06-10 02:40:55'),
-(94, 'App\\Models\\User', 2, 'cOdEA3vFzrSCZG6kcJD6DaAdszXahpzdQWKGjqliPdzLOC1pMG', 'dc6f832f20daecba7fdb1a50743858d3e787fc0ccdac8fb37fd5f68a4de4de88', '[\"*\"]', NULL, NULL, '2024-06-10 02:41:11', '2024-06-10 02:41:11'),
-(95, 'App\\Models\\User', 2, '63thOi1fMfvjwPtYEEWJAxm0aOdPc0DwFWCbP3fhEooUOvh4x9', '05edcc60f89fd3262b6e92cb96a4062759bc9fa068f3047ccad7381307fa3166', '[\"*\"]', NULL, NULL, '2024-06-10 05:54:48', '2024-06-10 05:54:48'),
-(96, 'App\\Models\\User', 2, '7X8e0CLEomRVBFvs8pYmZ6siKvBvsNAsAHp7G28JPZjbZfovKI', 'e2f2f9321542a3803f33bdb9cfa6bee9c3150bb16e1280c4d47ae69f5da424b0', '[\"*\"]', '2024-06-10 09:15:12', NULL, '2024-06-10 07:56:18', '2024-06-10 09:15:12'),
-(97, 'App\\Models\\User', 8, 'wmKWuUoQSpRA2Zl62g9g5J9vF7liARJQrOkAwC44AhFDLcNRIq', 'f9e2b3c0d60b24c4282946e10b3c8f7913b9ace81738b57b8c77ae0226c699d3', '[\"*\"]', NULL, NULL, '2024-06-10 08:07:54', '2024-06-10 08:07:54'),
-(98, 'App\\Models\\User', 2, 'WxIY8RCUI2sRNURaxwSmKexnZXmW4sG7PdHf2B4BMhZGrtmDVd', '4510e56f18669f2d8d300a7ed3d18a6c23cbfd95b94e9e5d7d2a67947c208c13', '[\"*\"]', NULL, NULL, '2024-06-10 08:09:48', '2024-06-10 08:09:48'),
-(99, 'App\\Models\\User', 12, 'HeT9Hv6Sea3iwFzzrj3XV1KYiWLddH7KzAsu6ZrmAwMjwoYmMp', 'e232c6bb4e989469498580a96a66aceb2550a06a6171194d22669c537820fe74', '[\"*\"]', '2024-06-10 10:02:25', NULL, '2024-06-10 10:02:17', '2024-06-10 10:02:25'),
-(100, 'App\\Models\\User', 2, 'rbLhcGdb0YfRAVccJQG2Cd64sZvBP1vXkigDljpyVy30nLpgQz', '4b34f9f527a0c198a665d09ae4d861f1bd6c36fb2164b7eb0d06dea457d8a0da', '[\"*\"]', NULL, NULL, '2024-06-10 10:03:37', '2024-06-10 10:03:37'),
-(101, 'App\\Models\\User', 2, 'BO02FyeTItTMEWLM3Voxl68WECCW5b852ExXqTIbsNHqQ29XCU', '62efc252e5225f4ef049ba98656543aebfdc37cb12e1b83429afe8e2a35e2dc3', '[\"*\"]', '2024-06-11 01:04:35', NULL, '2024-06-11 00:47:46', '2024-06-11 01:04:35'),
-(102, 'App\\Models\\User', 2, 'pPwsu0v5uAXVvsGR7LtNFete8bdin39just0uVHaeJxZFtxQE8', '7ff261e92ce4bce30c0e189417f11402ba94e6bcae1db5c5cbade73bcf6fffea', '[\"*\"]', NULL, NULL, '2024-06-12 02:01:25', '2024-06-12 02:01:25'),
-(103, 'App\\Models\\User', 2, 'pJGliVZQdUGOwZQTggVOU4wR9kjXpNE09lheBIOeyN0KsK4bpk', '029f3c94025a50663515ab216cd5412e500f3836b92590f528de3d2afe9b7295', '[\"*\"]', NULL, NULL, '2024-06-12 10:32:03', '2024-06-12 10:32:03'),
-(104, 'App\\Models\\User', 2, 'FEQ3McaxGPOg12lZngqbPL8DIAjK2morHNQ0OHhKWJ4Ge1iEeN', 'f7fd7d60b2b2dbd921e303ab46d1f570f0a4c09ab6c0341bd5a6694703d25dde', '[\"*\"]', '2024-06-12 12:13:14', NULL, '2024-06-12 11:16:08', '2024-06-12 12:13:14'),
-(105, 'App\\Models\\User', 9, 'QwtTpPEuQOFdXJPyEuXkuEqJtxRJMzLn6TLpOa1OaW151cG5od', 'fbbbcecc1c013825c8fe6cb83eb8b10a1fc3053a5ad02e1bfe8d58c5937f241e', '[\"*\"]', NULL, NULL, '2024-06-12 11:30:38', '2024-06-12 11:30:38'),
-(106, 'App\\Models\\User', 8, 'PAqD7acx0ew2A2AVG6oOy5XBTduKwqCqn4VNICP0cSOymZ078e', 'ffc94dc2a27b4865fe0e95854c2db26f6cf98d8b16c9fa4007559c3b01f9ec9a', '[\"*\"]', NULL, NULL, '2024-06-12 11:53:03', '2024-06-12 11:53:03'),
-(107, 'App\\Models\\User', 9, 'vkSppryPEvODF1M35F8UlIiXRIird85wl2o54V8fY6ojXudOwu', 'e642c2d493687ca594a482ccb9ce93bca57a7b0cc69468630d296788fa788bc2', '[\"*\"]', NULL, NULL, '2024-06-12 11:58:43', '2024-06-12 11:58:43'),
-(108, 'App\\Models\\User', 2, 'VkU6jgcbOjx8BTlI2WRV8rGLh5eMuKe8YBLlSj3QvDlqFcUFql', 'c44c4e7cf17c44fda93a0b51608624f2c506ca3446a64826f58fed77a08dbca9', '[\"*\"]', NULL, NULL, '2024-06-12 11:59:22', '2024-06-12 11:59:22'),
-(109, 'App\\Models\\User', 8, 'khSN6nGTP7Bz2UFbD0s2zyGZqpfCUcyCMHMvyHrRnkHdio5t7A', 'e71b8df82da2b37b503cf55ac14f89c4499dd51d261490cfc35e0544257bbfaf', '[\"*\"]', NULL, NULL, '2024-06-12 12:20:24', '2024-06-12 12:20:24'),
-(110, 'App\\Models\\User', 1, 'nc2AfbDi6Usswp76ILDfp7QUtuZofbrX3uratIk3GVcI1BWyP0', '078c36a77eaa6ec5ff4681e4b0e8555e1e3fdbb47c06949d462aef5105fc1a16', '[\"*\"]', '2024-06-12 12:27:36', NULL, '2024-06-12 12:27:26', '2024-06-12 12:27:36'),
-(111, 'App\\Models\\User', 2, 'ePZu8S8uOT8cZkDGqv5XdpviNpP707s45MxJmQXW8Ac4sa2p6e', '96932d0c23eb444601de2d589c50f404d4f9fda019693add2fae2a51f66b5b17', '[\"*\"]', '2024-06-13 04:35:09', NULL, '2024-06-13 00:20:01', '2024-06-13 04:35:09'),
-(112, 'App\\Models\\User', 8, 'Dl38tg8tysaKtaLs7g39TH7psoG5RkgknPcTzDeiFgIrwxbz5s', '108834da18bd12bd43372b4a2c096df53175dbd051b046b6e7ec041de32baeb0', '[\"*\"]', NULL, NULL, '2024-06-13 00:28:37', '2024-06-13 00:28:37'),
-(113, 'App\\Models\\User', 2, 'CFDaZnQ36VI03FOMm1ac8hhTvVZ0SRwr7lwZzSeqpxNp3RQ68g', '31eec047553dde353df4210ce83b3f1121225b58a6c830418c34a5f02fdb687f', '[\"*\"]', '2024-06-13 01:07:52', NULL, '2024-06-13 01:01:56', '2024-06-13 01:07:52'),
-(114, 'App\\Models\\User', 8, 'Hnykx0StQ7gO1gDiJ4QUAVZGKdNKqB9baUyctyTmkxbUFHfF42', '0f72eb71f7950e18ddc387fdd4e41c2401ed2fda9920d0ed2996f5dc6b00247e', '[\"*\"]', NULL, NULL, '2024-06-13 04:20:09', '2024-06-13 04:20:09'),
-(115, 'App\\Models\\User', 9, 'SsTOmxGQ9ivdSXy1DsL9C1K4ZzQz4sUrM7F6TDNCDDkKJ88b1j', '71df54865501a0677ba2fbb4df6814eb8047e2544d73e65f303b812f101b95bc', '[\"*\"]', NULL, NULL, '2024-06-13 04:34:49', '2024-06-13 04:34:49'),
-(116, 'App\\Models\\User', 8, '7OtFPVDXDhv3A0iaqtvDjQv1ZgBz0Jh0k1pevK6oCbSNjbgu29', 'f5ecfc7ff3824725f920a371551c9d8b9dd9478182f4b57826d419931f6c4aeb', '[\"*\"]', NULL, NULL, '2024-06-13 04:51:06', '2024-06-13 04:51:06'),
-(117, 'App\\Models\\User', 8, 'XyJ2y8uCte4TDJw4GtR3VJcdzCdMr5pdkq5eVoFLA3p5btsvAz', '68a9d31d42aecd05e1f87714b4655a3b31fb3d1b4f45c06a4395cb33691b152e', '[\"*\"]', NULL, NULL, '2024-06-13 04:51:40', '2024-06-13 04:51:40'),
-(118, 'App\\Models\\User', 11, 'XpBbwz2skEFEQ16CEwOTAplKFksxkQDZxLDCozbOyP3gEWdVta', '9310a9ffb5523f3522af216c5a77358f64fbc4e4b479bb305b6586de64aaf37d', '[\"*\"]', NULL, NULL, '2024-06-13 05:01:37', '2024-06-13 05:01:37'),
-(119, 'App\\Models\\User', 2, 'nVVcSTQV4DkoM3cO4LWn2AviRVbi10mR8rGEt2N3tVGoDo8fg7', 'f1b2799bd5ae4290df59e34c109c3bcc7d08c141432facfaf5dfd2cd181b180e', '[\"*\"]', NULL, NULL, '2024-06-14 01:00:29', '2024-06-14 01:00:29'),
-(120, 'App\\Models\\User', 1, 'ljgqQF1jXEuqTiPEH9mQvjPKsCESxiTGyelvqDLpIwWBDCTDyN', '8040b98843394c91be9ba2713a37de1d8bacada15dedebbe9039b22e8a4960d8', '[\"*\"]', '2024-06-14 03:45:33', NULL, '2024-06-14 01:22:56', '2024-06-14 03:45:33'),
-(121, 'App\\Models\\User', 8, 'AkImttxMnY2Zj7YODgStJbz95AzU6uy1q1aCm6tiiQxczdpeOM', '6a10cc4a1c63a5be8035a29077fa77f6c9ea9a821b57e06a7b2eeedbb08c6b16', '[\"*\"]', '2024-06-14 04:48:21', NULL, '2024-06-14 03:52:16', '2024-06-14 04:48:21'),
-(122, 'App\\Models\\User', 8, '2Ving7eXSJOvVJyRsqigoBzGhnxiMajM405pzS50UVGsCSLehq', 'c5f206012347c05b12d1171b999ad7e2c08e503334b2b58143cf8ef9f57fac91', '[\"*\"]', '2024-06-17 00:42:50', NULL, '2024-06-17 00:30:05', '2024-06-17 00:42:50'),
-(123, 'App\\Models\\User', 2, 'iHOBkdEp6vUzoG1uMQuhWMTNTgAfnJ73SAjorQP4YCMixcv9kR', 'f5e2c20811335d56b0343a99e49f1ae9228bdda8c8a42ca1267b6378302528b6', '[\"*\"]', '2024-06-17 00:48:56', NULL, '2024-06-17 00:45:34', '2024-06-17 00:48:56'),
-(124, 'App\\Models\\User', 9, 'Pp0qfzORycaZYVsAa0NJ9yPin7Tu7Wqf8Yy0yWNSc79ftmR0K4', '96d2e001127c93b8c727a63b387688b3c399cf4e8ed0b569529cccd64d7a1e19', '[\"*\"]', NULL, NULL, '2024-06-17 00:54:07', '2024-06-17 00:54:07'),
-(125, 'App\\Models\\User', 9, 'gLA0zwICERlqd9Kjjz2Xrv8tLIl8E3FNBVcmdcjhrqgtBHvsjL', 'bef1c698529fb890c005b5f41319fd0baade56697ce47aa73e05a0b4568bd0b1', '[\"*\"]', NULL, NULL, '2024-06-17 00:54:22', '2024-06-17 00:54:22'),
-(126, 'App\\Models\\User', 12, 'gdRWOfX2N7UVLq1OXDTr9U8b4DV3sMDjUmoHHsJIUuG2yXj3GL', '2b4b029abdc977c14e124258807d137c4e2dd1348e6e0209142889d17c731e2a', '[\"*\"]', NULL, NULL, '2024-06-17 01:01:46', '2024-06-17 01:01:46'),
-(127, 'App\\Models\\User', 2, 'dpzNulA9j0jKplYIHfXjMY68enJiBKlXEP0fbuyXJBmaBvWNHe', '1b4111dde05c92cb4a755c272435a960c049eeffc74fe4c6ed9b4df2c5587b13', '[\"*\"]', '2024-06-17 01:04:50', NULL, '2024-06-17 01:04:41', '2024-06-17 01:04:50'),
-(128, 'App\\Models\\User', 1, 'gIyfpukzVmOAYwx6cvlkNlnF3lKZ2BLOlZoSffZti6FkbuNEZO', '03a7b3bbf293dfe3f10f6342583289178811442d14df3c985a3db368fd3b3c0a', '[\"*\"]', '2024-06-17 02:33:08', NULL, '2024-06-17 01:14:13', '2024-06-17 02:33:08'),
-(129, 'App\\Models\\User', 11, 'ZPlNElzQZNKe3d5rhp0ovDeVZXkVRVWGJtm9XxRdCuvzuooeKF', '16ed8aab71d5f3f7d152246f52f79ee6723ffc77f858472a8d89773c070624fc', '[\"*\"]', NULL, NULL, '2024-06-17 02:54:32', '2024-06-17 02:54:32'),
-(130, 'App\\Models\\User', 1, 'AT6ccOMp0qJdXCBSGjHusPBtpU5FVwptOtaOxs1U3UJ7wAwRo7', '12f51e90c5ce3e9db7223e2af682e81f7dcfc150445c272ad5de3e6477a8d021', '[\"*\"]', '2024-06-18 07:07:48', NULL, '2024-06-18 06:59:22', '2024-06-18 07:07:48'),
-(131, 'App\\Models\\User', 2, 'rXIvRm2XCgqxuaRzFqFO8eljBfgwD1dcUzca5zY7rygMV17WkK', 'bb96659276f57ae66665ccfb77443b18ce0cac7f9672d4635dbbe2ac82a335b9', '[\"*\"]', '2024-06-20 10:41:30', NULL, '2024-06-20 09:58:20', '2024-06-20 10:41:30'),
-(132, 'App\\Models\\User', 11, 'mgczSezKODb6mrA9Jf49vFW6bszHK8amcjqiaxhXw8mCCM9CP3', '6a84b91f50c3fe563431a8cb96b713a1deea0d2c38514fee412ec8ebd992d5c7', '[\"*\"]', NULL, NULL, '2024-06-20 10:33:50', '2024-06-20 10:33:50'),
-(133, 'App\\Models\\User', 2, 'mJycc1g0ewZBS9rWzC3yXrGnRuFPDdCt5gvXkOu7ArLuJcqFbb', '8736767d8f1f290e9a77c5d92aebacc0e34b770e064fc3bc6571171389627c53', '[\"*\"]', '2024-06-21 00:17:46', NULL, '2024-06-21 00:06:32', '2024-06-21 00:17:46'),
-(134, 'App\\Models\\User', 2, 'DMf5xKZADswzvUpPWLbEXOV6QZPjSK5Em4Y4rdnQycp2voFYzh', 'd0421896cb0ec9e770f4f8329eb2994be0449287e019edfde61292f16145d04e', '[\"*\"]', '2024-06-21 02:57:36', NULL, '2024-06-21 02:54:26', '2024-06-21 02:57:36'),
-(135, 'App\\Models\\User', 9, 'SoDCXCuPP1UAs9TDbVJRcbpBu26YOOytqjae0CnezSV2MFVCMR', 'e981ade22fc45720cd61c726a9bba21d0fcb31b15011e99ca023ad1a0abb0afa', '[\"*\"]', NULL, NULL, '2024-06-21 03:01:42', '2024-06-21 03:01:42'),
-(136, 'App\\Models\\User', 1, '6GmZtR9ZJYY6m7yEdvsuwfj95IHaJFMVRDNqin0OYYJiYfrkuS', '23812e32557b287f48cc63a9537953613b77853fcae548448478a6f94d4e5c32', '[\"*\"]', '2024-06-21 04:06:56', NULL, '2024-06-21 04:06:46', '2024-06-21 04:06:56'),
-(137, 'App\\Models\\User', 2, 'HIiBRzJ57o1H7qhIQqHbSasPzwd8mwytmXLCzMLU4X2ssouVCa', 'da5051ed17c0897db45fbd062624ffe0348a4cdd088f12b7c2ec2511dffd1535', '[\"*\"]', '2024-06-21 08:31:07', NULL, '2024-06-21 04:07:14', '2024-06-21 08:31:07'),
-(138, 'App\\Models\\User', 2, '3fn2kzbMIHERSQsIBZbJgqvk9pJQHFAHl4OfUE3XbBuLThyBZ8', '698115cd36cce15981db3f54821c51bd078e70f941053dc9105d89cf1aa7a998', '[\"*\"]', NULL, NULL, '2024-06-22 11:28:47', '2024-06-22 11:28:47'),
-(139, 'App\\Models\\User', 2, '8hdQZJc0eXlP2GRCUO9ZGMMHGBYnkRnyRTdbQ2C1WajWTlHQ0F', '064176c1af33d6fc12e0e927032da15b235ac67e856fb8835ed1acea0c202798', '[\"*\"]', '2024-06-23 06:53:17', NULL, '2024-06-23 05:28:37', '2024-06-23 06:53:17'),
-(140, 'App\\Models\\User', 2, 'piHN8ci7vFGalN8CPfXecDu7bOTqxrXZKHGITyLlDuQ0ADZA1s', '5821caa2dff8c23aaa246f12063979b9487d4e7f53bfb5568b8d785a838ef67b', '[\"*\"]', NULL, NULL, '2024-06-24 02:42:19', '2024-06-24 02:42:19'),
-(141, 'App\\Models\\User', 2, 'hSqwl7AcVtW3l5QdT3vppG1bjC1G4hZciT5jxXVRbRe5lN5dB0', '0e76ff9f917c4e47b0f70baf8e77705c74995ad08ac47545a1190749b40437ee', '[\"*\"]', NULL, NULL, '2024-06-24 07:31:00', '2024-06-24 07:31:00'),
-(142, 'App\\Models\\User', 1, 'pemtvirQiIWjvGYyMDHR3NmcnjUKLcwnG3jzebGZvjBNLuqrgg', '236354ebcc850c18d0f68e1bb9258d305b1e574a28cc00884d2c999a0e1152c8', '[\"*\"]', '2024-06-30 08:22:07', NULL, '2024-06-30 08:21:55', '2024-06-30 08:22:07'),
-(143, 'App\\Models\\User', 2, 'gaQDuGuYCDz6KUJpCesvFuOC0DHiWkhnzzgganv0s2uMyNFOvD', '532ec7ad023e410ae76575872585b8cfb69687826efd19ead096c1281bd1ae0f', '[\"*\"]', NULL, NULL, '2024-06-30 08:22:28', '2024-06-30 08:22:28'),
-(144, 'App\\Models\\User', 2, '5uHLWaUT7GVKEUEKIch5B2GRL7zgbxPVN9MuV95DMFjvQInIzO', '855c720753ddf04463e141c92709696d84c232e0749294774c3c16b4a1f91847', '[\"*\"]', NULL, NULL, '2024-07-01 03:42:44', '2024-07-01 03:42:44'),
-(145, 'App\\Models\\User', 1, 'etrd38kcuE9yD6TG8efkwzbhk6Szh3XD7HNND5wDHm27vMxjKP', 'be0602b923a48d467941f910fe086227d18a6030d06f62d1680ea7c50d690c0e', '[\"*\"]', NULL, NULL, '2024-07-01 07:12:55', '2024-07-01 07:12:55'),
-(146, 'App\\Models\\User', 1, '7FgU6BJfV6bWOpLLXsb5X0vFs4Rv2xlG4AlHtzGvTpfF4oGgW1', 'b4c12a421ed84b6eed16691a83bdfc4a0f798706908fbe0369e818feda210f57', '[\"*\"]', '2024-07-04 00:41:10', NULL, '2024-07-04 00:40:16', '2024-07-04 00:41:10'),
-(147, 'App\\Models\\User', 1, 't2SmJ5BPkrsxjt21JE6WaBzxAE5SWfY9MjaK7G9omzHxePWxVj', '542ed26d90c3a6a6f8c6d952603fb8477ef208249c124247eb787b57f56d16c9', '[\"*\"]', NULL, NULL, '2024-07-04 00:54:00', '2024-07-04 00:54:00'),
-(148, 'App\\Models\\User', 8, 'j1fTPIFORhpcl9c2DdkChge1JDyi5Sq7yDVawO4Y3D9TtXJGvN', '21316b86dab68750559470393c0ceb2019a04ea5110b3182391816d6ce56deb4', '[\"*\"]', NULL, NULL, '2024-07-04 01:01:54', '2024-07-04 01:01:54'),
-(149, 'App\\Models\\User', 9, 'bCcGbC0uqM0q4qc5t47379mko3W3TYePYXg88NXJFiYxunPmyC', 'c87b34b140b0341ef6c2d9cf390f855cc78bafcfcaecbb3183ed615a008dba9c', '[\"*\"]', NULL, NULL, '2024-07-04 01:06:39', '2024-07-04 01:06:39'),
-(150, 'App\\Models\\User', 2, 'PrSklBhJjVmlnDXhhwFRyvzvkvZkiJMugPMHqhWesYLZwwNHUZ', '6f8da911bfc952c0de5380e347c7f45bf9aed591f15e3a286b2d0dcd6d8e56cd', '[\"*\"]', NULL, NULL, '2024-07-04 01:19:48', '2024-07-04 01:19:48'),
-(151, 'App\\Models\\User', 2, 'dFIvuiShWcd8qb6PYF9YY7XEwEVMRpOuE1mtRdodJmso2zQwQX', '445a0af4dbfe9f0b83c5a8c8cdba0b8a3b0e9a69f1ed0b7cb16a0cdc39e5a1f4', '[\"*\"]', NULL, NULL, '2024-07-04 03:25:31', '2024-07-04 03:25:31'),
-(152, 'App\\Models\\User', 2, 'PnDJQ4GEcQLAP18esSwOXxjMTwRimHWx5SjFr0M83ODIi0800a', 'de821b8e19ee43c2c3f2c84547ab23e41f95d6b1050a7d43826356fe05982cab', '[\"*\"]', NULL, NULL, '2024-07-04 06:42:08', '2024-07-04 06:42:08'),
-(153, 'App\\Models\\User', 2, 'g0Ydy3CY67HY8R7LoRJY5DHJAVlirOqlYeu2BH1mgvr1uk2hU5', 'de4eaa05b74d803c20ffd5ab46e6ac1014d60f9a78f8f5d20bfa1957f9460f62', '[\"*\"]', NULL, NULL, '2024-07-04 10:56:45', '2024-07-04 10:56:45'),
-(154, 'App\\Models\\User', 8, '84vob3ngfs0CbPR2P7wtKS3v2MN9gMxE05NsjDARMv8bVe227h', '950a64fc6b80d2899ba0f683d236831ec89edff9dbdaa6f81aa3ffbd5f88d737', '[\"*\"]', NULL, NULL, '2024-07-05 01:26:41', '2024-07-05 01:26:41'),
-(155, 'App\\Models\\User', 13, 'AnNn6mqQTc1feXf55jeVquzDVDkhE4b9jUgQ9dUMwJhTBcC2YK', '1bb42dafc2fc4f47f843122fa0e87ff6f582ecd7b7dcb2a77b9b50ae529ce6cf', '[\"*\"]', '2024-07-05 01:53:06', NULL, '2024-07-05 01:32:15', '2024-07-05 01:53:06'),
-(156, 'App\\Models\\User', 2, '9NEWm7Hxu2W5GxkrasYxoZQhPOgdXXJahfHGgO9G0EfWnY7sKJ', '656d193cea176bfce1ef3ae9ce4027dc28d645f756550061e31d87c2c492f5e6', '[\"*\"]', NULL, NULL, '2024-07-05 01:34:33', '2024-07-05 01:34:33'),
-(157, 'App\\Models\\User', 2, 'toWTprp4Ah2KNUOH5dbUfuKyMKS9GKryBOIWIm4Lep29M5qYSE', '20f42f8567fb8daed0139f67289edfdb5adf345741228593fc86596ca911d361', '[\"*\"]', NULL, NULL, '2024-07-06 23:36:56', '2024-07-06 23:36:56'),
-(158, 'App\\Models\\User', 2, 'yW0U8dGBpS08Y2IdXcDPLH4Peoz9O7EdwxdCjSuNIpDOE0qSmd', '4c686641698c6d1a9fe1f359aa9538fe82bdf9d951606512168d2667be073d6c', '[\"*\"]', '2024-07-07 00:35:28', NULL, '2024-07-07 00:33:05', '2024-07-07 00:35:28'),
-(159, 'App\\Models\\User', 2, 'PJAaVkCDB8222TaYUU9NZj47UrcEpFN7RHUq3etbGQj6QxEMb4', '9d787c582e7d98722bfcae44ae91c04406d63bfe76dbbb9e5d77b6c06d462a0a', '[\"*\"]', NULL, NULL, '2024-07-08 01:12:32', '2024-07-08 01:12:32'),
-(160, 'App\\Models\\User', 2, 'MAXYMwj1uzUlbNjl5iL774r1wHY1koPI6k6foxJ8gEmCAUeCcx', '95856a9efbc25e96805c505b836974e9cc8881773683f733d24d0eb4fb801460', '[\"*\"]', NULL, NULL, '2024-07-08 01:45:56', '2024-07-08 01:45:56'),
-(161, 'App\\Models\\User', 2, 'Ozy4B28NmXy9he70uqp0nwbl1HitjxHMVCyFgInGZTuCJQQFkV', '8c53c6dabf1a1cc4fd22550ece78c118435373fb39efacf3cf52a8e637c82bbf', '[\"*\"]', NULL, NULL, '2024-07-14 06:11:29', '2024-07-14 06:11:29'),
-(162, 'App\\Models\\User', 8, 'pEiJ7LTXUzohUAlmI5yvk3uxy3jJfQJi0Fp0PZUXZb10F7hZ4V', '3b30b7a3df5c1db8ec26293babe07a6f03f6ca1fdb11f4f23de50c545865a6d4', '[\"*\"]', NULL, NULL, '2024-07-14 06:15:50', '2024-07-14 06:15:50'),
-(163, 'App\\Models\\User', 1, 'OwYKZ4iNTJyMTUrrkKoTkwtGvPmKzePZXa48MNyttqlNYkG0RB', 'f7a03f47f2dbc1f41a93aed95a7d685f137f1f72d9263b9e77e018e75056550d', '[\"*\"]', '2024-07-14 07:50:08', NULL, '2024-07-14 07:49:31', '2024-07-14 07:50:08'),
-(164, 'App\\Models\\User', 1, 'jneP1gqb6TmULgBYPxhKF52NFAFKHPa49IuBhc9jtgI4lfHYzn', '5be75f8f973e0a754b27f8f43c20107208f5b63a7f16d1db95ea428a3aeef025', '[\"*\"]', '2024-07-15 00:17:12', NULL, '2024-07-15 00:14:31', '2024-07-15 00:17:12'),
-(165, 'App\\Models\\User', 1, 'TdLkXAKKFSx3dTFo9Z8p6KusgtFSIzUwA2KHv2z2KXkMoMT8hA', 'c2329f69649c669605b6d0369e1a81dbfaab4481c5bf6be0098b83c81735eef7', '[\"*\"]', '2024-07-15 00:24:49', NULL, '2024-07-15 00:24:37', '2024-07-15 00:24:49'),
-(166, 'App\\Models\\User', 1, '59bQhKJJHgTMAlCeopfi40kTXbysHJbLcQ9t8J6lulEf61p74Q', '2249e93d8a27b97e8d26005bff18d8a2d03b3c64c25f0ab63d2be5ab7fbdacb4', '[\"*\"]', NULL, NULL, '2024-07-15 00:34:31', '2024-07-15 00:34:31'),
-(167, 'App\\Models\\User', 1, 'r3Tx9hnz0zVMlrR6swvohxhHNF0zOrt0PDxOxUad2pXmmK0t7p', 'b0907694e79786d301c30ea07c286360c993a85003c73a690903d98661a9e68d', '[\"*\"]', '2024-07-15 02:07:48', NULL, '2024-07-15 00:35:38', '2024-07-15 02:07:48'),
-(168, 'App\\Models\\User', 1, 'EYXxjuezN2A5CrF7DC2MkIBTOQ7O2azSjGAdeoxMAxsg83vSQu', '3ec49e58a191a6fea2948f0427964957aa505a7b2334eb0d8728b6873bfcdd72', '[\"*\"]', '2024-07-17 03:08:23', NULL, '2024-07-17 03:08:14', '2024-07-17 03:08:23'),
-(169, 'App\\Models\\User', 1, '4KevyvtpVAKpbnXGQGpc0gV2HTBTQfAPGzXQ8g6NUjr8dBpw87', '222dc386ec66cfd4af399862278a00ad251ebdc8848081a0cac831c0ee90748f', '[\"*\"]', '2024-07-24 09:35:52', NULL, '2024-07-24 09:35:40', '2024-07-24 09:35:52'),
-(170, 'App\\Models\\User', 2, 'aTzpCGNinsoYA7P99x2cJTjPAs4c7oAJQp5V8QHcXn1rL94VhH', '634c0f748275588ded7f5417634354de677dd02265c8e70d0bab41d35885b4d1', '[\"*\"]', NULL, NULL, '2024-07-24 09:36:22', '2024-07-24 09:36:22'),
-(171, 'App\\Models\\User', 8, 'KLSgTgfzkphytZvAJVbICqysMaI5YuVzukbojh1bxaTIiABTdw', '621968edb7b06e7d03f20f60b9bada0647530432902fead0315e1fd684c47ada', '[\"*\"]', NULL, NULL, '2024-07-24 09:37:39', '2024-07-24 09:37:39'),
-(172, 'App\\Models\\User', 2, 'gizUNES3Ksq8Ph0QssDf2rCOPdapFG1I7ZxMlrqzYjGaaG2si8', '3d9a1319fca4d9bc3831d30f9419f41eff9448c997a52829176dbe28e9ca403e', '[\"*\"]', NULL, NULL, '2024-07-24 09:39:32', '2024-07-24 09:39:32'),
-(173, 'App\\Models\\User', 14, 'cNjmYPdwnAoGhhdPsXTUCdmeE8gvH0k1UvhcWgBgapKn0F53Jq', '8d74f2a5715d15f1631adda9f29f93d18dd1bb635fb979569cc4b5a3e07dcbba', '[\"*\"]', NULL, NULL, '2024-07-24 09:42:26', '2024-07-24 09:42:26'),
-(174, 'App\\Models\\User', 14, 'YKvYuTVrziUIvnIDGyFsehumfuBIpfkkuoJlkFHUCncIPjsbzm', 'fd04ee5838199239241eaa0e0b137687e62828b959c64d197953aa737e162552', '[\"*\"]', NULL, NULL, '2024-08-07 08:24:35', '2024-08-07 08:24:35'),
-(175, 'App\\Models\\User', 2, 'vlC53Xy4KyoYbaTUph6V9Dez3m9Ojz17I8R7MzEOiackfqpuT0', '10e5710bf3b7c40238f7ca69e7e4cfbd8a8c6124eed52bfe3866c0efc0c68024', '[\"*\"]', NULL, NULL, '2024-08-07 08:27:03', '2024-08-07 08:27:03'),
-(176, 'App\\Models\\User', 14, 'QBOnuZf8otjjRe9PYEtVCuxY9S1hpEJC3pV7triptIWNV3dotl', '598023e42a0411892a788a39f1eb6c1a1484ce0a8f54368932d99361ec88d8a2', '[\"*\"]', NULL, NULL, '2024-08-07 09:08:07', '2024-08-07 09:08:07'),
-(177, 'App\\Models\\User', 14, 'T12U39sA5S1SHadaLpenRact16LusY8wFmOxhkGGjBz484g9ES', '87baac57cf1d0ab9e9d3a9acc1e81d0821eece18f9a28a0350a820a06ae420a6', '[\"*\"]', NULL, NULL, '2024-08-14 05:30:35', '2024-08-14 05:30:35'),
-(178, 'App\\Models\\User', 2, '6UB9eP4Fj3RzjJw4uCX43l5YF0Y49go0lDWtSu0MzM3Sru3oa8', '9880feb8d1f87c35f51238cc5795ff9ef71306a3ea5a91cfe3d1e21af6c60f65', '[\"*\"]', NULL, NULL, '2024-08-14 05:30:59', '2024-08-14 05:30:59'),
-(179, 'App\\Models\\User', 1, 'IOC5xtQzzJMKtYeKGjDxFwKs4kn7QNRSPfguFt9MNEgD6SW9Bi', '36eaf973aa60f9dd9f1547a04d9324318124fcb3933692fd50f8b55171ce8724', '[\"*\"]', '2024-08-14 05:32:02', NULL, '2024-08-14 05:31:55', '2024-08-14 05:32:02'),
-(180, 'App\\Models\\User', 14, 'kPTJxL5qugc8q3f557WZ4SBO0WdpQIrX9f4GkxAEF01wsVdRUq', 'eb09060d825b1f8b0ea7a7434a7f2a3ddbcb747f88e9d51e25c364d38642b6ed', '[\"*\"]', NULL, NULL, '2024-08-28 02:55:38', '2024-08-28 02:55:38'),
-(181, 'App\\Models\\User', 1, 'PB05ZKL1CBhCBnYnwmDUavLBXiBsv7t3SwX8N7PzwIO6oIHSSA', 'c9b7d0e3959c32e7df424797fd30b0fc4812b227323ec0a9ee4fd55615211846', '[\"*\"]', '2024-08-28 02:56:22', NULL, '2024-08-28 02:56:03', '2024-08-28 02:56:22'),
-(182, 'App\\Models\\User', 2, 'HZ8JmmUXjuUitSvaL0AuxLbuPU5DPFVrso8kYsx6XpHMJXlpYX', 'ead67b79a82703449467939a6cf937159fb23560f153db78936bedafa77a1405', '[\"*\"]', '2024-08-28 02:57:22', NULL, '2024-08-28 02:56:32', '2024-08-28 02:57:22'),
-(183, 'App\\Models\\User', 1, 'HBWTGILjxYcVEqFsUw9tqgNs8kjNQDlDtZ1cZPVuaclsPNMIkY', '5ea8bca94eef8ff8cbbde21cc3633ff514a45798e2087fcd1152b578a94eeb7e', '[\"*\"]', NULL, NULL, '2024-08-29 23:08:19', '2024-08-29 23:08:19'),
-(184, 'App\\Models\\User', 2, 'xMkga30tL0piHXy0S26U6W9od7wDPpT4SWEgujvZgt5gcJ3p6Z', '890d25905b7bbd194a189de37f2058a82242f2f3670c4e127b141996683a28d2', '[\"*\"]', NULL, NULL, '2024-08-29 23:09:48', '2024-08-29 23:09:48'),
-(185, 'App\\Models\\User', 15, 'kO7Vw3LixyrIbLZFEFp7APzlzFGDHAzWVsDgr0DEUED9EmfYVQ', '8c9133a948f263ac22c829e1c08f9021a72c27ad52f7196f9adea59f708a152e', '[\"*\"]', '2024-08-29 23:13:16', NULL, '2024-08-29 23:12:30', '2024-08-29 23:13:16'),
-(186, 'App\\Models\\User', 2, 'Xqc1TLmswATuE2gH5txtdelRCYdzNr5hN3zCIWiNZ0CBvRbGPR', '82ed664503f100923965fdd309060398c64f74748c66a98e2a631574d9a09b53', '[\"*\"]', '2024-08-29 23:49:41', NULL, '2024-08-29 23:13:38', '2024-08-29 23:49:41'),
-(187, 'App\\Models\\User', 15, 'IyDvxU5w4L4cE2PrOFPjUAT803yJZF3KSvV4r2gwctpFNQ5bh4', '1fb4f7a0c6aea9c99dee44ae7ff7312d07d5a8c0ba41804618a1c2066be2cfe4', '[\"*\"]', NULL, NULL, '2024-08-29 23:15:37', '2024-08-29 23:15:37'),
-(188, 'App\\Models\\User', 15, '5ensA2iyPmVoflf4Uxw5cKJKKJ3yyDijCYLt0J1FWDWIu0ZUqE', '97737349d5d76505b85dbf35c3393e9f4c0e9a0589433bbfb7263b2741088a38', '[\"*\"]', NULL, NULL, '2024-08-29 23:53:58', '2024-08-29 23:53:58'),
-(189, 'App\\Models\\User', 2, 'xb5KbRSiErAtk1dbT24EpLuOBZGI866OfkCQW4wAq2azp1xSg2', 'bf0b30969d2a9232733dbd9090956491141d85ac5f570ee57a77961c6a3d8a4f', '[\"*\"]', '2024-08-30 00:00:26', NULL, '2024-08-30 00:00:03', '2024-08-30 00:00:26'),
-(190, 'App\\Models\\User', 1, '191FyNyRjvy1Ic0jbXYQphnchLxdWx7Qbp77H6aWNLMgtDuLo7', '4bf39869ee9ea3a7c0768434f997532a2951d665113c8d991930858f4580360f', '[\"*\"]', '2024-08-30 00:17:43', NULL, '2024-08-30 00:02:33', '2024-08-30 00:17:43'),
-(191, 'App\\Models\\User', 1, '9Pxh4ntXwe9bo4MKEQTtJQpBClT8jR0EFZ6i6HHEb8dOnJlZmt', '2bee9e19de0555c69b52ba2be310739c9b02cfca05c51b966b2ff994a9f35c29', '[\"*\"]', '2024-08-30 01:45:09', NULL, '2024-08-30 00:22:52', '2024-08-30 01:45:09'),
-(192, 'App\\Models\\User', 15, 'gPou14i6qOYXGfgxNqUbA31TDLTIxre2tdfkkMUREWJwKZpTAz', '91a0dcd9755b84f31870b56e98bffcd61b36980abe43a6705b4423f205a095e9', '[\"*\"]', NULL, NULL, '2024-08-30 01:46:19', '2024-08-30 01:46:19'),
-(193, 'App\\Models\\User', 2, 'oLPYZF4E5xJbeSKtDaCGYyrqLcG6P1Oj4b6QhI3Y73iLZzsWnd', 'ad03f9934375cd4137c928341351fbc78fee6f1861136f1b78d20dd3c0ad67b1', '[\"*\"]', NULL, NULL, '2024-08-30 01:46:48', '2024-08-30 01:46:48'),
-(194, 'App\\Models\\User', 2, 'jnEMOhs4MmTv4p3qf79V4yoc9fwItdlnHGqO3HJbsZYviKVieX', '97fda7e13b2b51f3a235556a10ec5c314315cb3ecd3e9ab1d71c4e7a8863b6a1', '[\"*\"]', '2024-08-30 01:52:11', NULL, '2024-08-30 01:51:40', '2024-08-30 01:52:11'),
-(195, 'App\\Models\\User', 15, 'VneZdFT1tUaMZNTvHSHu1VawpztjwUUlwqrB3NuJXf636aGBYR', 'cd982ef91cc311d9e8c2cacadd95de2e6b16eb8577608bae1022337d91612224', '[\"*\"]', NULL, NULL, '2024-08-30 01:52:18', '2024-08-30 01:52:18'),
-(196, 'App\\Models\\User', 1, 'pXKYp4CGl97Xl8r1eztW9RWLbrvut1U52SBomwT0I7PCmceEg3', 'ba074635cff0f17c9383ab5a9ae561e96dc656f9eea8131d60e795de97475e50', '[\"*\"]', '2024-08-30 04:31:18', NULL, '2024-08-30 02:39:14', '2024-08-30 04:31:18'),
-(197, 'App\\Models\\User', 1, 'HlyAS5GxTkZQA9EmEhuthdO7rTzj8VYS4JzR3nVynEIUo4JMkb', 'ce33a01de78f8d2b9c338c51ab452e902a2594a5c4fabb9bfd075b675ee3acde', '[\"*\"]', '2024-08-30 09:50:08', NULL, '2024-08-30 03:48:56', '2024-08-30 09:50:08'),
-(198, 'App\\Models\\User', 2, 'LjiaUKYgrU38sFPGg7JmMgY1RjiHfo8ExpaKb8EEO6E616bYT8', '848169d26e86917e242c765c0241cb928f5aa7ed508ed2e370411695a41b5ee6', '[\"*\"]', NULL, NULL, '2024-08-30 05:22:06', '2024-08-30 05:22:06'),
-(199, 'App\\Models\\User', 1, 'uZq9el9FXtqUQTfxv83ut2NRnXVlz0q8JHW0YlJmK2zJ1dlXWQ', 'cb238874ece5e87cbab8323b4744fe16efabcaa07a525b7714caf21264f88ea9', '[\"*\"]', '2024-08-30 11:16:01', NULL, '2024-08-30 06:50:21', '2024-08-30 11:16:01'),
-(200, 'App\\Models\\User', 2, 'F0lovHV9eIgvvh1UcUYiz1Ue7sSINvEpYnpFaVvY7rEdzdPu3e', '98a2b0698c0f5ca3e4b13310a782242bee84c79e80b692e4cb48497cb5bfe854', '[\"*\"]', NULL, NULL, '2024-08-30 09:50:54', '2024-08-30 09:50:54'),
-(201, 'App\\Models\\User', 1, 'pSgcA30bWTvnBMMGTZSUJ7WOV0wt9gDSj8bpPiFccHUdgIJrES', 'bc4bcd7b72f267e7b9de7f8a83878351058dec3ed5c5e121378fc8e5c5ec8721', '[\"*\"]', '2024-08-30 11:15:30', NULL, '2024-08-30 09:55:04', '2024-08-30 11:15:30'),
-(202, 'App\\Models\\User', 2, '6mf0hhYj9pVvWe31QyrQFXDdaDodMpWcrt5DclYA89bUWLqsKl', '240199194d06ab10b55563b388d419ec0d589f084db91a483ab4fa009f81efa8', '[\"*\"]', NULL, NULL, '2024-08-30 11:17:34', '2024-08-30 11:17:34'),
-(203, 'App\\Models\\User', 1, 'voam0pbBonE3RjsBnfN0QlsnWxAwBbxbOlgooRrK5TA3hRd6cl', '13d2f01ddf0c8462f48b18ca0fb9abb371a7124f71d5f0e3ebdd32c09759e92f', '[\"*\"]', '2024-08-30 11:25:30', NULL, '2024-08-30 11:21:52', '2024-08-30 11:25:30'),
-(204, 'App\\Models\\User', 1, 'H3oWHxBbM7ZRXGynTb9CK8vi8CwOfpAgGkxQiZvc3BbLyomxB2', '46366907794a24cc82fd76c3614a9a13b5f9c7cb9d002bc4234226cf0d8a3714', '[\"*\"]', '2024-08-30 22:46:36', NULL, '2024-08-30 22:39:33', '2024-08-30 22:46:36'),
-(205, 'App\\Models\\User', 2, 'fA6YMmyy5Vczjh8SFJKYxaQA8pcbVSc6vPyl8sRtDHVnJafjQB', 'dbf573c073d52c981b67359323132bd35cede92f250062697b6ab36670dc3d4b', '[\"*\"]', NULL, NULL, '2024-08-30 22:49:52', '2024-08-30 22:49:52'),
-(206, 'App\\Models\\User', 15, 'L28eF9H8HsrnEO7FJJGzgVOQBYOrY3VqntGugXDrWlNDwTiLw4', '4a415de5f6f9824b96e85b740a809d1e80dc8d3e85f98d53f816942417035acf', '[\"*\"]', NULL, NULL, '2024-08-30 22:51:09', '2024-08-30 22:51:09'),
-(207, 'App\\Models\\User', 1, 'MHJRT3J0D2fCSbPrJsCGKbhttxY5x6JsqkQJuZpcVMxYHaARUr', '7139426d8c1c80f1353248e17678e33a10a16dc13744ce2a7d967fd41dfc41f6', '[\"*\"]', '2024-08-30 23:35:06', NULL, '2024-08-30 22:51:51', '2024-08-30 23:35:06'),
-(208, 'App\\Models\\User', 1, 'hh7FHDrM3UEoVpbFXFhsy9tBjj3eqN0nbKE6iaTeGdbz6kcxrp', 'bae849f34bdafcf3b8e6bebfdc4f4ce1f5abf5f9f28960e724ec8e785e223aba', '[\"*\"]', '2024-08-31 00:43:29', NULL, '2024-08-30 22:56:37', '2024-08-31 00:43:29'),
-(209, 'App\\Models\\User', 1, 'N9CPVy2zoBqbP1swjU0wVESD5UJZQA7qOU1lmdPIBT4aD3EiM3', 'd8de9da47a696b4df24ed6448a70e039b111fa21351dba60a34d41b0c31fe8c1', '[\"*\"]', '2024-08-31 00:06:41', NULL, '2024-08-30 23:36:00', '2024-08-31 00:06:41'),
-(210, 'App\\Models\\User', 1, 'JMp581srXugtc1BqV3A5gD2ok5ouffNzEMuBcx7rWYAgMGwnZK', 'b9ff20dd142952894bc28750f69063df21f7234253de55e9cffa25ed939cb465', '[\"*\"]', NULL, NULL, '2024-08-31 00:17:10', '2024-08-31 00:17:10'),
-(211, 'App\\Models\\User', 1, '2LbbAwAT1hVOo17B9w2g2ESMVr0BNeGXRn474VHOXU6fUiIJrJ', '903546dc26d3e120d3cb9081541574ef90a80aece8bf993f1b07bbce91876ff2', '[\"*\"]', '2024-08-31 00:44:19', NULL, '2024-08-31 00:19:52', '2024-08-31 00:44:19'),
-(212, 'App\\Models\\User', 2, 'kANRDsmz4shH7RGYVtZd2QcF845atHekKubJeHu0lY7A9A0EqR', 'aa518de037823551be09219e88ff28ba294254d6723e45c222d177f5a3ca73eb', '[\"*\"]', NULL, NULL, '2024-08-31 04:14:47', '2024-08-31 04:14:47'),
-(213, 'App\\Models\\User', 1, '9fzcITZ67kzfrsdYgijBPWSme5vXSUO14OUiqNUVBadJ2nKAuW', '7b8d5d70c5626b289ade2882784a194bf6dcc595c1a3402cbedf6bf785336ff1', '[\"*\"]', '2024-08-31 04:17:23', NULL, '2024-08-31 04:15:08', '2024-08-31 04:17:23'),
-(214, 'App\\Models\\User', 1, 'qqBxqXiSTPGS0HR63UK5mr8mkz9hpmzLkS7X79ovNrB62MoF5v', 'f8f92f05fb075dd1e67c7c71bc11a75f4102c977909c1df7765b423bfbf91d3c', '[\"*\"]', '2024-08-31 23:26:21', NULL, '2024-08-31 23:26:14', '2024-08-31 23:26:21'),
-(215, 'App\\Models\\User', 2, 'o10xQ5OLqsyWTm7atHW0qSFyTviUXeMPsc0EqSqav4mqi8x7go', '304c502b2af0ef1c3747fb18e25ddedb3c94c847a020901519f94ba4edb6abf0', '[\"*\"]', '2024-09-01 02:08:58', NULL, '2024-08-31 23:26:43', '2024-09-01 02:08:58'),
-(216, 'App\\Models\\User', 16, '1Lcmpnc33YS0BZXkkrq2tU1m75iaJLuPYCEc3G3bNQrXsPwifV', '91a5cbc7eda9a2d8af21065e4db4519f9c70c9454d5d83071001c3f92ce43d89', '[\"*\"]', '2024-08-31 23:32:45', NULL, '2024-08-31 23:31:52', '2024-08-31 23:32:45'),
-(217, 'App\\Models\\User', 17, '6gysikg9mOl2XTr1fjYO6w1qZBjRcJPenhSLDKZysnFf0zpzJE', '28da4db6cc5f796acb1e01cb2ff08a5d0b9106d420a9d6748a7921c3a94a0672', '[\"*\"]', '2024-09-01 01:48:27', NULL, '2024-09-01 01:48:07', '2024-09-01 01:48:27'),
-(218, 'App\\Models\\User', 16, 'PJrIpunqOk6mv75EQBcB4xxxeZqTAXr48Pzo09eEHcW9PBYDQv', '8948374f395785898eb6fe6b6e648d7c7ef7d6de8c7a14412b2232166aa736c9', '[\"*\"]', NULL, NULL, '2024-09-01 02:09:43', '2024-09-01 02:09:43'),
-(219, 'App\\Models\\User', 16, 'gv1YWdT0WT3YJQiKXGiGILO1S0Iav6fKTwsLHQsc7BCK8QFuTU', '671611176508379ad634892e2d517d016693c672bfd8d9489cfd11c0cad95403', '[\"*\"]', NULL, NULL, '2024-09-01 02:15:45', '2024-09-01 02:15:45'),
-(220, 'App\\Models\\User', 17, 'gADIBQlssOU0ZJEMSvy7RIlKwMlabMeNLhfhnUMoCacZLc0SY9', 'd971e688515dcbd33cc05c83db9cc656e2e679d2f768b33b280621b90d9054d1', '[\"*\"]', NULL, NULL, '2024-09-01 02:26:48', '2024-09-01 02:26:48'),
-(221, 'App\\Models\\User', 16, 'OBiRQ7UNOO3RHID24z7eCdMKqk9Y7DJjD791et0kyLDYlOApzz', '49f95075c26948c8767c979a2c5c0bf4610ce31b54f146c07c3e397f1d7f8006', '[\"*\"]', NULL, NULL, '2024-09-01 02:29:39', '2024-09-01 02:29:39'),
-(222, 'App\\Models\\User', 16, '7mscQm5Ls8o9XmNlho8ZhSIb7Ru5wHEveN2Bdl7wzIA1Wv850z', '1ca9b7b4943f8e06faa77409e2ad72d998761228e2f6ddc1fe6eff3096bf5a3c', '[\"*\"]', NULL, NULL, '2024-09-01 02:35:07', '2024-09-01 02:35:07'),
-(223, 'App\\Models\\User', 16, 'b8QxzQT332HtX714GPOoG9zAXQpQym2nskACNXICgy50aEZWgW', '66762ce093b796c8018eb07e3617e18a0a5aefb707355915ccff898c8250868c', '[\"*\"]', NULL, NULL, '2024-09-01 02:40:01', '2024-09-01 02:40:01'),
-(224, 'App\\Models\\User', 2, 'j3Xm6MXhVesSSajT90WJeMbIYTk9h8El23U9MEjLMCR1eY5moT', '21214a246198eeab586a0c20d0b10e216bae63c11db2b5716727089caf5ce6ed', '[\"*\"]', NULL, NULL, '2024-09-01 02:44:50', '2024-09-01 02:44:50'),
-(225, 'App\\Models\\User', 17, 'WkgauySr7beKyhiOp33wbFlWY87uKyvymhPTzi1uxZFVrPYyAW', '80892fc9e66a981c78c96e0f0a8f7d57ee5b1be22f50cbcd5d2ebb36488062bd', '[\"*\"]', NULL, NULL, '2024-09-01 02:45:29', '2024-09-01 02:45:29'),
-(226, 'App\\Models\\User', 1, 'E1FjfwGbvsTRvVuJxOvFzPR1YHL7y03m0bMPdEUI2XJ4MgfTD0', 'adbc56f54e563f16ad3a8803e1e99f2414e163fb2838ce4b5c6cb7e630fde179', '[\"*\"]', '2024-09-01 04:16:51', NULL, '2024-09-01 03:25:47', '2024-09-01 04:16:51'),
-(227, 'App\\Models\\User', 17, 'V9EznShFILWHVmXmqsTMzwyQL68rJgGjoxxCoTM3sM5uxWnJxO', '03a13db3868940ac71afc64ce80ce9d8ce19e6a59f88ebd88ae31008cf6d323c', '[\"*\"]', NULL, NULL, '2024-09-01 04:41:29', '2024-09-01 04:41:29'),
-(228, 'App\\Models\\User', 2, 'GIxmCPvfyrSGW4tRub2BIAyI6j0bdL7noKAHaFOytIxkYWLodD', '4dc402847e6ea1fda72658aaceafb47cd4968914259916799b0112a6902367b6', '[\"*\"]', '2024-09-01 04:42:28', NULL, '2024-09-01 04:42:10', '2024-09-01 04:42:28'),
-(229, 'App\\Models\\User', 17, 'UFEcnqVHDwaw47dizTnrAK6CNBdGdInW6HLscS6aujZQvR1ohl', 'b868c9e49033af754c40cb1ca728d976eb89f406066f6318165464d7c72bcbb6', '[\"*\"]', NULL, NULL, '2024-09-01 04:42:58', '2024-09-01 04:42:58'),
-(230, 'App\\Models\\User', 17, 'dIsf9DKJU3HYFPz5yXiD0I7X7KNCzrEqKcSpVk4huH5B0hNQV4', '1510683b1b7e3aa4749d6e89401cd741fbd2612624040500c8935f35daafde47', '[\"*\"]', NULL, NULL, '2024-09-01 05:26:42', '2024-09-01 05:26:42'),
-(231, 'App\\Models\\User', 2, '71OToVNv7EO23vjumRmTH15FLLGgFXxIhXFH8XJvybWG4blDxX', '6dcd5251d7bb04d44559a04eb692c7e88d48c6f5904e44bd7bb64af9f9924c16', '[\"*\"]', '2024-09-01 10:04:27', NULL, '2024-09-01 07:36:55', '2024-09-01 10:04:27'),
-(232, 'App\\Models\\User', 2, 'u7y3ZVl5zweeaTlZg68m9zl3tdfMxEFGJnPmp8WgWIy0m0QETP', '3728572bd1fe69da157b08aa9a64ac9fbdb377932709023caa78ccf0fcb9686a', '[\"*\"]', NULL, NULL, '2024-09-01 08:26:50', '2024-09-01 08:26:50'),
-(233, 'App\\Models\\User', 1, 'TzLBJcN8ZY6HFeO2Rin2Ktb2WRrYngB9bZ7330GC9Y4ipJxZy7', 'e05c55d9741a16c98f911136b3609dddb23e87f327fafd9a9cc28b9c34e9d515', '[\"*\"]', '2024-09-01 08:50:19', NULL, '2024-09-01 08:47:53', '2024-09-01 08:50:19'),
-(234, 'App\\Models\\User', 17, 'WNTAhXUQhp802xgl4ieuNWPqQY7M7YRd7rdp67ZeO5svslXAMA', '2f309813506e78198ccfe4cb939a05a35b3d99267c0068fcb62d432bc9af3a50', '[\"*\"]', NULL, NULL, '2024-09-01 08:51:18', '2024-09-01 08:51:18'),
-(235, 'App\\Models\\User', 2, 'EEs6AQRdzFJ4q0Xcpi02J5FizsL1rHP2WU6xLn24jjff0hxyNG', 'b771136f9dddc015e1e6cb4f4b9102a16c91b74ed03a0a4a05f6fa2dbf2db5f3', '[\"*\"]', '2024-09-01 08:53:13', NULL, '2024-09-01 08:52:00', '2024-09-01 08:53:13'),
-(236, 'App\\Models\\User', 16, 'IfDf1ga0KBzpGDzsLMg8NY0Whvdx1ZzlFcq5GdhYCkfwe3Mkbs', 'fa808803bc3f930aa5b5cbe6bd81758ebd0c361e30f28c128333868d533069b2', '[\"*\"]', NULL, NULL, '2024-09-01 10:04:47', '2024-09-01 10:04:47'),
-(237, 'App\\Models\\User', 1, 'boYh6y9rFL1JaQdPBpqBLejkj9VfTdy6WkdT4CIDaOMn7oOs90', '7b2b2c06532284b9e8ac6a3b058de3993986f58ecf66cad8a7208452e3f74787', '[\"*\"]', '2024-09-01 11:07:42', NULL, '2024-09-01 11:04:48', '2024-09-01 11:07:42'),
-(238, 'App\\Models\\User', 2, '0B2f4DDupOowfzg2JwwmSCKZDYrQo8rTsBLByaKCHADxlTVsJB', '9878fe90cb8d333535f44b2d671610f1f7f9889a617242fa8f872065e545668c', '[\"*\"]', NULL, NULL, '2024-09-01 11:06:47', '2024-09-01 11:06:47'),
-(239, 'App\\Models\\User', 18, 'Jxp3brmownpYIr8IdV1KSd6GXa1PZwiCsfeIduRnSmlUxJnRkf', 'bd83ec1e79d8e867ad3ecdfb6bae53543e48868f4308b7bde52e4e61dff05fc2', '[\"*\"]', '2024-09-01 23:23:17', NULL, '2024-09-01 23:22:37', '2024-09-01 23:23:17'),
-(240, 'App\\Models\\User', 2, 'JwM3rKzPksBbAx48jR1VV99aQmJpgLsRemeKh1X0JH75nwpV3f', '7fffbbd8a7deb65ffdecc773ad6b229ac589d41bbc074704fe2559ff01b0876e', '[\"*\"]', '2024-09-02 00:27:58', NULL, '2024-09-01 23:22:46', '2024-09-02 00:27:58'),
-(241, 'App\\Models\\User', 2, 'No2QAb2hbHDMLJOJrUM698EvH87wnIjFESbWAsgmL6HcpWiBuc', '34b3b7b083d542e2ba85d7a438322667996ab09a81dbb5d0440b387e8c3da174', '[\"*\"]', NULL, NULL, '2024-09-02 00:44:03', '2024-09-02 00:44:03'),
-(242, 'App\\Models\\User', 1, 'YU0I48i6qoUgfZEENsMKnPZIMGnCD2isP6g7hKiDvI9f5JQquH', 'd77eddd39a5fcd406bd924de36b407ff5f49bd76ed2ef7267c9c34b085ba9fd7', '[\"*\"]', '2024-09-02 01:11:19', NULL, '2024-09-02 00:44:11', '2024-09-02 01:11:19'),
-(243, 'App\\Models\\User', 2, 'kTtYHTGAz3M6TQl6ZB0eLN67dqyco8gWAopH4pDl2t51Wvibo7', 'b13e86b75f87f5d09961f1df43d50ee288819cb63028ef22a7fbd4f4cb88ff06', '[\"*\"]', NULL, NULL, '2024-09-02 01:23:53', '2024-09-02 01:23:53'),
-(244, 'App\\Models\\User', 2, 'Vh2MoD1u9kPBXh28GXFy6KvV0Qf8RKWOlu9AQCEKhbW1OVbndU', '12e6644b97be3d6122738923dc6d3cb10da634a61920e9419fa438bada819f09', '[\"*\"]', '2024-09-02 01:25:51', NULL, '2024-09-02 01:24:44', '2024-09-02 01:25:51'),
-(245, 'App\\Models\\User', 2, 'WLapiL9VZnzInCqe7uAg0Evnd3E1MnoBTFNj7qVF05PoAHQ0sw', 'fb207de8cd0a7074b2d05f4e7a9e4ea785fe5a1875bc9dbb92af18acfadf7446', '[\"*\"]', '2024-09-02 01:29:21', NULL, '2024-09-02 01:26:10', '2024-09-02 01:29:21'),
-(246, 'App\\Models\\User', 1, 'CY9shkqgxkj8MtxtLKaVSPw0H9ASDxsIGwnhxiK9MyQajgwTsa', 'a46843c7dcd0bc2795e351bd32529ce9774b8ce552ce10d9b25029c57ad4ffec', '[\"*\"]', '2024-09-02 01:29:06', NULL, '2024-09-02 01:26:40', '2024-09-02 01:29:06');
-INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(247, 'App\\Models\\User', 2, 'p5odnv1OKeMfH8BuYGoYbOjXsjmgcFspGNSvSelmdPvqugtpXU', '725b4bbed911e0f97be5c29fa1a85fb2edc61f05002891a2d4712a094da5dfce', '[\"*\"]', '2024-09-02 01:36:45', NULL, '2024-09-02 01:33:34', '2024-09-02 01:36:45'),
-(248, 'App\\Models\\User', 17, 'ZTHOU66dxrDLhQL8IZ2zMAFufaZ0GRVo4wV1P8U5wmucmpsNhB', '8c6ad558a3f18c9103d84ea927f4eecaff8b882e34a5d65327f64605a39f018e', '[\"*\"]', NULL, NULL, '2024-09-02 01:34:31', '2024-09-02 01:34:31'),
-(249, 'App\\Models\\User', 18, '566V8vhiXKfyjj8NO9oOX7B0jOfyoHXdjRfds8vQfbzIj06JyE', '51a3315f3c8cc695d5295b9222cdc945b98437f1dd7c77bd07c99963448e06f5', '[\"*\"]', NULL, NULL, '2024-09-02 01:37:13', '2024-09-02 01:37:13'),
-(250, 'App\\Models\\User', 17, 'VO2dfXs6CikIOnms8Dt847nFC2cDOukTOyrdjybRMGHLAoFbE9', '956fad722c877a585e7e72d5d432ac58d3b89e96af8d1cdeb3d8bd0b26c357a7', '[\"*\"]', NULL, NULL, '2024-09-02 01:37:31', '2024-09-02 01:37:31'),
-(251, 'App\\Models\\User', 2, 'ARIYSPj3etMsmgHzCJ0xUjyFcpPGm8bWZU7TIwdpQfUsUufHkj', 'b1ce0b2f64d9a9e2698d928ed44ec90fccadbb24ce6e4b34f28febbead45c668', '[\"*\"]', '2024-09-02 01:51:58', NULL, '2024-09-02 01:41:30', '2024-09-02 01:51:58'),
-(252, 'App\\Models\\User', 1, 'iK1tdJWbD9H5Eehx1lInhaBbg2We6g9qPdlHXAc62x8FaPFTrC', '17840f2ec09e08da2687db29b80646cb3e53b3bb80eede0a82e64c3722d46267', '[\"*\"]', NULL, NULL, '2024-09-02 02:00:23', '2024-09-02 02:00:23'),
-(253, 'App\\Models\\User', 2, 'sUnKga2ziINY00OiBKVS5LU2qDo1BbZE7xVIMGixIfXLcJc2J2', '659bb63a119ea4bf8adc83963360f3fa4a9a22152bd3e09e44af92445e725e24', '[\"*\"]', '2024-09-02 02:02:46', NULL, '2024-09-02 02:01:07', '2024-09-02 02:02:46'),
-(254, 'App\\Models\\User', 18, '6u5v2H4Csu8CY2tqpMJAA3EA7CIru62ZmKcw53JWbeNTIPLjiJ', '711f51cca5ec2f088f49325fadca9c2714c8023e5e423a3bb7a3ab66c56c0093', '[\"*\"]', NULL, NULL, '2024-09-02 02:03:10', '2024-09-02 02:03:10'),
-(255, 'App\\Models\\User', 18, 'HyBMliB68HCCbefRhkM5aAoARghTb9xxWQJDyogeoX8CjdvPWL', '55599e92523aa36bfa6857b097fe61157ffe5cf0ebb7510b079cc7e6b9ff5f1f', '[\"*\"]', NULL, NULL, '2024-09-02 02:16:45', '2024-09-02 02:16:45'),
-(256, 'App\\Models\\User', 18, 'u5BL0f5S6tHOIDQ3x4s4YUtVixoQL67j9BbUxku3Ki00xVQyc2', '80c670648814e7bc08c3eb117eab5eec96c91061dd218b5b1f0ed2394d985b5f', '[\"*\"]', NULL, NULL, '2024-09-02 02:25:57', '2024-09-02 02:25:57'),
-(257, 'App\\Models\\User', 2, 'FTyXXQe3r5Yen22YBerYowkJKWlOn3so8fXht7IkvK2E5XstZg', '60154d0eb8b29d664669e2458ec0083790ecc8022111bf8da0e3d227a50d7160', '[\"*\"]', NULL, NULL, '2024-09-02 02:27:26', '2024-09-02 02:27:26'),
-(258, 'App\\Models\\User', 2, '3rtPpRlOJWfEck66XuPngSJkOrfIUmS96XPt2QHJV8oxPqwnHm', 'fec588e9a1d8945f98d1cc4ca5b81e37ff063e44e992baf1086f264dced97ed3', '[\"*\"]', NULL, NULL, '2024-09-02 02:41:14', '2024-09-02 02:41:14'),
-(259, 'App\\Models\\User', 2, '2r9AfbVYtNaneZWljlqfThVwgcs2zMhJfuiAl87JIOuHnecGGS', '540a087c50fafb7024dc508adc205f6077b0700fd011bc039c2fb026fff4410b', '[\"*\"]', '2024-09-02 02:47:13', NULL, '2024-09-02 02:47:10', '2024-09-02 02:47:13'),
-(260, 'App\\Models\\User', 2, 'iZ9NQaDCKpESSdGYZAQ8133Z5Q4hobzFM6ND8RPrK3Gns7t9Uc', 'e80ae61bd03a326a64f7ffc87277c324adf60a3c9966c1909ad0a5581fc3d7ce', '[\"*\"]', '2024-09-02 03:01:15', NULL, '2024-09-02 02:55:24', '2024-09-02 03:01:15'),
-(261, 'App\\Models\\User', 2, 'wsglMvro0OBCldihto87XIS9SHkhisBWsWoisgt9GaHBqMiKdv', 'd6bfff2fee27738aff25fabaf24c82dce411decdf79db895f4b8fe8cd4258a9b', '[\"*\"]', '2024-09-02 03:06:21', NULL, '2024-09-02 03:01:47', '2024-09-02 03:06:21'),
-(262, 'App\\Models\\User', 2, 'JthwSLcY9SiiSuvQP2fAPdbzab7DpgUzH8yXkliJAUdsPptVTh', 'bf9d92e581c240f66f4643b6a749acf6ad443b8178339ce4bcfc07f91308e3fa', '[\"*\"]', NULL, NULL, '2024-09-02 03:05:58', '2024-09-02 03:05:58'),
-(263, 'App\\Models\\User', 17, 'qEKPVDKaJzN09Gxq6vlfQNgktmSUEiD5lRqn8oIMz8TbHSxega', '90995e6119daf141a0f8d17da028c22bf29bb88cb6b65eb301f8c99ddffbef33', '[\"*\"]', NULL, NULL, '2024-09-02 03:06:38', '2024-09-02 03:06:38'),
-(264, 'App\\Models\\User', 1, 'KVNyWCgeVS2KdhYbLxP6ij5kZZEA9sdOFWkl3sBfswcTtiwh8h', '085faffc5156ee87e41da824185b2601d9fe2126201b020dc32fb94c5dac6f39', '[\"*\"]', '2024-09-02 03:08:47', NULL, '2024-09-02 03:07:39', '2024-09-02 03:08:47'),
-(265, 'App\\Models\\User', 2, '9Pn8QxxZWjA1sMxP7s1hiV1LCLF6pcge42W9BDZnE4b3GMN2Wl', 'aab94f3a7f62bec2c7496cab6f577eeeb340b8eea3bac5e6373808b521edb761', '[\"*\"]', '2024-09-02 03:09:39', NULL, '2024-09-02 03:08:21', '2024-09-02 03:09:39'),
-(266, 'App\\Models\\User', 17, 'xEOGtPxxIrkCFT0v1WsOdKdTZZxc3UH2U194AimFQATfxVJagi', 'f13870d191df759d79412a1daef257d7074b8855d612b37cb6663fe3c7e2e7a6', '[\"*\"]', NULL, NULL, '2024-09-02 03:10:01', '2024-09-02 03:10:01'),
-(267, 'App\\Models\\User', 2, '3zPgHQpLYzcvzPE310l2UktCAvQQJmR3OTwYxrN4tWoFbQaNBq', 'c55b2c36a96bd57da6f73cb22e7f29e0b0cc17536cffd107f6404caa952ce064', '[\"*\"]', '2024-09-02 04:17:54', NULL, '2024-09-02 04:09:28', '2024-09-02 04:17:54'),
-(268, 'App\\Models\\User', 17, 'funXT10o5KqTvHlk6pPV1ZXyqe2lfe1ugRc6YrZsKiZs0zuFru', '7fe11843455e1a27e0c697af0ba519b6c3d650db3c3c00d3c418b3b4a9982811', '[\"*\"]', NULL, NULL, '2024-09-02 04:19:31', '2024-09-02 04:19:31'),
-(269, 'App\\Models\\User', 2, 'zMpMrPfeYFsGzXK2bQYouWRrKOawaQGusaEZdQT4jKhWyVyAAC', 'b623983e3de3a812be237b59631dcc99af57249b4dc6998609384d656815d017', '[\"*\"]', '2024-09-02 08:17:07', NULL, '2024-09-02 04:21:06', '2024-09-02 08:17:07'),
-(270, 'App\\Models\\User', 2, 'OgQCM4EFHyOe5N4iwwMp1EJ4OQphkeoDmxabRTnZIRrdBvwdT2', '932f852045cdd6e4da41b3353bbd8743e7ea99a076dab5743a8d4aaf22877a6b', '[\"*\"]', '2024-09-02 04:25:36', NULL, '2024-09-02 04:22:58', '2024-09-02 04:25:36'),
-(271, 'App\\Models\\User', 1, 'qigVlnEbMAO4QSfzw0FVoGhm0syJdaRzFw8WTfv1yCQbkhyJ90', 'f38c5d583f36449780dd1d1337d8e6f89d7170d5b15a078447ff866e74c2cfcf', '[\"*\"]', '2024-09-02 06:52:51', NULL, '2024-09-02 05:45:42', '2024-09-02 06:52:51'),
-(272, 'App\\Models\\User', 2, 'RIb7dPyB5BkE8A7MpdAG8VELCpH48OO2J3InDpVSON3fMrmvtg', 'c7e5f41ee51913102933cb41904bb54402c6a054ea049e6d2b2af7ad521ef8c5', '[\"*\"]', '2024-09-02 07:48:11', NULL, '2024-09-02 06:56:11', '2024-09-02 07:48:11'),
-(273, 'App\\Models\\User', 1, 'Vc1peQ1sWCIlekmyhEjmxzZlloEFMHZlMUJE5fig6TZnhUM8xv', '75736385eefd603f270ff581520bcda5f6df0237ea3e2c27c23fc9728560c6e7', '[\"*\"]', '2024-09-02 08:08:09', NULL, '2024-09-02 08:00:41', '2024-09-02 08:08:09'),
-(274, 'App\\Models\\User', 17, 'k3V313nP2F8yig7c8Uxr02jc5e36A8musaAHIrQwLgautVRZu3', '5694bac315ff70fdf6aec71e4a18870fa08082ad314fd20e00d712166169b64e', '[\"*\"]', NULL, NULL, '2024-09-02 08:13:12', '2024-09-02 08:13:12'),
-(275, 'App\\Models\\User', 18, 'gz080I3b53MWx8qpHhJamaFD6KFrFInJYNl3GNwVcb7Gfyz1Ok', '1830100741ef86ac07890fd80ed8eaf92c8224ad9541b3db5a0b84a347daad8b', '[\"*\"]', NULL, NULL, '2024-09-02 08:16:07', '2024-09-02 08:16:07'),
-(276, 'App\\Models\\User', 2, 'kx264gpUc692yvfCrwfVFBxo56o6V78QQZlrDvpK3SrwnFl3wN', '97bba480422575e7d9b3451f3104529c56249c694af10875e323ca590674dd6a', '[\"*\"]', '2024-09-02 08:56:19', NULL, '2024-09-02 08:17:33', '2024-09-02 08:56:19'),
-(277, 'App\\Models\\User', 1, '5fJ6FGeWDXDsezddDNXB5paP0w25xULqnXXfjN2p29Jqw8HpbY', '8053dae0a8182b8393d82881a2a47b7b63d2849c5569f28af9720551d192a1b7', '[\"*\"]', '2024-09-02 09:02:01', NULL, '2024-09-02 09:01:28', '2024-09-02 09:02:01'),
-(278, 'App\\Models\\User', 2, 'K1ZANSvekQSb4F69DqHEqc4DUkrPC5M5xjEQYWXgII9otbhfEC', 'a143391cde0579b6919e6a34db0acc6f6853eaf3a3f0c0f9a021a471e886e224', '[\"*\"]', '2024-09-03 03:13:05', NULL, '2024-09-02 09:06:34', '2024-09-03 03:13:05'),
-(279, 'App\\Models\\User', 16, 'FyLvcwB8sxnaAfejWPQSshqKr1kAX19BfqL8Zw1eJNWmOjeTAq', 'e74aa2fe65612a725b73ae9c3b443038d9b42f8c755d5268159b7a3c6658d634', '[\"*\"]', NULL, NULL, '2024-09-02 09:12:15', '2024-09-02 09:12:15'),
-(280, 'App\\Models\\User', 2, 'GVHF0ch2tj5T2UJ9kkduoAJl4S4pWpcYssgucYgUzOsZhMNcQR', '27b2da648f338163d510b1c1f3bc6d51fc17321d440564f62af13b510db42fcd', '[\"*\"]', NULL, NULL, '2024-09-02 09:25:44', '2024-09-02 09:25:44'),
-(281, 'App\\Models\\User', 2, 'cXbeB7zk96u0regfersGNENwvUkLhKizYTTKKjYUCubKR6JPed', '4fd56e30039fc985dd66f721b4567d45ac2a081bb7d72df2fd7cbf54051e8755', '[\"*\"]', NULL, NULL, '2024-09-03 00:04:03', '2024-09-03 00:04:03'),
-(282, 'App\\Models\\User', 1, '0UBospurmyzZMiSSEHIjxB9uxDqKdSvqbd8ZPfhUYSRrraZhO8', '31e7cc9c09b9fba4587deacc3c83786d5d1a56ab73dab4cdeb9af3d84b3447bc', '[\"*\"]', '2024-09-03 00:14:48', NULL, '2024-09-03 00:10:38', '2024-09-03 00:14:48'),
-(283, 'App\\Models\\User', 2, '7Xv0VIuyJzNqi1KPlLhMfi9NVP00gWKi8qOve9KpBwf7oRoLpy', 'e2062ade011fbdae382b27142a81a1660701b619ae9099eb76bd3a1190084df4', '[\"*\"]', '2024-09-03 01:14:22', NULL, '2024-09-03 00:15:05', '2024-09-03 01:14:22'),
-(284, 'App\\Models\\User', 16, 'rfit72fDG68UUAQolCRty1Sii4ZRuusM9XOu9RPBXRCHYtuzvi', '4d2ea197553b7f44d24b68f3146823a89f77dfb1a33a0543a0c34d6b2e227ec2', '[\"*\"]', NULL, NULL, '2024-09-03 01:14:44', '2024-09-03 01:14:44'),
-(285, 'App\\Models\\User', 2, '2aS2Om8vCDGalygWMdHMvKu8FtAsebmx6xfHlVcWQCAiBU9u0Y', '1affa51a36dd8c3ec99a25df66f24b4723454e0c700a67b4a805dc52d620ebdd', '[\"*\"]', NULL, NULL, '2024-09-03 01:49:06', '2024-09-03 01:49:06'),
-(286, 'App\\Models\\User', 16, 'eiEsK9U9copELTao2V5AVqH8Q6Sl54HtI0vHyowV7hpdewE0v5', 'd0c0dbe9d0c209356759323e84267a6ff97effd7bf5b5f5d684a7632b1db611d', '[\"*\"]', NULL, NULL, '2024-09-03 01:55:36', '2024-09-03 01:55:36'),
-(287, 'App\\Models\\User', 2, 'H0rSGoJrDudK4N6CpN5CWM8E1Sn8tgW3Bi69wdK4K1j0IFaO18', '0b67ca55722f00436e8261536b4a8feb593033140fa7e91d3228840ac05d6fd3', '[\"*\"]', '2024-09-03 04:31:30', NULL, '2024-09-03 01:56:30', '2024-09-03 04:31:30'),
-(288, 'App\\Models\\User', 2, 'eafLSm3npWL1wkpd00eQV5ff6lLQLFM8GgEkLpvc48ekhnLCFF', 'c0db38b96efe784272fc0087a248658bf6b829ae9ac450372ac008dd2f6e131a', '[\"*\"]', NULL, NULL, '2024-09-03 03:14:50', '2024-09-03 03:14:50'),
-(289, 'App\\Models\\User', 2, 'rICBSRntpHLmWZNmrsOv4EDl5ezpF6Mx1ACHpJfLhaOuWfEFA0', '30abd117ae191a0b1cd701e12a7acb0dbda0292e00b9d332b9acfec368ce5c19', '[\"*\"]', NULL, NULL, '2024-09-03 04:40:59', '2024-09-03 04:40:59'),
-(290, 'App\\Models\\User', 2, 'vaiGbH3o3S6a7YfkWBggaJpUkkezxyLIB1NHOvvhUUyH0xqWMQ', '7d4d212273b879172fec1c7658826a6d00eff92f8bc62ff842407e9e8adebdaa', '[\"*\"]', NULL, NULL, '2024-09-03 05:00:36', '2024-09-03 05:00:36'),
-(291, 'App\\Models\\User', 2, 'S8mJ9EHOcK5V0lgH39N7rzPk9kkGNk24cjs8VTSyiAn6tENLkj', '60a22921516f2f2dc57469e017382bbba3253859d3dd6d0e04afbcc05f422244', '[\"*\"]', NULL, NULL, '2024-09-03 05:34:49', '2024-09-03 05:34:49'),
-(292, 'App\\Models\\User', 2, 'nInQfTdqG3XjrXd0f5OJuPLjEvKy44o6C4XVQqO970jOvAYVxM', '4f054fc5897dde715d542862041e9be54041dfbf6a04d2a48dd6ffd30361e764', '[\"*\"]', NULL, NULL, '2024-09-03 06:41:50', '2024-09-03 06:41:50'),
-(293, 'App\\Models\\User', 16, 'KmGXCTAvEQ66nX2sM9mjmza4LtzCYzqEGYmhQPuz1AT31zF2uE', 'b348f32628c74ebf5a070fb5cd9d40704a182ca4b53e00e86d4cb3e193fc487b', '[\"*\"]', NULL, NULL, '2024-09-03 06:52:02', '2024-09-03 06:52:02'),
-(294, 'App\\Models\\User', 2, 'gP3vsnpeV3xQG17QPl607IvrYCMvMEVwE447ijG4SkD33aqhD5', 'd1bbbea18805d4b85bb79cf34f6855d4431c55eb818b56ae32a0980eb193dba8', '[\"*\"]', NULL, NULL, '2024-09-03 07:05:53', '2024-09-03 07:05:53'),
-(295, 'App\\Models\\User', 17, 'rsIOOcFwqPTQWKAa2LvWB60E0Vc4GQHpZlfSrnbEmxZrKpksn6', '150c7e3b8749be2d73f25fb1ebd0ef88870e5e18bd6d91d9235d923c2cd73d54', '[\"*\"]', NULL, NULL, '2024-09-03 07:18:38', '2024-09-03 07:18:38'),
-(296, 'App\\Models\\User', 16, 'Qc0j1bKKJxultTCiqhnEl0HVRaciC4u59Gr54deOTaoYTrw6Xf', 'd9dc6adbcccb3f2fcf4a74945fdd2d9477fd6eda4b8934b2e5b2a48917adaed4', '[\"*\"]', NULL, NULL, '2024-09-03 07:28:27', '2024-09-03 07:28:27'),
-(297, 'App\\Models\\User', 17, 'dKedkpS0gcROclRQvmiz5qkhWKSoaBJImYoqkk1LUyog1MP3Uo', '95de5311f9bbd5c1b5e96e5e507f03484da1d0d678c8c5c750305e6e5a760f9b', '[\"*\"]', NULL, NULL, '2024-09-03 08:39:39', '2024-09-03 08:39:39'),
-(298, 'App\\Models\\User', 2, 'F891KWlKiCvYlEx4VR5kpHhA2hu2u2k4to3hRmfBTULLXsX7MH', '810a80a74fe75e3a4aab0b4d3422ec06653840e802842406b08ede8b0b95799d', '[\"*\"]', NULL, NULL, '2024-09-03 08:40:01', '2024-09-03 08:40:01'),
-(299, 'App\\Models\\User', 16, 'BGfAmlzZGpYPAzYhqIw4uWzRmlyXzjAvf9iksZxuKxGF0qq8el', 'a7988a2f6287a4bf4a6a42ee8fbe72488f0174e7fd272b0e25269e1e4b1937b3', '[\"*\"]', NULL, NULL, '2024-09-03 08:42:11', '2024-09-03 08:42:11'),
-(300, 'App\\Models\\User', 2, 'S6GgYhS36KADJTtJln5MEMsF2Y10or1wPxaUyQ4PRTVV7Jq5f1', '4d362b4a47c58825af51536554d64de63ccd343b5258768de32b671e1c049ce0', '[\"*\"]', '2024-09-03 08:51:40', NULL, '2024-09-03 08:43:19', '2024-09-03 08:51:40'),
-(301, 'App\\Models\\User', 2, 'MdnizjCw5kpVf6mx6K442DUp5mFNv3AT4jVewXqgvvHMiKxTYb', 'c81a51e8d3f480677a009732f4a5684e0cf7195b637a86dda75b45fe55949b86', '[\"*\"]', NULL, NULL, '2024-09-03 08:52:00', '2024-09-03 08:52:00'),
-(302, 'App\\Models\\User', 1, 'PRlkO4p0VLoakXHs9nqfU1zLMN5tOWIlo7vkaTTY746wALFRQL', 'bb11fb1ce95b734a69048c4fef8c063fce8de59c10ab04600b878050f8c327cf', '[\"*\"]', '2024-09-03 08:52:56', NULL, '2024-09-03 08:52:35', '2024-09-03 08:52:56'),
-(303, 'App\\Models\\User', 2, 'GAP5VsQAam36YigJCMSKhT6I8OItrSxD9PWuRNP69ggL5CQj38', '1842595430af218e923b4bdb9db2456860129533c84277d5e4dad45dfe960a0f', '[\"*\"]', NULL, NULL, '2024-09-03 22:56:42', '2024-09-03 22:56:42'),
-(304, 'App\\Models\\User', 16, 'T1BMXMxBi4RPFC6uXskT5gSJ5quFMHQaLoU8EwuWBpbOm0Vybs', 'bc2edf9bc02562c131648fe6c67c369be11ab127ffd78d2cfb42618bdaca0c23', '[\"*\"]', NULL, NULL, '2024-09-03 22:57:20', '2024-09-03 22:57:20'),
-(305, 'App\\Models\\User', 16, 'LGZyZGJRa0sqJQB1ViiJL6jqGS9d3Dn6NtOkK1rdXiuG8ndNlT', '4ff5ea4972d89e83ccd6288c334b35bba5dab3d2fafb6a66d06603d15482dfbc', '[\"*\"]', NULL, NULL, '2024-09-03 22:58:58', '2024-09-03 22:58:58'),
-(306, 'App\\Models\\User', 2, 'GtndkZNltHyoZ0uFVz9htI7IfvlLZ9vadZnBOs2SqP6jPZdbeF', '4cdbf348e57af1c65e0abf0bc282a09ed8dc0e7a20a7b98fad37315495fea603', '[\"*\"]', NULL, NULL, '2024-09-03 22:59:35', '2024-09-03 22:59:35'),
-(307, 'App\\Models\\User', 1, 'yb96lnTxLifqfKPW4qzBwk9rjJOMM7ok5t8esU9jV8STuqOWiS', 'a25949a3ba847e335cd43044c100300d71f0a9d32de3e031513236bcc08e9a06', '[\"*\"]', NULL, NULL, '2024-09-03 23:01:10', '2024-09-03 23:01:10'),
-(308, 'App\\Models\\User', 2, '7xPwexMtSKnYE6qCsFqDeTXRLd2xPlikcusZZn4B2B54xC26dL', '57e3d422a5200cb6ad7f0a43c4dfed01716451102f80965f749992e418f32257', '[\"*\"]', NULL, NULL, '2024-09-03 23:04:52', '2024-09-03 23:04:52'),
-(309, 'App\\Models\\User', 16, '0eBXYkxMliMS6jsxFazSdF5OWj9nn7XKDxGecsarJ9t8Hn6iqy', 'fd1152ee8681228534ab1198b9dfeed84e0272709f699464c81f226b4c3ea0de', '[\"*\"]', NULL, NULL, '2024-09-03 23:05:06', '2024-09-03 23:05:06'),
-(310, 'App\\Models\\User', 1, 'RHdWNGc7eiPVmtVe13DL3ca11hQH7lkRtuMrx3Em3qXMVP8qfA', '7d8f059349980ec54f3dc607092309c724ac546242a7e1599b7003d9bf3e08be', '[\"*\"]', '2024-09-03 23:08:35', NULL, '2024-09-03 23:05:57', '2024-09-03 23:08:35'),
-(311, 'App\\Models\\User', 2, 'yl2bIYP1WWJN29W3VnQDdjgTcGXmBzSqGQc4fjHeyyXfvfxl45', 'e0b751c47331ebf263855f1e7121c74ac56e341201ada3281bc599986e6e0a3a', '[\"*\"]', '2024-09-04 00:01:46', NULL, '2024-09-03 23:21:55', '2024-09-04 00:01:46'),
-(312, 'App\\Models\\User', 2, 'F3fcOdS21ba8iQLYR1DlEm9G0jqul8wVSlROZI5O4tXmloFEr0', '4753a10dcc44321f87ea666544ad76883887c029bfb93a533f750fd047bb429d', '[\"*\"]', '2024-09-04 02:15:52', NULL, '2024-09-03 23:30:57', '2024-09-04 02:15:52'),
-(313, 'App\\Models\\User', 1, 'pYoEaxlR3yLSgAZhnuhA00jFa156efIYBKvreS4FWhZsI0NeIh', '7118b7130481fc3c5d5ade7994f26f1d12050c2bc099c6798bd0f38e4c2892dd', '[\"*\"]', NULL, NULL, '2024-09-04 00:17:20', '2024-09-04 00:17:20'),
-(314, 'App\\Models\\User', 2, 'TLP7WjnhmawOvWXfICBFmVd3YuV7g9oQn4mlT982yOvHExthrX', 'b25a97b020bafe48588bc1a552f99a900de1c7e41a9479f161243e0cc5f91039', '[\"*\"]', '2024-09-04 03:37:38', NULL, '2024-09-04 00:21:52', '2024-09-04 03:37:38'),
-(315, 'App\\Models\\User', 16, 'VctpoewUOUg47bsbHSuwhU6eTUVtWP4I84BlQU18UK8HeEKC95', '73c4a0a5d4f53d0572870a9a0055a7b36210d4ba73967611eff6ccaa96a2a357', '[\"*\"]', NULL, NULL, '2024-09-04 02:40:53', '2024-09-04 02:40:53'),
-(316, 'App\\Models\\User', 2, 'qOP8WookhzteuapK3aliSJxB0oekagf1WoWTj8rpOzgOffpQ2F', '1ca7824ce73720466b5f338a22bdb7b96c26fcf3272545097710fbefbf69ec75', '[\"*\"]', '2024-09-04 04:41:44', NULL, '2024-09-04 02:45:32', '2024-09-04 04:41:44'),
-(317, 'App\\Models\\User', 18, 'hOUzOzMY63BZ3KMBxAbkMjpdapF3q89TnIQE4O0rhShS7arva1', '5bd84a5c31409abb33417b4e958e86eda9953118666a1b409664e103ab25df1a', '[\"*\"]', NULL, NULL, '2024-09-04 03:40:22', '2024-09-04 03:40:22'),
-(318, 'App\\Models\\User', 18, 'iUNvj1hzujarsVHMQlXDZjEuKAcPkNbjsLtjeJBwK7Jq0VFEmG', 'd5e5425e4095aa6cef4b779814704a7e578544ca365022d04463da91f44b54ab', '[\"*\"]', NULL, NULL, '2024-09-04 03:43:14', '2024-09-04 03:43:14'),
-(319, 'App\\Models\\User', 2, 'nSANuQKyDHQMyUNyF0S0UN4pA499uTBFlUN0j4wOAhdBHD4mCY', '77f7cd9afb93dd7c8c3722bb3a4075f5bf015d09f4d72ed1c936082b624faeeb', '[\"*\"]', '2024-09-04 05:01:29', NULL, '2024-09-04 03:44:13', '2024-09-04 05:01:29'),
-(320, 'App\\Models\\User', 2, '4kjXXPvS26O1lkxIDQ12zOlha01VAwjaEakXRAdNlRTLfkm7VR', '2f3bf4c8fb3128225de6184f82eaa2c1c6bb2d5813eb23cc8cc19c153e04d106', '[\"*\"]', '2024-09-04 06:25:34', NULL, '2024-09-04 04:48:05', '2024-09-04 06:25:34'),
-(321, 'App\\Models\\User', 2, 'klHLJN7VMApc4MMlNRuIiNa3VmVDy6feDqXRTfDPk6MKuMnKm3', 'c52c61d39d6f4fd07203c150b45520a1fe8a0c379be3cbb7692f73eff406736c', '[\"*\"]', NULL, NULL, '2024-09-04 05:30:45', '2024-09-04 05:30:45'),
-(322, 'App\\Models\\User', 2, '88c1ta20fT2pe46MV760YneqSbANbl4Q0yqY0n2WFJ79OS7mhs', '9a86fcfd7aac195ccb049c4e04131f958e225752a78dd74e0c17683b96cddaa0', '[\"*\"]', '2024-09-04 06:42:15', NULL, '2024-09-04 06:30:45', '2024-09-04 06:42:15'),
-(323, 'App\\Models\\User', 18, 'izYyZRH3Wwn2D3EDYw7Dxic2U7JFlhr3dSgktIbM5t8yShFDTp', '3693b7abaaf125504aa5ad5c0ee09e204e7370fc12c3d6b48d0918b1966e5c53', '[\"*\"]', NULL, NULL, '2024-09-04 06:31:34', '2024-09-04 06:31:34'),
-(324, 'App\\Models\\User', 16, 'CccBcUKEviP4x7ZpwI9WpU0AGokdQeQxCUUjFY8yoaZ11wX7rM', '4f521eae9730e1b8ed6869dd216f77a997a7cf023e2d271fcdfc1a26a162966f', '[\"*\"]', NULL, NULL, '2024-09-04 06:38:11', '2024-09-04 06:38:11'),
-(325, 'App\\Models\\User', 18, '8gLGjNk4w17ey9ANQ0KBSioxAqMjbJbHTl4gyU902Kylyj4Myg', '99245934d482cf835092dedf61942eca806229acc1eac6f43883d4340c2d3de0', '[\"*\"]', NULL, NULL, '2024-09-04 06:38:26', '2024-09-04 06:38:26'),
-(326, 'App\\Models\\User', 16, 'W7cm30B0vSCyGlxGE5IjWSiBCogEATijAaVyOncWqArmTSGOFX', '311bf822ea237c06f34727c4f8f15aa5fb02186e6c26f5c155d109e243368f56', '[\"*\"]', NULL, NULL, '2024-09-04 06:51:45', '2024-09-04 06:51:45'),
-(327, 'App\\Models\\User', 16, 'XlapavP80vqHL5BYf2xJLieraDnf2tVTd5bVA91o4DaIhtvZ1B', 'a92b1d2d2b24200e533e4b3d29d00549d3f417ee541470c10bc8a60e16db4326', '[\"*\"]', NULL, NULL, '2024-09-04 06:53:23', '2024-09-04 06:53:23'),
-(328, 'App\\Models\\User', 17, 'eeKr5cvG67vHFIThh77LLPoizTZZgcJiknS9ITsJo2Uln9nuC1', '9d8b9fc40c9dfdf5d27a9f3cdd353a626a85ea7a6986fcae832a4ead0ae02b66', '[\"*\"]', NULL, NULL, '2024-09-04 06:54:21', '2024-09-04 06:54:21'),
-(329, 'App\\Models\\User', 2, '6b7C1oQ4lO9kyjQkBjpsvCX0c9uY4MhI46X9AExWpEhBwdhrf0', '5a5d31d5f95363b9f884bc9e46bf8fe7bab57da3443452d54d522101d10c3b93', '[\"*\"]', '2024-09-04 07:52:18', NULL, '2024-09-04 06:55:42', '2024-09-04 07:52:18'),
-(330, 'App\\Models\\User', 2, 'jdI5mSg0USrbyiY8XXCa8ZZGAaWEDPuc47lp2fg1ZOCFJAbE3b', '91b3774fb79a410d6151a724b30a7d2584df6c12acd2e084bbbbfe05b2added7', '[\"*\"]', NULL, NULL, '2024-09-04 07:05:45', '2024-09-04 07:05:45'),
-(331, 'App\\Models\\User', 16, 'Fi3Me69onrH26H3M3r0Jp5XHd7ai6Cx4KlNGZdd3U9HSB1PqbF', 'de1bc66640a325aa7548b97a1fb8fd2404ae2ba6e089276900492ad04246347e', '[\"*\"]', '2024-09-04 07:25:01', NULL, '2024-09-04 07:15:57', '2024-09-04 07:25:01'),
-(332, 'App\\Models\\User', 1, 'oQ3PNhrXEmj3EGvUW8hwlLvmrRam75pe1vAQhb3D8vcLOdWrUB', 'dcfb55b14a1db6686d84d460cdeb71915338bff1f843ece72c42e3522625fe72', '[\"*\"]', '2024-09-04 07:38:47', NULL, '2024-09-04 07:25:57', '2024-09-04 07:38:47'),
-(333, 'App\\Models\\User', 1, 'GiyKXeWU2588gNiEanaWrdsZGzNjSm4BEDIp17fNkxD6lVOwkc', 'c7cf1a3a7fe7e438ad9a5e0c1e219fa0ed51f98e0ba73e3c33f621e3a7bd8398', '[\"*\"]', NULL, NULL, '2024-09-04 07:39:00', '2024-09-04 07:39:00'),
-(334, 'App\\Models\\User', 1, 'IANRpVDJ9i1SWTovOSBcy2ZyGvhLJ27vYBMOvnVZjIofSmXSkI', 'b44cc40d4632b751d7a1ff3d8ff58dc112f2330cd505a0f39df2503a17b71066', '[\"*\"]', '2024-09-04 07:39:21', NULL, '2024-09-04 07:39:14', '2024-09-04 07:39:21'),
-(335, 'App\\Models\\User', 16, 'PCTfwFXYQjX1SLpCP1k4NhQ3hx2XHUKF5drxxfrkCJo9qdxztS', '6912ca808f4c41aea151909862ea4d9446ada07b375007877fa38c2a94f902e8', '[\"*\"]', '2024-09-04 07:39:49', NULL, '2024-09-04 07:39:41', '2024-09-04 07:39:49'),
-(336, 'App\\Models\\User', 16, 'gZ2dujc0irE8b5kapxEj4ghqJ43FbQgTzsX9dHpKR2rR9ah4Kf', '881c1cf76847f88a85136fe889d756f4160ce38db1016220a6458b697c18536d', '[\"*\"]', '2024-09-04 07:40:17', NULL, '2024-09-04 07:40:01', '2024-09-04 07:40:17'),
-(337, 'App\\Models\\User', 2, 'rIN1LYMhm4du4RFns56QcpkzPI9YSr7LvnIsDjOITyWUg8sCpW', '389af7e67a89546a806c955548f419812dcfe5eefc7fe9b56cb47dad03802b7b', '[\"*\"]', '2024-09-04 07:49:01', NULL, '2024-09-04 07:42:42', '2024-09-04 07:49:01'),
-(338, 'App\\Models\\User', 1, '5ASn3fhwwguj5HYM2brKhgggwKhrAuuLUajILIeHonoVzCR1vR', 'dfce4bfb7f6e2d243d0f8a6633921552dd023d418df7ae8eab0272f339889ebb', '[\"*\"]', '2024-09-04 07:49:25', NULL, '2024-09-04 07:49:15', '2024-09-04 07:49:25'),
-(339, 'App\\Models\\User', 16, 'sFGszdxlp9DyOkMZd063y9KnRWjyvbB4cKLno8gggK0nYXYIxb', '056409fd5d391a972d98d1e5c616ac87404d65e348ac4b4c5803dc61ffcbc1db', '[\"*\"]', NULL, NULL, '2024-09-04 07:49:43', '2024-09-04 07:49:43'),
-(340, 'App\\Models\\User', 16, 'EkbCsqAuPLCPLvRNpu2vMiAT9VmlMzjgK1jolFt274EqLUnqpO', '29d2ada601081fbea3e9388f52398d52380cb5a8b32ad06155cc85450390f114', '[\"*\"]', NULL, NULL, '2024-09-04 07:54:59', '2024-09-04 07:54:59'),
-(341, 'App\\Models\\User', 1, '0rbMPVEELcAJWYMz2OSyjX3sMFBrc3u6HguUioiJTvyLjN17Yv', '84d035dcef3e4242dc9dd0c3fec949eb7520c18a120955b79e374bb8b4bb4bd8', '[\"*\"]', '2024-09-04 07:55:59', NULL, '2024-09-04 07:55:17', '2024-09-04 07:55:59'),
-(342, 'App\\Models\\User', 2, 'XgyPCg3mFPrsRTTxri1mpBAqKBKJrZQKA36x77NmhGUSp7ii6G', 'b90b71dd1b8aded74196fa66592df58d85eb1ca1db46731b74071f956cf37c0b', '[\"*\"]', '2024-09-04 09:35:07', NULL, '2024-09-04 07:56:48', '2024-09-04 09:35:07'),
-(343, 'App\\Models\\User', 16, 'qROQ7UFtC0B7iDT8natgQZ9qXxM7I5KeSOrmsZWJ1C4GyHZApN', 'c56b6a7cdb3d71e9bd41f934f7b4cdb710cac0bdb9f8f15691a80ee9b23387ee', '[\"*\"]', NULL, NULL, '2024-09-04 23:21:03', '2024-09-04 23:21:03'),
-(344, 'App\\Models\\User', 1, 'LousjemFNOTRQhkdbH1ZNV6mn9dZLRNOiHT8Y4oMUlMwvmiMqY', '54d6399915bc08e3f40b4693a335fa7094e89929283c60a103a799f33687f3ff', '[\"*\"]', '2024-09-05 00:09:10', NULL, '2024-09-04 23:24:05', '2024-09-05 00:09:10'),
-(345, 'App\\Models\\User', 17, 'a4K6WpHfyBiFFKY87DzS2D9mDQjXK0ZWvHtwDCvh7ZVZYx6Tow', 'a5a6655a7ead5c93261024674722a59693c80e8dd119d4c8c9944aa9f2033537', '[\"*\"]', NULL, NULL, '2024-09-04 23:24:40', '2024-09-04 23:24:40'),
-(346, 'App\\Models\\User', 18, 'beb6SQAyL1QZbaWXF3IRbd13Vo4o39MvmYnNAPD64tbjLb8ec2', '3b63fc88ed74a6503a596855afb0f3f71b4a888e217d0e3023948f25a89cbe2e', '[\"*\"]', NULL, NULL, '2024-09-05 00:10:20', '2024-09-05 00:10:20'),
-(347, 'App\\Models\\User', 2, 'fpqqegUN8JMdXELR9UOTMuCTdP0VsOfZuoCo8EJXJfBrCQYZxx', '776e9a4fe08a721c78fab3bef128b070618363a44f8bbfe6d779628da9a8db80', '[\"*\"]', '2024-09-05 00:15:07', NULL, '2024-09-05 00:11:56', '2024-09-05 00:15:07'),
-(348, 'App\\Models\\User', 1, 'TodBrUhmS4e6dyoPQCPl7TCJ9ab4W9XxQ6YhQnTW41C8XbKy8k', '40720531d3f7a1a3bfee7d8417215440631158080913f3b4e3e69e012278c6db', '[\"*\"]', '2024-09-05 00:15:50', NULL, '2024-09-05 00:15:41', '2024-09-05 00:15:50'),
-(349, 'App\\Models\\User', 16, 'XfFEp6ifLhdeeEVsp2PyyGP8B9Hqtw1Xx9MS90GN8G4RPehHDI', 'da2e332db1c7297c93112e625999ef38e0062663cc4eb839a70e81ba726b9f1d', '[\"*\"]', NULL, NULL, '2024-09-05 00:35:08', '2024-09-05 00:35:08'),
-(350, 'App\\Models\\User', 16, 'aXnoeeK95rimQeiYZFIwxjUXdRCRGtg3bJvTJVtGUoGTPGtYvZ', 'b4d6286ffeb21e4b2e53943e868319b050952c33b240b21f53d0dc7664bb723d', '[\"*\"]', NULL, NULL, '2024-09-05 00:36:37', '2024-09-05 00:36:37'),
-(351, 'App\\Models\\User', 16, 'jKJYZb2jQNzrh4RlFANVkWf867zYFB6ZDbNhveAVjBLdqGahU9', '7f7fe649a7d3552b79cdcbefeb4212e7871ab11ce04b99e609b985b4156d7fc5', '[\"*\"]', NULL, NULL, '2024-09-05 00:39:39', '2024-09-05 00:39:39'),
-(352, 'App\\Models\\User', 16, 'KX2DQtwT9VFn4UfaK4BZTKie8DgkFQssxiXmZ9SlBMwbgFwa35', '99251417c4e9ca2540535d88f4bc5b356d30ba6965515b61de805f7f295e898b', '[\"*\"]', NULL, NULL, '2024-09-05 00:44:11', '2024-09-05 00:44:11'),
-(353, 'App\\Models\\User', 16, 'ntTwcmfvfrEk38sz33CIVkjI5SdgzbVSiPkjfZDxeBqdYjKo5P', 'f2c325101240af26004d6e1add2e122e404428dadd8b8b872f38b5486343fc82', '[\"*\"]', NULL, NULL, '2024-09-05 00:46:24', '2024-09-05 00:46:24'),
-(354, 'App\\Models\\User', 1, 'gNNosP8xKRTSiH2P98y4ED0BjIZtYo5paQ0T4gdhWsFgPigYF5', '7322e49ac1b1c976f63cd71f9f73f78072920afb04520340efe202969665082f', '[\"*\"]', '2024-09-05 00:58:15', NULL, '2024-09-05 00:52:25', '2024-09-05 00:58:15'),
-(355, 'App\\Models\\User', 2, 'bIDFUcuasQTDtRVtrfWLE1brJDcs7bMfoUNE1kWcXcvmM8qYBO', '41a64d038b4ac09a5fcb154fc64d053b25bda02e18d78def0fb2f14b30f3af57', '[\"*\"]', NULL, NULL, '2024-09-05 01:17:37', '2024-09-05 01:17:37'),
-(356, 'App\\Models\\User', 1, 'WMc6tGWI7oevrfYMShRiSYaVgzCE8RGtIkeM9vCX9eP9t1ritn', '44cfef2a705de41fe24f1a28580bd8b60bbd59575dfb6384ee1a774be160ebb0', '[\"*\"]', '2024-09-05 01:19:00', NULL, '2024-09-05 01:17:50', '2024-09-05 01:19:00'),
-(357, 'App\\Models\\User', 2, 'nSXJnDZDXdqRPDRUXeQ2XeW9nL8L5MWcz3peiq5ME3KCp0ywBk', '5bc798043acc3aa50a7ce7fbf6db42f6a1114b2719edf8c1274816c68cfb1db5', '[\"*\"]', NULL, NULL, '2024-09-05 01:20:05', '2024-09-05 01:20:05'),
-(358, 'App\\Models\\User', 17, '2na8V808boqxb3i2YqJVZ92EOqoCLhSGtcKu3FzHJHfvzM0ZTL', 'ef88aa565a5fbc7c0a52a3845d2d88a7b6ceb9efc9a1f21887395a2fa19c3c28', '[\"*\"]', NULL, NULL, '2024-09-05 01:21:53', '2024-09-05 01:21:53'),
-(359, 'App\\Models\\User', 16, 'CCTsDpjI2NywFR7TSoTRqq9a2MEH1RY2rv2Njsg9ub6jU7T0B8', '125a37043a4e160a03db6aced448b320cd78d0d00c4b1bb33ddd1d5518ec7f3a', '[\"*\"]', NULL, NULL, '2024-09-05 01:22:08', '2024-09-05 01:22:08'),
-(360, 'App\\Models\\User', 17, 'dpha1kynW5ZmvMx4KZwduHWksLuiOR09Xi0Z6bdQNVwTVoo88g', '2fcf4a7b2441170b9449667c98d92c2da2a5b3b2e50c2c779307aa9864dfbfcf', '[\"*\"]', NULL, NULL, '2024-09-05 01:22:33', '2024-09-05 01:22:33'),
-(361, 'App\\Models\\User', 2, 'Uto1jqRW3WDC0NXfXZezwGhjZL4Sxy0Ivh2rMWnQguIziOEl8k', '2be50ba1ad1db58fff353dc9d8bbed0db859a42e514893c47989adb0fd6fc734', '[\"*\"]', NULL, NULL, '2024-09-05 01:23:09', '2024-09-05 01:23:09'),
-(362, 'App\\Models\\User', 2, 'voESEWauBjfeLqkhYh2vfkB5lR5wRCNXFmMZQqEhyX6pqjjSlI', '449e455a5f5d29f9e713c8cc4b3833048a5bfbb63427cca81cfde516f2c6de83', '[\"*\"]', NULL, NULL, '2024-09-05 01:24:01', '2024-09-05 01:24:01'),
-(363, 'App\\Models\\User', 17, 'VnyyosKDQuigeUP4vOFjV5xjsDONErGfxQ1eIcLTnRLy19IPaI', 'e8174373a4a24932a471d72af6738553ac2dadabc93abf9b9e3b7445fa151197', '[\"*\"]', NULL, NULL, '2024-09-05 01:24:09', '2024-09-05 01:24:09'),
-(364, 'App\\Models\\User', 2, '9NVmVt4Uqke4GLrvWMNQcaGYNZceLDCqpLbbOlkYcRfCqg31lT', 'ea1f92331c56b6d44d3f3298fc83f6d75ca31543ae171d11994ce7e529c75507', '[\"*\"]', NULL, NULL, '2024-09-05 01:25:59', '2024-09-05 01:25:59'),
-(365, 'App\\Models\\User', 2, 'IoYStuP8A00psj7naDdbviQ1nE8ZPpXZBk6sXouZyIPAT59m6a', 'b0ad603d7fbc0bbed551e1679c04460583712843f4aa4f9f364840cc567198b2', '[\"*\"]', '2024-09-05 03:54:56', NULL, '2024-09-05 01:32:45', '2024-09-05 03:54:56'),
-(366, 'App\\Models\\User', 2, 'LVTYvmFIL2dgbqPp0Lt8RGXLV8hf0PLukP4iSIbOXdM509wpVD', '8429da31a861bd05811a4d1a4bec2b0a24a4476175298b6b05e3d55de83f64bf', '[\"*\"]', '2024-09-05 08:27:14', NULL, '2024-09-05 03:55:22', '2024-09-05 08:27:14'),
-(367, 'App\\Models\\User', 1, 'rTjN6yG4jN8KW3OHH3JiDVtd30tSZRABBMuv358JaZrJzbs1wQ', 'a277f50699063e9308222d5ff43e143913775982ae37b850b4414d416dcf9277', '[\"*\"]', NULL, NULL, '2024-09-05 06:43:49', '2024-09-05 06:43:49'),
-(368, 'App\\Models\\User', 2, 'RDTMJW7XxlnbKmvfQig1rpOnHO014q7ehXvRrXf6wu52nGR0cf', '1e8d3a278d689ec11a82525911f05d29ecf2afbd4640d5970024a6f544203694', '[\"*\"]', NULL, NULL, '2024-09-05 06:45:11', '2024-09-05 06:45:11'),
-(369, 'App\\Models\\User', 2, 'jbQFpbBvuWsfOMa501N1QsxH4yuN1kxUEw1ofwaoV3mniUHrUU', 'ed968afaa23efba4555a8fc49957eaf9bc0bb58b799df7f5976c7473d3afd8ab', '[\"*\"]', '2024-09-05 08:39:23', NULL, '2024-09-05 07:07:20', '2024-09-05 08:39:23'),
-(370, 'App\\Models\\User', 1, 'EJnBerDe1TkikJImFCVfJRFvTzTWBDOUzKpyFpcQlIkOu6sNKQ', '4d2248ef2bcde87cf323895242b9313ddb3b7888dc8cd5095e4657b2d90802b0', '[\"*\"]', '2024-09-05 23:48:59', NULL, '2024-09-05 22:37:42', '2024-09-05 23:48:59'),
-(371, 'App\\Models\\User', 2, 'iMuxuNCvyRo8cJSDYgfRg6hRNRcPHm6gM8qbkc7kcrp6PaxmiZ', '9e6c647ee143738ba7023edcc65666384cab594b0409d7c7e16fba52276bee2d', '[\"*\"]', '2024-09-05 23:49:53', NULL, '2024-09-05 23:49:43', '2024-09-05 23:49:53'),
-(372, 'App\\Models\\User', 1, '90hJNiduhk0AqHvCVljqxyJJnU0OTjiVaO2a7PX76fUKyVHXdb', 'd64d2a0bc23fa0c5f0cc3ec28d52458dd711ad762bdc62f85a100a997230e73c', '[\"*\"]', '2024-09-05 23:52:57', NULL, '2024-09-05 23:52:55', '2024-09-05 23:52:57'),
-(373, 'App\\Models\\User', 2, '3I7GNu2wVPcADpspuudVpftxIhc4NX99I02UJYOwlvgsgrGyZW', '4e05ba0c988d8f8b8cc3ea5042ea0cfabe9c62ca6ac20ee0ac8570f0ae7c7b9e', '[\"*\"]', NULL, NULL, '2024-09-06 00:05:18', '2024-09-06 00:05:18'),
-(374, 'App\\Models\\User', 19, 'ZjotsRA2cFYk0RR9Tg2xCD96hALwHktqjSEHeVX2MoXWKFVoiq', 'a84f1c32a643e15ca117cf70345f7b9b25c2deb4396d384bedb0acc85df29d7a', '[\"*\"]', '2024-09-06 00:08:34', NULL, '2024-09-06 00:07:48', '2024-09-06 00:08:34'),
-(375, 'App\\Models\\User', 2, 'rHJwdLK9JnIra5g9LTKJO7kvrTdisa5MXBi4ys6mgAvhclrshL', 'ce767aeea8bc6a15a5769f48b4d19935a880841b3ac69fd7b77b92d2d03c072a', '[\"*\"]', '2024-09-06 02:54:30', NULL, '2024-09-06 00:10:48', '2024-09-06 02:54:30'),
-(376, 'App\\Models\\User', 20, 'vfK5GtaJxm968gVECux1aYCPdsAc13R0x2VPfDgHKVdhuzyapy', '75714938fdaab696d3af9585bc4ced4ef709041beeb4723346ac654a1b56938b', '[\"*\"]', '2024-09-06 00:15:18', NULL, '2024-09-06 00:14:56', '2024-09-06 00:15:18'),
-(377, 'App\\Models\\User', 20, 'ApL5ChcOnoURveUdH9Jo9QRXLaRTaZs3OCz0DhXTlX5tBWf306', '05e6f2c3be852a479b1443d9ae560482f90313e90e16b0fc5a393ee0b2dcde3d', '[\"*\"]', NULL, NULL, '2024-09-06 01:08:17', '2024-09-06 01:08:17'),
-(378, 'App\\Models\\User', 2, 'sPADgB7rC079hwFaWdxlZVVv8evxPW7ncZE2OoI0Xj1Q0O1xpj', '26f8fe2b09eb56350c2d1d06ba0709be59a2ec4494e76f0117e80070b0e494fa', '[\"*\"]', '2024-09-06 02:03:09', NULL, '2024-09-06 01:11:49', '2024-09-06 02:03:09'),
-(379, 'App\\Models\\User', 1, 'Ir3lVEZmVBFftLa4QL4iXwHRF86mDpTM46WitoU46ys8zbSQc3', '4f51e013f74ddcd4de86204b6275bb7102c53aef6bf905ca505e39b13d5e7b52', '[\"*\"]', '2024-09-06 02:20:26', NULL, '2024-09-06 02:14:17', '2024-09-06 02:20:26'),
-(380, 'App\\Models\\User', 19, 't8gJeVGV7wGf49yDsU4FbSkcQFJhj9eME3N5gtQR2dCuz4htcu', '1d104af4abe0cdece7065811abd04062600d52912968b3e34c775cf427ab7d63', '[\"*\"]', NULL, NULL, '2024-09-06 02:26:03', '2024-09-06 02:26:03'),
-(381, 'App\\Models\\User', 18, 'fTnQF1ZJACLGDpUeG6MmDJ73nbJ36oeWgxqpbr8fTOr9kud4EC', '2ee18f7e658b9a3fde771ff7634eb18410e93a7d758f1cd647d4c60c7139c0f1', '[\"*\"]', NULL, NULL, '2024-09-06 02:57:01', '2024-09-06 02:57:01'),
-(382, 'App\\Models\\User', 20, 'RgLXujhN1VdUaJOox1xQ5qr1fbBefmzqRP0jUL1W9VMnSbntpR', '2c8118d2230a4a2bc8a7ff2e58847d6bcab49a9cd7c66b5335473ddf0796a98e', '[\"*\"]', NULL, NULL, '2024-09-06 02:57:16', '2024-09-06 02:57:16'),
-(383, 'App\\Models\\User', 2, '6pyPx3HvRAMXKfSCzKtKZL8sIZw4XzEp6Gw4ouMlQK2JO6TWGr', '3337ba0a0ceb1891a863486bd2286784e3006a6ed43df6549e4c4529b7bdb9ec', '[\"*\"]', NULL, NULL, '2024-09-06 02:57:53', '2024-09-06 02:57:53'),
-(384, 'App\\Models\\User', 1, 'k0smfNaCZyzKsqE1wKTLhaKP3UI6bYngfMAep4yaB7jzTN51NS', '8fa14ffcd192460f6a340fb2fd260905a285d1aecc35ac429e2c538aea110086', '[\"*\"]', NULL, NULL, '2024-09-06 03:42:47', '2024-09-06 03:42:47'),
-(385, 'App\\Models\\User', 2, 'udssV7oW3QPfz7NVE1bmXQxRvzIImCkHQ5tbscyfpEJxJxzqnN', '0b3ac42b8edba5e85ff0135459f81301956bc2427195e973468ff6cf312b9fdc', '[\"*\"]', '2024-09-06 04:24:15', NULL, '2024-09-06 03:44:28', '2024-09-06 04:24:15'),
-(386, 'App\\Models\\User', 1, '6vLZzanoF2WsnrETAE7LI6ekhxKySNXPXTJfJudO3dYltr9nbY', '61b72ac53dcf549cbc5cd8ecbf673bd22160f1a4abf8739865f99a774685ab9d', '[\"*\"]', NULL, NULL, '2024-09-06 04:06:05', '2024-09-06 04:06:05'),
-(387, 'App\\Models\\User', 2, 'iVob27oBzF1r2WA1LB85StgRgNLK0ytnvyDsA9zrqCHxJPUyO4', '6f0bcbef1e679daa82f6b372d0d6ef71f38c691c3c5633e66530b314424f5510', '[\"*\"]', '2024-09-06 05:06:20', NULL, '2024-09-06 04:09:06', '2024-09-06 05:06:20'),
-(388, 'App\\Models\\User', 2, 'slnztysbo2gBJvCUFo04vJ2CF4s2TLfnfkn4mgWKIaBiQhPOyc', '89b0f2a463f87d19bd1069752685713c364a2a16f5432d8bd93d59b6f1747c35', '[\"*\"]', '2024-09-06 06:30:46', NULL, '2024-09-06 04:33:40', '2024-09-06 06:30:46'),
-(389, 'App\\Models\\User', 2, 'Iir4hiQCDBZqsbLysEE1mVgv8NinbpCna87PhKiBnsbXK9EOJo', '2a691f86140bff39749c6c2d89c5955b273aade4cf3eb920c66dd40e29a50a0f', '[\"*\"]', '2024-09-06 06:22:38', NULL, '2024-09-06 05:27:31', '2024-09-06 06:22:38'),
-(390, 'App\\Models\\User', 1, 'X5VihXnvUVPBOXOJwhCTLOS2FS1Gv1Ce1wbWEPKj7MjBi0rwIb', 'c7fd127d5cdfbc551ac536a031707684419ffb293e696e8749bf081bcc740333', '[\"*\"]', '2024-09-06 06:39:56', NULL, '2024-09-06 06:35:45', '2024-09-06 06:39:56'),
-(391, 'App\\Models\\User', 2, 'KkiBvuPrLpTyWYGclbw7Y7Ncg8S0Wl8FpUOLsd1qoLsqfUt78s', 'debb6e5651034bbb5131a1dfd32cd46ca141b8a27cfcd32e698adc9ab8a938c7', '[\"*\"]', NULL, NULL, '2024-09-06 06:40:18', '2024-09-06 06:40:18'),
-(392, 'App\\Models\\User', 16, 'VNnYfs4glasQw4bd4oCNuVDqZNcVlaWuuInD1BIsp2oGDvE3aw', 'c489cc39a56128eb992df7ceb386774d9fc364e360a6ff45168f5220de6c3ce4', '[\"*\"]', NULL, NULL, '2024-09-06 06:40:34', '2024-09-06 06:40:34'),
-(393, 'App\\Models\\User', 1, '7H7KBV5wfQq35p3KpvtnnlGg6gN7oZhsY2NaRbCbwsNJ7wbbQw', 'aebc9cddd394eb860ebc80fbbcd7db1d4c564b01d4594cb4c35d0491128287e1', '[\"*\"]', '2024-09-06 07:36:50', NULL, '2024-09-06 07:21:44', '2024-09-06 07:36:50'),
-(394, 'App\\Models\\User', 21, 'HoTaZXgMTjlc2u0PhgCoVCaZGjzC2QnaFSnoZRUmV7JTfDLStu', 'da8b4c89846800405a1890c183fec4d7c73a23e61024a304073124ba59273143', '[\"*\"]', '2024-09-06 07:51:09', NULL, '2024-09-06 07:40:53', '2024-09-06 07:51:09'),
-(395, 'App\\Models\\User', 1, 'N9CILxs3ABHI4nUg07cQ5lkm4Ahsdv3TbQ5QLTCI95EbIYXrs9', '841573d35bf9081953395fc0a1ac074a39929b753f8a78fe28a82eb2c50ba627', '[\"*\"]', '2024-09-06 07:43:13', NULL, '2024-09-06 07:42:10', '2024-09-06 07:43:13'),
-(396, 'App\\Models\\User', 2, 'q3MOZ7q405pyzufBGkVOgcjPM9Bzhba98uWYvgCOkDtTQ68AsB', 'ead8f6ad6928b37701208713328c30b7e506f224d9da03bbc2fcdd6831215d91', '[\"*\"]', NULL, NULL, '2024-09-06 07:59:12', '2024-09-06 07:59:12'),
-(397, 'App\\Models\\User', 22, 'IkFRUMGbu04QfOG5yU0ILPoNuQgHHg2LDI317ZpDzUUgfAT9VM', '52de3eab86ae7b13e0797bc2cb0eb79045ce8c90fed7695ff6fa92fd52b944c3', '[\"*\"]', NULL, NULL, '2024-09-06 08:14:46', '2024-09-06 08:14:46'),
-(398, 'App\\Models\\User', 22, '9vh0DA5qntrieOJblWesCPfDdZlOyceZRWFnTWh4wgLwPLgFi6', '9a8fba0f443da54889a697ae3aa77ed4c2b26c795bda06482ebb4ba4a22fb90a', '[\"*\"]', NULL, NULL, '2024-09-06 08:22:02', '2024-09-06 08:22:02'),
-(399, 'App\\Models\\User', 23, 'TXVeC1efzZRVh946rqgpMMq9PsqNV74YSzNxXfhWyhQaaiNqv3', '5770797b74d2817c35bfa9488f3ed2125a551c646c1dcc4d82f79efdad92afed', '[\"*\"]', NULL, NULL, '2024-09-06 08:34:08', '2024-09-06 08:34:08'),
-(400, 'App\\Models\\User', 21, 'tSVZyV34nCloNLRxxJI0Gp3iBSklVjiES1OX0chqLQDBBZDVg0', '1d807d0264971d66972865c2a796301b5bcbee3904ca5c66664c8df3a823cdf7', '[\"*\"]', NULL, NULL, '2024-09-06 09:18:36', '2024-09-06 09:18:36'),
-(401, 'App\\Models\\User', 2, 'iO7jLJQiyDRz2bCQmssZIoO1oDcwfb1K7qEHIOVVyWuIBsLWef', '4a97465f7d65938101e6faeb1a408eda26870d4149056ce97460d011a6d4d4fb', '[\"*\"]', '2024-09-06 09:25:09', NULL, '2024-09-06 09:24:29', '2024-09-06 09:25:09'),
-(402, 'App\\Models\\User', 22, 'Y2rUpnv7MXHQcbR4RMKBuYQALmki7XXZh4AEvnpTHESlhyCfFn', 'b71ec32a727631174b4049ec9bcecc6af5776c7b53db4cd206f00c7a9c5dffa9', '[\"*\"]', NULL, NULL, '2024-09-06 09:26:07', '2024-09-06 09:26:07'),
-(403, 'App\\Models\\User', 2, 'qsAwUZFb3iF0OzcbPwm7pzmoZQM2ltCGty8KKtbhONNFthG4Iu', '0d5c264894911e9ee5104213bc88b98deb15224b9cfdd45b091cf6d7e391993b', '[\"*\"]', '2024-09-06 09:26:42', NULL, '2024-09-06 09:26:26', '2024-09-06 09:26:42'),
-(404, 'App\\Models\\User', 18, '8SAB8I39kN5k6RjEVd3tosFBTLyqbrgVheP5B0hgBoXBg8e2dr', '07274ab1df74a1e5715ad35bf86375c9a2fb9b6be6ec163f3ce0581de0767be7', '[\"*\"]', NULL, NULL, '2024-09-06 09:28:28', '2024-09-06 09:28:28'),
-(405, 'App\\Models\\User', 22, 'LEN5kmxj1bGOsNbEBWB6voNhqwZrbYmidMkPzXeWzbkqCx6PA5', '335bcb9683696f6d88d24751faf4218f551b6e001d2bd6ed84027c00eaf85e90', '[\"*\"]', NULL, NULL, '2024-09-06 09:29:18', '2024-09-06 09:29:18'),
-(406, 'App\\Models\\User', 1, 'lOMGL43SJeQRafMjW5zAieHBkMPTJevAq1D3wDLPfrFfQT6psP', '965df532a477311b917b40436102aa00411af8beca92c9c5edbed7a039c23844', '[\"*\"]', '2024-09-06 09:57:44', NULL, '2024-09-06 09:32:12', '2024-09-06 09:57:44'),
-(407, 'App\\Models\\User', 2, 't6rSRyk6enRwCipGNny4blHU3k2YtYf1EE0COlPAxad0QDZe31', '4ffec7b29968cdb373064616f527d22a12495704bafd4f47de0c14480e202868', '[\"*\"]', '2024-09-06 10:03:48', NULL, '2024-09-06 09:38:56', '2024-09-06 10:03:48'),
-(408, 'App\\Models\\User', 2, 'q01BYjIOhjAIQAOMH5leMYZFbn3n94zXU0nixdjUscltQI6Xao', 'cae0cecf175c5aaaf8afa22c638694728ff8714f76bc95554266cc72f9fc8a4b', '[\"*\"]', '2024-09-06 10:13:03', NULL, '2024-09-06 10:03:58', '2024-09-06 10:13:03');
+(1, 'App\\Models\\User', 2, 'HTcY6Q0ekkiWK4ivldz66oflge7dSuWx5Pd7OWILOObXoiOO5t', '8a802f5467c071b9ee676c6baff1f06e5d004b642b965630f37eb07fed6fd835', '[\"*\"]', '2024-09-08 04:37:47', NULL, '2024-09-08 03:41:01', '2024-09-08 04:37:47'),
+(2, 'App\\Models\\User', 2, '36kkqfBJbNXXsRxNgEIkZXOmNI2pjvm7T8M9kD9uW6sxG7qMin', '2d866bc9f92f4872a55204b4ee47b738959088239d9e5fc1e8571577e2fbeb8f', '[\"*\"]', NULL, NULL, '2024-09-08 03:42:06', '2024-09-08 03:42:06'),
+(3, 'App\\Models\\User', 1, 'px9m5EVoUE544iT9gV6NnNOiRAHsadrqC1sA8KMLWv3CKcUCYx', 'f8bf660b008aae408965847281af98284ea90100733d760455f1a7b760c82a9e', '[\"*\"]', NULL, NULL, '2024-09-08 03:44:07', '2024-09-08 03:44:07'),
+(4, 'App\\Models\\User', 2, 'EqfZZjfjhgEFrmYyUveNMFLujXFbUuM8zae0bkw20QINgfFqjy', '56df7f361778cd8835c7e4f65cd2b730b61e0625d9ae3cd6a77fc7e04bccc398', '[\"*\"]', '2024-09-08 06:01:42', NULL, '2024-09-08 04:56:46', '2024-09-08 06:01:42'),
+(5, 'App\\Models\\User', 2, '2lbkiK47kc9ZMuHIRyb3KtgpHjO8KSCMZLXFmANMOFxbXvYp6S', 'c02c26a5eb971669596e07598c74f848cbcdef323329a942d71e46729ec14a51', '[\"*\"]', '2024-09-08 08:21:00', NULL, '2024-09-08 05:05:20', '2024-09-08 08:21:00'),
+(6, 'App\\Models\\User', 2, 'VHVu68nKd5FvNbiMTRRi0xmr4gD7h2RtnjhxXZWoUcdcHOaxvx', 'c2ff970f60785500830de5e98c9fc8967a234f4956b68b9cfcabfe705cf5dcad', '[\"*\"]', '2024-09-08 06:36:24', NULL, '2024-09-08 06:25:28', '2024-09-08 06:36:24'),
+(7, 'App\\Models\\User', 17, 'AIQazivHKp7fQOd51lViMap0Qxd3GpkLGQWz8edZ8x6ZlpZxJt', '8d8de2f75bbfc32b93f2e0cc3d4e246afebb2116b30163d2d9016b66efb1dd4a', '[\"*\"]', NULL, NULL, '2024-09-08 06:37:01', '2024-09-08 06:37:01'),
+(8, 'App\\Models\\User', 2, 'DcYolyDJsqtFwod1wTkU7Cg9CxDND1kvdES79PXks3lbFlQYP4', 'a7f20e91bb6811bc5d778288f4cd6d552d00d8bb49414d259585558126ba207b', '[\"*\"]', '2024-09-08 07:36:10', NULL, '2024-09-08 06:48:24', '2024-09-08 07:36:10'),
+(9, 'App\\Models\\User', 2, 'o5EYkPdx4VIadT1KeUcbbbY7x29AEYiIeg67xEUvB7UWM88yLr', 'c509bbb1b089e610891f874ed486b398b7d0f10361f6919b5673c68ed93f5bef', '[\"*\"]', NULL, NULL, '2024-09-08 07:53:56', '2024-09-08 07:53:56'),
+(10, 'App\\Models\\User', 2, 'xOfdQ7mKBjI3UbB0dRbeg0GzoF30McObdYbZfdvg9ggQuEh3P1', '8663c682a9d6f712a8309b27d498de63f22d0ea56698f85ca0d5fbf35644fecf', '[\"*\"]', '2024-09-09 00:00:42', NULL, '2024-09-08 07:54:32', '2024-09-09 00:00:42'),
+(11, 'App\\Models\\User', 21, 'g7YmefP86upMW7xfMpcXSyBooJKjQJEUbPgUxg80anBjGfgBbc', '179d01a0d8b0f0962560f7374adcb0a60fbbc12a05f53ed0afd2fb2ba3a56340', '[\"*\"]', NULL, NULL, '2024-09-08 08:26:24', '2024-09-08 08:26:24'),
+(12, 'App\\Models\\User', 2, '4WKvXuhC71hWD6XyMEgMc8wiVOATtOQsOh7PZdPcwTdflAMSmZ', 'cb99d56dd3b0ba1bbb9a9485eda95b8e03e3eb0ca766cb57b4ffc430da8d1048', '[\"*\"]', '2024-09-09 01:19:04', NULL, '2024-09-08 08:36:13', '2024-09-09 01:19:04'),
+(13, 'App\\Models\\User', 17, '7X1Bv3GjOQyvuiQltJdrBhPsexHKjSH7ZLgrlo3m0UdG4bkmVV', 'ce90aa1e67898780a85de9b004b8b1e105f2dc2f7c8dcbf02d9e71505c7e9db4', '[\"*\"]', NULL, NULL, '2024-09-09 00:07:07', '2024-09-09 00:07:07'),
+(14, 'App\\Models\\User', 1, 'lP4asfg1WaGlx5YeWQid1VjewSXBWJYsFccGf63fibkq2vmYFF', '56a8f337caaa0d6b5fb19288826c74d6b1576431b1de1c15a390e3899318e6b7', '[\"*\"]', NULL, NULL, '2024-09-09 00:26:47', '2024-09-09 00:26:47'),
+(15, 'App\\Models\\User', 2, 'xLjFik2O07auGdyQmJsWd4Toz36fSIG6Q3tM8FPBlEyAnIxoey', 'eec37700c36364a4a5ecec785fcb38dd6598073eecbf410ed13c92e71423b608', '[\"*\"]', '2024-09-09 01:02:51', NULL, '2024-09-09 00:27:44', '2024-09-09 01:02:51'),
+(16, 'App\\Models\\User', 2, 'h0JBSZqbuoJLv91okCPYpG0So7KCq8Bkir8MzGoqNVWuVAHOHv', '2c5941585bf2ae88c9c1d910ab34e5222f6728d1a2e3ae7094d1b6addf92723a', '[\"*\"]', '2024-09-09 01:13:19', NULL, '2024-09-09 01:04:04', '2024-09-09 01:13:19'),
+(17, 'App\\Models\\User', 16, 'GO8qE8zSavIsFAl5VEZCjwWHENAeIaN1ZL5IkVCaxLLbhriCco', 'a6f12056f51879f91c7d795e5aee86eb391d4a3cc6dd474a81fb98d160c06fc4', '[\"*\"]', NULL, NULL, '2024-09-09 01:23:48', '2024-09-09 01:23:48'),
+(18, 'App\\Models\\User', 18, 'F1jncNgosN98KcD2tYoijdjRaZGDmeWgkZxdkuwonBqta2jXmW', '8e51abd9d071566d81e4957f596a7d92d5ff2823895097a10d2d30b3b7ab6d14', '[\"*\"]', NULL, NULL, '2024-09-09 01:23:59', '2024-09-09 01:23:59'),
+(19, 'App\\Models\\User', 16, '6vzYNtM6Ws6fcJCsCNwLBkTBaqwsYFvscFJmUViKIjTUJVi4U7', '7fed41278821ed012ff2a3dfc3e59a5661f814c793399db1c61801ef521def74', '[\"*\"]', NULL, NULL, '2024-09-09 01:29:38', '2024-09-09 01:29:38'),
+(20, 'App\\Models\\User', 17, 'HMti6v3iHbVUVBqy7TEyjBpRHrkhcjr2lINryDqJRaeZ1AxTkJ', 'e3cb88a6152d13cc1df875bfed3681cd0f2375731bba39ba0830904b8c0d83e4', '[\"*\"]', NULL, NULL, '2024-09-09 01:33:39', '2024-09-09 01:33:39'),
+(21, 'App\\Models\\User', 18, '8G7wv5RSyeqqJPSdHINAfpqBVc4h94vdqhoru4yqDACqpQrSTW', '0dacce2b9478e89dd9187c67efc505bf33ddd4699948bb47195bb6d306230bfe', '[\"*\"]', NULL, NULL, '2024-09-09 01:38:07', '2024-09-09 01:38:07'),
+(22, 'App\\Models\\User', 16, 'fmLDBSBvWQ6Rvt3QDAip8vJSwhA0j9Awgh4UFUMujdMCH9CMmM', 'b740ebc891979e3b5ef28e58cc6f551611e89c75a2a1be769ad57056b536631c', '[\"*\"]', NULL, NULL, '2024-09-09 01:40:55', '2024-09-09 01:40:55'),
+(23, 'App\\Models\\User', 16, 'bXrccNTe5H9Y9Cy9PX4pSEffbg3KVmNjsMALPZH235xaldGZ6R', '12286e8e68834b0035171363074702e39e12144325c0f5aa6bad67a79bf1b45f', '[\"*\"]', NULL, NULL, '2024-09-09 01:41:12', '2024-09-09 01:41:12'),
+(24, 'App\\Models\\User', 18, 'grHJ3w21xNHpqCnHNNQpxOKMHZ1CqDLnRUpev5xWmTLQWLPLQ1', 'df3668318c6fb1a0239953775cb50df391ab40df91be72e21800727949c29ce4', '[\"*\"]', NULL, NULL, '2024-09-09 01:45:00', '2024-09-09 01:45:00'),
+(25, 'App\\Models\\User', 2, 'ZeSHiwUmWL9QX1auimrYLeiLSzUxY2ZipdEf2XDdPZzIXPfjxP', 'c1b3e12d5354601209c29249f5ba894440c4da762bac39e62f09bb4791a5d608', '[\"*\"]', NULL, NULL, '2024-09-09 01:52:48', '2024-09-09 01:52:48'),
+(26, 'App\\Models\\User', 2, 'qx0QDJHOZ9Vthq5NEbmAjYCVe7UF4cO7bUGlHUTYDNvM6lCmjT', '8bf8c79f4f81bc99ae802c9d87af5863c7cd91e494cf4c23a27e936d166a0db7', '[\"*\"]', '2024-09-09 07:42:02', NULL, '2024-09-09 02:06:55', '2024-09-09 07:42:02'),
+(27, 'App\\Models\\User', 17, 'pM6qZCEsMbSV11dlwEJT8JTgpwzPVfu95rq37rS60wZhoHfCOu', 'eb7f0a7dd395d008fbe89691ed36959cea96651d293877d292189eaa38c9d0d1', '[\"*\"]', NULL, NULL, '2024-09-09 03:53:30', '2024-09-09 03:53:30'),
+(28, 'App\\Models\\User', 2, 'BC6VrNmtge9xOESJQqxCLXMp0Le9Vve5a5qGsCzjXVLDsbm6l9', '273e687104883238d918835c7ec07c2136b76c3bb2263fb611968d24c3e40d62', '[\"*\"]', '2024-09-13 09:13:10', NULL, '2024-09-13 00:59:34', '2024-09-13 09:13:10'),
+(29, 'App\\Models\\User', 2, 'IRAecn8PpCFqwYnxRQY8DCBLnH3ibK1nHv6k8x0J2NMc0rB2Ko', '83d5e80ba4a8bd5dc4530494316286d2065293ea45a953a1a493df1e9ae26b43', '[\"*\"]', '2024-09-13 01:21:49', NULL, '2024-09-13 01:18:44', '2024-09-13 01:21:49'),
+(30, 'App\\Models\\User', 1, 'zLG1ENHSoMKlvV2tWBgvEym5WPVoE5KSr3XwxIX5WZGRkKxbYA', 'f5f274791fbd54eb50308846b8374cd74a810777a5aa1aaa3d508d1b0689eaf9', '[\"*\"]', NULL, NULL, '2024-09-13 01:33:03', '2024-09-13 01:33:03'),
+(31, 'App\\Models\\User', 2, '4yyJpX3ASaZ8zpkyed2mX0KH8oR6WEuOUKpawWJu6Mx2LVhMgW', '69e185f5566dff2cc9b8f1e63895fce9af77fec6f34bcc2b4b4a983f0cea1a3d', '[\"*\"]', '2024-09-13 09:18:13', NULL, '2024-09-13 01:39:37', '2024-09-13 09:18:13'),
+(32, 'App\\Models\\User', 2, 'UQ1mOmXGknOGJFc8cLtQeOGG8MTDiNzru6mxH6M30B27chnwAk', '3ca8b70728a4d75493692af4107c6abe04b708f024fb7ffdd5e2969d582d3bcb', '[\"*\"]', '2024-09-13 07:48:59', NULL, '2024-09-13 06:34:11', '2024-09-13 07:48:59');
 
 -- --------------------------------------------------------
 
@@ -44741,6 +44394,8 @@ CREATE TABLE `rfid_attendance` (
   `date` date DEFAULT NULL,
   `timeIn` time DEFAULT NULL,
   `timeOut` time DEFAULT NULL,
+  `smsIn` int DEFAULT NULL,
+  `smsOut` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -44749,12 +44404,9 @@ CREATE TABLE `rfid_attendance` (
 -- Dumping data for table `rfid_attendance`
 --
 
-INSERT INTO `rfid_attendance` (`id`, `studentID`, `RFID`, `yearLevel`, `semester`, `month`, `year`, `date`, `timeIn`, `timeOut`, `created_at`, `updated_at`) VALUES
-(12, 3, '0001297626', 2, 1, 9, 2024, '2024-09-04', '11:23:34', '11:23:46', '2024-09-04 03:23:34', '2024-09-04 03:23:46'),
-(13, 2, '0007783785', 2, 1, 9, 2024, '2024-09-04', '11:23:41', '14:18:00', '2024-09-04 03:23:41', '2024-09-04 06:18:00'),
-(22, 3, '0001297626', 2, 2, 9, 2024, '2024-09-05', '08:14:40', '15:23:08', '2024-09-05 00:14:40', '2024-09-05 07:23:08'),
-(23, 2, '0007783785', 2, 1, 9, 2024, '2024-09-05', '08:15:07', '11:56:48', '2024-09-05 00:15:07', '2024-09-05 03:56:48'),
-(24, 2, '0007783785', 2, 1, 9, 2024, '2024-09-06', '09:56:51', '17:25:02', '2024-09-06 01:56:51', '2024-09-06 09:25:02');
+INSERT INTO `rfid_attendance` (`id`, `studentID`, `RFID`, `yearLevel`, `semester`, `month`, `year`, `date`, `timeIn`, `timeOut`, `smsIn`, `smsOut`, `created_at`, `updated_at`) VALUES
+(3, 3, '0008243677', 2, 2, 9, 2024, '2024-09-13', '15:11:30', '15:12:39', 1, 1, '2024-09-13 07:11:30', '2024-09-13 07:12:39'),
+(4, 2, '0006917440', 2, 1, 9, 2024, '2024-09-13', '15:12:47', '15:12:51', 1, 1, '2024-09-13 07:12:47', '2024-09-13 07:12:51');
 
 -- --------------------------------------------------------
 
@@ -44786,7 +44438,11 @@ INSERT INTO `schedule` (`id`, `courseID`, `courseInfoID`, `section`, `slots`, `e
 (20, 18, 12, 'A', 25, 3, 0, '2024-2025', '2024-09-01 08:50:19', '2024-09-06 09:32:41'),
 (21, 18, 12, 'A', 25, 0, 0, '2025-2026', '2024-09-02 08:03:51', '2024-09-06 09:32:43'),
 (22, 18, 13, 'A', 25, 3, 0, '2025-2026', '2024-09-02 08:07:08', '2024-09-06 09:32:47'),
-(23, 18, 14, 'A', 25, 2, 0, '2025-2026', '2024-09-03 00:12:55', '2024-09-06 09:32:50');
+(23, 18, 14, 'A', 25, 2, 0, '2025-2026', '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
+(24, 18, 12, 'A', 26, 0, 0, '2024-2025', '2024-09-08 00:18:24', '2024-09-08 00:18:43'),
+(25, 18, 11, 'A', 25, 0, 0, '2024-2025', '2024-09-08 00:26:31', '2024-09-08 03:23:40'),
+(26, 18, 11, 'A', 25, 0, 0, '2024-2025', '2024-09-08 05:11:37', '2024-09-08 05:12:04'),
+(27, 18, 11, 'A', 25, 0, 0, '2024-2025', '2024-09-08 08:25:46', '2024-09-08 08:27:40');
 
 -- --------------------------------------------------------
 
@@ -44808,7 +44464,7 @@ CREATE TABLE `sms_token` (
 --
 
 INSERT INTO `sms_token` (`id`, `url`, `access_token`, `mobile_identity`, `created_at`, `updated_at`) VALUES
-(1, 'https://api.pushbullet.com/v2/texts', 'o.QZdPjAHHhYdBpJgf1PgrWCCg6wrDUlTf --', 'ujvUXBTRPTEsjyzlSV4qya --', NULL, '2024-09-05 00:15:50');
+(1, 'https://api.pushbullet.com/v2/texts', 'o.QZdPjAHHhYdBpJgf1PgrWCCg6wrDUlTf --', 'ujvUXBTRPTEsjyzlSV4qya --', NULL, '2024-09-08 01:20:31');
 
 -- --------------------------------------------------------
 
@@ -44908,7 +44564,7 @@ INSERT INTO `student_grading` (`id`, `studentYearLevelID`, `studentID`, `courseI
 (137, 22, 1, 14, NULL, NULL, 47, 1, 2.30, 1.20, 1.75, 0, '2024-09-03 00:13:47', '2024-09-03 00:48:45'),
 (138, 22, 1, 14, NULL, NULL, 48, 3, 1.80, 1.20, 1.50, 0, '2024-09-03 00:13:47', '2024-09-03 00:49:02'),
 (139, 22, 1, 14, NULL, NULL, 49, 3, 1.00, 1.00, 1.00, 0, '2024-09-03 00:13:47', '2024-09-03 00:49:12'),
-(140, 23, 3, 14, NULL, NULL, 43, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
+(140, 23, 3, 14, NULL, NULL, 43, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-08 02:59:00'),
 (141, 23, 3, 14, NULL, NULL, 44, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
 (142, 23, 3, 14, NULL, NULL, 45, 3, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
 (143, 23, 3, 14, NULL, NULL, 46, 1, 0.00, 0.00, 0.00, 0, '2024-09-04 03:43:03', '2024-09-04 03:43:03'),
@@ -44971,12 +44627,12 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`id`, `courseID`, `courseInfoID`, `description`, `subjectCode`, `units`, `NC`, `created_at`, `updated_at`) VALUES
-(21, 18, 11, 'Macro Perspective of Tourism and Hospitality', 'ATH 1103', 3, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
-(22, 18, 11, 'Risk Management as Applied to Safety, Security and Sanitation', 'ATH 1110', 3, 1, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
-(24, 18, 11, 'Physical Education 1', 'PPE 1101', 2, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
-(25, 18, 11, 'Ethics', 'ZGE 1103', 3, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
-(26, 18, 11, 'Purposive Communication', 'ZGE 1105', 3, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
-(27, 18, 11, 'Readings in Philippine History', 'ZGE 1106', 3, 0, '2024-08-30 01:39:35', '2024-09-05 23:28:06'),
+(21, 18, 11, 'Macro Perspective of Tourism and Hospitality', 'ATH 1103', 3, 0, '2024-08-30 01:39:35', '2024-09-08 00:16:17'),
+(22, 18, 11, 'Risk Management as Applied to Safety, Security and Sanitation', 'ATH 1110', 3, 1, '2024-08-30 01:39:35', '2024-09-08 00:16:17'),
+(24, 18, 11, 'Physical Education 1', 'PPE 1101', 2, 0, '2024-08-30 01:39:35', '2024-09-08 00:16:17'),
+(25, 18, 11, 'Ethics', 'ZGE 1103', 3, 0, '2024-08-30 01:39:35', '2024-09-08 00:16:17'),
+(26, 18, 11, 'Purposive Communication', 'ZGE 1105', 3, 0, '2024-08-30 01:39:35', '2024-09-08 00:16:17'),
+(27, 18, 11, 'Readings in Philippine History', 'ZGE 1106', 3, 0, '2024-08-30 01:39:35', '2024-09-08 00:16:17'),
 (28, 18, 12, 'Kitchen Essentials and Basic Food Preparation', 'AHM 1201', 3, 1, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
 (29, 18, 12, 'Fundamentals in Lodging Operations', 'AHM 1202', 3, 0, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
 (30, 18, 12, 'Micro Perspective of Tourism and Hospitality', 'ATH 1104', 3, 0, '2024-08-30 01:45:09', '2024-09-05 23:28:14'),
@@ -45080,7 +44736,32 @@ INSERT INTO `subject_schedule` (`id`, `courseID`, `courseInfoID`, `scheduleID`, 
 (70, 18, 14, 23, 46, 1, 'Room 3', 0, 1, 0, 0, 1, 1, '13:00:00', '14:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
 (71, 18, 14, 23, 47, 1, 'Room 10', 0, 0, 1, 0, 0, 1, '08:00:00', '09:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
 (72, 18, 14, 23, 48, 3, 'Room 10', 0, 1, 0, 0, 1, 1, '16:00:00', '17:00:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
-(73, 18, 14, 23, 49, 3, 'Room 8', 0, 1, 0, 0, 1, 1, '17:00:00', '18:03:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50');
+(73, 18, 14, 23, 49, 3, 'Room 8', 0, 1, 0, 0, 1, 1, '17:00:00', '18:03:00', 0, '2024-09-03 00:12:55', '2024-09-06 09:32:50'),
+(74, 18, 12, 24, 28, 1, 'Room 2', 0, 1, 1, 1, 0, 0, '09:08:00', '09:09:00', 0, '2024-09-08 00:18:24', '2024-09-08 00:18:43'),
+(75, 18, 12, 24, 29, 3, 'Room 2', 1, 0, 0, 0, 1, 0, '09:08:00', '21:07:00', 0, '2024-09-08 00:18:24', '2024-09-08 00:18:43'),
+(76, 18, 12, 24, 30, 1, 'Room 2', 0, 1, 0, 1, 0, 0, '20:09:00', '00:09:00', 0, '2024-09-08 00:18:24', '2024-09-08 00:18:43'),
+(77, 18, 12, 24, 31, 1, 'Room 2', 0, 1, 0, 1, 0, 0, '09:00:00', '09:00:00', 0, '2024-09-08 00:18:24', '2024-09-08 00:18:43'),
+(78, 18, 12, 24, 32, 1, '0900', 0, 1, 0, 0, 1, 0, '21:09:00', '20:09:00', 0, '2024-09-08 00:18:24', '2024-09-08 00:18:43'),
+(79, 18, 12, 24, 33, 1, '09', 1, 0, 1, 0, 0, 0, '21:09:00', '21:00:00', 0, '2024-09-08 00:18:24', '2024-09-08 00:18:43'),
+(80, 18, 12, 24, 34, 1, '0990', 1, 0, 0, 1, 0, 0, '09:09:00', '09:00:00', 0, '2024-09-08 00:18:24', '2024-09-08 00:18:43'),
+(81, 18, 11, 25, 21, 1, '9098', 1, 0, 0, 1, 0, 0, '20:09:00', '21:09:00', 0, '2024-09-08 00:26:31', '2024-09-08 03:23:40'),
+(82, 18, 11, 25, 22, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '21:09:00', '21:08:00', 0, '2024-09-08 00:26:31', '2024-09-08 03:23:40'),
+(83, 18, 11, 25, 24, 1, 'Room 1', 0, 1, 0, 0, 1, 0, '21:09:00', '21:00:00', 0, '2024-09-08 00:26:31', '2024-09-08 03:23:40'),
+(84, 18, 11, 25, 25, 1, '9090', 1, 0, 1, 0, 0, 0, '21:08:00', '21:08:00', 0, '2024-09-08 00:26:31', '2024-09-08 03:23:40'),
+(85, 18, 11, 25, 26, 1, 'Room 1', 0, 1, 0, 0, 1, 0, '21:00:00', '12:09:00', 0, '2024-09-08 00:26:31', '2024-09-08 03:23:40'),
+(86, 18, 11, 25, 27, 1, 'Room 1', 1, 0, 0, 1, 0, 0, '21:09:00', '21:00:00', 0, '2024-09-08 00:26:31', '2024-09-08 03:23:40'),
+(87, 18, 11, 26, 21, 1, 'o', 1, 0, 1, 0, 0, 0, '21:00:00', '21:00:00', 0, '2024-09-08 05:11:37', '2024-09-08 05:12:04'),
+(88, 18, 11, 26, 22, 1, '0k', 1, 0, 1, 0, 0, 0, '12:00:00', '21:00:00', 0, '2024-09-08 05:11:37', '2024-09-08 05:12:04'),
+(89, 18, 11, 26, 24, 1, 'Room 1', 0, 1, 0, 0, 1, 0, '00:08:00', '09:59:00', 0, '2024-09-08 05:11:37', '2024-09-08 05:12:04'),
+(90, 18, 11, 26, 25, 1, 'Room 1', 1, 1, 0, 0, 0, 0, '12:57:00', '11:59:00', 0, '2024-09-08 05:11:37', '2024-09-08 05:12:04'),
+(91, 18, 11, 26, 26, 1, 'kmk,', 0, 0, 0, 1, 1, 0, '12:57:00', '09:58:00', 0, '2024-09-08 05:11:37', '2024-09-08 05:12:04'),
+(92, 18, 11, 26, 27, 1, 'Room 1', 0, 1, 0, 0, 1, 0, '08:58:00', '09:58:00', 0, '2024-09-08 05:11:37', '2024-09-08 05:12:04'),
+(93, 18, 11, 27, 21, 4, 'Room 1', 1, 0, 0, 1, 0, 0, '10:58:00', '20:59:00', 0, '2024-09-08 08:25:46', '2024-09-08 08:27:40'),
+(94, 18, 11, 27, 22, 1, '9098', 1, 0, 1, 0, 0, 0, '11:59:00', '10:00:00', 0, '2024-09-08 08:25:46', '2024-09-08 08:27:40'),
+(95, 18, 11, 27, 24, 1, 'Room 1', 0, 1, 0, 0, 1, 0, '12:00:00', '12:00:00', 0, '2024-09-08 08:25:46', '2024-09-08 08:27:40'),
+(96, 18, 11, 27, 25, 1, '9098', 0, 1, 0, 0, 1, 0, '11:59:00', '12:59:00', 0, '2024-09-08 08:25:46', '2024-09-08 08:27:40'),
+(97, 18, 11, 27, 26, 1, 'Room 1', 1, 0, 1, 0, 0, 0, '11:59:00', '12:59:00', 0, '2024-09-08 08:25:46', '2024-09-08 08:27:40'),
+(98, 18, 11, 27, 27, 1, '9098', 0, 1, 0, 1, 0, 0, '12:59:00', '11:59:00', 0, '2024-09-08 08:25:46', '2024-09-08 08:27:40');
 
 -- --------------------------------------------------------
 
@@ -45166,14 +44847,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `trainerID`, `studentID`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`, `active_status`, `avatar`, `dark_mode`, `messenger_color`) VALUES
-(1, NULL, NULL, 'GJTVS Admin', 'gjtvs@admin.com', NULL, '$2y$10$OcVzE8w6xmG1syGqey8t6OIg8XJsTVJol6f.oXKnJdk6QKtjn4UWq', NULL, 1, '2024-06-02 17:42:58', '2024-09-06 07:43:13', 0, 'avatar.png', 0, NULL),
-(2, NULL, NULL, 'GJTVS Registrar', 'gjtvs@registrar.com', NULL, '$2y$10$h46Q075StE7I100ZkJKpHuQqyiZOyfFJoXfr09WoP7QNGH2wNLIai', NULL, 2, NULL, '2024-09-05 23:49:53', 0, 'avatar.png', 0, '#2180f3'),
-(16, NULL, 1, 'Jemuel Cadayona', 'cdynjm@gmail.com', NULL, '$2y$10$HmU9kHDgQDNuEDEzQJSK5.6G/m8UTj2V.5s0NDJUMTsnSMvCsuJhO', '53Nz5PYS4yxX3OleXwgeGi5U9wi4FBnFIvMfsXQj8HE321NOsQMtvyIJtMLx', 4, '2024-08-31 23:31:31', '2024-09-05 00:44:02', 0, 'avatar.png', 0, NULL),
-(17, NULL, 2, 'Jaysan Ompod', 'jajaompod20@gmail.com', NULL, '$2y$10$.Hjv9nwzhJHQ8j.eJalZz.5ryktOg/.Ri2pxbLfdYSTTgp1vHs2/6', 'vNSseKTYykgn1xvrBStveN811YhLpt31wxubxYTJCnnlwXYt6oUdSpjdjun5', 4, '2024-09-01 01:47:58', '2024-09-05 05:17:03', 1, 'avatar.png', 0, NULL),
-(18, NULL, 3, 'Joann Mirasol', 'joan@gmail.com', NULL, '$2y$10$lUPtrWEESxi70ZtZ9ZkaEuvJr6V2etcaHKWFZjZjC5771bC3fog1i', 'nlcQyoiGI48eKCCXACvStIEFvo2Lw2NDTrJ6FL2FMtrrEY5IclH2Z3R7T4bi', 4, '2024-09-01 23:22:25', '2024-09-04 03:41:28', 0, 'avatar.png', 0, NULL),
+(1, NULL, NULL, 'Dr. Ghubert Francisco', 'gjtvs@admin.com', NULL, '$2y$10$BFWLltpoBycU9/LGg3aKOufdmZdJBb28mK.yx5fNEnyTwhjnlQRsC', NULL, 1, '2024-06-02 17:42:58', '2024-09-08 02:40:23', 0, 'avatar.png', 0, NULL),
+(2, NULL, NULL, 'GJTVS Registrar', 'gjtvs@registrar.com', NULL, '$2y$10$.OzypteAjY6Iw8snVqfKsea8fedyS7g40lYYbuVkYgoPCmMMNgMna', NULL, 2, NULL, '2024-09-09 02:05:12', 0, 'avatar.png', 0, '#2180f3'),
+(16, NULL, 1, 'Jemuel Cadayona', 'cdynjm@gmail.com', NULL, '$2y$10$HmU9kHDgQDNuEDEzQJSK5.6G/m8UTj2V.5s0NDJUMTsnSMvCsuJhO', 'ELqVtvus9OR1TBnSvAuW0VloVpXyfXOcrhjCHbBTHLgbXWKF9epAV1JTJa08', 4, '2024-08-31 23:31:31', '2024-09-05 00:44:02', 0, 'avatar.png', 0, NULL),
+(17, NULL, 2, 'Jaysan Ompod', 'jajaompod20@gmail.com', NULL, '$2y$10$.Hjv9nwzhJHQ8j.eJalZz.5ryktOg/.Ri2pxbLfdYSTTgp1vHs2/6', 'SqLsGaPB7nFkBvest3hU8S9gZMaezUr9HHosl5KIXoizPDft4t1iBaWNZFqC', 4, '2024-09-01 01:47:58', '2024-09-05 05:17:03', 1, 'avatar.png', 0, NULL),
+(18, NULL, 3, 'Joann Mirasol', 'joan@gmail.com', NULL, '$2y$10$lUPtrWEESxi70ZtZ9ZkaEuvJr6V2etcaHKWFZjZjC5771bC3fog1i', '09pR8jYrF9w5xJj9KWloAuMneztMPrRqCs2490EP8Qs0SWgGvlNgJrcjz1Au', 4, '2024-09-01 23:22:25', '2024-09-04 03:41:28', 0, 'avatar.png', 0, NULL),
 (19, NULL, 4, 'Juan Dela Cruz', 'juan@gmail.com', NULL, '$2y$10$tfQyGonY9OzmKHUPMXLNiOkjNqd2WkHhE4uuwRxkwV3ZcHrYMEPTG', '9mm6niFiouy4enbywIOPKsOsteEuhHZTrRhINWqDzT2lD8th3ZMVJlvctUpn', 4, '2024-09-06 00:07:39', '2024-09-06 00:07:39', 0, 'avatar.png', 0, NULL),
 (20, NULL, 5, 'Miguel Magallanes', 'miguel@gmail.com', NULL, '$2y$10$GEsMzULurkQ1exP/Ds2RbONbdpfbF1WZCtwfVy4a.GBDX2rJAssX2', 'Dhcn2ZwpL4sX3jJQJa5gpi16nvtQaed3c9hRxp15CUSoaQ384bAtxCD6XxV6', 4, '2024-09-06 00:14:48', '2024-09-06 00:14:48', 0, 'avatar.png', 0, NULL),
-(21, 1, NULL, 'Sample Instructor 1', 'sample1@gmail.com', NULL, '$2y$10$xNHtkt1DwWXcaqUx0fUYIOwCUq3FwJ1w28SL9iCEPSnzQ0qdmgWX2', NULL, 3, NULL, '2024-09-06 09:57:44', 0, 'avatar.png', 0, NULL),
+(21, 1, NULL, 'Sample Instructor 1', 'sample1@gmail.com', NULL, '$2y$10$IoWdlGHKJztoQd3/sbHMNunoKqC1xSrGimpb4AUP8U7JDjd9zso/S', NULL, 3, NULL, '2024-09-09 05:34:36', 0, 'avatar.png', 0, NULL),
 (22, 3, NULL, 'Sample Instructor 2', 'sample2@gmail.com', NULL, '$2y$10$L7M6t6SJDhNd1lw9MHXC1uSfTuwSdqpnq.naAh2qE6WZFbYJdyrwa', NULL, 3, NULL, '2024-09-06 07:36:27', 0, 'avatar.png', 0, NULL),
 (23, 4, NULL, 'Sample Instructor 3', 'sample3@gmail.com', NULL, '$2y$10$YIwRBAWECgbfF7Hj8.EW9eEJ.XyzmxzHRmvEQTx0C83nk34LTzerO', NULL, 3, NULL, '2024-09-06 07:36:50', 0, 'avatar.png', 0, NULL);
 
@@ -45379,7 +45060,7 @@ ALTER TABLE `barangay`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `course_info`
@@ -45409,7 +45090,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `learners_classification`
@@ -45451,7 +45132,7 @@ ALTER TABLE `municipal`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=409;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `province`
@@ -45469,13 +45150,13 @@ ALTER TABLE `region`
 -- AUTO_INCREMENT for table `rfid_attendance`
 --
 ALTER TABLE `rfid_attendance`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `sms_token`
@@ -45505,7 +45186,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `subject_schedule`
 --
 ALTER TABLE `subject_schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `tracker`
@@ -45517,7 +45198,7 @@ ALTER TABLE `tracker`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

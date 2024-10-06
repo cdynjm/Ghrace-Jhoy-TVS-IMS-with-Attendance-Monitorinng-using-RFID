@@ -3,7 +3,6 @@
     <div class="container-xxl">
         <div class="row mb-0">
             <div class="col-12 text-center">
-                <p class="text-sm mb-0">GJTVS - Copyright © {{ date('Y') }}</p>
                 <p class="fw-bolder mb-0 text-sm">Ghrace Jhoy Technical Vocational School</p>
                 <p class="text-xs" style="font-size: 12px">SLSU | Faculty of CSIT</p>
             </div>

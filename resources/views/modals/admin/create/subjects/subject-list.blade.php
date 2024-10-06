@@ -2,6 +2,7 @@
     @if(!empty($subjects))
     @foreach ($subjects as $key => $sub)
     <div id="subject-wrapper" class="mb-4">
+        <hr style="border-bottom: 2px solid gray">
         <div class="subject-group mb-2">
             <label for="" style="font-size: 12px;">Subject Schedule</label>
             <input type="text" class="form-control mb-2 fw-bold" value="{{ $sub->description }}" readonly>
@@ -28,11 +29,11 @@
 
             <label for="" style="font-size: 12px">Time - FROM | TO</label>
             <div class="d-flex">
-                <input type="time" name="fromTime[]" class="form-control mb-2 me-2" required>
-                <input type="time" name="toTime[]" class="form-control mb-2" required>
+                <input type="time" name="fromTime[]" class="form-control mb-2 me-2">
+                <input type="time" name="toTime[]" class="form-control mb-2">
             </div>
 
-            <label for="" style="font-size: 12px;">Instructor</label>
+            <label for="" style="font-size: 12px;">Instructor <span class="text-danger">*</span></label>
             <select name="instructor[]" id="" class="form-select me-2 mb-2" required>
                 <option value="">Select...</option>
                 @foreach ($instructors as $in)
@@ -41,7 +42,7 @@
             </select>
 
             <label for="" style="font-size: 12px;">Room/Location</label>
-            <input type="text" name="room[]" class="form-control" required>
+            <input type="text" name="room[]" class="form-control">
             
         </div>
     </div>

@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class StudentYearLevel extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'student_year_level';
 
@@ -18,10 +18,10 @@ class StudentYearLevel extends Model
     ];
 
     public function Schedule() {
-        return $this->hasOne(Schedule::class, 'id', 'scheduleID');
+        return $this->hasOne(Schedule::class, 'id', 'scheduleID')->withTrashed();
     }
 
     public function Student() {
-        return $this->hasOne(LearnersProfile::class, 'id', 'studentID');
+        return $this->hasOne(LearnersProfile::class, 'id', 'studentID')->withTrashed();
     }
 }

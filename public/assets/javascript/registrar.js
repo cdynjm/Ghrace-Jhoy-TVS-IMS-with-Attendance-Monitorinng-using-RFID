@@ -1205,9 +1205,11 @@ $(document).on('submit', "#update-student-information", function(e){
         })
         .catch(error => {
             console.error('Error:', error);
+            $('.processing').hide(100);
+            $("#edit-student-information-modal").modal('hide');
             SweetAlert.fire({
                 icon: 'error',
-                html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+                html: `<h4 class="mb-0">Opss...</h4><small>RFID Card Number is already taken!</small>`,
                 confirmButtonColor: "#3a57e8"
             });
         });
@@ -1672,22 +1674,27 @@ $(document).on('click', '#edit-course-info', function() {
 });
 
 document.addEventListener('livewire:navigated', () => { 
+    let checkboxIndex = 0;
+
 $(document).ready(function() {
     // Add new set of input fields
     $('.add-subject').click(function() {
+        // Get the current number of checkboxes with name "NC[]"
+         checkboxIndex++;
+        
         let newInput = `
             <div class="subject-group mb-2 d-flex">
                 <input type="text" name="subjectCode[]" class="form-control me-2" placeholder="Code" required>
                 <input type="text" name="description[]" class="form-control me-2" placeholder="Description" required>
                 <input type="number" name="units[]" class="form-control" placeholder="Units" required>
             </div>
-
+    
             <div class="form-check form-switch my-3">
-                <input type="checkbox" name="NC[]" value="1" class="form-check-input me-2">
+                <input type="checkbox" name="NC[${checkboxIndex}]" value="1" class="form-check-input me-2">
                 <label for="" style="font-size: 12px;">Resultant Subject (NC II)</label>
-              </div>
-            
-            `;
+            </div>
+        `;
+    
         $('#subject-wrapper').append(newInput);
     });
 
@@ -1754,7 +1761,13 @@ $(document).on('submit', "#create-course-info", function(e){
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
                 confirmButtonColor: "#3a57e8"
-            });
+            }).then((result) => {
+                // Check if the user clicked the confirm button
+                if (result.isConfirmed) {
+                    // Reload the page
+                    location.reload();
+                }
+            });            
         })
         .catch(error => {
             console.error('Error:', error);

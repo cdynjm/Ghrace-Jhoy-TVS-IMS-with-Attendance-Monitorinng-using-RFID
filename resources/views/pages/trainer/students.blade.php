@@ -77,6 +77,7 @@
                         <div class="card-header">
                             <div class="d-flex flex-row justify-content-between">
                                 <h6 class="text-sm text-primary">{{ $schedule->CourseInfo->yearLevel }} - {{ $schedule->Schedule->section }}</h6>
+                                <small>Students: <h4 class="text-lg d-inline">{{ $students->count() }} </h4></small>
                             </div>
                             <div class="fw-normal text-secondary">{{ $schedule->Subjects->subjectCode }} - {{ $schedule->Subjects->description }}</div>
                         </div>
@@ -88,6 +89,9 @@
                                             <th>#</th>
                                             <th><small>Name</small></th>
                                             <th><small>Address</small></th>
+                                            <th><small>MT</small></th>
+                                            <th><small>FT</small></th>
+                                            <th><small>AVG</small></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -97,6 +101,21 @@
                                                 <td><small>{{ ++$count }}</small></td>
                                                 <td><small>{{ $st->Student->lastname }}, {{ $st->Student->firstname }}, {{ $st->Student->middlename }}</small></td>
                                                 <td><small>{{ $st->Student->Barangay->brgyDesc }}, {{ ucwords(strtolower($st->Student->Municipal->citymunDesc)) }}, {{ ucwords(strtolower($st->Student->Province->provDesc)) }}</small></td>
+                                                <td>
+                                                    <small>
+                                                        {{ $grading->where('studentID', $st->Student->id)->first()->mt }}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <small>
+                                                        {{ $grading->where('studentID', $st->Student->id)->first()->ft }}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <small class="fw-bold">
+                                                        {{ $grading->where('studentID', $st->Student->id)->first()->avg }}
+                                                    </small>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         @if ($count == 0)

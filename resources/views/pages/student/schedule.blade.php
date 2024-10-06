@@ -96,7 +96,7 @@
                                                             Sat 
                                                         @endif
                                                         |
-                                                        {{ date('h:i A', strtotime($sub->fromTime)) }} - {{ date('h:i A', strtotime($sub->toTime)) }} | {{ $sub->room }}
+                                                        {{ $sub->fromTime != null ? date('h:i A', strtotime($sub->fromTime)) : 'none' }} - {{ $sub->toTime != null ? date('h:i A', strtotime($sub->toTime)) : 'none' }} | {{ $sub->room }}
                                                     </small>
                                                 </div>
                                             </td>

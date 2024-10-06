@@ -42,7 +42,7 @@
                             <div class="card-header">
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
-                                        <h6 class="text-sm">Courses/Qualifications</h6>
+                                        <h6 class="text-sm">Select Qualification to View Records</h6>
                                     </div>
                                     @if(Auth::user()->role == 2)
                                     <button class="btn btn-sm btn-primary shadow text-white" id="add-course">+ Add</button>

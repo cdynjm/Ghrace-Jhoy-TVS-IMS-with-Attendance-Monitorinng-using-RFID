@@ -50,7 +50,8 @@ class TrainerController extends Controller
     public function students(Request  $request) {
         $students = $this->TrainerInterface->Students($request);
         $schedule = $this->TrainerInterface->getSchedule($request);
-        return view('pages.trainer.students', compact('students', 'schedule'));
+        $grading = $this->TrainerInterface->Grading($request);
+        return view('pages.trainer.students', compact('students', 'schedule', 'grading'));
     }
 
 }

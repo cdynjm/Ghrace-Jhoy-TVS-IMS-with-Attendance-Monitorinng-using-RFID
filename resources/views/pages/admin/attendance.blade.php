@@ -43,7 +43,7 @@
                             <div class="card-header">
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
-                                        <h6 class="text-sm">Courses/Programs</h6>
+                                        <h6 class="text-sm">Select Program to View Records</h6>
                                     </div>
                                 </div>
                             </div>

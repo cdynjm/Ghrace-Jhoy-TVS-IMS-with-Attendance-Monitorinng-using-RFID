@@ -98,7 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'trainer'], function () {
 		Route::group(['prefix' => 'trainer'], function () {
 			Route::get('/dashboard', [TrainerController::class, 'dashboard'])->name('trainer.dashboard');
-			Route::get('/students/{id}/{scheduleID}', [TrainerController::class, 'students'])->name('trainer.students');
+			Route::get('/students/{id}/{scheduleID}/{courseInfoID}/{subjectID}', [TrainerController::class, 'students'])->name('trainer.students');
 		});
 	});
 
