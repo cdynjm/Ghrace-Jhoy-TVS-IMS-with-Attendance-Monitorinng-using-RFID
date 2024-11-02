@@ -186,7 +186,7 @@
                                           <img style="width: 38px; height: 38px; border-radius: 50px;" src="/assets/school-logo.png" class="me-4 mb-4 mt-2" alt="...">
                                           <a class="layout-menu-toggle align-items-center d-flex" href="javascript:void(0);">
                                             <span class="sidebar-text fw-bold fs-3">
-                                                <span class="">GJTVS</span>
+                                                <span class="">GJTVSI</span>
                                             <p style="font-size:14px;" class="fw-normal mt-1 text-secondary">Online Admission Application</p>
                                           </span>
                                         </a>
@@ -310,11 +310,11 @@
                                           @include('auth.address.barangay')
                                         </div>
                                         <div class="col-md-4">
-                                          <label for="" style="font-size: 11px">District <span class="text-danger" style="font-size: 16px">*</span></label>
-                                          <input type="text" name="district" class="form-control" required>
+                                          <label for="" style="font-size: 11px">District <span class="text-danger" style="font-size: 16px"></span></label>
+                                          <input type="text" name="district" class="form-control">
         
-                                          <label for="" style="font-size: 11px">Number, Street <span class="text-danger" style="font-size: 16px">*</span></label>
-                                          <input type="text" name="street" class="form-control" required>
+                                          <label for="" style="font-size: 11px">Number, Street <span class="text-danger" style="font-size: 16px"></span></label>
+                                          <input type="text" name="street" class="form-control">
         
                                           <label for="" style="font-size: 11px">Email Address/Facebook Account <span class="text-danger" style="font-size: 16px">*</span></label>
                                           <input type="text" name="account" class="form-control" required>
@@ -649,26 +649,44 @@
                                     
                                     <div class="row mb-4">
                                       @for($i = 0; $i < 3; $i++)
-                                      <div class="col-md-4 mb-4">
-                                        <hr class="my-2">
-                                        <label for="" style="font-size: 11px">Name of Company</label>
-                                        <input type="text" name="company[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Position</label>
-                                        <input type="text" name="position[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Inclusive Date From</label>
-                                        <input type="date" name="dateFrom[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Inclusive Date To</label>
-                                        <input type="date" name="dateTo[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Salary</label>
-                                        <input type="number" step="any" min="0" name="salary[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Status</label>
-                                        <input type="text" name="status[]" class="form-control">
-                                      </div>
+                                        <div class="table-responsive">
+                                          <table class="table table-bordered text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name of Company</th>
+                                                    <th>Position</th>
+                                                    <th>Inclusive Date From</th>
+                                                    <th>Inclusive Date To</th>
+                                                    <th>Salary</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for($i = 0; $i < 3; $i++)
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" name="company[]" class="form-control" style="font-size: 11px;">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="position[]" class="form-control" style="font-size: 11px;">
+                                                    </td>
+                                                    <td>
+                                                        <input type="date" name="dateFrom[]" class="form-control" style="font-size: 11px;">
+                                                    </td>
+                                                    <td>
+                                                        <input type="date" name="dateTo[]" class="form-control" style="font-size: 11px;">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" step="any" min="0" name="salary[]" class="form-control" style="font-size: 11px;">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="status[]" class="form-control" style="font-size: 11px;">
+                                                    </td>
+                                                </tr>
+                                                @endfor
+                                            </tbody>
+                                        </table>
+                                        </div>
                                       @endfor
                                     </div>
 

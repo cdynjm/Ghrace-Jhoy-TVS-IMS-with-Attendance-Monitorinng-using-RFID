@@ -16,7 +16,7 @@
              <input type="hidden" id="student-id" name="studentID" class="form-control" required>
              <input type="hidden" id="course-id" name="id" class="form-control" required>
 
-              <label for="" style="font-size: 12px;">Year | Semester | Section</label>
+              <label for="" style="font-size: 12px;">Select Schedule</label>
               @include('modals.registrar.update.schedule.schedule-list')
 
 

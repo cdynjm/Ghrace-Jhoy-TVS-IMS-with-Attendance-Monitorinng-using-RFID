@@ -95,4 +95,9 @@ class LearnersProfile extends Model
     public function BirthMunicipal() {
         return $this->hasOne(Municipal::class, 'citymunCode', 'birthplaceCity')->withTrashed();
     }
+
+    public function studentYearLevels()
+    {
+        return $this->hasMany(StudentYearLevel::class, 'studentID', 'id')->withTrashed();
+    }
 }

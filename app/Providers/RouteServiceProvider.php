@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const ADMIN = '/admin/dashboard';
     public const REGISTRAR = '/registrar/dashboard';
-    public const TRAINER = '/trainer/dashboard';
+    public const TRAINER = '/trainer/schedule';
     public const STUDENT = '/student/dashboard';
 
     /**

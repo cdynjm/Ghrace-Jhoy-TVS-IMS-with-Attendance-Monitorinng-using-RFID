@@ -8,6 +8,7 @@
         <div class="card-header">
             <div class="d-flex flex-row justify-content-between">
                 <div>
+                    <h6>Academic Year: {{ $yl->Schedule->schoolYear }}</h6>
                     <h6 class="text-sm">{{ $yl->Schedule->CourseInfo->yearLevel }} - {{ $yl->Schedule->CourseInfo->semester }}</h6>
                     <p class="my-1">Section: {{ $yl->Schedule->section }}</p>
                 </div>
@@ -55,21 +56,21 @@
                             <td>
                                 <div>
                                     <small class="">
-                                        {{ number_format($sub->mt, 1) }}
+                                        {{ $sub->mt }}
                                     </small>
                                 </div>
                             </td>
                             <td>
                                 <div>
                                     <small class="">
-                                        {{ number_format($sub->ft, 1) }}
+                                        {{ $sub->ft }}
                                         </small>
                                 </div>
                             </td>
                             <td>
                                 <div>
                                     <small class="fw-bold">
-                                        {{ number_format($sub->avg, 1) }}
+                                        {{ $sub->avg }}
                                         </small>
                                 </div>
                             </td>
@@ -129,7 +130,7 @@
                 <div id="chart-{{ $yl->id }}" class="overflow-hidden"></div>
                 
                
-                <script>
+            <!--    <script>
                    
                     $(document).ready(function() {
                         const mtValues = @json($mtValues);
@@ -209,7 +210,7 @@
                         chart.render();
                     });
                 
-                </script>
+                </script> -->
                 
             </div>
         </div>

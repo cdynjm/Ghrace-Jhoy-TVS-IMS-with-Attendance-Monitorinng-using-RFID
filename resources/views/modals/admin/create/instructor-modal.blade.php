@@ -13,7 +13,7 @@
 
               <div class="processing alert alert-success" style="display: none"></div>
 
-              <label for="" style="font-size: 12px;">Instructor</label>
+              <label for="" style="font-size: 12px;">Name</label>
               <input type="text" name="instructor" class="form-control mb-2" required>
 
               <label for="" style="font-size: 12px;">Address</label>

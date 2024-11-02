@@ -1,4 +1,4 @@
-<div id="view-undergraduates-data">
+<div id="view-rfid-information-data">
     @php
         $yearLevelNames = [
             1 => '1st Years',
@@ -20,6 +20,8 @@
                     <th class="text-nowrap">#</th>
                     <th class="text-nowrap"><small>Student Name</small></th>
                     <th class="text-nowrap"><small>Address</small></th>
+                    <th class="text-nowrap"><small>RFID Number</small></th>
+                    <th class="text-nowrap"><small>ULI</small></th>
                     <th class="text-nowrap"><small>Action</small></th>
                 </tr>
             </thead>
@@ -35,9 +37,15 @@
                         <td><small>{{ $gr->lastname }}, {{ $gr->firstname }}, {{ $gr->middlename }}</small></td>
                         <td><small>{{ $gr->Barangay->brgyDesc }}, {{ ucwords(strtolower($gr->Municipal->citymunDesc)) }}, {{ ucwords(strtolower($gr->Province->provDesc)) }} - {{ $gr->Region->regDesc }}</small></td>
                         <td>
+                            <small>{{ $gr->RFID ? $gr->RFID : '-' }}</small>
+                        </td>
+                        <td>
+                            <small>{{ $gr->ULI ? $gr->ULI : '-' }}</small>
+                        </td>
+                        <td>
                             <small class="d-flex">
-                                <a wire:navigate class="btn btn-sm btn-primary me-1" href="{{ route('registrar.edit-grades', ['id' => $aes->encrypt($gr->id), 'courseID' => $aes->encrypt($gr->LearnersCourse->course)]) }}">
-                                    <iconify-icon icon="solar:eye-bold-duotone" width="18" height="18" class="me-1"></iconify-icon> <small>View Grades</small>
+                                <a href="javascript:;" class="ms-2" id="edit-student-information">
+                                    <iconify-icon icon="lets-icons:edit-duotone" width="20" height="20" class="me-1"></iconify-icon>
                                 </a>
                                 <a href="/messenger/{{ $gr->User->id }}" class="ms-2">
                                     <iconify-icon icon="solar:chat-dots-bold-duotone" width="20" height="20" class="me-1"></iconify-icon>

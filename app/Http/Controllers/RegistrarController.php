@@ -35,8 +35,12 @@ use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
+use App\Models\Subjects;
 
+use App\Models\RFIDAttendance;
 use App\Models\Tracker;
+use App\Http\Controllers\SMSController;
+
 
 class RegistrarController extends Controller
 {
@@ -47,7 +51,8 @@ class RegistrarController extends Controller
      */
     public function __construct(
         protected AESCipher $aes,
-        protected RegistrarInterface $RegistrarInterface
+        protected RegistrarInterface $RegistrarInterface,
+        protected SMSController $sms
     ) {}
     public function admissionStatus(Request $request) {
         AdmissionApplication::where('id', 1)->update(['status' => $this->aes->decrypt($request->status)]);
@@ -75,6 +80,15 @@ class RegistrarController extends Controller
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    public function gradesCourse() {
+        $courses = $this->RegistrarInterface->Courses();
+        return view('pages.registrar.grades-course', ['courses' => $courses]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function graduates() {
         $courses = $this->RegistrarInterface->Courses();
         return view('pages.registrar.graduates', ['courses' => $courses]);
@@ -87,6 +101,15 @@ class RegistrarController extends Controller
     public function undergraduates() {
         $courses = $this->RegistrarInterface->Courses();
         return view('pages.registrar.undergraduates', ['courses' => $courses]);
+    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function RFIDInformation() {
+        $courses = $this->RegistrarInterface->Courses();
+        return view('pages.registrar.rfid-information', ['courses' => $courses]);
     }
     /**
      * Handle an incoming request.
@@ -162,6 +185,10 @@ class RegistrarController extends Controller
     public function updateExamSchedule(Request $request) {
 
         foreach($request->applicant as $key => $value) {
+
+            $student = LearnersProfile::where('id', $this->aes->decrypt($value))->first();
+            $this->sms->examSchedule($request->date, $student);
+
             LearnersProfile::where('id', $this->aes->decrypt($value))->update([
                 'exam' => $request->date,
                 'status' => 3
@@ -177,6 +204,8 @@ class RegistrarController extends Controller
                 'studentID' => $this->aes->decrypt($value),
                 'tracker' => $newTracker
             ]);
+
+
         }
 
         $learnersProfile = $this->RegistrarInterface->UnscheduledLearnersProfile();
@@ -185,6 +214,8 @@ class RegistrarController extends Controller
         $form137 = $this->RegistrarInterface->Form137();
         $status = $this->RegistrarInterface->Status();
         $aes = $this->aes;
+
+
 
         return response()->json([
             'Message' => 'Scheduled Set Successfully!',
@@ -245,6 +276,10 @@ class RegistrarController extends Controller
     public function updateProceedToInterview(Request $request) {
 
         foreach($request->applicant as $key => $value) {
+
+            $student = LearnersProfile::where('id', $this->aes->decrypt($value))->first();
+            $this->sms->interviewSchedule($request->date, $student);
+
             LearnersProfile::where('id', $this->aes->decrypt($value))->update([
                 'interview' => $request->date,
                 'status' => 4
@@ -324,6 +359,10 @@ class RegistrarController extends Controller
     public function updateProceedToSecondInterview(Request $request) {
 
         foreach($request->applicant as $key => $value) {
+
+            $student = LearnersProfile::where('id', $this->aes->decrypt($value))->first();
+            $this->sms->secondInterviewSchedule($request->date, $student);
+
             LearnersProfile::where('id', $this->aes->decrypt($value))->update([
                 'secondInterview' => $request->date,
                 'status' => 5,
@@ -413,6 +452,10 @@ class RegistrarController extends Controller
     public function updateAdmissionPassed(Request $request) {
 
         foreach($request->applicant as $key => $value) {
+
+            $student = LearnersProfile::where('id', $this->aes->decrypt($value))->first();
+            $this->sms->admissionPassed($student);
+            
             LearnersProfile::where('id', $this->aes->decrypt($value))->update([
                 'status' => 7,
             ]);
@@ -503,6 +546,12 @@ class RegistrarController extends Controller
         $undergraduates = $this->RegistrarInterface->Undergraduates($request);
         return view('pages.registrar.view-undergraduates', compact('undergraduates', 'course'));
     }
+
+    public function viewRFIDInformation(Request $request) {
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $undergraduates = $this->RegistrarInterface->Undergraduates($request);
+        return view('pages.registrar.view-rfid-information', compact('undergraduates', 'course'));
+    }
     /**
      * Handle an incoming request.
      *
@@ -533,6 +582,25 @@ class RegistrarController extends Controller
         $student = $this->RegistrarInterface->LearnersProfile($request);
         return view('pages.registrar.view-student-attendance', compact('attendance', 'student'));
     }
+
+     /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchStudentAttendance(Request $request) {
+        $attendance = RFIDAttendance::where('studentID', $this->aes->decrypt($request->id))
+        ->where('yearLevel', $request->yearLevel)
+        ->where('month', $request->month)
+        ->orderBy('created_at', 'DESC')
+        ->get()
+        ->groupBy('yearLevel');
+
+        $aes = $this->aes;
+        return response()->json([
+            'Attendance' => view('data.registrar.view-student-attendance-data', compact('attendance', 'aes'))->render()
+        ]);
+    }
      /**
      * Handle an incoming request.
      *
@@ -545,6 +613,7 @@ class RegistrarController extends Controller
         $schedule = $this->RegistrarInterface->Schedule();
         return view('pages.registrar.enrollment', compact('course', 'enrollees', 'schedule'));
     }
+
     public function getSpecificSchedule(Request $request) {
 
         $schedule = $this->RegistrarInterface->getSpecificSchedule($request);
@@ -652,7 +721,19 @@ class RegistrarController extends Controller
         $course = $this->RegistrarInterface->CourseInfo($request);
         $enrollees = $this->RegistrarInterface->StudentGrades($request);
         $schedule = $this->RegistrarInterface->Schedule();
-        return view('pages.registrar.grades', compact('course', 'enrollees', 'schedule'));
+        $id = $request->id;
+
+        $courseInfo = CoursesInfo::where('courseID', $this->aes->decrypt($request->id))
+        ->orderBy('yearLevel', 'ASC')
+        ->orderBy('semester', 'ASC')
+        ->get();
+
+        $students = StudentYearLevel::where('id', null)->get();
+        $grades = StudentGrading::where('id', null)->get();
+
+        $schoolYears = Schedule::select('schoolYear')->distinct()->where('courseID', $this->aes->decrypt($request->id))->get();
+
+        return view('pages.registrar.grades', compact('course', 'enrollees', 'schedule', 'id', 'courseInfo', 'schoolYears', 'students', 'grades'));
     }
 
     public function searchGrades(Request $request) {
@@ -661,9 +742,9 @@ class RegistrarController extends Controller
         $enrollees = $this->RegistrarInterface->searchStudentGrades($request);
         $schedule = $this->RegistrarInterface->Schedule();
         $aes = $this->aes;
-        
+        $id = $request->id;
         return response()->json([
-            'Search' => view('data.registrar.grades-data', compact('course', 'enrollees', 'schedule', 'aes'))->render(),
+            'Search' => view('data.registrar.grades-data', compact('course', 'enrollees', 'schedule', 'aes', 'id'))->render(),
         ], Response::HTTP_OK); 
     }
 
@@ -672,7 +753,27 @@ class RegistrarController extends Controller
         $yearLevel = $this->RegistrarInterface->yearLevel($request);
         $studentGrading = $this->RegistrarInterface->studentGrading($request);
         $student = $this->RegistrarInterface->LearnersProfile($request);
-        return view('pages.registrar.edit-grades', compact('yearLevel', 'studentGrading', 'student'));
+        $courseInfo = CoursesInfo::where('courseID', $this->aes->decrypt($request->courseID))
+        ->orderBy('yearLevel', 'ASC')
+        ->orderBy('semester', 'ASC')
+        ->get();
+        $id = $request->id;
+        return view('pages.registrar.edit-grades', compact('yearLevel', 'studentGrading', 'student', 'courseInfo', 'id'));
+    }
+
+    public function searchGradesYearSemester(Request $request) {
+
+        $yearLevel = StudentYearLevel::where('studentID', $this->aes->decrypt($request->id))
+        ->where('courseInfoID', $this->aes->decrypt($request->search))
+        ->orderBy('scheduleID', 'DESC')->get();
+
+        $student = $this->RegistrarInterface->LearnersProfile($request);
+        $studentGrading = $this->RegistrarInterface->studentGrading($request);
+        $aes = $this->aes;
+
+        return response()->json([
+            'Grades' => view('data.registrar.edit-grades-data', compact('yearLevel', 'studentGrading', 'aes', 'student'))->render(),
+        ], Response::HTTP_OK); 
     }
 
     public function updateGrades(Request $request) {
@@ -739,6 +840,79 @@ class RegistrarController extends Controller
         return response()->json([
             'Message' => 'Grades updated successfully',
             'Grades' => view('data.registrar.edit-grades-data', compact('yearLevel', 'studentGrading', 'student', 'aes'))->render()
+        ], Response::HTTP_OK);
+    }
+
+    public function updateGradesDataValue(Request $request) {
+        $mt = $request->mt;
+        $ft = $request->ft;
+    
+        // Calculate the average
+        $avg = ($mt > 0 && $ft > 0) 
+            ? ($mt + $ft) / 2 
+            : ($mt > 0 ? $mt : ($ft > 0 ? $ft : 0));
+    
+
+        StudentGrading::where('id', $this->aes->decrypt($request->gradeID))->update([
+            'mt' => $mt,
+            'ft' => $ft,
+            'avg' => $avg,
+            'assessment' => $request->assessment ?? 0
+        ]);
+    
+        // Check if all grades, including assessment, are filled for this student
+        $allGraded = StudentGrading::where('studentID', $this->aes->decrypt($request->id))
+            ->where(function ($query) {
+                $query->where('mt', 0)
+                      ->orWhere('ft', 0)
+                      ->orWhere(function ($query) {
+                          $query->whereHas('Subjects', function ($query) {
+                              $query->where('NC', 1);
+                          })->where('assessment', 0);
+                      });
+            })
+            ->doesntExist();
+    
+        // Update the enrollment status based on the grading status
+        $statusValue = $allGraded ? 1 : 0;
+        
+        $coursesInfo = CoursesInfo::where('courseID', StudentGrading::where('studentID', $this->aes->decrypt($request->id))->first()->Subjects->courseID)->count();
+        $studentProgress = LearnersProfile::where('id', $this->aes->decrypt($request->id))->first();
+        
+        if($allGraded) {
+            if($coursesInfo == $studentProgress->progress) {
+                LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
+                    'enrollmentStatus' => 2,
+                ]);
+            }
+            else {
+                LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
+                    'enrollmentStatus' => $statusValue,
+                ]);
+            }
+        }
+        else {
+            LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
+                'enrollmentStatus' => $statusValue,
+            ]);
+        }
+    
+        $students = StudentYearLevel::where('scheduleID', $this->aes->decrypt($request->section))
+        ->where('courseInfoID', $this->aes->decrypt($request->semester))
+        ->whereHas('Student', function ($query) {
+            $query->orderBy('lastname'); // Order by lastname from the LearnersProfile model
+        })
+        ->get();
+
+        $grades = StudentGrading::where('subjectID', $this->aes->decrypt($request->subject))
+        ->where('courseInfoID', $this->aes->decrypt($request->semester))
+        ->get();
+
+        $aes = $this->aes;
+
+        return response()->json([
+            'Message' => 'Grades updated successfully',
+            'Grades' => view('data.registrar.grades-data', compact('students', 'grades', 'aes'))->render()
         ], Response::HTTP_OK);
     }
 
@@ -817,7 +991,7 @@ class RegistrarController extends Controller
 
         return response()->json([
             'Message' => 'RFID & ULI information has been updated Successfully',
-            'Undergraduates' => view('data.registrar.view-undergraduates-data', compact('undergraduates', 'aes', 'course'))->render(),
+            'Undergraduates' => view('data.registrar.view-rfid-information-data', compact('undergraduates', 'aes', 'course'))->render(),
         ], Response::HTTP_OK); 
     
     }
@@ -832,5 +1006,59 @@ class RegistrarController extends Controller
             'Search' => view('data.registrar.view-undergraduates-data', compact('undergraduates', 'aes', 'course'))->render(),
         ], Response::HTTP_OK); 
     }
+
+    public function searchRFIDInformation(Request $request) {
+
+        $course = $this->RegistrarInterface->CourseInfo($request);
+        $undergraduates = $this->RegistrarInterface->searchUndergraduates($request);
+        $aes = $this->aes;
+        
+        return response()->json([
+            'Search' => view('data.registrar.view-rfid-information-data', compact('undergraduates', 'aes', 'course'))->render(),
+        ], Response::HTTP_OK); 
+    }
+
+    public function getSubjectsForGrades(Request $request) {
+        $subjects = Subjects::where('courseInfoID', $this->aes->decrypt($request->semesterId))->get();
+        return response()->json(['subjects' => $subjects]);
+    }
+
+    public function getSectionsForGrades(Request $request) {
+        $sections = Schedule::where('courseInfoID', $this->aes->decrypt($request->semesterId))
+        ->where('schoolYear', $request->schoolYear)->get();
+        return response()->json(['sections' => $sections]);
+    }   
+
+    public function studentsForGrading(Request $request) {
+
+        $students = StudentYearLevel::where('scheduleID', $request->section)
+        ->where('courseInfoID', $this->aes->decrypt($request->yearSemester))
+        ->whereHas('Student', function ($query) {
+            $query->orderBy('lastname'); // Order by lastname from the LearnersProfile model
+        })
+        ->get();
+
+        $grades = StudentGrading::where('subjectID', $request->subject)
+        ->where('courseInfoID', $this->aes->decrypt($request->yearSemester))
+        ->get();
+
+        $aes = $this->aes;
+
+        return response()->json([
+            'Grades' => view('data.registrar.grades-data', compact('students', 'grades', 'aes'))->render()
+        ]);
+    }
     
+    public function ORF(Request $request) {
+        $student = StudentYearLevel::where('studentID', $this->aes->decrypt($request->student))
+        ->where('scheduleID', $this->aes->decrypt($request->id))
+        ->first();
+
+        $learner = LearnersProfile::where('id', $this->aes->decrypt($request->student))->first();
+
+        $schedule = Schedule::where('id', $student->scheduleID)->first();
+        $subjectSchedule = SubjectSchedule::where('scheduleID', $student->scheduleID)->get();
+
+        return view('pages.ORF', compact('schedule', 'subjectSchedule', 'student', 'learner'));
+    }
 }

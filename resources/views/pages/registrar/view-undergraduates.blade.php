@@ -40,14 +40,16 @@
                     </div>
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
+                           
+                            <div class="card-body">
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
                                         <h6 class="text-sm">{{ $course->qualification }}</h6>
                                     </div>
+                                    <div class="d-flex">
+                                        <small class="me-2 mt-1">Total: </small><h3>{{ $undergraduates->flatten()->count() }}</h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
                                 <div class="table-responsive">
                                    @include('data.registrar.view-undergraduates-data')
                                 </div>

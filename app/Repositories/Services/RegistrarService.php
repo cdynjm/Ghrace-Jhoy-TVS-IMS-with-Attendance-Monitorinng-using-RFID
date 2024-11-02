@@ -39,6 +39,7 @@ use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
 use App\Models\Schedule;
 use App\Models\RFIDAttendance;
+use App\Models\SubjectSchedule;
 
 class RegistrarService implements RegistrarInterface {
 
@@ -403,13 +404,15 @@ class RegistrarService implements RegistrarInterface {
     public function Undergraduates($request) {
         return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
             $query->where('course', $this->aes->decrypt($request->id))
-            ->where('diploma', null)
-            ->where('freshmen', 0)
-            ->where('yearLevel', '!=', null);
-        })->orderBy('lastname', 'ASC')
-            ->get();
-            
+                ->where('diploma', null)
+                ->where('freshmen', 0)
+                ->where('yearLevel', '!=', null);
+        })->orderBy('yearLevel', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
     }
+    
 
     public function searchUndergraduates($request) {
         return LearnersProfile::whereHas('learnersCourse', function($query) use ($request) {
@@ -423,8 +426,10 @@ class RegistrarService implements RegistrarInterface {
                   ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
                   ->orWhere('middlename', 'LIKE', '%'.$request->search.'%');
         })
-        ->orderBy('lastname', 'ASC')
-            ->get();
+        ->orderBy('yearLevel', 'ASC')
+            ->orderBy('lastname', 'ASC')
+            ->get()
+            ->groupBy('yearLevel');
             
     }
 
@@ -467,6 +472,17 @@ class RegistrarService implements RegistrarInterface {
         ->orderBy('created_at', 'DESC')
         ->get()
         ->groupBy('yearLevel');
+    }
+
+    public function getSchedule($request) {
+        return Schedule::where('courseID', $this->aes->decrypt($request->id))
+            ->orderBy('courseInfoID', 'ASC')
+            ->where('status', 1)
+            ->get();
+    }
+
+    public function SubjectSchedule($request) {
+        return SubjectSchedule::where('courseID', $this->aes->decrypt($request->id))->get();
     }
 
 }

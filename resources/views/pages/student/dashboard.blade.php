@@ -34,7 +34,7 @@
             </nav>
             <a href="javascript:;" id="downloadPDF" class="mb-4"><i class="fab fa-wpforms me-1 mb-4" data-value="{{ strtolower(Auth::user()->Student->firstname) }}-{{ strtolower(Auth::user()->Student->lastname) }}"></i> Download your Registration Form here!</a>
 
-            @if(Auth::user()->Student->admission_status == 1)
+            @if(Auth::user()->Student->admission_status == 1 || Auth::user()->Student->admission_status == 2)
                 <div class="row">
                     <div class="col-md-12">                        
                         <p class="text-light fw-medium mt-2">Your Admission Application Progress</p>
@@ -304,7 +304,7 @@
                           <span class="badge bg-label-secondary">STUDENT</span>
                           @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 1)
                           <div class="mt-2">
-                            <small class="mt-2 fw-bold">GRADUATED</small>
+                            <small class="mt-2 fw-bold text-success">GRADUATED</small>
                          </div>
                          @elseif(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 0)
                          <div class="mt-2">
@@ -337,9 +337,16 @@
                                 </div>
                             @endif
 
+                           
+                                @if(Auth::user()->Student->enrollmentStatus == 0) <small class="text-success">Currently Enrolled</small> @endif
+                                @if(Auth::user()->Student->enrollmentStatus == 1) <small class="text-warning">For Enrollment Next Sem</small> @endif
+                            
+
                          @else
                          <div class="mt-2">
-                            <small class="mt-2 fw-bold">For Enrollment (Freshmen)</small>
+
+                            <small class="mt-2 fw-bold text-danger">Pending Status</small>
+                            
                         </div>
                          @endif
                         @endif
@@ -352,30 +359,9 @@
                     </div>
                     <div class="d-flex justify-content-around flex-wrap my-2 py-2">
                       <div class="d-flex align-items-start me-4 mt-2 gap-3">
-                        @if(Auth::user()->Student->enrollmentStatus == 0)
-                            <span class="badge bg-label-success p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
-                        @endif
-                        @if(Auth::user()->Student->enrollmentStatus == 1)
-                            <span class="badge bg-label-danger p-2 rounded"><i class='bx bx-minus bx-sm'></i></span>
-                        @endif
-                        @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 0)
-                            <span class="badge bg-label-danger p-2 rounded"><i class='bx bx-minus bx-sm'></i></span>
-                        @endif
-                        @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 1)
-                            <span class="badge bg-label-success p-2 rounded"><i class='bx bxs-graduation bx-sm'></i></span>
-                        @endif
+                        
                         <div>
-                          <h6 class="mb-0">Status</h6>
-                          @if(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 1)
-                          <small>Graduated - For Employment</small>
-                          @elseif(Auth::user()->Student->enrollmentStatus == 2 && Auth::user()->Student->diploma == 0)
-                          <small>Pending</small>
-                          @else
-                          <small>Enrollment - 
-                            @if(Auth::user()->Student->enrollmentStatus == 0) Enrolled @endif
-                            @if(Auth::user()->Student->enrollmentStatus == 1) Pending @endif
-                            </small>
-                          @endif
+                          
                         </div>
                       </div>
                       
@@ -546,7 +532,7 @@
                             <div id="chart-{{ $yl->id }}" class="overflow-hidden"></div>
                             
                         
-                            <script>
+                        <!--    <script>
                             
                                 $(document).ready(function() {
                                     const mtValues = @json($mtValues);
@@ -624,7 +610,7 @@
                                     chart.render();
                                 });
                             
-                            </script>
+                            </script> -->
                                 
                             </div>
                         </div>

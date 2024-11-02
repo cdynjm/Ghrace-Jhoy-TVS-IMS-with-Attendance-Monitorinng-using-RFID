@@ -57,6 +57,9 @@ interface RegistrarInterface {
 
     public function RFIDAttendance($request);
 
+    public function getSchedule($request);
+    public function SubjectSchedule($request);
+
 }
 
 

@@ -28,9 +28,7 @@
 
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
-                    <li class="breadcrumb-item">
-                        <a wire:navigate href="{{ route('registrar.grades', ['id' => $aes->encrypt2($student->LearnersCourse->course)]) }}" class="fw-bold text-primary">Go Back |</a>
-                    </li>
+                    
                     <li class="breadcrumb-item">
                         <a href="javascript:void(0);" class="fw-bold">Grades |</a>
                     </li>
@@ -51,6 +49,16 @@
                             </a>
                         </div>
                     </div>
+                </div>
+
+                <div class="col-md-12 mb-4">
+                    
+                    <select name="yearSemester" id="search-year-semester" class="form-select" required data-id="{{ $id }}">
+                        <option value="">Select Year and Semester...</option>
+                        @foreach ($courseInfo as $ci)
+                            <option value="{{ $aes->encrypt($ci->id) }}">{{ $ci->yearLevel }} - {{ $ci->semester }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 @include('data.registrar.edit-grades-data')

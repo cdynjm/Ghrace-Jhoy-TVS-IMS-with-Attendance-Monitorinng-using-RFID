@@ -4,7 +4,7 @@
     $aes = new AESCipher();
 @endphp
 
-@extends('modals.registrar.update.enroll-student-modal')
+@extends('modals.registrar.update.update-grades-modal')
 
 @extends('app')
 
@@ -35,21 +35,55 @@
             </nav>
 
                 <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <input type="text" class="form-control" placeholder="Search..." id="search-grades" data-id="{{ $aes->encrypt($course->id) }}">
-                    </div>
+
+                    <form action="" id="search-student-for-grading">
+                        <div class="row">
+                            <div class="col-md-3 mb-4">
+                                <select name="schoolYear" id="schoolYear-grades" class="form-select" required>
+                                    <option value="">Select School Year...</option>
+                                    @foreach ($schoolYears as $sy)
+                                        <option value="{{ $sy->schoolYear }}">{{ $sy->schoolYear }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <select name="yearSemester" id="yearSemester-grades" class="form-select" required>
+                                    <option value="">Select Year and Semester...</option>
+                                    @foreach ($courseInfo as $ci)
+                                        <option value="{{ $aes->encrypt($ci->id) }}">{{ $ci->yearLevel }} - {{ $ci->semester }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <select name="subject" id="subject" class="form-select" required>
+                                    <option value="">Select Subject</option>
+                                    <!-- Options will be populated dynamically -->
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-4 d-flex">
+                                <select name="section" id="section" class="form-select me-4" required>
+                                    <option value="">Select Section</option>
+                                    <!-- Options will be populated dynamically -->
+                                </select>
+                                <button class="btn btn-success"><i class='bx bxs-search-alt-2 text-lg'></i></button>
+                            </div>
+                        </div>                        
+                    </form>
+
+                 <!--    <div class="col-md-4 mb-4">
+                       <input type="text" class="form-control" placeholder="Search..." id="search-grades" data-id="{{ $aes->encrypt($course->id) }}">
+                    </div> -->
                     <div class="col-md-12">
                         
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-body">
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
-                                        <h6 class="text-sm">{{ $course->qualification }}</h6>
+                                        <h6 class="text-sm text-uppercase">{{ $course->qualification }}</h6>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
+                                <div class="table-responsive mt-2">
+                                    <input type="text" id="search-input" class="form-control mb-3" placeholder="Search..." disabled>
                                    @include('data.registrar.grades-data')
                                 </div>
                             </div>

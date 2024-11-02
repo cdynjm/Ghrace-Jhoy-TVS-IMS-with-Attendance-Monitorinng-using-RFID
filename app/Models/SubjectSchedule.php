@@ -44,4 +44,8 @@ class SubjectSchedule extends Model
     public function Subjects() {
         return $this->hasOne(Subjects::class, 'id', 'subject')->withTrashed();
     }
+
+    public function Courses() {
+        return $this->hasOne(Courses::class, 'id', 'courseID')->withTrashed();
+    }
 }

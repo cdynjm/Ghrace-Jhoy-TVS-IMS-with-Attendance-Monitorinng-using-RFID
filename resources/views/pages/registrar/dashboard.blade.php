@@ -28,7 +28,8 @@
             </nav>
 
             <div class="row">
-              <div class="col-sm-6 col-lg-3 mb-4">
+              <p class="mb-3">Admission Application Summary</p>
+              <div class="col-sm-6 col-lg-4 mb-4">
                   <div class="card card-border-shadow-warning h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -44,7 +45,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6 col-lg-3 mb-4">
+                <div class="col-sm-6 col-lg-4 mb-4">
                   <div class="card card-border-shadow-success h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -60,7 +61,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6 col-lg-3 mb-4">
+                <div class="col-sm-6 col-lg-4 mb-4">
                   <div class="card card-border-shadow-primary h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -76,7 +77,11 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6 col-lg-3 mb-4">
+                <div class="col-md-12">
+                  <hr class="mt-2 mb-3">
+                </div>
+                <p class="mb-3">Enrollment & Students</p>
+                <div class="col-sm-6 col-lg-4 mb-4">
                   <div class="card card-border-shadow-danger h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -93,18 +98,35 @@
                   </div>
                 </div>
                 
-                <div class="col-sm-6 col-lg-3 mb-4">
+                <div class="col-sm-6 col-lg-4 mb-4">
                   <div class="card card-border-shadow-info h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
                         <div class="avatar me-2">
                           <span class="avatar-initial rounded bg-label-info"><i class='bx bxs-user-detail' ></i></span>
                         </div>
-                        <h4 class="ms-1 mb-0">{{ $student->where('enrollmentStatus', 0)->count() }}</h4>
+                        <h4 class="ms-1 mb-0">{{ $student->where('enrollmentStatus', 0)->where('admission_status', 0)->count() }}</h4>
                       </div>
                       <p class="mb-0">Students</p>
                       <p class="mb-0">
                         <small class="text-muted">Enrolled</small>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 mb-4">
+                  <div class="card card-border-shadow-success h-100">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center mb-2 pb-1">
+                        <div class="avatar me-2">
+                          <span class="avatar-initial rounded bg-label-success"><i class='bx bxs-graduation'></i></</span>
+                        </div>
+                        <h4 class="ms-1 mb-0">{{ $student->where('diploma', 1)->count() }}</h4>
+                      </div>
+                      <p class="mb-0">Graduates</p>
+                      <p class="mb-0">
+                        <small class="text-muted">Total</small>
                       </p>
                     </div>
                   </div>

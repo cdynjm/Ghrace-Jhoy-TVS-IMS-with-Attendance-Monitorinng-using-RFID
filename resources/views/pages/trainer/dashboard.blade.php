@@ -27,16 +27,21 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Dashboard |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Schedules |</a>
                   </li>
-                  <li class="breadcrumb-item">Schedules</li>
+                  <li class="breadcrumb-item">Data</li>
                 </ol>
             </nav>
 
             <div class="row">
-
-                <div class="col-md-12 mb-4 text-center">
-                    <div id="clock" class="clock fs-1 fw-bold ms-auto">
+                <div class="col-md-4 mb-4">
+                    
+                </div>
+                <div class="col-md-4 mb-4">
+                    
+                </div>
+                <div class="col-md-4 mb-4 text-lg-end text-center">
+                    <div id="clock" class="clock fs-2 fw-bold ms-auto">
                         <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span> <span id="ampm">AM</span>
                     </div>
                     <div id="date" class="date fs-6 fw-normal ms-auto mb-3"></div>
@@ -98,12 +103,13 @@
                                     <thead class="text-dark" style="background: rgb(244, 244, 244)">
                                         <tr>
                                             <th>#</th>
-                                            <th><small>Year & Section</small></th>
+                                            <th><small>Year, Sem & Section</small></th>
                                             <th><small>Subject Code</small></th>
                                             <th><small>Description</small></th>
                                             <th><small>Time</small></th>
                                             <th><small>Room</small></th>
-                                            <th><small>Action</small></th>
+                                            <th><small>Major</small></th>
+                                         <!--   <th><small>Action</small></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -111,16 +117,18 @@
                                         @foreach ($dayData->sortBy('fromTime') as $sc)
                                             <tr>
                                                 <td><small>{{ ++$count }}</small></td>
-                                                <td><small>{{ $sc->CourseInfo->yearLevel }} - {{ $sc->Schedule->section }}</small></td>
+                                                <td><small>{{ $sc->CourseInfo->yearLevel }} | {{ $sc->CourseInfo->semester }} | {{ $sc->Schedule->section }}</small></td>
+                                                
                                                 <td><small>{{ $sc->Subjects->subjectCode }}</small></td>
                                                 <td><small>{{ $sc->Subjects->description }}</small></td>
                                                 <td><small>{{ date('h:i A', strtotime($sc->fromTime)) }} - {{ date('h:i A', strtotime($sc->toTime)) }}</small></td>
                                                 <td><small>{{ $sc->room }}</small></td>
-                                                <td>
+                                                <td><small class="fw-bold">{{ $sc->Courses->qualification }}</small></td>
+                                              <!--  <td>
                                                     <small>
                                                         <a wire:navigate href="{{ route('trainer.students', ['id' => $aes->encrypt($sc->id), 'scheduleID' => $aes->encrypt($sc->scheduleID), 'courseInfoID' => $aes->encrypt($sc->courseInfoID), 'subjectID' => $aes->encrypt($sc->subject)]) }}" class="btn btn-xs btn-primary me-1"><iconify-icon icon="lets-icons:view-duotone" width="18" height="18" class="me-1"></iconify-icon> View</a>
                                                     </small>
-                                                </td>
+                                                </td> -->
                                             </tr>
                                         @endforeach
                                         @if ($count == 0)

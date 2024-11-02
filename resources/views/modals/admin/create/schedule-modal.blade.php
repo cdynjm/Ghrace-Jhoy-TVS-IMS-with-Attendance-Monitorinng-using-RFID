@@ -9,7 +9,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-12 mb-3">
+            <div class="col-md-12 mb-2">
 
               <div class="processing alert alert-success" style="display: none"></div>
 
@@ -61,6 +61,10 @@
 
               @include('modals.admin.create.subjects.subject-list')
 
+            </div>
+
+            <div class="col-md-12">
+              <div class="error-sched alert alert-danger" style="display: none"></div>
             </div>
           </div>
         </div>

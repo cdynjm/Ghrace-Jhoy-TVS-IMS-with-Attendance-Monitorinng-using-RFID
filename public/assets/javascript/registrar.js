@@ -1196,7 +1196,7 @@ $(document).on('submit', "#update-student-information", function(e){
         APIrequest().then(response => {
             $('.processing').hide(100);
             $("#edit-student-information-modal").modal('hide');
-            $('#view-undergraduates-data').html(response.data.Undergraduates);
+            $('#view-rfid-information-data').html(response.data.Undergraduates);
             SweetAlert.fire({
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
@@ -1424,6 +1424,35 @@ $(document).on('keyup', "#search-undergraduates", function(e){
     }
     APIrequest().then(response => {
         $('#view-undergraduates-data').html(response.data.Search); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
+
+$(document).on('keyup', "#search-rfid-information", function(e){
+  
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+    async function APIrequest() {
+        return await axios.post('/api/search/rfid-information', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-rfid-information-data').html(response.data.Search); 
     })
     .catch(error => {
         console.error('Error:', error);
@@ -1885,6 +1914,7 @@ $(document).on('submit', "#create-schedule", function(e){
         }
         APIrequest().then(response => {
             $('.processing').hide(100);
+            $('.error-sched').hide(100);
             $("#create-schedule-modal").modal('hide');
             $('input').val('');
             $('#schedule-subject-course-data').html(response.data.Schedule)
@@ -1892,15 +1922,25 @@ $(document).on('submit', "#create-schedule", function(e){
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
                 confirmButtonColor: "#3a57e8"
-            });
+            }).then(() => {
+                window.location.reload();
+              });
         })
         .catch(error => {
             console.error('Error:', error);
-            SweetAlert.fire({
-                icon: 'error',
-                html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
-                confirmButtonColor: "#3a57e8"
-            });
+            $('.processing').hide(100);
+            $('.error-sched').show(100);
+        
+            // Check if the error response and message exist
+            const errorMessage = error.response && error.response.data && error.response.data.Message 
+                ? error.response.data.Message 
+                : 'An unexpected error occurred.';
+        
+            $('.error-sched').html(`
+                <div class="col d-flex">
+                    <div class="text-sm mt-1 ms-4">${errorMessage}</div>
+                </div>
+            `);
         });
     }, 1500);
 });
@@ -1981,15 +2021,25 @@ $(document).on('submit', "#update-schedule", function(e){
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
                 confirmButtonColor: "#3a57e8"
-            });
+            }).then(() => {
+                window.location.reload();
+              });
         })
         .catch(error => {
             console.error('Error:', error);
-            SweetAlert.fire({
-                icon: 'error',
-                html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
-                confirmButtonColor: "#3a57e8"
-            });
+            $('.processing').hide(100);
+            $('.error-sched').show(100);
+        
+            // Check if the error response and message exist
+            const errorMessage = error.response && error.response.data && error.response.data.Message 
+                ? error.response.data.Message 
+                : 'An unexpected error occurred.';
+        
+            $('.error-sched').html(`
+                <div class="col d-flex">
+                    <div class="text-sm mt-1 ms-4">${errorMessage}</div>
+                </div>
+            `);
         });
     }, 1500);
 });
@@ -2076,6 +2126,85 @@ $(document).on('keyup', "#search-course-info", function(e){
             });
         });
  
+});
+
+$(document).on('submit', "#search-schedule", function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    async function APIrequest() {
+        return await axios.post('/api/search/schedule', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#schedule-subject-course-data').html(response.data.schedule);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+});
+
+$(document).on('change', "#search-year-semester", function(e){
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+    formData.append('id', $(this).data('id'));
+
+    console.log($(this).val())
+    console.log($(this).data('id'))
+    async function APIrequest() {
+        return await axios.post('/api/search/grades-year-semester', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#edit-grades-data').html(response.data.Grades);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+});
+
+$(document).on('submit', "#search-student-attendance", function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    async function APIrequest() {
+        return await axios.post('/api/search/student-attendance', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-student-attendance-data').html(response.data.Attendance);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
 });
 
 $(document).on('click', '#add-instructor', function() {
@@ -2247,5 +2376,287 @@ $(document).on('click', "#delete-instructor", function(e){
                 });
             });
         }
+    });
+});
+
+
+
+    function loadSubjects(schoolYear, semesterId) {
+        // Function to load subjects based on selected school year and semester
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + $('meta[name="token"]').attr('content');
+        axios.get('/api/search/get-subjects-for-grades', {
+            params: {
+                schoolYear: schoolYear,
+                semesterId: semesterId
+            }
+        })
+        .then(function(response) {
+            // Clear current options
+            $('#subject').empty().append('<option value="">Select Subject</option>');
+            // Populate subjects
+            response.data.subjects.forEach(function(subject) {
+                $('#subject').append('<option value="' + subject.id + '">' + subject.description + '</option>');
+            });
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+    }
+
+    // Function to load sections based on selected school year and semester
+    function loadSections(schoolYear, semesterId) {
+        // Function to load subjects based on selected school year and semester
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + $('meta[name="token"]').attr('content');
+        axios.get('/api/search/get-sections-for-grades', {
+            params: {
+                schoolYear: schoolYear,
+                semesterId: semesterId
+            }
+        })
+        .then(function(response) {
+            // Clear current options
+            $('#section').empty().append('<option value="">Select Section</option>');
+            // Populate sections
+            response.data.sections.forEach(function(section) {
+                $('#section').append('<option value="' + section.id + '">' + section.section + '</option>');
+            });
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+    }
+
+    // Event listener for school year and semester change
+    $(document).on('change', '#schoolYear-grades, #yearSemester-grades', function() {
+        var schoolYear = $('#schoolYear-grades').val();
+        var semesterId = $('#yearSemester-grades').val();
+
+        // Check if both fields have values
+        if (schoolYear && semesterId) {
+            loadSubjects(schoolYear, semesterId);
+            loadSections(schoolYear, semesterId);
+        } else {
+            // Clear options if one of the fields is not selected
+            $('#subject').empty().append('<option value="">Select Subject</option>');
+            $('#section').empty().append('<option value="">Select Section</option>');
+        }
+    });
+
+    function gradesDataTable() {
+        $('#grades-data-table').DataTable(
+            {
+                language: {
+                  'paginate': {
+                    'previous': '<span class="prev-icon"><i class="fas fa-angle-double-left"></i></span>',
+                    'next': '<span class="next-icon"><i class="fas fa-angle-double-right"></i></span>'
+                  },
+                  'lengthMenu': `Show 
+                                <select class="form-select form-select-sm pe-5">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select> 
+                               entries`
+                },
+                pageLength: 20
+              }
+        );
+        $('.dataTables_wrapper .dataTables_filter input').css('width', '200px')
+    }
+    
+    document.addEventListener('livewire:navigated', () => { 
+        $(document).ready(function () {
+            
+        });
+    });
+
+$(document).on('submit', "#search-student-for-grading", function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    async function APIrequest() {
+        return await axios.post('/api/search/students-for-grading', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#grades-data-table').html(response.data.Grades);
+        $('#search-input').prop('disabled', false)
+        
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+});
+
+
+$(document).on('keyup', '#search-input', function() {
+    var searchTerm = $(this).val().toLowerCase().replace(/^\s+|\s+$/g, ''); // Remove leading/trailing spaces only
+    var noResults = true;
+
+    // Filter through each row in the tbody except those with the 'exclude-from-search' class
+    $('#grades-data-table tbody tr').not('.exclude-from-search').each(function() {
+        var rowText = $(this).text().toLowerCase();
+
+        // Check if row contains the search term
+        if (rowText.includes(searchTerm)) {
+            $(this).show();  // Show rows that match the search term
+            noResults = false; // At least one row matches
+        } else {
+            $(this).hide();  // Hide rows that don’t match
+        }
+    });
+
+    // Show 'No data found' message if no rows match
+    if (noResults) {
+        $('#grades-data-table tbody').append('<tr class="no-data"><td colspan="7" class="text-center">No data found</td></tr>');
+    } else {
+        $('#grades-data-table tbody .no-data').remove(); // Remove 'No data found' message if there are matching rows
+    }
+});
+
+$(document).on('click', '#update-grades-value', function() {
+    var id = $(this).parents('tr').find('td[id]').attr("id");
+    var gradeID = $(this).parents('tr').find('td[gradeID]').attr("gradeID");
+    var schoolYear = $(this).parents('tr').find('td[schoolYear]').attr("schoolYear");
+    var semester = $(this).parents('tr').find('td[semester]').attr("semester");
+    var subject = $(this).parents('tr').find('td[subject]').attr("subject");
+    var section = $(this).parents('tr').find('td[section]').attr("section");
+    var mt = $(this).parents('tr').find('td[mt]').attr("mt");
+    var ft = $(this).parents('tr').find('td[ft]').attr("ft");
+    var nc = $(this).parents('tr').find('td[nc]').attr("nc");
+    var assessment = $(this).parents('tr').find('td[assessment]').attr("assessment");
+    
+
+    $('#update-id').val(id);
+    $('#update-grade-id').val(gradeID);
+    $('#update-school-year').val(schoolYear);
+    $('#update-semester').val(semester);
+    $('#update-subject').val(subject);
+    $('#update-section').val(section);
+    $('#update-mt').val(mt);
+    $('#update-ft').val(ft);
+
+    if(nc == 1) {
+        $('#update-assessment').val(assessment);
+        $('.resultant-subject').show(200);
+    }
+    else {
+        $('.resultant-subject').hide(200);
+    }
+
+    $('#update-grades-modal').modal('show');
+});
+
+$(document).on('submit', "#update-grades-data-value", function(e){
+    e.preventDefault();
+    $('.processing').show(100);
+    $('.processing').html(`
+        <div class="col d-flex">
+            <div>
+                <!-- Pluse -->
+                <div class="sk-pulse sk-primary"></div>
+            </div>
+            <div class="text-sm mt-1 ms-4">Processing...</div>
+        </div>
+    `);
+    
+    setTimeout(() => {
+        const formData = new FormData(this);
+        formData.append('_method', 'PATCH');
+        async function APIrequest() {
+            return await axios.post('/api/update/grades-data-value', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                }
+            })
+        }
+        APIrequest().then(response => {
+            $('.processing').hide(100);
+            $("#update-grades-modal").modal('hide');
+            $('input').val('');
+            $('#grades-data-table').html(response.data.Grades);
+            $('#search-input').prop('disabled', false);
+            SweetAlert.fire({
+                icon: 'success',
+                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            SweetAlert.fire({
+                icon: 'error',
+                html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        });
+    }, 1500);
+});
+
+$(document).on('click', '#download-ORF', function() {
+    var name = $(this).data('name');
+    var id = $(this).data('id');
+    var student = $(this).data('student');
+    
+    // Send the id as a query parameter
+    axios.get('/registrar/download-orf', {
+        params: {
+            id: id,
+            student: student
+        }
+    })
+    .then(function(response) {
+        var data = response.data;
+        var tempDiv = $('<div></div>').html(data);
+        $('#body-orf').append(tempDiv);
+
+        var style = $(`
+            <style>
+                #body-orf, h1, h2, h3, h4, h5, h6 {
+                    color: black !important;
+                }
+            </style>
+        `);
+        tempDiv.append(style);
+
+        html2pdf().from(tempDiv[0]).set({
+            margin: 0.5,
+            filename: name + '-ORF.pdf',
+            html2canvas: { scale: 5 },
+            jsPDF: { orientation: 'portrait', unit: 'in', format: 'legal' }
+        }).save().then(function () {
+            tempDiv.remove();
+        });
+
+        SweetAlert.fire({
+            icon: 'success',
+            html: `<h4 class="mb-0">Done</h4><small>Wait for the file to be downloaded.</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    })
+    .catch(function(error) {
+        console.error('Error fetching the content:', error);
+    });
+
+    SweetAlert.fire({
+        position: 'center',
+        icon: 'info',
+        html: `<h4>Downloading...</h4>`,
+        allowOutsideClick: false,
+        showConfirmButton: false
     });
 });

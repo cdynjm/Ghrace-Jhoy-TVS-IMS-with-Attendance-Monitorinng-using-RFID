@@ -34,109 +34,36 @@
             </nav>
 
             <div class="row">
-                @php
-                    $data = false;
-                @endphp
-                @foreach ($yearLevel as $yl)
-                <div class="col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex flex-row justify-content-between">
-                                <div>
-                                    <h6 class="text-sm">{{ $yl->Schedule->CourseInfo->yearLevel }} - {{ $yl->Schedule->CourseInfo->semester }}</h6>
-                                    <p class="my-1">Section: {{ $yl->Schedule->section }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-sm table-hover text-nowrap mb-4" style="border-bottom: 1px solid rgb(240, 240, 240)">
-                                    <thead class="text-dark" style="background: rgb(244, 244, 244)">
-                                        <tr>
-                                            <th class="text-nowrap"><small>Subject Code</small></th>
-                                            <th class="text-nowrap"><small>Description</small></th>
-                                            <th class="text-nowrap"><small>Units</small></th>
-                                            <th class="text-nowrap"><small>Schedule</small></th>
-                                            <th class="text-nowrap"><small>Instructor</small></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                            $totalUnits = 0;
-                                        @endphp
-                                        @foreach ($subjectSchedule->where('scheduleID', $yl->scheduleID) as $sub)
-                                        <tr>
-                                            <td><small>{{ $sub->Subjects->subjectCode }}</small></td>
-                                            <td><small>{{ $sub->Subjects->description }}</small></td>
-                                            <td><small>{{ $sub->Subjects->units }}</small></td>
-                                            <td>
-                                                <div>
-                                                    <small>
-                                                        @if($sub->mon == 1)
-                                                            Mon 
-                                                        @endif
-                                
-                                                        @if($sub->tue == 1)
-                                                            Tue 
-                                                        @endif
-                                
-                                                        @if($sub->wed == 1)
-                                                            Wed 
-                                                        @endif
-                                
-                                                        @if($sub->thu == 1)
-                                                            Thu 
-                                                        @endif
-                                
-                                                        @if($sub->fri == 1)
-                                                            Fri 
-                                                        @endif
-                                
-                                                        @if($sub->sat == 1)
-                                                            Sat 
-                                                        @endif
-                                                        |
-                                                        {{ $sub->fromTime != null ? date('h:i A', strtotime($sub->fromTime)) : 'none' }} - {{ $sub->toTime != null ? date('h:i A', strtotime($sub->toTime)) : 'none' }} | {{ $sub->room }}
-                                                    </small>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div><small>{{ $sub->Instructors->instructor }}</small></div>
-                                            </td>
-                                        </tr>
-                                        @php
-                                            $totalUnits += $sub->Subjects->units;
-                                        @endphp
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="2" class="text-end"><small><strong>Total Units:</strong></small></td>
-                                            <td><small><strong>{{ $totalUnits }}</strong></small></td>
-                                            <td colspan="2"></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @php
-                    $data = true;
-                @endphp
-                @endforeach
 
-                @if($data == false)
+                <form action="" id="search-schedule">
                     <div class="row">
-                        <div class="col-md-12 mb-4">
-                            <div class="card">
-                                <div class="card-header text-center">
-                                    <p class="my-0">No Schedule Yet</p>
-                                </div>
-                            </div>
+                        <div class="col-md-4 mb-4">
+                            <input type="hidden" name="enrollmentStatus" value="{{ Auth::user()->Student->enrollmentStatus }}">
+                            <select name="schoolYear" id="" class="form-select" required>
+                                <option value="">Select School Year...</option>
+                                @foreach ($schoolYears as $sy)
+                                    <option value="{{ $sy->schoolYear }}">{{ $sy->schoolYear }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <select name="yearSemester" id="" class="form-select" required>
+                                <option value="">Select Year and Semester...</option>
+                                @foreach ($courseInfo as $ci)
+                                    <option value="{{ $aes->encrypt($ci->id) }}">{{ $ci->yearLevel }} - {{ $ci->semester }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <button class="btn btn-success"><i class='bx bxs-search-alt-2 text-lg'></i></button>
                         </div>
                     </div>
-                @endif
+                </form>
+
+              
+            
+                    @include('data.student.schedule-subject-course-data')
+            
             </div>
           
           @include('layouts.footer')

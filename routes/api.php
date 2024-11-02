@@ -9,6 +9,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrainerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::group(['prefix' => 'create'], function () {
             Route::post('/course', [AdminController::class, 'createCourse']);
             Route::post('/course-info', [AdminController::class, 'createCourseInfo']);
-            Route::post('/instructor', [AdminController::class, 'createInstructor']);
+            Route::post('/admin/instructor', [AdminController::class, 'createInstructor']);
             Route::post('/schedule', [AdminController::class, 'createSubjectSchedule']);
             Route::post('/subjects', [AdminController::class, 'getSubjects']);
             Route::post('/subject-schedule', [AdminController::class, 'getSubjectSchedule']);
@@ -55,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::group(['prefix' => 'update'], function () {
             Route::patch('/course', [AdminController::class, 'updateCourse']);
-            Route::patch('/instructor', [AdminController::class, 'updateInstructor']);
+            Route::patch('/admin/instructor', [AdminController::class, 'updateInstructor']);
             Route::patch('/schedule', [AdminController::class, 'updateSubjectSchedule']);
             Route::patch('/admin/admission-status', [AdminController::class, 'admissionStatus']);
             Route::patch('/course-info', [AdminController::class, 'updateCourseInfo']);
@@ -64,7 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
         
         Route::group(['prefix' => 'delete'], function () {
             Route::delete('/course', [AdminController::class, 'deleteCourse']);
-            Route::delete('/instructor', [AdminController::class, 'deleteInstructor']);
+            Route::delete('/admin/instructor', [AdminController::class, 'deleteInstructor']);
             Route::delete('/schedule', [AdminController::class, 'archiveSubjectSchedule']);
         });
 
@@ -73,6 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/admin/graduates', [AdminController::class, 'searchGraduates']);
             Route::post('/admin/undergraduates', [AdminController::class, 'searchUndergraduates']);
             Route::post('/admin/attendance', [AdminController::class, 'searchViewAttendance']);
+            Route::post('/admin/schedule', [AdminController::class, 'searchSchedule']);
         });
 
     });
@@ -99,6 +101,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::patch('/admission-passed', [RegistrarController::class, 'updateAdmissionPassed']);
             Route::patch('/enroll-student', [RegistrarController::class, 'enrollStudent']);
             Route::patch('/grades', [RegistrarController::class, 'updateGrades']);
+            Route::patch('/grades-data-value', [RegistrarController::class, 'updateGradesDataValue']);
 
             Route::patch('/failed-exam', [RegistrarController::class, 'failedExam']);
             Route::patch('/failed-interview', [RegistrarController::class, 'failedInterview']);
@@ -133,9 +136,18 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/graduates', [RegistrarController::class, 'searchGraduates']);
             Route::post('/undergraduates', [RegistrarController::class, 'searchUndergraduates']);
             Route::post('/attendance', [RegistrarController::class, 'searchViewAttendance']);
+            Route::post('/student-attendance', [RegistrarController::class, 'searchStudentAttendance']);
 
             Route::post('/specific-schedule', [RegistrarController::class, 'getSpecificSchedule']);
             Route::post('/course-info', [AdminController::class, 'searchCourseInfo']);
+            Route::post('/grades-year-semester', [RegistrarController::class, 'searchGradesYearSemester']);
+            Route::post('/schedule', [AdminController::class, 'searchSchedule']);
+
+            Route::get('/get-subjects-for-grades', [RegistrarController::class, 'getSubjectsForGrades']);
+            Route::get('/get-sections-for-grades', [RegistrarController::class, 'getSectionsForGrades']);
+
+            Route::post('/students-for-grading', [RegistrarController::class, 'studentsForGrading']);
+            Route::post('/rfid-information', [RegistrarController::class, 'searchRFIDInformation']);
         });
 
     });
@@ -149,6 +161,14 @@ Route::middleware('auth:sanctum')->group(function () {
         });
         
         Route::group(['prefix' => 'delete'], function () {
+        });
+
+        Route::group(['prefix' => 'search'], function () {
+            
+            Route::get('/get-school-year', [TrainerController::class, 'getSchoolYear']);
+            Route::get('/get-year-semester', [TrainerController::class, 'getYearSemester']);
+            Route::post('/grades-instructor', [TrainerController::class, 'gradesInstructor']);
+          
         });
 
     });
@@ -167,6 +187,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::group(['prefix' => 'delete'], function () {
             Route::delete('/psa', [StudentController::class, 'deletePSA']);
             Route::delete('/form137', [StudentController::class, 'deleteForm137']);
+        });
+
+        Route::group(['prefix' => 'search'], function () {
+            Route::post('/student/schedule', [StudentController::class, 'searchSchedule']);
+            Route::post('/student/grades-year-semester', [StudentController::class, 'searchGradesYearSemester']);
+            Route::post('/student/student-attendance', [StudentController::class, 'searchStudentAttendance']);
         });
 
     });

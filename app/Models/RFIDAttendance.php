@@ -19,9 +19,13 @@ class RFIDAttendance extends Model
         'month',
         'year',
         'date',
-        'timeIn',
-        'timeOut',
-        'smsIn',
-        'smsOut'
+        'timeInMorning',
+        'timeOutMorning',
+        'timeInAfternoon',
+        'timeOutAfternoon',
+        'smsInMorning',
+        'smsOutMorning',
+        'smsInAfternoon',
+        'smsOutAfternoon'
     ];
 }

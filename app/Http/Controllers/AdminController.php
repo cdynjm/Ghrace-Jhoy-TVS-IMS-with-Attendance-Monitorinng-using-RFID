@@ -77,7 +77,8 @@ class AdminController extends Controller
         $instructors = $this->AdminInterface->Instructors()->count();
         $courses = $this->AdminInterface->Courses()->count();
         $student = $this->AdminInterface->Students();
-        return view('pages.admin.dashboard', ['instructors' => $instructors, 'courses' => $courses, 'student' => $student]);
+        $graduate = LearnersProfile::where('diploma', 1)->count();
+        return view('pages.admin.dashboard', ['instructors' => $instructors, 'courses' => $courses, 'student' => $student, 'graduate' => $graduate]);
     }
     /**
      * Handle an incoming request.
@@ -386,6 +387,22 @@ class AdminController extends Controller
         $courses = $this->AdminInterface->Courses();
         return view('pages.admin.schedule', ['courses' => $courses]);
     }
+
+    public function searchSchedule(Request $request) {
+
+        $schedule = Schedule::where('courseID', $this->aes->decrypt($request->id))
+        ->where('schoolYear', $request->schoolYear)
+        ->where('courseInfoID', $this->aes->decrypt($request->yearSemester))
+        ->orderBy('courseInfoID', 'ASC')
+        ->get();
+
+        $subjectSchedule = $this->AdminInterface->SubjectSchedule($request);
+        $aes = $this->aes;
+
+        return response()->json([
+            'schedule' => view('data.admin.schedule-subject-course-data', compact('schedule', 'subjectSchedule', 'aes'))->render()
+        ], Response::HTTP_OK);
+    }
     /**
      * Handle an incoming request.
      *
@@ -398,7 +415,10 @@ class AdminController extends Controller
 
         $schedule = $this->AdminInterface->Schedule($request);
         $subjectSchedule = $this->AdminInterface->SubjectSchedule($request);
-        return view('pages.admin.create-schedule', compact('course', 'courseInfo', 'instructors', 'schedule', 'subjectSchedule'));
+
+        $schoolYears = Schedule::select('schoolYear')->distinct()->where('courseID', $this->aes->decrypt($request->id))->get();
+
+        return view('pages.admin.create-schedule', compact('course', 'courseInfo', 'instructors', 'schedule', 'subjectSchedule', 'schoolYears'));
     }
 
     public function getSubjects(Request $request){
@@ -413,7 +433,6 @@ class AdminController extends Controller
     }
 
     public function createSubjectSchedule(Request $request) {
-
         $schedule = Schedule::create([
             'courseID' => $this->aes->decrypt($request->id),
             'courseInfoID' => $this->aes->decrypt($request->yearLevel),
@@ -455,8 +474,9 @@ class AdminController extends Controller
             'Message' => 'Schedule created successfully',
             'Schedule' =>  view('data.admin.schedule-subject-course-data', compact('aes', 'courseInfo', 'instructors', 'schedule', 'subjectSchedule'))->render(),
         ], Response::HTTP_OK);
-
     }
+    
+    
 
     public function getSubjectSchedule(Request $request){
 

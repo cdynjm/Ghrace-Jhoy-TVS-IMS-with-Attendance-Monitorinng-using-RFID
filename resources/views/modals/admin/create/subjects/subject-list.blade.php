@@ -1,51 +1,66 @@
 <div class="subject-list-data">
-    @if(!empty($subjects))
-    @foreach ($subjects as $key => $sub)
-    <div id="subject-wrapper" class="mb-4">
-        <hr style="border-bottom: 2px solid gray">
-        <div class="subject-group mb-2">
-            <label for="" style="font-size: 12px;">Subject Schedule</label>
-            <input type="text" class="form-control mb-2 fw-bold" value="{{ $sub->description }}" readonly>
-            <input type="hidden" value="{{ $sub->id }}" name="subjectID[]">
-            @php
-                $label = [];
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Days</th>
+                    <th>Time - FROM | TO</th>
+                    <th>Instructor</th>
+                    <th>Room/Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(!empty($subjects))
+                    @foreach ($subjects as $key => $sub)
+                        <tr>
+                            <!-- Subject -->
+                            <td>
+                                {{ $sub->description }}
+                                <input type="hidden" name="subjectID[]" value="{{ $sub->id }}">
+                            </td>
 
-                $label[0] = 'Mon';
-                $label[1] = 'Tue';
-                $label[2] = 'Wed';
-                $label[3] = 'Thu';
-                $label[4] = 'Fri';
-                $label[5] = 'Sat';
-            @endphp
+                            <!-- Days (Checkboxes) in one row -->
+                            <td>
+                                @php
+                                    $label = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                                @endphp
+                                
+                                    @foreach ($label as $i => $day)
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" name="days[{{ $key }}][{{ $i }}]" value="1">
+                                            <label class="form-check-label ms-1" style="font-size: 12px">{{ $day }}</label>
+                                        </div>
+                                    @endforeach
+                               
+                            </td>
 
-            <div class="mb-2">
-                @for($i = 0; $i < 6; $i++)
-                    <div class="form-check form-switch d-inline-flex align-items-center me-2">
-                        <input type="checkbox" class="form-check-input" name="days[{{ $key }}][{{ $i }}]" value="1">
-                        <label class="form-check-label ms-1" style="font-size: 12px">{{ $label[$i] }}</label>
-                    </div>
-                @endfor
-            </div>
+                            <!-- Time - FROM | TO -->
+                            <td>
+                                <div class="d-flex">
+                                    <input type="time" name="fromTime[]" class="form-control me-2" placeholder="From">
+                                    <input type="time" name="toTime[]" class="form-control" placeholder="To">
+                                </div>
+                            </td>
 
-            <label for="" style="font-size: 12px">Time - FROM | TO</label>
-            <div class="d-flex">
-                <input type="time" name="fromTime[]" class="form-control mb-2 me-2">
-                <input type="time" name="toTime[]" class="form-control mb-2">
-            </div>
+                            <!-- Instructor -->
+                            <td>
+                                <select name="instructor[]" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    @foreach ($instructors as $in)
+                                        <option value="{{ $aes->encrypt($in->id) }}">{{ $in->instructor }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
 
-            <label for="" style="font-size: 12px;">Instructor <span class="text-danger">*</span></label>
-            <select name="instructor[]" id="" class="form-select me-2 mb-2" required>
-                <option value="">Select...</option>
-                @foreach ($instructors as $in)
-                    <option value="{{ $aes->encrypt($in->id) }}">{{ $in->instructor }}</option>
-                @endforeach
-            </select>
-
-            <label for="" style="font-size: 12px;">Room/Location</label>
-            <input type="text" name="room[]" class="form-control">
-            
-        </div>
+                            <!-- Room/Location -->
+                            <td>
+                                <input type="text" name="room[]" class="form-control" placeholder="Room/Location">
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
     </div>
-    @endforeach
-    @endif
 </div>

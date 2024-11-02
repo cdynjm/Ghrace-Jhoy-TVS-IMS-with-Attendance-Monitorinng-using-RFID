@@ -36,6 +36,8 @@ use App\Models\LearnersClass;
 use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
+use App\Models\Subjects;
+use App\Models\CoursesInfo;
 
 use App\Models\Tracker;
 
@@ -55,6 +57,19 @@ class StudentService implements StudentInterface {
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    public function CourseInfo($request) {
+        return Courses::where('id', $this->aes->decrypt($request->id))->first();
+    }
+
+    public function getCourseInfo($request) {
+        return CoursesInfo::where('courseID', $this->aes->decrypt($request->id))
+        ->orderBy('yearLevel', 'ASC')
+        ->orderBy('semester', 'ASC')
+        ->get();
+    }
+    public function Subjects($request) {
+        return Subjects::where('courseID', $this->aes->decrypt($request->id))->get();
+    }
     public function PSA() {
         return DocumentsPSA::where('studentID', Auth::user()->Student->id)->get();
     }
@@ -114,7 +129,7 @@ class StudentService implements StudentInterface {
     }
 
     public function subjectSchedule() {
-        return SubjectSchedule::get();
+        return SubjectSchedule::where('courseID', Auth::user()->Student->LearnersCourse->course)->get();
     }
 
     public function studentGrading() {

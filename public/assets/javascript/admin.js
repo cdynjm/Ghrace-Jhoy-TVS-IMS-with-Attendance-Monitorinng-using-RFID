@@ -470,7 +470,7 @@ $(document).on('submit', "#create-instructor", function(e){
     setTimeout(() => {
         const formData = new FormData(this);
         async function APIrequest() {
-            return await axios.post('/api/create/instructor', formData, {
+            return await axios.post('/api/create/admin/instructor', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -536,7 +536,7 @@ $(document).on('submit', "#update-instructor", function(e){
         const formData = new FormData(this);
         formData.append('_method', 'PATCH');
         async function APIrequest() {
-            return await axios.post('/api/update/instructor', formData, {
+            return await axios.post('/api/update/admin/instructor', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -589,7 +589,7 @@ $(document).on('click', "#delete-instructor", function(e){
             });
             const data = {id: $(this).parents('tr').find('td[id]').attr("id")};
             async function APIrequest() {
-                return await axios.delete('/api/delete/instructor', {
+                return await axios.delete('/api/delete/admin/instructor', {
                     data: data,
                     headers: {
                         'Content-Type': 'application/json', 
@@ -683,7 +683,9 @@ $(document).on('submit', "#create-schedule", function(e){
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
                 confirmButtonColor: "#3a57e8"
-            });
+            }).then(() => {
+                window.location.reload();
+              });
         })
         .catch(error => {
             console.error('Error:', error);
@@ -772,7 +774,9 @@ $(document).on('submit', "#update-schedule", function(e){
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
                 confirmButtonColor: "#3a57e8"
-            });
+            }).then(() => {
+                window.location.reload();
+              });
         })
         .catch(error => {
             console.error('Error:', error);
@@ -783,6 +787,31 @@ $(document).on('submit', "#update-schedule", function(e){
             });
         });
     }, 1500);
+});
+
+$(document).on('submit', "#search-schedule", function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    async function APIrequest() {
+        return await axios.post('/api/search/admin/schedule', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#schedule-subject-course-data').html(response.data.schedule);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
 });
 
 $(document).on('click', "#archive-schedule", function(e){

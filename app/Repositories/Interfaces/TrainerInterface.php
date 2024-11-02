@@ -8,6 +8,7 @@ interface TrainerInterface {
     public function getSchedule($request);
     public function Students($request);
     public function Grading($request);
+    public function Grades();
 
 }
 

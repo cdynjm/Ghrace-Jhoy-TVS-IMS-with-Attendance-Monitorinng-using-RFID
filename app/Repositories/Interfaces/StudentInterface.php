@@ -16,6 +16,10 @@ interface StudentInterface {
     public function subjectSchedule();
     public function studentGrading();
     public function RFIDAttendance();
+
+    public function CourseInfo($request);
+    public function getCourseInfo($request);
+    public function Subjects($request);
     
 }
 

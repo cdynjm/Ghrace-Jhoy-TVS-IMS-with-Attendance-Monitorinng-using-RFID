@@ -21,4 +21,11 @@ class CoursesInfo extends Model
     public function subjects() {
         return $this->hasMany(Subjects::class, 'courseInfoID')->withTrashed();
     }
+    public function Courses() {
+        return $this->hasMany(Courses::class, 'id', 'courseID')->withTrashed();
+    }
+
+    public function Course() {
+        return $this->hasOne(Courses::class, 'id', 'courseID')->withTrashed();
+    }
 }

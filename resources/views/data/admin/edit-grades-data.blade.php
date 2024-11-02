@@ -119,7 +119,7 @@
                 <div id="chart-{{ $yl->id }}" class="overflow-hidden"></div>
                 
                
-                <script>
+              <!--  <script>
                    
                     $(document).ready(function() {
                         const mtValues = @json($mtValues);
@@ -199,7 +199,7 @@
                         chart.render();
                     });
                 
-                </script>
+                </script> -->
                 
             </div>
         </div>

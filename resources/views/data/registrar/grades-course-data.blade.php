@@ -33,8 +33,8 @@
                 <td><small>{{ $cor->copr }}</small></td>
                 <td class="text-center">
                     <div class="d-flex">
-                        <a class="btn btn-sm btn-primary flex-fill me-1" wire:navigate href="{{ route('registrar.enrollment', ['id' => $aes->encrypt($cor->id)]) }}">
-                            <iconify-icon icon="ph:student-duotone" width="18" height="18" class="me-1"></iconify-icon> View
+                        <a class="btn btn-sm btn-primary flex-fill" wire:navigate href="{{ route('registrar.grades', ['id' => $aes->encrypt($cor->id)]) }}">
+                            <iconify-icon icon="solar:chart-bold-duotone" width="18" height="18" class="me-1"></iconify-icon> View
                         </a>
                     </div>                    
                 </td>

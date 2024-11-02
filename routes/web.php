@@ -74,7 +74,8 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/exam', [RegistrarController::class, 'exam'])->name('registrar.exam');
 			Route::get('/interview', [RegistrarController::class, 'interview'])->name('registrar.interview');
 			Route::get('/final-result', [RegistrarController::class, 'finalResult'])->name('registrar.final-result');
-			Route::get('/enroll-grades', [RegistrarController::class, 'enrollGrades'])->name('registrar.enroll-grades');
+			Route::get('/enrollment-course', [RegistrarController::class, 'enrollGrades'])->name('registrar.enroll-grades');
+			Route::get('/grades-course', [RegistrarController::class, 'gradesCourse'])->name('registrar.grades-course');
 			Route::get('/graduates', [RegistrarController::class, 'graduates'])->name('registrar.graduates');
 			Route::get('/undergraduates', [RegistrarController::class, 'undergraduates'])->name('registrar.undergraduates');
 			Route::get('/view-graduates/{id}', [RegistrarController::class, 'viewGraduates'])->name('registrar.view-graduates');
@@ -82,23 +83,28 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::post('/registration-form', [RegistrarController::class, 'registrationForm'])->name('registrar.registrationform');
 			Route::get('/enrollment/{id}', [RegistrarController::class, 'enrollment'])->name('registrar.enrollment');
 			Route::get('/grades/{id}', [RegistrarController::class, 'grades'])->name('registrar.grades');
-			Route::get('/edit-grades/{id}', [RegistrarController::class, 'editGrades'])->name('registrar.edit-grades');
+			Route::get('/edit-grades/{id}/{courseID}', [RegistrarController::class, 'editGrades'])->name('registrar.edit-grades');
 			Route::get('/attendance', [RegistrarController::class, 'attendance'])->name('registrar.attendance');
 			Route::get('/view-attendance/{id}', [RegistrarController::class, 'viewAttendance'])->name('registrar.view-attendance');
 			Route::get('/view-student-attendance/{id}', [RegistrarController::class, 'viewStudentAttendance'])->name('registrar.view-student-attendance');
+			Route::get('/rfid-information', [RegistrarController::class, 'RFIDInformation'])->name('registrar.rfid-information');
+			Route::get('/view-rfid-information/{id}', [RegistrarController::class, 'viewRFIDInformation'])->name('registrar.view-rfid-information');
 
 			Route::get('/courses', [AdminController::class, 'courses'])->name('registrar.courses');
 			Route::get('/courses-info/{id}', [AdminController::class, 'coursesInfo'])->name('registrar.courses-info');
 			Route::get('/schedule', [AdminController::class, 'schedule'])->name('registrar.schedule');
 			Route::get('/instructors', [AdminController::class, 'instructors'])->name('registrar.instructors');
 			Route::get('/create-schedule/{id}', [AdminController::class, 'createSchedule'])->name('registrar.create-schedule');
+
+			Route::get('/download-orf', [RegistrarController::class, 'ORF']);
 		});
 	});
 
 	Route::group(['middleware' => 'trainer'], function () {
 		Route::group(['prefix' => 'trainer'], function () {
-			Route::get('/dashboard', [TrainerController::class, 'dashboard'])->name('trainer.dashboard');
+			Route::get('/schedule', [TrainerController::class, 'dashboard'])->name('trainer.dashboard');
 			Route::get('/students/{id}/{scheduleID}/{courseInfoID}/{subjectID}', [TrainerController::class, 'students'])->name('trainer.students');
+			Route::get('/grades', [TrainerController::class, 'grades'])->name('trainer.grades');
 		});
 	});
 
@@ -109,7 +115,11 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/grades', [StudentController::class, 'grades'])->name('student.grades');
 			Route::get('/registration-form', [StudentController::class, 'registrationForm'])->name('student.registrationform');
 			Route::get('/proceed-enrollment', [StudentController::class, 'proceedEnrollment'])->name('student.proceed-enrollment');
+			Route::get('/cancel-enrollment', [StudentController::class, 'cancelEnrollment'])->name('student.cancel-enrollment');
 			Route::get('/attendance', [StudentController::class, 'attendance'])->name('student.attendance');
+			Route::get('/courses-info/{id}', [StudentController::class, 'coursesInfo'])->name('student.courses-info');
+			// Route::get('/ORF', [StudentController::class, 'ORF'])->name('student.ORF');
+			Route::get('/download-orf', [StudentController::class, 'ORF']);
 		});
 	});
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');

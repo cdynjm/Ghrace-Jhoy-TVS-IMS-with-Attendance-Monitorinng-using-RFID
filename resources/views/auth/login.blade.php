@@ -22,7 +22,7 @@
               
             />
             <div class="mx-auto">
-              <h3>Ghrace Jhoy Technical Vocational School</h3>
+              <h3>Ghrace Jhoy Technical Vocational School, Inc.</h3>
               <p>
                 a TESDA-accredited institution dedicated to providing quality education and training in various vocational fields.
                 <br>
@@ -46,7 +46,7 @@
                   <span class="">
                     <img src="/assets/school-logo.png" class="img-fluid avatar"alt="">
                   </span>
-                  <span class="app-brand-text demo h5 fs-5 mb-0 fw-bold me-3">Ghrace Jhoy TVS</span>
+                  <span class="app-brand-text demo h5 fs-5 mb-0 fw-bold me-3">Ghrace Jhoy TVSI</span>
                 </a>
               </div>
               <!-- /Logo -->

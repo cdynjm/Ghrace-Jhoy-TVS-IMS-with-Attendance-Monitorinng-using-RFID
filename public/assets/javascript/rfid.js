@@ -8,7 +8,7 @@ $(document).on('input', '#rfid-number', function() {
         $('.processing').html(`
             <div class="col d-flex">
                 <div>
-                    <!-- Pluse -->
+                    <!-- Pulse -->
                     <div class="sk-pulse sk-primary"></div>
                 </div>
                 <div class="text-sm mt-1 ms-4">Validating...</div>
@@ -27,17 +27,33 @@ $(document).on('input', '#rfid-number', function() {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
                     }
-                })
+                });
             }
 
             APIrequest().then(response => {
+                let message = response.data.Message;
+                let messageIcon = 'iconamoon:check-circle-1-duotone';
+                let alertClass = 'alert-success';
 
+                if (message.includes("scan limit")) {
+                    messageIcon = 'icon-park-twotone:error';
+                    alertClass = 'alert-warning';
+                } else if (message.includes("Logged Out")) {
+                    messageIcon = 'iconamoon:check-circle-1-duotone';
+                } else if (message.includes("Logged In")) {
+                    messageIcon = 'iconamoon:check-circle-1-duotone';
+                } else {
+                    messageIcon = 'icon-park-twotone:error';
+                    alertClass = 'alert-danger';
+                }
+
+                $('.processing').removeClass('alert-success alert-danger alert-warning').addClass(alertClass);
                 $('.processing').html(`
                     <div class="col d-flex">
                         <div>
-                            <iconify-icon icon="iconamoon:check-circle-1-duotone" width="28" height="28" class="mt-1"></iconify-icon>
+                            <iconify-icon icon="${messageIcon}" width="28" height="28" class="mt-1"></iconify-icon>
                         </div>
-                        <div class="text-sm mt-2 ms-2">${response.data.Message}</div>
+                        <div class="text-sm mt-2 ms-2">${message}</div>
                     </div>
                 `);
 
@@ -61,14 +77,10 @@ $(document).on('input', '#rfid-number', function() {
 
                 setTimeout(() => {
                     $('.processing').hide(100);
-
-                    $('.processing').removeClass('alert-danger');
-                    $('.processing').toggleClass('alert-success');
-
+                    $('.processing').removeClass('alert-danger').addClass('alert-success');
                     $('.label-status').show(100);
                     $('#rfid-number').prop('disabled', false).val('').focus(); // Autofocus after clearing
                 }, 1500);
-
             });
 
         }, 500);
@@ -77,6 +89,7 @@ $(document).on('input', '#rfid-number', function() {
     }
 
 });
+
 
 document.addEventListener('livewire:navigated', () => { 
 

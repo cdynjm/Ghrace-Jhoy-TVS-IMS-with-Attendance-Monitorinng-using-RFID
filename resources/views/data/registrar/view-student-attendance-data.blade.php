@@ -53,12 +53,11 @@
                         <thead class="text-dark" style="background: rgb(244, 244, 244)">
                             <tr>
                                 <th class="text-nowrap">#</th>
-                                <th class="text-nowrap"><small>RFID Number</small></th>
                                 <th class="text-nowrap"><small>Date</small></th>
-                                <th class="text-nowrap"><small>Time In</small></th>
-                                <th class="text-nowrap"><small>Time Out</small></th>
-                                <th class="text-nowrap text-center"><small>SMS (In)</small></th>
-                                <th class="text-nowrap text-center"><small>SMS (Out)</small></th>
+                                <th class="text-nowrap"><small>Morning In</small></th>
+                                <th class="text-nowrap"><small>Morning Out</small></th>
+                                <th class="text-nowrap"><small>Afternoon In</small></th>
+                                <th class="text-nowrap"><small>Afternoon Out</small></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,12 +67,12 @@
                             @foreach ($studentAttendance as $index => $sa)
                                 <tr>
                                     <td><small>{{ $index +1 }}</small></td>
-                                    <td><small class="fw-bold">{{ $sa->RFID }}</small></td>
                                     <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ date('M. d, Y | D', strtotime($sa->date)) }}</small></td>
-                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ date('h:i A', strtotime($sa->timeIn)) }}</small></td>
-                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeOut ? date('h:i A', strtotime($sa->timeOut)) : '-' }}</small></td>
-                                    <td class="text-center"><small class="{{ $sa->smsIn ? 'text-success' : 'text-danger' }}">{!! $sa->smsIn ? '<i class="fa-solid fa-check me-1"></i> Sent' : '-' !!}</small></td>
-                                    <td class="text-center"><small class="{{ $sa->smsOut ? 'text-success' : 'text-danger' }}">{!! $sa->smsOut ? '<i class="fa-solid fa-check me-1"></i> Sent' : '-' !!}</small></td>
+                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeInMorning ? date('h:i A', strtotime($sa->timeInMorning)) : '-' }}</small></td>
+                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeOutMorning ? date('h:i A', strtotime($sa->timeOutMorning)) : '-' }}</small></td>
+                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeInAfternoon ? date('h:i A', strtotime($sa->timeInAfternoon)) : '-' }}</small></td>
+                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeOutAfternoon ? date('h:i A', strtotime($sa->timeOutAfternoon)) : '-' }}</small></td>
+                                    
                                 </tr>
                             @endforeach
                         </tbody>

@@ -1,6 +1,9 @@
 @php
+  use Illuminate\Support\Str;
+  use App\Http\Controllers\AESCipher;
   use App\Models\LearnersProfile;
   $status = LearnersProfile::where('admission_status', 1)->get();
+  $aes = new AESCipher();
 @endphp
 
 <!-- Menu -->
@@ -12,8 +15,8 @@
       <img style="width: 55px; height: auto; border-radius: 50px;" src="/assets/school-logo.png" class="me-4 mb-4 mt-2" alt="...">
       <a class="layout-menu-toggle align-items-center d-flex" href="javascript:void(0);">
         <span class="sidebar-text fw-bold fs-3">
-            <span class="">GJTVS</span>
-        <p style="font-size:10px;" class="fw-normal mt-2 text-secondary">Ghrace Jhoy Technical Vocational School</p>
+            <span class="">GJTVSI</span>
+        <p style="font-size:10px;" class="fw-normal mt-2 text-secondary">Ghrace Jhoy Technical Vocational School, Inc.</p>
       </span>
     </a>
     </div>
@@ -303,7 +306,21 @@
                 style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Enrolment & Grades</div>
+          <div>Enrolment</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.grades-course' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.grades-course') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.grades-course' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/fcyboqbm.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Grades</div>
         </a>
       </li>
 
@@ -351,7 +368,7 @@
         </a>
       </li>
 
-      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'registrar.attendance' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.attendance' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('registrar.attendance') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.attendance' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
@@ -365,6 +382,21 @@
         </a>
       </li>
 
+
+      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'registrar.rfid-information' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('registrar.rfid-information') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.rfid-information' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/sobzmbzh.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>RFID Information</div>
+        </a>
+      </li>
+
       @endif
 
       @if(Auth::user()->role == 3)
@@ -375,13 +407,27 @@
         <a wire:navigate href="{{ route('trainer.dashboard') }}" class="menu-link {{ Route::currentRouteName() == 'trainer.dashboard' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
-              src="https://cdn.lordicon.com/xirobkro.json"
+              src="https://cdn.lordicon.com/qvyppzqz.json"
               trigger="in"
               stroke="bold"
               style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Dashboard</div>
+          <div>Schedule</div>
+        </a>
+      </li>
+
+      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'trainer.grades' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('trainer.grades') }}" class="menu-link {{ Route::currentRouteName() == 'trainer.grades' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+              src="https://cdn.lordicon.com/fcyboqbm.json"
+              trigger="in"
+              stroke="bold"
+              style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Grades</div>
         </a>
       </li>
 
@@ -433,7 +479,7 @@
         </a>
       </li>
 
-      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'student.attendance' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'student.attendance' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('student.attendance') }}" class="menu-link {{ Route::currentRouteName() == 'student.attendance' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
@@ -444,6 +490,20 @@
             </lord-icon>
           </span>
           <div>Attendance</div>
+        </a>
+      </li>
+
+      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'student.courses-info' ? 'active' : '' }}">
+        <a wire:navigate href="{{ route('student.courses-info', ['id' => $aes->encrypt(Auth::user()->Student->LearnersCourse->course)] ) }}" class="menu-link {{ Route::currentRouteName() == 'student.courses-info' ? 'active' : '' }}">
+          <span class="me-2">
+            <lord-icon
+                src="https://cdn.lordicon.com/tsrgicte.json"
+                trigger="in"
+                stroke="bold"
+                style="width:22px;height:22px">
+            </lord-icon>
+          </span>
+          <div>Prospectus</div>
         </a>
       </li>
 

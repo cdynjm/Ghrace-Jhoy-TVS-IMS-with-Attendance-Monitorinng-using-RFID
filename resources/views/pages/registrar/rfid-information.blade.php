@@ -12,11 +12,11 @@
 
 @section('content')
     <div class="layout-page">
-        @include('layouts.navbar', ['page' => 'Enrolment'], 
+        @include('layouts.navbar', ['page' => 'RFID Information'], 
         ['icon' => '
           
             <lord-icon
-                src="https://cdn.lordicon.com/wzrwaorf.json"
+                src="https://cdn.lordicon.com/sobzmbzh.json"
                 trigger="in"
                 stroke="bold"
                 style="width:22px;height:22px">
@@ -33,7 +33,7 @@
                   <li class="breadcrumb-item">
                     <a href="javascript:void(0);" class="fw-bold">Categories |</a>
                   </li>
-                  <li class="breadcrumb-item">Enrollment</li>
+                  <li class="breadcrumb-item">RFID Information</li>
                 </ol>
             </nav>
 
@@ -49,7 +49,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    @include('data.registrar.enroll-grades-data')
+                                    @include('data.registrar.rfid-information-data')
                                 </div>
                             </div>
                         </div>

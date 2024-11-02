@@ -1,45 +1,57 @@
 <div class="edit-subject-list-data">
     @if(!empty($subjects))
-    @foreach ($subjects as $key => $sub)
-    <div id="subject-wrapper" class="mb-4">
-        <hr style="border-bottom: 2px solid gray">
-        <div class="subject-group mb-2">
-            <label for="" style="font-size: 12px;">Subject Schedule</label>
-            <input type="text" class="form-control mb-2 fw-bold" value="{{ $sub->Subjects->description }}" readonly>
-            <input type="hidden" value="{{ $aes->encrypt($sub->id) }}" name="subjectID[]">
-            @php
-                $label = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                $days = [$sub->mon, $sub->tue, $sub->wed, $sub->thu, $sub->fri, $sub->sat];
-            @endphp
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Subject Schedule</th>
+                <th>Days</th>
+                <th>Time (FROM | TO)</th>
+                <th>Instructor</th>
+                <th>Room/Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($subjects as $key => $sub)
+            <tr id="subject-wrapper">
+                <td>
+                    {{ $sub->Subjects->description }}
+                    <input type="hidden" value="{{ $aes->encrypt($sub->id) }}" name="subjectID[]">
+                </td>
+                <td>
+                    @php
+                        $label = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                        $days = [$sub->mon, $sub->tue, $sub->wed, $sub->thu, $sub->fri, $sub->sat];
+                    @endphp
 
-            <div class="mb-2">
-                @foreach($days as $i => $day)
-                <div class="form-check form-switch d-inline-flex align-items-center me-2">
-                    <input type="checkbox" class="form-check-input" name="days[{{ $key }}][{{ $i }}]" value="1" @checked($day)>
-                    <label class="form-check-label ms-1" for="" style="font-size: 12px" class="me-2">{{ $label[$i] }}</label>
-                </div>
-                @endforeach
-            </div>
-
-            <label for="" style="font-size: 12px">Time - FROM | TO</label>
-            <div class="d-flex">
-                <input type="time" name="fromTime[]" value="{{ $sub->fromTime }}" class="form-control mb-2 me-2">
-                <input type="time" name="toTime[]" value="{{ $sub->toTime }}" class="form-control mb-2">
-            </div>
-
-            <label for="" style="font-size: 12px;">Instructor</label>
-            <select name="instructor[]" id="" class="form-select me-2 mb-2">
-                <option value="">Select...</option>
-                @foreach ($instructors as $in)
-                    <option value="{{ $aes->encrypt($in->id) }}" @selected($sub->instructor == $in->id)>{{ $in->instructor }}</option>
-                @endforeach
-            </select>
-
-            <label for="" style="font-size: 12px;">Room/Location</label>
-            <input type="text" name="room[]" class="form-control" value="{{ $sub->room }}">
-            
-        </div>
-    </div>
-    @endforeach
+                    @foreach($days as $i => $day)
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" name="days[{{ $key }}][{{ $i }}]" value="1" @checked($day)>
+                        <label class="form-check-label" for="" style="font-size: 12px">{{ $label[$i] }}</label>
+                    </div>
+                    @endforeach
+                </td>
+                <td>
+                    <div class="d-flex">
+                        <input type="time" name="fromTime[]" value="{{ $sub->fromTime }}" class="form-control me-2">
+                        <input type="time" name="toTime[]" value="{{ $sub->toTime }}" class="form-control">
+                    </div>
+                </td>
+                <td>
+                    <select name="instructor[]" class="form-select">
+                        <option value="">Select...</option>
+                        @foreach ($instructors as $in)
+                            <option value="{{ $aes->encrypt($in->id) }}" @selected($sub->instructor == $in->id)>{{ $in->instructor }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="room[]" class="form-control" value="{{ $sub->room }}">
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
     @endif
 </div>

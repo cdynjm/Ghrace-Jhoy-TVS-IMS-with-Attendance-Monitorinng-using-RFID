@@ -28,7 +28,7 @@
             </nav>
 
                 <div class="row">
-                    <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="col-sm-6 col-lg-3 mb-4">
                         <div class="card card-border-shadow-warning h-100">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-2 pb-1">
@@ -44,12 +44,12 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-6 col-lg-4 mb-4">
-                        <div class="card card-border-shadow-success h-100">
+                      <div class="col-sm-6 col-lg-3 mb-4">
+                        <div class="card card-border-shadow-primary h-100">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-2 pb-1">
                               <div class="avatar me-2">
-                                <span class="avatar-initial rounded bg-label-success"><i class='bx bxs-folder-open'></i></span>
+                                <span class="avatar-initial rounded bg-label-primary"><i class='bx bxs-folder-open'></i></span>
                               </div>
                               <h4 class="ms-1 mb-0">{{ $courses }}</h4>
                             </div>
@@ -60,7 +60,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-6 col-lg-4 mb-4">
+                      <div class="col-sm-6 col-lg-3 mb-4">
                         <div class="card card-border-shadow-danger h-100">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-2 pb-1">
@@ -72,6 +72,22 @@
                             <p class="mb-1">Students</p>
                             <p class="mb-0">
                               <small class="text-muted">Undergraduates</small>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-3 mb-4">
+                        <div class="card card-border-shadow-success h-100">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-2 pb-1">
+                              <div class="avatar me-2">
+                                <span class="avatar-initial rounded bg-label-success"><i class='bx bxs-graduation'></i></span>
+                              </div>
+                              <h4 class="ms-1 mb-0">{{ $graduate }}</h4>
+                            </div>
+                            <p class="mb-1">Graduates</p>
+                            <p class="mb-0">
+                              <small class="text-muted">Total</small>
                             </p>
                           </div>
                         </div>

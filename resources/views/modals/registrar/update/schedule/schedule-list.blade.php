@@ -1,7 +1,7 @@
 <div id="schedule-list">
     @php
         $groupedSchedules = $schedule->groupBy(function($sc) {
-            return $sc->CourseInfo->yearLevel . ' | ' . $sc->CourseInfo->semester;
+            return $sc->CourseInfo->yearLevel . ' | ' . $sc->CourseInfo->semester . ' | SY ' . $sc->schoolYear;
         });
     @endphp
 

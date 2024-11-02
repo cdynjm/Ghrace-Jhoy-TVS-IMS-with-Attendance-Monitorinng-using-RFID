@@ -12,6 +12,34 @@ var SweetAlert = Swal.mixin({
     buttonsStyling: false
 });
 
+$(document).on('submit', "#search-schedule", function(e){
+    e.preventDefault();
+    var enrollment = $('input[name=enrollmentStatus]').val();
+    const formData = new FormData(this);
+    async function APIrequest() {
+        return await axios.post('/api/search/student/schedule', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+            $('#schedule-subject-course-data').html(response.data.schedule);
+        
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+
+});
+
 $(document).on('click', '#downloadPDF', function() {
     var name = $(this).find('i').data('value');
     
@@ -416,5 +444,108 @@ $(document).on('click', "#proceed-review", function(e){
             html: `<h4 class="mb-0">Opss..</h4><small>Something went wrong!</small>`,
             confirmButtonColor: "#3a57e8"
         });
+    });
+});
+
+$(document).on('change', "#search-year-semester", function(e){
+    const formData = new FormData();
+    formData.append('search', $(this).val());
+
+    async function APIrequest() {
+        return await axios.post('/api/search/student/grades-year-semester', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#edit-grades-data').html(response.data.Grades);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+});
+
+$(document).on('submit', "#search-student-attendance", function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    async function APIrequest() {
+        return await axios.post('/api/search/student/student-attendance', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-student-attendance-data').html(response.data.Attendance);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
+});
+
+$(document).on('click', '#download-ORF', function() {
+    var name = $(this).data('name');
+    var id = $(this).data('id');
+    
+    // Send the id as a query parameter
+    axios.get('/student/download-orf', {
+        params: {
+            id: id // This will append ?id=yourId to the URL
+        }
+    })
+    .then(function(response) {
+        var data = response.data;
+        var tempDiv = $('<div></div>').html(data);
+        $('#body-orf').append(tempDiv);
+
+        var style = $(`
+            <style>
+                #body-orf, h1, h2, h3, h4, h5, h6 {
+                    color: black !important;
+                }
+            </style>
+        `);
+        tempDiv.append(style);
+
+        html2pdf().from(tempDiv[0]).set({
+            margin: 0.5,
+            filename: name + '-ORF.pdf',
+            html2canvas: { scale: 5 },
+            jsPDF: { orientation: 'portrait', unit: 'in', format: 'legal' }
+        }).save().then(function () {
+            tempDiv.remove();
+        });
+
+        SweetAlert.fire({
+            icon: 'success',
+            html: `<h4 class="mb-0">Done</h4><small>Wait for the file to be downloaded.</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    })
+    .catch(function(error) {
+        console.error('Error fetching the content:', error);
+    });
+
+    SweetAlert.fire({
+        position: 'center',
+        icon: 'info',
+        html: `<h4>Downloading...</h4>`,
+        allowOutsideClick: false,
+        showConfirmButton: false
     });
 });

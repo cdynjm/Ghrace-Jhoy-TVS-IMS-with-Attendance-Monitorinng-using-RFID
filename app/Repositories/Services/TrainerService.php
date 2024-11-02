@@ -47,9 +47,12 @@ class TrainerService implements TrainerInterface {
         return SubjectSchedule::where('status', 1)->where('instructor', Auth::user()->Instructor->id)->get();
     }
 
+    public function Grades() {
+        return SubjectSchedule::where('id' , null)->where('instructor', Auth::user()->Instructor->id)->get();
+    }
+
     public function getSchedule($request) {
-        return SubjectSchedule::where('status', 1)
-        ->where('instructor', Auth::user()->Instructor->id)
+        return SubjectSchedule::where('instructor', Auth::user()->Instructor->id)
         ->where('id', $this->aes->decrypt($request->id))->first();
     }
 
@@ -74,7 +77,7 @@ class TrainerService implements TrainerInterface {
         return StudentGrading::where('courseInfoID', $this->aes->decrypt($request->courseInfoID))
             ->where('subjectID', $this->aes->decrypt($request->subjectID))
             ->whereHas('StudentYearLevel.Schedule', function($query) {
-                $query->where('status', 1);
+              //  $query->where('status', 1);
             })
             ->get();
     }

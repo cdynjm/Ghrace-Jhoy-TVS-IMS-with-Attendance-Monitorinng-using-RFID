@@ -62,6 +62,10 @@
 
               @include('modals.admin.update.subjects.subject-list')
 
+              <div class="col-md-12">
+                <div class="error-sched alert alert-danger" style="display: none"></div>
+              </div>
+              
             </div>
           </div>
         </div>

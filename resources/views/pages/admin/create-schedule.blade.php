@@ -36,6 +36,32 @@
             </nav>
 
                 <div class="row">
+
+                    <form action="" id="search-schedule">
+                        <input type="hidden" value="{{ $aes->encrypt($course->id) }}" name="id">
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <select name="schoolYear" id="" class="form-select" required>
+                                    <option value="">Select School Year...</option>
+                                    @foreach ($schoolYears as $sy)
+                                        <option value="{{ $sy->schoolYear }}">{{ $sy->schoolYear }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <select name="yearSemester" id="" class="form-select" required>
+                                    <option value="">Select Year and Semester...</option>
+                                    @foreach ($courseInfo as $ci)
+                                        <option value="{{ $aes->encrypt($ci->id) }}">{{ $ci->yearLevel }} - {{ $ci->semester }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <button class="btn btn-success"><i class='bx bxs-search-alt-2 text-lg'></i></button>
+                            </div>
+                        </div>
+                    </form>
+
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
