@@ -44,6 +44,7 @@
                 <div class="col-md-12 mb-4">
                     <div class="card">
                         <div class="card-header">
+                            <h6 class="text-sm text-secondary">AY: {{ $schedule->Schedule->schoolYear }} - {{ $schedule->CourseInfo->semester }}</h6>
                             <div class="d-flex flex-row justify-content-between">
                                 <h6 class="text-sm text-primary">{{ $schedule->CourseInfo->yearLevel }} - {{ $schedule->Schedule->section }}</h6>
                                 <small>Students: <h4 class="text-lg d-inline">{{ $students->count() }} </h4></small>

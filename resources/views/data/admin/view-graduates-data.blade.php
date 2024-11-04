@@ -57,7 +57,7 @@
                 @endforeach
                 @if($count == 0)
             <tr>
-                <td colspan="6" class="text-center"><small>No Data Found</small></td>
+                <td colspan="10" class="text-center"><small>No Data Found</small></td>
             </tr>
         @endif   
         </tbody>

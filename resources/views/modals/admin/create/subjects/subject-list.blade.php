@@ -3,11 +3,11 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Subject</th>
-                    <th>Days</th>
-                    <th>Time - FROM | TO</th>
+                    <th width="20%">Subject</th>
+                    <th width="5%">Days</th>
+                    <th width="10%">Time</th>
                     <th>Instructor</th>
-                    <th>Room/Location</th>
+                    <th width="23%">Room/Location</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +37,10 @@
 
                             <!-- Time - FROM | TO -->
                             <td>
-                                <div class="d-flex">
-                                    <input type="time" name="fromTime[]" class="form-control me-2" placeholder="From">
+                                <div class="d-block">
+                                    <label for="" style="font-size: 12px">From</label>
+                                    <input type="time" name="fromTime[]" class="form-control mb-2" placeholder="From">
+                                    <label for="" style="font-size: 12px">To</label>
                                     <input type="time" name="toTime[]" class="form-control" placeholder="To">
                                 </div>
                             </td>
@@ -64,3 +66,4 @@
         </table>
     </div>
 </div>
+

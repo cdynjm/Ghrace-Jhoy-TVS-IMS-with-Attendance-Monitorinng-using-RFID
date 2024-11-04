@@ -47,6 +47,49 @@
                         </div>
                     </div>
                 </div>
+                <form id="search-student-attendance">
+                    <input type="hidden" name="id" value="{{ $aes->encrypt($student->id) }}">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <select name="yearLevel" id="" class="form-select" required>
+                                <option value="">Select Year Level</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            @php
+                                $monthNames = [
+                                    1 => 'January',
+                                    2 => 'February',
+                                    3 => 'March',
+                                    4 => 'April',
+                                    5 => 'May',
+                                    6 => 'June',
+                                    7 => 'July',
+                                    8 => 'August',
+                                    9 => 'September',
+                                    10 => 'October',
+                                    11 => 'November',
+                                    12 => 'December'
+                                ];
+                            @endphp
+
+                            <select name="month" id="month" class="form-select" required>
+                                <option value="">Select Month</option>
+                                @foreach ($monthNames as $key => $mon)
+                                    <option value="{{ $key }}">{{ $mon }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <button class="btn btn-success"><i class='bx bxs-search-alt-2 text-lg'></i></button>
+                        </div>
+                    </div>
+                </form>
                 @include('data.admin.view-student-attendance-data')
                 
             </div>

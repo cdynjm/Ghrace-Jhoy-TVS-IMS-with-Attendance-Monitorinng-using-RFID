@@ -12,6 +12,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use DateTime;
 
 use App\Http\Controllers\AESCipher;
 
@@ -41,6 +43,7 @@ use App\Models\AdmissionApplication;
 use App\Models\Schedule;
 use App\Models\SubjectSchedule;
 use App\Models\SMSToken;
+use App\Models\RFIDAttendance;
 
 use Illuminate\Support\Facades\Gate;
 
@@ -433,6 +436,178 @@ class AdminController extends Controller
     }
 
     public function createSubjectSchedule(Request $request) {
+
+        $conflicts = []; // Array to hold conflicting schedules
+        $schedThatConflicts = [];
+        $data = false;
+
+        foreach (SubjectSchedule::where('status', 1)->get() as $sc) {
+            foreach ($request->subjectID as $key => $subjectID) {
+                if(!empty($request->room[$key]) && !empty($request->fromTime[$key]) && !empty($request->toTime[$key])) {
+                    if (
+                        // no conflict with same instructor, same schedule (day and time) with same room and same subject
+                        (
+                            $sc->instructor == $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                Carbon::createFromFormat('H:i', $request->fromTime[$key])->addMinute()->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] == $sc->room &&
+                            $subjectID == $sc->subject
+                        )
+                        ||
+                        // no conflict with same instructor, same schedule (day and time) with same room and diff subject
+                        (
+                            $sc->instructor == $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                Carbon::createFromFormat('H:i', $request->fromTime[$key])->addMinute()->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                        
+                            $request->room[$key] == $sc->room &&
+                            $subjectID != $sc->subject
+                        )
+                        ||
+                        // no conflict with same instructor, same schedule (day and time) with diff room and diff  subject
+                        (
+                            $sc->instructor == $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                Carbon::createFromFormat('H:i', $request->fromTime[$key])->addMinute()->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] != $sc->room &&
+                            $subjectID != $sc->subject
+                        )
+                        ||
+                        // no conflict with same instructor, same schedule (day and time) with diff room and diff  subject
+                        (
+                            $sc->instructor == $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                Carbon::createFromFormat('H:i', $request->fromTime[$key])->addMinute()->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] != $sc->room &&
+                            $subjectID == $sc->subject
+                        )
+                        ||
+                        // no conflict with diff instructor, same schedule (day and time) with same room and same subject
+                        (
+                            $sc->instructor != $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                Carbon::createFromFormat('H:i', $request->fromTime[$key])->addMinute()->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] == $sc->room &&
+                            $subjectID == $sc->subject
+                        )
+                        ||
+                        // no conflict with diff instructor, same schedule (day and time) with same room and diff subject
+                        (
+                            $sc->instructor != $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                Carbon::createFromFormat('H:i', $request->fromTime[$key])->addMinute()->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] == $sc->room &&
+                            $subjectID != $sc->subject
+                        )
+                        
+                    ) {
+                        // Add the conflicting schedule details to the conflicts array
+                        $conflicts[] = [
+                            'instructor' => $sc->Instructors->instructor,
+                            'subject' => $sc->Subjects->description,
+                            'room' => $sc->room,
+                            'days' => [
+                                'mon' => $sc->mon,
+                                'tue' => $sc->tue,
+                                'wed' => $sc->wed,
+                                'thu' => $sc->thu,
+                                'fri' => $sc->fri,
+                                'sat' => $sc->sat,
+                            ],
+                            'fromTime' => date('h:i A', strtotime($sc->fromTime)),
+                            'toTime' => date('h:i A', strtotime($sc->toTime)),
+                        ];
+
+                        $schedThatConflicts[] = [
+                            'instructor' => Instructors::where('id', $this->aes->decrypt($request->instructor[$key]))->first()->instructor,
+                            'subject' => Subjects::where('id', $subjectID)->first()->description,
+                            'room' => $request->room[$key],
+                            'days' => [
+                                'mon' => $request->days[$key][0] ?? 0,
+                                'tue' => $request->days[$key][1] ?? 0,
+                                'wed' => $request->days[$key][2] ?? 0,
+                                'thu' => $request->days[$key][3] ?? 0,
+                                'fri' => $request->days[$key][4] ?? 0,
+                                'sat' => $request->days[$key][5] ?? 0,
+                            ],
+                            'fromTime' => date('h:i A', strtotime($request->fromTime[$key])),
+                            'toTime' => date('h:i A', strtotime($request->toTime[$key])),
+                        ];
+
+                        $data = true;
+                    }
+                }
+            }
+        }
+
+        if($data == true) {
+            return response()->json([
+                'Message' => 'Conflicts detected with existing schedules', // A generic message or change according to your needs
+                'Conflicts' => $conflicts, // Include the actual conflict data
+                'schedThatConflicts' => $schedThatConflicts
+            ], 500);
+        }
+
         $schedule = Schedule::create([
             'courseID' => $this->aes->decrypt($request->id),
             'courseInfoID' => $this->aes->decrypt($request->yearLevel),
@@ -490,6 +665,177 @@ class AdminController extends Controller
     }
 
     public function updateSubjectSchedule(Request $request) {
+
+        $conflicts = []; // Array to hold conflicting schedules
+        $schedThatConflicts = [];
+        $data = false;
+      
+            foreach ($request->subjectID as $key => $subjectID) {
+                foreach (SubjectSchedule::where('status', 1)->where('id', '!=', $this->aes->decrypt($request->subjectID[$key]))->get() as $sc) {
+                if(!empty($request->room[$key]) && !empty($request->fromTime[$key]) && !empty($request->toTime[$key])) {
+                    if (
+                        // no conflict with same instructor, same schedule (day and time) with same room and same subject
+                        (
+                            $sc->instructor == $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                (new DateTime($request->fromTime[$key]))->modify('+1 minute')->format('H:i') >= $sc->toTime ||  // New start time is after existing end time                                // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] == $sc->room &&
+                            $this->aes->decrypt($subjectID) == $sc->subject
+                        )
+                        ||
+                        // no conflict with same instructor, same schedule (day and time) with same room and diff subject
+                        (
+                            $sc->instructor == $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                (new DateTime($request->fromTime[$key]))->modify('+1 minute')->format('H:i') >= $sc->toTime ||
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                        
+                            $request->room[$key] == $sc->room &&
+                            $this->aes->decrypt($subjectID) != $sc->subject
+                        )
+                        ||
+                        // no conflict with same instructor, same schedule (day and time) with diff room and diff  subject
+                        (
+                            $sc->instructor == $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                (new DateTime($request->fromTime[$key]))->modify('+1 minute')->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] != $sc->room &&
+                            $this->aes->decrypt($subjectID) != $sc->subject
+                        )
+                        ||
+                        // no conflict with same instructor, same schedule (day and time) with diff room and diff  subject
+                        (
+                            $sc->instructor == $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                (new DateTime($request->fromTime[$key]))->modify('+1 minute')->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] != $sc->room &&
+                            $this->aes->decrypt($subjectID) == $sc->subject
+                        )
+                        ||
+                        // no conflict with diff instructor, same schedule (day and time) with same room and same subject
+                        (
+                            $sc->instructor != $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                (new DateTime($request->fromTime[$key]))->modify('+1 minute')->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] == $sc->room &&
+                            $this->aes->decrypt($subjectID) == $sc->subject
+                        )
+                        ||
+                        // no conflict with diff instructor, same schedule (day and time) with same room and diff subject
+                        (
+                            $sc->instructor != $this->aes->decrypt($request->instructor[$key]) &&
+                            !(
+                                (new DateTime($request->fromTime[$key]))->modify('+1 minute')->format('H:i') >= $sc->toTime ||  // New start time is after existing end time
+                                $request->toTime[$key] <= $sc->fromTime     // New end time is before existing start time
+                            ) &&
+                            (
+                                (isset($request->days[$key][0]) && $request->days[$key][0] == $sc->mon) ||
+                                (isset($request->days[$key][1]) && $request->days[$key][1] == $sc->tue) ||
+                                (isset($request->days[$key][2]) && $request->days[$key][2] == $sc->wed) ||
+                                (isset($request->days[$key][3]) && $request->days[$key][3] == $sc->thu) ||
+                                (isset($request->days[$key][4]) && $request->days[$key][4] == $sc->fri) ||
+                                (isset($request->days[$key][5]) && $request->days[$key][5] == $sc->sat)
+                            ) &&
+                            $request->room[$key] == $sc->room &&
+                            $this->aes->decrypt($subjectID) != $sc->subject
+                        )
+                        
+                    ) {
+                        // Add the conflicting schedule details to the conflicts array
+                        $conflicts[] = [
+                            'instructor' => $sc->Instructors->instructor,
+                            'subject' => $sc->Subjects->description,
+                            'room' => $sc->room,
+                            'days' => [
+                                'mon' => $sc->mon,
+                                'tue' => $sc->tue,
+                                'wed' => $sc->wed,
+                                'thu' => $sc->thu,
+                                'fri' => $sc->fri,
+                                'sat' => $sc->sat,
+                            ],
+                            'fromTime' => date('h:i A', strtotime($sc->fromTime)),
+                            'toTime' => date('h:i A', strtotime($sc->toTime)),
+                        ];
+
+                        $schedThatConflicts[] = [
+                            'instructor' => Instructors::where('id', $this->aes->decrypt($request->instructor[$key]))->first()->instructor,
+                            'subject' => Subjects::where('id', $this->aes->decrypt($request->subjectID[$key]))->first()->description,
+                            'room' => $request->room[$key],
+                            'days' => [
+                                'mon' => $request->days[$key][0] ?? 0,
+                                'tue' => $request->days[$key][1] ?? 0,
+                                'wed' => $request->days[$key][2] ?? 0,
+                                'thu' => $request->days[$key][3] ?? 0,
+                                'fri' => $request->days[$key][4] ?? 0,
+                                'sat' => $request->days[$key][5] ?? 0,
+                            ],
+                            'fromTime' => date('h:i A', strtotime($request->fromTime[$key])),
+                            'toTime' => date('h:i A', strtotime($request->toTime[$key])),
+                        ];
+
+                        $data = true;
+                    }
+                }
+            }
+        }
+
+        if($data == true) {
+             return response()->json([
+                'Message' => 'Conflicts detected with existing schedules', // A generic message or change according to your needs
+                'Conflicts' => $conflicts, // Include the actual conflict data
+                'schedThatConflicts' => $schedThatConflicts
+            ], 500);
+        }
 
        $schedule = Schedule::where('id', $this->aes->decrypt($request->scheduleID))->update([
            'section' => $request->section,
@@ -662,5 +1008,19 @@ class AdminController extends Controller
         $studentGrading = $this->AdminInterface->studentGrading($request);
         $student = $this->AdminInterface->LearnersProfile($request);
         return view('pages.admin.edit-grades', compact('yearLevel', 'studentGrading', 'student'));
+    }
+
+    public function searchStudentAttendance(Request $request) {
+        $attendance = RFIDAttendance::where('studentID', $this->aes->decrypt($request->id))
+        ->where('yearLevel', $request->yearLevel)
+        ->where('month', $request->month)
+        ->orderBy('created_at', 'DESC')
+        ->get()
+        ->groupBy('yearLevel');
+
+        $aes = $this->aes;
+        return response()->json([
+            'Attendance' => view('data.admin.view-student-attendance-data', compact('attendance', 'aes'))->render()
+        ]);
     }
 }

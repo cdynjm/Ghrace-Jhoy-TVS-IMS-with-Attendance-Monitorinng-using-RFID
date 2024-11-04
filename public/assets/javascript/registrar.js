@@ -1894,7 +1894,6 @@ $(document).on('submit', "#create-schedule", function(e){
     $('.processing').html(`
         <div class="col d-flex">
             <div>
-                <!-- Pluse -->
                 <div class="sk-pulse sk-primary"></div>
             </div>
             <div class="text-sm mt-1 ms-4">Processing...</div>
@@ -1912,38 +1911,114 @@ $(document).on('submit', "#create-schedule", function(e){
                 }
             })
         }
+        
         APIrequest().then(response => {
             $('.processing').hide(100);
             $('.error-sched').hide(100);
             $("#create-schedule-modal").modal('hide');
             $('input').val('');
-            $('#schedule-subject-course-data').html(response.data.Schedule)
+            $('#schedule-subject-course-data').html(response.data.Schedule);
             SweetAlert.fire({
                 icon: 'success',
                 html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
                 confirmButtonColor: "#3a57e8"
             }).then(() => {
                 window.location.reload();
-              });
+            });
         })
         .catch(error => {
-            console.error('Error:', error);
             $('.processing').hide(100);
             $('.error-sched').show(100);
         
-            // Check if the error response and message exist
-            const errorMessage = error.response && error.response.data && error.response.data.Message 
-                ? error.response.data.Message 
+            const errorMessage = error.response && error.response.data 
+                ? error.response.data.Message || 'An unexpected error occurred.'
                 : 'An unexpected error occurred.';
         
-            $('.error-sched').html(`
-                <div class="col d-flex">
-                    <div class="text-sm mt-1 ms-4">${errorMessage}</div>
-                </div>
-            `);
+            // Log the full response for debugging
+            console.log("Full error response:", JSON.stringify(error.response.data));
+        
+            // Display conflicts if any
+            if (error.response && error.response.data.Conflicts) {
+                try {
+                    // Map conflicts and conflicting schedules together into rows
+                    const conflictRows = error.response.data.Conflicts.map((conflict, index) => {
+                        const activeDaysConflict = Object.keys(conflict.days)
+                            .filter(day => conflict.days[day]) // Only include true/1 days
+                            .map(day => day.charAt(0).toUpperCase() + day.slice(1)) // Capitalize day names
+                            .join(', ');
+        
+                        const conflictHtml = `
+                            <strong>Instructor:</strong> ${conflict.instructor}<br>
+                            <strong>Subject:</strong> ${conflict.subject}<br>
+                            <strong>Room:</strong> ${conflict.room}<br>
+                            <strong>Days:</strong> ${activeDaysConflict}<br>
+                            <strong>Time:</strong> ${conflict.fromTime} to ${conflict.toTime}
+                        `;
+        
+                        // Find the corresponding `schedThatConflicts` entry by index
+                        const sched = error.response.data.schedThatConflicts[index];
+                        const activeDaysSched = Object.keys(sched.days)
+                            .filter(day => sched.days[day]) // Only include true/1 days
+                            .map(day => day.charAt(0).toUpperCase() + day.slice(1)) // Capitalize day names
+                            .join(', ');
+        
+                        const schedHtml = `
+                            <strong>Instructor:</strong> ${sched.instructor}<br>
+                            <strong>Subject:</strong> ${sched.subject}<br>
+                            <strong>Room:</strong> ${sched.room}<br>
+                            <strong>Days:</strong> ${activeDaysSched}<br>
+                            <strong>Time:</strong> ${sched.fromTime} to ${sched.toTime}
+                        `;
+        
+                        return `
+                            <tr>
+                                <td>${conflictHtml}</td>
+                                <td>${schedHtml}</td>
+                            </tr>
+                        `;
+                    }).join('');
+        
+                    $('.error-sched').html(`
+                        <div class="col d-flex">
+                            <div class="text-sm mt-1">${errorMessage}</div>
+                        </div>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Conflicting Schedules</th>
+                                    <th>Schedules That Conflict</th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                    ${conflictRows}
+                                </tbody>
+                            </table>
+                        </div>
+                    `);
+                } catch (e) {
+                    console.log("Mapping error:", e);
+                    $('.error-sched').html(`
+                        <div class="col d-flex">
+                            <div class="text-sm mt-1">${errorMessage}</div>
+                        </div>
+                        <div class="col">${JSON.stringify(error.response.data.Conflicts, null, 2)}</div>
+                    `);
+                }
+            } else {
+                $('.error-sched').html(`
+                    <div class="col d-flex">
+                        <div class="text-sm mt-1">${errorMessage}</div>
+                    </div>
+                `);
+            }
         });
+        
+        
+        
     }, 1500);
 });
+
 
 $(document).on('click', "#edit-schedule", function(e){
 
@@ -2026,20 +2101,91 @@ $(document).on('submit', "#update-schedule", function(e){
               });
         })
         .catch(error => {
-            console.error('Error:', error);
             $('.processing').hide(100);
             $('.error-sched').show(100);
         
-            // Check if the error response and message exist
-            const errorMessage = error.response && error.response.data && error.response.data.Message 
-                ? error.response.data.Message 
+            const errorMessage = error.response && error.response.data 
+                ? error.response.data.Message || 'An unexpected error occurred.'
                 : 'An unexpected error occurred.';
         
-            $('.error-sched').html(`
-                <div class="col d-flex">
-                    <div class="text-sm mt-1 ms-4">${errorMessage}</div>
-                </div>
-            `);
+            // Log the full response for debugging
+            console.log("Full error response:", JSON.stringify(error.response.data));
+        
+            // Display conflicts if any
+            if (error.response && error.response.data.Conflicts) {
+                try {
+                    // Map conflicts and conflicting schedules together into rows
+                    const conflictRows = error.response.data.Conflicts.map((conflict, index) => {
+                        const activeDaysConflict = Object.keys(conflict.days)
+                            .filter(day => conflict.days[day]) // Only include true/1 days
+                            .map(day => day.charAt(0).toUpperCase() + day.slice(1)) // Capitalize day names
+                            .join(', ');
+        
+                        const conflictHtml = `
+                            <strong>Instructor:</strong> ${conflict.instructor}<br>
+                            <strong>Subject:</strong> ${conflict.subject}<br>
+                            <strong>Room:</strong> ${conflict.room}<br>
+                            <strong>Days:</strong> ${activeDaysConflict}<br>
+                            <strong>Time:</strong> ${conflict.fromTime} to ${conflict.toTime}
+                        `;
+        
+                        // Find the corresponding `schedThatConflicts` entry by index
+                        const sched = error.response.data.schedThatConflicts[index];
+                        const activeDaysSched = Object.keys(sched.days)
+                            .filter(day => sched.days[day]) // Only include true/1 days
+                            .map(day => day.charAt(0).toUpperCase() + day.slice(1)) // Capitalize day names
+                            .join(', ');
+        
+                        const schedHtml = `
+                            <strong>Instructor:</strong> ${sched.instructor}<br>
+                            <strong>Subject:</strong> ${sched.subject}<br>
+                            <strong>Room:</strong> ${sched.room}<br>
+                            <strong>Days:</strong> ${activeDaysSched}<br>
+                            <strong>Time:</strong> ${sched.fromTime} to ${sched.toTime}
+                        `;
+        
+                        return `
+                            <tr>
+                                <td>${conflictHtml}</td>
+                                <td>${schedHtml}</td>
+                            </tr>
+                        `;
+                    }).join('');
+        
+                    $('.error-sched').html(`
+                        <div class="col d-flex">
+                            <div class="text-sm mt-1">${errorMessage}</div>
+                        </div>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Conflicting Schedules</th>
+                                    <th>Schedules That Conflict</th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                    ${conflictRows}
+                                </tbody>
+                            </table>
+                        </div>
+                    `);
+                } catch (e) {
+                    console.log("Mapping error:", e);
+                    $('.error-sched').html(`
+                        <div class="col d-flex">
+                            <div class="text-sm mt-1">${errorMessage}</div>
+                        </div>
+                        <div class="col">${JSON.stringify(error.response.data.Conflicts, null, 2)}</div>
+                    `);
+                }
+            } else {
+                $('.error-sched').html(`
+                    <div class="col d-flex">
+                        <div class="text-sm mt-1">${errorMessage}</div>
+                    </div>
+                `);
+            }
         });
     }, 1500);
 });
@@ -2660,3 +2806,236 @@ $(document).on('click', '#download-ORF', function() {
         showConfirmButton: false
     });
 });
+
+// Attach change and keyup event listeners using document delegation
+$(document).on('change', '.subject-list-data input, .subject-list-data select', function () {
+    checkConflicts();
+});
+
+$(document).on('keyup', '.subject-list-data input[name="room[]"]', function () {
+    checkConflicts();
+});
+
+function checkConflicts() {
+    let rows = $('.subject-list-data tbody tr');
+    let conflictFound = false;
+
+    // Clear any previous error messages
+    $('.conflict-alert').remove();
+
+    // Loop through each row and check for conflicts
+    rows.each(function (index, row) {
+        let current = $(row);
+        let currentInstructor = current.find('select[name="instructor[]"]').val();
+        let currentRoom = current.find('input[name="room[]"]').val().toLowerCase(); // Convert to lowercase
+        let currentSubject = current.find('input[name="subjectID[]"]').val();
+        let currentDays = current.find('input[type="checkbox"]:checked').map(function () { return $(this).next().text(); }).get();
+        let currentFromTime = current.find('input[name="fromTime[]"]').val();
+        let currentToTime = current.find('input[name="toTime[]"]').val();
+
+        // Check that toTime is at least 30 minutes ahead of fromTime
+        if (currentFromTime && currentToTime) {
+            let fromTime = new Date(`1970-01-01T${currentFromTime}:00`);
+            let toTime = new Date(`1970-01-01T${currentToTime}:00`);
+            let minToTime = new Date(fromTime.getTime() + 30 * 60000); // 30 minutes ahead
+
+            if (toTime <= fromTime) {
+                conflictFound = true;
+                current.after(`
+                    <tr class="conflict-alert">
+                        <td colspan="5">
+                            <div class="alert alert-danger mt-2">Error: "To Time" must be later than "From Time".</div>
+                        </td>
+                    </tr>
+                `);
+            } else if (toTime < minToTime) {
+                conflictFound = true;
+                current.after(`
+                    <tr class="conflict-alert">
+                        <td colspan="5">
+                            <div class="alert alert-danger mt-2">Error: "To Time" must be at least 30 minutes after "From Time".</div>
+                        </td>
+                    </tr>
+                `);
+            }
+        }
+
+        // Loop through each row and compare it with every other row
+        rows.each(function (i, otherRow) {
+            if (i === index) return; // Skip the current row
+            
+            let other = $(otherRow);
+            let otherInstructor = other.find('select[name="instructor[]"]').val();
+            let otherRoom = other.find('input[name="room[]"]').val().toLowerCase(); // Convert to lowercase
+            let otherSubject = other.find('input[name="subjectID[]"]').val();
+            let otherDays = other.find('input[type="checkbox"]:checked').map(function () { return $(this).next().text(); }).get();
+            let otherFromTime = other.find('input[name="fromTime[]"]').val();
+            let otherToTime = other.find('input[name="toTime[]"]').val();
+
+            // Check for overlapping days
+            let overlapDays = currentDays.some(day => otherDays.includes(day));
+            
+            // Check for overlapping time ranges
+            let overlapTimes = (
+                (currentFromTime < otherToTime) && (currentToTime > otherFromTime)
+            );
+
+            // If there are overlapping days and times, check for conflict conditions
+            if (overlapDays && overlapTimes) {
+                let conflictMessage = '';
+                conflictFound = true;
+
+                if (currentInstructor === otherInstructor && currentRoom === otherRoom && currentSubject === otherSubject) {
+                    conflictMessage = "Conflict: Same instructor, schedule, room, and subject.";
+                }
+                else if (currentInstructor === otherInstructor && currentRoom === otherRoom && currentSubject !== otherSubject) {
+                    conflictMessage = "Conflict: Same instructor, schedule, and room but different subjects.";
+                }
+                else if (currentInstructor === otherInstructor && currentRoom !== otherRoom && currentSubject !== otherSubject) {
+                    conflictMessage = "Conflict: Same instructor and schedule, different room, and different subjects.";
+                }
+                else if (currentInstructor === otherInstructor && currentRoom !== otherRoom && currentSubject === otherSubject) {
+                    conflictMessage = "Conflict: Same instructor, schedule, different room, and same subject.";
+                }
+                else if (currentInstructor !== otherInstructor && currentRoom === otherRoom && currentSubject === otherSubject) {
+                    conflictMessage = "Conflict: Different instructor, same schedule, room, and subject.";
+                }
+                else if (currentInstructor !== otherInstructor && currentRoom === otherRoom && currentSubject !== otherSubject) {
+                    conflictMessage = "Conflict: Different instructor, same schedule and room but different subjects.";
+                }
+
+                // Insert the conflict alert row after the current row
+                if (conflictMessage) {
+                    current.after(`
+                        <tr class="conflict-alert">
+                            <td colspan="5">
+                                <div class="alert alert-danger mt-2">${conflictMessage}</div>
+                            </td>
+                        </tr>
+                    `);
+                }
+            }
+        });
+    });
+
+    if (!conflictFound) {
+        console.log("No conflicts found.");
+    }
+}
+
+// Attach change and keyup event listeners using document delegation
+$(document).on('change', '.edit-subject-list-data input, .edit-subject-list-data select', function () {
+    editcheckConflicts();
+});
+
+$(document).on('keyup', '.edit-subject-list-data input[name="room[]"]', function () {
+    editcheckConflicts();
+});
+
+function editcheckConflicts() {
+    let rows = $('.edit-subject-list-data tbody tr');
+    let conflictFound = false;
+
+    // Clear any previous error messages
+    $('.edit-conflict-alert').remove();
+
+    // Loop through each row and check for conflicts
+    rows.each(function (index, row) {
+        let current = $(row);
+        let currentInstructor = current.find('select[name="instructor[]"]').val();
+        let currentRoom = current.find('input[name="room[]"]').val().toLowerCase(); // Convert to lowercase
+        let currentSubject = current.find('input[name="subjectID[]"]').val();
+        let currentDays = current.find('input[type="checkbox"]:checked').map(function () { return $(this).next().text(); }).get();
+        let currentFromTime = current.find('input[name="fromTime[]"]').val();
+        let currentToTime = current.find('input[name="toTime[]"]').val();
+
+        // Check that toTime is at least 30 minutes ahead of fromTime
+        if (currentFromTime && currentToTime) {
+            let fromTime = new Date(`1970-01-01T${currentFromTime}:00`);
+            let toTime = new Date(`1970-01-01T${currentToTime}:00`);
+            let minToTime = new Date(fromTime.getTime() + 30 * 60000); // 30 minutes ahead
+
+            if (toTime <= fromTime) {
+                conflictFound = true;
+                current.after(`
+                    <tr class="edit-conflict-alert">
+                        <td colspan="5">
+                            <div class="alert alert-danger mt-2">Error: "To Time" must be later than "From Time".</div>
+                        </td>
+                    </tr>
+                `);
+            } else if (toTime < minToTime) {
+                conflictFound = true;
+                current.after(`
+                    <tr class="edit-conflict-alert">
+                        <td colspan="5">
+                            <div class="alert alert-danger mt-2">Error: "To Time" must be at least 30 minutes after "From Time".</div>
+                        </td>
+                    </tr>
+                `);
+            }
+        }
+
+        // Loop through each row and compare it with every other row
+        rows.each(function (i, otherRow) {
+            if (i === index) return; // Skip the current row
+            
+            let other = $(otherRow);
+            let otherInstructor = other.find('select[name="instructor[]"]').val();
+            let otherRoom = other.find('input[name="room[]"]').val().toLowerCase(); // Convert to lowercase
+            let otherSubject = other.find('input[name="subjectID[]"]').val();
+            let otherDays = other.find('input[type="checkbox"]:checked').map(function () { return $(this).next().text(); }).get();
+            let otherFromTime = other.find('input[name="fromTime[]"]').val();
+            let otherToTime = other.find('input[name="toTime[]"]').val();
+
+            // Check for overlapping days
+            let overlapDays = currentDays.some(day => otherDays.includes(day));
+            
+            // Check for overlapping time ranges
+            let overlapTimes = (
+                (currentFromTime < otherToTime) && (currentToTime > otherFromTime)
+            );
+
+            // If there are overlapping days and times, check for conflict conditions
+            if (overlapDays && overlapTimes) {
+                let conflictMessage = '';
+                conflictFound = true;
+
+                if (currentInstructor === otherInstructor && currentRoom === otherRoom && currentSubject === otherSubject) {
+                    conflictMessage = "Conflict: Same instructor, schedule, room, and subject.";
+                }
+                else if (currentInstructor === otherInstructor && currentRoom === otherRoom && currentSubject !== otherSubject) {
+                    conflictMessage = "Conflict: Same instructor, schedule, and room but different subjects.";
+                }
+                else if (currentInstructor === otherInstructor && currentRoom !== otherRoom && currentSubject !== otherSubject) {
+                    conflictMessage = "Conflict: Same instructor and schedule, different room, and different subjects.";
+                }
+                else if (currentInstructor === otherInstructor && currentRoom !== otherRoom && currentSubject === otherSubject) {
+                    conflictMessage = "Conflict: Same instructor, schedule, different room, and same subject.";
+                }
+                else if (currentInstructor !== otherInstructor && currentRoom === otherRoom && currentSubject === otherSubject) {
+                    conflictMessage = "Conflict: Different instructor, same schedule, room, and subject.";
+                }
+                else if (currentInstructor !== otherInstructor && currentRoom === otherRoom && currentSubject !== otherSubject) {
+                    conflictMessage = "Conflict: Different instructor, same schedule and room but different subjects.";
+                }
+
+                // Insert the conflict alert row after the current row
+                if (conflictMessage) {
+                    current.after(`
+                        <tr class="edit-conflict-alert">
+                            <td colspan="5">
+                                <div class="alert alert-danger mt-2">${conflictMessage}</div>
+                            </td>
+                        </tr>
+                    `);
+                }
+            }
+        });
+    });
+
+    if (!conflictFound) {
+        console.log("No conflicts found.");
+    }
+}
+

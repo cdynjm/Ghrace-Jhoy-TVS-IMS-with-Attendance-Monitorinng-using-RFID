@@ -112,3 +112,28 @@ $(document).on('keyup', '#search-input', function() {
         $('#students-data tbody .no-data').remove(); // Remove 'No data found' message if there are matching rows
     }
 });
+
+$(document).on('keyup', '#search-schedule', function() {
+    var searchTerm = $(this).val().toLowerCase().trim(); // Remove leading/trailing spaces
+    var noResults = true;
+
+    // Filter through each row in the tbody except those with the 'exclude-from-search' class
+    $('.schedule-data tbody tr').not('.exclude-from-search').each(function() {
+        var rowText = $(this).text().toLowerCase();
+
+        // Check if row contains the search term
+        if (rowText.includes(searchTerm)) {
+            $(this).show();  // Show rows that match the search term
+            noResults = false; // At least one row matches
+        } else {
+            $(this).hide();  // Hide rows that don’t match
+        }
+    });
+
+    // Show 'No data found' message if no rows match
+    if (noResults) {
+        $('.schedule-data tbody').append('<tr class="no-data"><td colspan="8" class="text-center">No data found</td></tr>');
+    } else {
+        $('.schedule-data tbody .no-data').remove(); // Remove 'No data found' message if there are matching rows
+    }
+});

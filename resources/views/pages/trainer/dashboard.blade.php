@@ -34,8 +34,9 @@
             </nav>
 
             <div class="row">
-                <div class="col-md-4 mb-4">
-                    
+                <div class="col-md-4 mt-2">
+                    <label for="" class="mb-1"><small>Search Schedules</small></label>
+                    <input type="text" id="search-schedule" class="form-control mb-3" placeholder="Type Any Keywords...">
                 </div>
                 <div class="col-md-4 mb-4">
                     
@@ -88,8 +89,22 @@
                 ];
             @endphp
             
+            <div class="col-md-12">
+                <h6>CURRENT SCHEDULE | 
+                    <span class="text-primary">
+                        AY: {{ $schedule->isNotEmpty() && $schedule->first()->Schedule->schoolYear ? $schedule->first()->Schedule->schoolYear : '-' }}
+                    </span>
+                </h6>
+            </div>
+            
+            @php
+                $data = false;
+            @endphp
             @foreach ($days as $day => $label)
                 @foreach ($schedule->where($day, 1)->groupBy($day) as $dayData)
+                @php
+                    $data = true;
+                @endphp
                 <div class="col-md-12 mb-4">
                     <div class="card">
                         <div class="card-header">
@@ -99,7 +114,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="course-data" class="table table-sm table-hover text-nowrap" style="border-bottom: 1px solid rgb(240, 240, 240)">
+                                <table id="" class="table table-sm table-hover text-nowrap schedule-data" style="border-bottom: 1px solid rgb(240, 240, 240)">
                                     <thead class="text-dark" style="background: rgb(244, 244, 244)">
                                         <tr>
                                             <th>#</th>
@@ -109,7 +124,7 @@
                                             <th><small>Time</small></th>
                                             <th><small>Room</small></th>
                                             <th><small>Major</small></th>
-                                         <!--   <th><small>Action</small></th> -->
+                                            <th><small>Action</small></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -124,11 +139,11 @@
                                                 <td><small>{{ date('h:i A', strtotime($sc->fromTime)) }} - {{ date('h:i A', strtotime($sc->toTime)) }}</small></td>
                                                 <td><small>{{ $sc->room }}</small></td>
                                                 <td><small class="fw-bold">{{ $sc->Courses->qualification }}</small></td>
-                                              <!--  <td>
+                                                <td>
                                                     <small>
-                                                        <a wire:navigate href="{{ route('trainer.students', ['id' => $aes->encrypt($sc->id), 'scheduleID' => $aes->encrypt($sc->scheduleID), 'courseInfoID' => $aes->encrypt($sc->courseInfoID), 'subjectID' => $aes->encrypt($sc->subject)]) }}" class="btn btn-xs btn-primary me-1"><iconify-icon icon="lets-icons:view-duotone" width="18" height="18" class="me-1"></iconify-icon> View</a>
+                                                        <a wire:navigate href="{{ route('trainer.students', ['id' => $aes->encrypt($sc->id), 'scheduleID' => $aes->encrypt($sc->scheduleID), 'courseInfoID' => $aes->encrypt($sc->courseInfoID), 'subjectID' => $aes->encrypt($sc->subject)]) }}" class="btn btn-xs btn-primary me-1"><iconify-icon icon="lets-icons:view-duotone" width="18" height="18" class="me-1"></iconify-icon> View Students</a>
                                                     </small>
-                                                </td> -->
+                                                </td>
                                             </tr>
                                         @endforeach
                                         @if ($count == 0)
@@ -145,6 +160,15 @@
                 @endforeach
             @endforeach
             
+            @if($data == false)
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <small>There is no schedule available at the moment. Please wait for the registrar to release the upcoming semester’s schedule</small>
+                        </div>
+                    </div>
+                </div>
+            @endif
               
 
             </div>

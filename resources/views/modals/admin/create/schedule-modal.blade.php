@@ -11,11 +11,8 @@
           <div class="row">
             <div class="col-md-12 mb-2">
 
-              <div class="processing alert alert-success" style="display: none"></div>
-
               <input type="hidden" class="form-control" name="id" id="course-id">
 
-              <label for="" style="font-size: 12px;">School Year</label>
               @php
                 $currentYear = date('Y'); // Get the current year
                 $currentMonth = date('n'); // Get the current month
@@ -37,34 +34,51 @@
                 ];
             @endphp
 
-            <select name="schoolYear" class="form-select mb-2">
-                @foreach ($years as $year)
-                    <option value="{{ $year }}-{{ $year + 1 }}" {{ $selectedYear == $year ? 'selected' : '' }}>
-                        {{ $year }}-{{ $year + 1 }}
-                    </option>
-                @endforeach
-            </select>
 
-              <label for="" style="font-size: 12px;">Year Level/Semester</label>
-              <select name="yearLevel" id="yearLevel" class="form-select yearLevel" required>
-                  <option value="">Select...</option>
-                  @foreach ($courseInfo as $ci)
-                    <option value="{{ $aes->encrypt($ci->id) }}">{{ $ci->yearLevel }} - {{ $ci->semester }}</option>
-                  @endforeach
-              </select>
+              <div class="row">
+                <div class="col-md-3  mb-4">
+                  <label for="" style="font-size: 12px;">School Year</label>
+                  <select name="schoolYear" class="form-select">
+                    @foreach ($years as $year)
+                        <option value="{{ $year }}-{{ $year + 1 }}" {{ $selectedYear == $year ? 'selected' : '' }}>
+                            {{ $year }}-{{ $year + 1 }}
+                        </option>
+                    @endforeach
+                </select>
+                </div>
+                <div class="col-md-3 mb-4">
+                  <label for="" style="font-size: 12px;">Year Level/Semester</label>
+                  <select name="yearLevel" id="yearLevel" class="form-select yearLevel" required>
+                      <option value="">Select...</option>
+                      @foreach ($courseInfo as $ci)
+                        <option value="{{ $aes->encrypt($ci->id) }}">{{ $ci->yearLevel }} - {{ $ci->semester }}</option>
+                      @endforeach
+                  </select>
+                </div>
+                <div class="col-md-3 mb-4">
+                  <label for="" style="font-size: 12px;">Section</label>
+                  <input type="text" name="section" class="form-control" placeholder="Section" required>
+                </div>
+                <div class="col-md-3 mb-4">
+                  <label for="" style="font-size: 12px;">Slots</label>
+                  <input type="number" class="form-control" name="slots" placeholder="Slots" required>    
+                </div>
+              </div>
 
-              <label for="" style="font-size: 12px;">Section</label>
-              <input type="text" name="section" class="form-control mb-2" placeholder="Section" required>
+            
+
+             
+
               
-              <label for="" style="font-size: 12px;">Slots</label>
-              <input type="number" class="form-control mb-4" name="slots" placeholder="Slots" required>
-
+              
+             
               @include('modals.admin.create.subjects.subject-list')
 
             </div>
 
             <div class="col-md-12">
               <div class="error-sched alert alert-danger" style="display: none"></div>
+              <div class="processing alert alert-success" style="display: none"></div>
             </div>
           </div>
         </div>

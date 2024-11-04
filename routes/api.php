@@ -75,6 +75,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/admin/undergraduates', [AdminController::class, 'searchUndergraduates']);
             Route::post('/admin/attendance', [AdminController::class, 'searchViewAttendance']);
             Route::post('/admin/schedule', [AdminController::class, 'searchSchedule']);
+            Route::post('/admin/student-attendance', [AdminController::class, 'searchStudentAttendance']);
         });
 
     });

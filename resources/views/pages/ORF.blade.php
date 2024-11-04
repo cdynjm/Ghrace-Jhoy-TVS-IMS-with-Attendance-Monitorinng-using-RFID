@@ -68,7 +68,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                Name: <strong>{{ $learner->lastname }}, {{ $learner->firstname }}, {{ $learner->middlename }}</strong>
+                Name: <strong style="text-transform: uppercase">{{ $learner->lastname }}, {{ $learner->firstname }}, {{ $learner->middlename }}</strong>
             </td>
             <td>
                 Sex: <strong>{{ $learner->sex == 1 ? 'Male' : ($learner->sex == 2 ? 'Female' : 'Not Specified') }}</strong>
@@ -124,7 +124,7 @@
         @foreach ($subjectSchedule as $sc)
             <tr>
                 <td>{{ $sc->Subjects->subjectCode }}</td>
-                <td>{{ $sc->Subjects->description }}</td>
+                <td style="text-align: left">{{ $sc->Subjects->description }}</td>
                 <td>{{ $sc->Subjects->units }}</td>
                 <td>
                     <div>
@@ -216,7 +216,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                Name: <strong>{{ Auth::user()->Student->lastname }}, {{ Auth::user()->Student->firstname }}, {{ Auth::user()->Student->middlename }}</strong>
+                Name: <strong style="text-transform: uppercase">{{ Auth::user()->Student->lastname }}, {{ Auth::user()->Student->firstname }}, {{ Auth::user()->Student->middlename }}</strong>
             </td>
             <td>
                 Sex: <strong>{{ Auth::user()->Student->sex == 1 ? 'Male' : (Auth::user()->Student->sex == 2 ? 'Female' : 'Not Specified') }}</strong>
@@ -272,7 +272,7 @@
         @foreach ($subjectSchedule as $sc)
             <tr>
                 <td>{{ $sc->Subjects->subjectCode }}</td>
-                <td>{{ $sc->Subjects->description }}</td>
+                <td style="text-align: left">{{ $sc->Subjects->description }}</td>
                 <td>{{ $sc->Subjects->units }}</td>
                 <td>
                     <div>

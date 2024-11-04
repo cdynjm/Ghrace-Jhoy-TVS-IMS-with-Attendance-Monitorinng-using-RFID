@@ -104,7 +104,7 @@
               </div>
 
               <div class="text-center">
-                <input type="text" class="form-control mb-3 text-center" id="rfid-number" min="10" autofocus>
+                <input type="text" class="form-control mb-3 text-center" id="rfid-number" style="position: absolute; left: -9999999px;" min="10" autofocus>
               </div>
 
               @include('layouts.footer')

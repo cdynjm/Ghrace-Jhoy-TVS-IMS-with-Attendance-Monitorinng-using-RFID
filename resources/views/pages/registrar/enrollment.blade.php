@@ -37,16 +37,17 @@
                 <div class="row">
                     
                     <div class="col-md-12 mb-2">
-                        <div class="text-center">
-                            <h5 class="text-sm"><span class="text-uppercase">{{ $course->qualification }}</span></h5>
+                        <div class="">
+                            <h6 class="text-sm"><span class="text-uppercase">{{ $course->qualification }}</span></h6>
                         </div>
                     </div>
 
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
                         <input type="text" class="form-control" placeholder="Search student..." id="search-enrollment" data-id="{{ $aes->encrypt($course->id) }}">
                     </div>
-                    <div class="col-md-3"></div>
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4"></div>
 
                     <div class="col-md-12">
                         @include('data.registrar.enrollment-data')

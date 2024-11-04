@@ -68,9 +68,12 @@
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
                                         <h6 class="text-sm">{{ $course->qualification }}</h6>
+                                        <small class="text-danger"><span class="fw-bold text-secondary">Important: </span>Please ensure that all past schedules are archived before setting up a new schedule for the upcoming semester or academic year.</small>
                                     </div>
                                     @if(Auth::user()->role == 2)
-                                    <button class="btn btn-sm btn-primary shadow text-white" id="add-schedule" data-id="{{ $aes->encrypt($course->id) }}">+ Create</button>
+                                    <div>
+                                        <button class="btn btn-sm btn-primary shadow text-white" id="add-schedule" data-id="{{ $aes->encrypt($course->id) }}">+ Create</button>
+                                    </div>
                                     @endif
                                 </div>
                             </div>

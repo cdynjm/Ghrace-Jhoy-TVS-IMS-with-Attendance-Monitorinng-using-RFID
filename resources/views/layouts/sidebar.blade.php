@@ -306,7 +306,7 @@
                 style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Enrolment</div>
+          <div>Enrollment</div>
         </a>
       </li>
 

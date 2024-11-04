@@ -113,12 +113,17 @@
                 @if(Auth::user()->role == 2)
                 <td>
                     <small>
+                        @if($sc->status == 1)
                         <a href="javascript:;" id="edit-schedule" class="me-2">
                             <i class="fas fa-marker"></i>
                         </a>
+                        
                         <a href="javascript:;" id="archive-schedule">
                             <i class="fa-solid fa-box-open"></i>
                         </a>
+                        @else
+                        -
+                        @endif
                     </small>
                 </td>
                 @endif
