@@ -104,15 +104,16 @@
               </div>
 
               <div class="text-center">
-                <input type="text" class="form-control mb-3 text-center" id="rfid-number" style="position: absolute; left: -9999999px;" min="10" autofocus>
+                <input type="text" class="form-control mb-3 text-center" id="rfid-number" style="position: absolute; left: -9999999px;"  min="10" autofocus>
               </div>
 
               @include('layouts.footer')
 
               <div class="text-center">
-                <a href="/" class="nav-link text-primary fw-bold mb-4">
-                  <iconify-icon icon="icon-park-twotone:back" width="18" height="18"></iconify-icon> Go Back
-                </a>
+                <a class=" btn btn-sm btn-primary" href="javascript:;" id="sign-out">
+                  <i class="bx bx-power-off me-1"></i>
+                  <span class="align-middle">Log Out</span>
+              </a>
               </div>
             </div>
           </div>

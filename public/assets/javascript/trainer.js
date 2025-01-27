@@ -107,7 +107,7 @@ $(document).on('keyup', '#search-input', function() {
 
     // Show 'No data found' message if no rows match
     if (noResults) {
-        $('#students-data tbody').append('<tr class="no-data"><td colspan="7" class="text-center">No data found</td></tr>');
+        $('#students-data tbody').append('<tr class="no-data"><td colspan="15" class="text-center">No data found</td></tr>');
     } else {
         $('#students-data tbody .no-data').remove(); // Remove 'No data found' message if there are matching rows
     }
@@ -132,8 +132,33 @@ $(document).on('keyup', '#search-schedule', function() {
 
     // Show 'No data found' message if no rows match
     if (noResults) {
-        $('.schedule-data tbody').append('<tr class="no-data"><td colspan="8" class="text-center">No data found</td></tr>');
+        $('.schedule-data tbody').append('<tr class="no-data"><td colspan="15" class="text-center">No data found</td></tr>');
     } else {
         $('.schedule-data tbody .no-data').remove(); // Remove 'No data found' message if there are matching rows
     }
+});
+
+$(document).on('submit', "#search-student-attendance", function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    async function APIrequest() {
+        return await axios.post('/api/search/instructor-student-attendance', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+            }
+        })
+    }
+    APIrequest().then(response => {
+        $('#view-student-attendance-data').html(response.data.Attendance);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Opss...</h4><small>Something went wrong!</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+    });
 });

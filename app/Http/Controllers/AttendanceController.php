@@ -34,11 +34,10 @@ class AttendanceController extends Controller
         $currentTime = Carbon::now();
         $isMorning = $currentTime->lt(Carbon::createFromTime(12, 0, 0));
 
-        // Check if an attendance record exists for today
-        $attendance = RFIDAttendance::where('RFID', $student->RFID)->whereDate('date', $today)->first();
+        $attendance = RFIDAttendance::with('student')->where('RFID', $student->RFID)->whereDate('date', $today)->first();
 
         if (!$attendance) {
-            // First scan of the day
+            // Create a new attendance record if none exists for today
             $attendance = RFIDAttendance::create([
                 'studentID' => $student->id,
                 'RFID' => $student->RFID,
@@ -51,50 +50,77 @@ class AttendanceController extends Controller
                 'timeInAfternoon' => !$isMorning ? $currentTime->toTimeString() : null,
             ]);
 
+            // Send SMS when logging in
+            $this->sms->TimeIn($student);
             if ($isMorning) {
-                $this->sms->TimeIn($student);
                 $attendance->update(['smsInMorning' => 1]);
             } else {
-                $this->sms->TimeIn($student);
                 $attendance->update(['smsInAfternoon' => 1]);
             }
 
-            return response()->json(['Message' => $isMorning ? 'Morning Logged In' : 'Afternoon Logged In'], Response::HTTP_OK);
+            $latestAttendance = RFIDAttendance::with('student')->where('RFID', $student->RFID)->whereDate('date', $today)->first();
+
+            return response()->json([
+                'Message' => $isMorning ? 'Morning Logged In' : 'Afternoon Logged In',
+                'Log' => $latestAttendance, // Include the attendance log in the response
+            ], Response::HTTP_OK);
         } else {
-            // Check for scan limits
+            // Handle case when attendance already exists for today
             if ($isMorning) {
-                if (!is_null($attendance->timeInMorning) && !is_null($attendance->timeOutMorning)) {
-                    // Morning scan limit reached
-                    return response()->json(['Message' => 'Morning scan limit reached.'], Response::HTTP_OK);
-                } elseif (is_null($attendance->timeInMorning)) {
-                    // First scan in the morning
+                if (is_null($attendance->timeInMorning)) {
+                    // Log the morning time-in
                     $attendance->update(['timeInMorning' => $currentTime->toTimeString()]);
                     $this->sms->TimeIn($student);
                     $attendance->update(['smsInMorning' => 1]);
-                    return response()->json(['Message' => 'Morning Logged In'], Response::HTTP_OK);
+
+                    return response()->json([
+                        'Message' => 'Morning Logged In',
+                        'Log' => $attendance, // Include the attendance log in the response
+                    ], Response::HTTP_OK);
                 } elseif (is_null($attendance->timeOutMorning)) {
-                    // Second scan in the morning
+                    // Log the morning time-out
                     $attendance->update(['timeOutMorning' => $currentTime->toTimeString()]);
                     $this->sms->TimeOut($student);
                     $attendance->update(['smsOutMorning' => 1]);
-                    return response()->json(['Message' => 'Morning Logged Out'], Response::HTTP_OK);
+
+                    return response()->json([
+                        'Message' => 'Morning Logged Out',
+                        'Log' => $attendance, // Include the attendance log in the response
+                    ], Response::HTTP_OK);
+                } else {
+                    // Inform the user that the morning log has reached its limit
+                    return response()->json([
+                        'Message' => 'Morning log has already been completed for today.',
+                        'Log' => $attendance,
+                    ], Response::HTTP_OK);
                 }
             } else {
-                if (!is_null($attendance->timeInAfternoon) && !is_null($attendance->timeOutAfternoon)) {
-                    // Afternoon scan limit reached
-                    return response()->json(['Message' => 'Afternoon scan limit reached.'], Response::HTTP_OK);
-                } elseif (is_null($attendance->timeInAfternoon)) {
-                    // First scan in the afternoon
+                if (is_null($attendance->timeInAfternoon)) {
+                    // Log the afternoon time-in
                     $attendance->update(['timeInAfternoon' => $currentTime->toTimeString()]);
                     $this->sms->TimeIn($student);
                     $attendance->update(['smsInAfternoon' => 1]);
-                    return response()->json(['Message' => 'Afternoon Logged In'], Response::HTTP_OK);
+
+                    return response()->json([
+                        'Message' => 'Afternoon Logged In',
+                        'Log' => $attendance, // Include the attendance log in the response
+                    ], Response::HTTP_OK);
                 } elseif (is_null($attendance->timeOutAfternoon)) {
-                    // Second scan in the afternoon
+                    // Log the afternoon time-out
                     $attendance->update(['timeOutAfternoon' => $currentTime->toTimeString()]);
                     $this->sms->TimeOut($student);
                     $attendance->update(['smsOutAfternoon' => 1]);
-                    return response()->json(['Message' => 'Afternoon Logged Out'], Response::HTTP_OK);
+
+                    return response()->json([
+                        'Message' => 'Afternoon Logged Out',
+                        'Log' => $attendance, // Include the attendance log in the response
+                    ], Response::HTTP_OK);
+                } else {
+                    // Inform the user that the afternoon log has reached its limit
+                    return response()->json([
+                        'Message' => 'Afternoon log has already been completed for today.',
+                        'Log' => $attendance,
+                    ], Response::HTTP_OK);
                 }
             }
         }
@@ -102,5 +128,7 @@ class AttendanceController extends Controller
         return response()->json(['Message' => 'Student not found'], Response::HTTP_NOT_FOUND);
     }
 }
+
+
 
 }

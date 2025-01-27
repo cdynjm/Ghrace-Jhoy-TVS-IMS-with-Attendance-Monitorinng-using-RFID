@@ -44,7 +44,7 @@
               <div class="app-brand justify-content-center mb-0">
                 <a href="#" class="app-brand-link gap-2">
                   <span class="">
-                    <img src="/assets/school-logo.png" class="img-fluid avatar"alt="">
+                    <img src="/assets/school-logo.png" class="img-fluid avatar" style="width: 65px; height: auto" alt="">
                   </span>
                   <span class="app-brand-text demo h5 fs-5 mb-0 fw-bold me-3">Ghrace Jhoy TVSI</span>
                 </a>
@@ -54,6 +54,40 @@
               <h6 class="mb-2">Information Management System </h6>
               <p class="mb-4">Please sign-in your credentials</p>
   
+              @if($enrollment->enable == 1)
+
+              <div class="alert bg-primary text-white alert-dismissible d-flex align-items-center shadow-sm" 
+              role="alert" 
+              style="">
+              <div>
+                 
+                  <small>
+                      <span class="d-block mb-1">Enrollment is open for next semester</span>
+                      <span class="d-block">
+                          <strong>Start Date:</strong> {{ date('F d, Y', strtotime($enrollment->open)) }}
+                      </span>
+                      <span class="d-block">
+                          <strong>End Date:</strong> {{ date('F d, Y', strtotime($enrollment->close)) }}
+                      </span>
+                  </small>
+              </div>
+          </div>
+          
+
+            @endif
+
+            @if(Session::get('emailStatus') != null)
+
+            <div class="alert bg-success text-white alert-dismissible d-flex align-items-center shadow-sm" role="alert">
+              <div>
+                  <i class='bx bxs-info-circle me-1'></i>
+                  <small>
+                      <span>{{ Session::get('emailStatus') }}</span>
+                  </small>
+              </div>
+            </div>
+
+            @endif
              
               <div id="error" class="alert alert-danger text-xs" style="display: none"></div>
               <div id="authenticating" class="alert alert-success text-xs" style="display: none;"></div>

@@ -64,13 +64,6 @@
                   <input type="number" class="form-control" name="slots" placeholder="Slots" required>    
                 </div>
               </div>
-
-            
-
-             
-
-              
-              
              
               @include('modals.admin.create.subjects.subject-list')
 

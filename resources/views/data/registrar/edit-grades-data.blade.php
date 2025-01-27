@@ -1,7 +1,12 @@
 <div id="edit-grades-data">
     @php
     $data = false;
-@endphp
+
+    $latestYearLevel = $yearLevel->sortByDesc(function($yl) {
+            return [$yl->Schedule->schoolYear, $yl->Schedule->CourseInfo->semester];
+        })->first();
+    @endphp
+
 @foreach ($yearLevel as $yl)
 <div class="col-md-12 mb-4">
     <div class="card">
@@ -45,6 +50,7 @@
                             <td
                             id="{{ $aes->encrypt($student->id) }}"
                             gradeID="{{ $aes->encrypt($sub->id) }}"
+                            identifier="{{ $sub->id }}"
                             mt="{{ $sub->mt }}"
                             ft="{{ $sub->ft }}"
                             nc="{{ $sub->Subjects->NC }}"
@@ -53,29 +59,33 @@
                             <td><small>{{ $sub->Subjects->description }}</small></td>
                             <td><small>{{ $sub->Subjects->units }}</small></td>
                             <td><small>{{ $sub->Instructors->instructor }}</small></td>
-                            <td>
-                                <div>
-                                    <small class="">
-                                        {{ $sub->mt }}
-                                    </small>
+                            <td class="grade-cell" data-type="mt">
+                                <div class="grade-content">
+                                    <small>{{ $sub->mt }}</small>
+                                </div>
+                                <div class="grade-input" style="display: none;">
+                                    <small class="text-danger mt-invalid" style="display: none;">Invalid Grade</small>
+                                    <input type="number" id="mt-grades-{{ $sub->id }}" class="form-control mt-grades-invalid" value="{{ $sub->mt }}">
                                 </div>
                             </td>
-                            <td>
-                                <div>
-                                    <small class="">
-                                        {{ $sub->ft }}
-                                        </small>
+                            <td class="grade-cell" data-type="ft">
+                                <div class="grade-content">
+                                    <small>{{ $sub->ft }}</small>
+                                </div>
+                                <div class="grade-input" style="display: none;">
+                                    <small class="text-danger ft-invalid" style="display: none;">Invalid Grade</small>
+                                    <input type="number" id="ft-grades-{{ $sub->id }}" class="form-control ft-grades-invalid" value="{{ $sub->ft }}">
                                 </div>
                             </td>
                             <td>
                                 <div>
                                     <small class="fw-bold">
                                         {{ $sub->avg }}
-                                        </small>
+                                    </small>
                                 </div>
                             </td>
-                            <td>
-                                <small>
+                            <td data-type="nc">
+                                <small class="resultant-content">
                                     @if($sub->Subjects->NC == 0)
                                         <span style="font-size: 12px">None</span>
                                     @else
@@ -89,13 +99,32 @@
                                             <i class="fa-solid fa-circle-xmark text-danger fw-bold"></i> <span class="ms-1" style="font-size: 12px">NOT YET COMPETENT</span>
                                         @endif
                                     @endif
+
+                                   
+                                        
                                 </small>
+
+                                <div class="resultant-subject" style="display: none">
+                                    <label for="" style="font-size: 12px;">Mandatory Assessment Status</label>
+                                    <select name="assessment" id="assessment-{{ $sub->id }}" class="form-select form-select-sm">
+                                      <option value="0">Select...</option>
+                                      <option value="1" @selected($sub->assessment == 1)>COMPETENT</option>
+                                      <option value="2" @selected($sub->assessment == 2)>NOT YET COMPETENT</option>
+                                    </select>
+                                  </div>
+                            
                             </td>
                             <td>
                                 <small>
                                     @if($student->diploma == null)
-                                    <a href="javascript:;" id="edit-grades-value" class="">
+                                    <a href="javascript:;" class="edit-grades-btn" data-id="{{ $sub->id }}">
                                         <i class="fas fa-marker"></i>
+                                    </a>
+                                    <a href="javascript:;" class="save-grades-btn me-2" id="update-grades" data-id="{{ $sub->id }}" style="display: none;">
+                                        <i class="fas fa-save"></i> Save
+                                    </a>
+                                    <a href="javascript:;" class="cancel-grades-btn" data-id="{{ $sub->id }}" style="display: none;">
+                                        <i class="fas fa-times"></i> Cancel
                                     </a>
                                     @else
                                     -
@@ -125,95 +154,13 @@
                         </tr>
                     </tfoot>
                 </table>
+
                 
-                <!-- Chart Container -->
-                <div id="chart-{{ $yl->id }}" class="overflow-hidden"></div>
-                
-               
-            <!--    <script>
-                   
-                    $(document).ready(function() {
-                        const mtValues = @json($mtValues);
-                        const ftValues = @json($ftValues);
-                        const avgValues = @json($avgValues);
-
-                        // Find the maximum value to calculate inverted values
-                        const maxValue = Math.max(...mtValues, ...ftValues, ...avgValues);
-
-                        // Invert the values and round them to a reasonable precision (e.g., 2 decimal places)
-                        const invertedMtValues = mtValues.map(value => Math.round((maxValue - value) * 100) / 100);
-                        const invertedFtValues = ftValues.map(value => Math.round((maxValue - value) * 100) / 100);
-                        const invertedAvgValues = avgValues.map(value => Math.round((maxValue - value) * 100) / 100);
-
-                        var options = {
-                            chart: {
-                                type: 'area',
-                                height: 300,
-                                
-                            },
-                            series: [
-                                {
-                                    name: 'MT',
-                                    data: invertedMtValues
-                                },
-                                {
-                                    name: 'FT',
-                                    data: invertedFtValues
-                                },
-                                {
-                                    name: 'AVG',
-                                    data: invertedAvgValues
-                                }
-                            ],
-                            xaxis: {
-                                categories: @json($subjectCodes),
-                            },
-                            tooltip: {
-                                shared: true,
-                                intersect: false,
-                                y: {
-                                    formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
-                                        // Show the original value in the tooltip
-                                        if (seriesIndex === 0) return `${mtValues[dataPointIndex]}`;
-                                        if (seriesIndex === 1) return `${ftValues[dataPointIndex]}`;
-                                        if (seriesIndex === 2) return `${avgValues[dataPointIndex]}`;
-                                    }
-                                }
-                            },
-                            dataLabels: {
-                                enabled: true,
-                                formatter: function(val, { seriesIndex, dataPointIndex, w }) {
-                                    // Display original values as data labels
-                                    if (seriesIndex === 0) return mtValues[dataPointIndex];
-                                    if (seriesIndex === 1) return ftValues[dataPointIndex];
-                                    if (seriesIndex === 2) return avgValues[dataPointIndex];
-                                },
-                            },
-                            markers: {
-                                size: 5,
-                                hover: {
-                                    size: 7
-                                }
-                            },
-                            legend: {
-                                position: 'bottom'
-                            },
-                            
-                            plotOptions: {
-                                area: {
-                                    fillTo: 'origin', // Ensures that the area is filled from the baseline
-                                },
-                            },
-                        };
-
-                        var chart = new ApexCharts(document.querySelector("#chart-{{ $yl->id }}"), options);
-                        chart.render();
-                    });
-                
-                </script> -->
                 
             </div>
-        </div>
+            
+        
+            </div>
     </div>
 </div>
 @php
@@ -234,3 +181,19 @@
 @endif
 
 </div>
+
+<style>
+
+
+
+.grade-input input {
+    width: 90%;        /* Allow input width to adjust based on its content */
+    min-width: 50px;   /* Set a minimum width to prevent it from shrinking too much */
+    max-width: 70%;     /* Limit the maximum width to avoid overflowing */
+    /* Center the input horizontally if there's extra space */
+    display: block;     /* Ensure the input is on its own line */
+    padding: 5px;       /* Add padding for better usability */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+</style>

@@ -17,7 +17,7 @@
                     </div>
 
                     <label for="" style="font-size: 12px">PSA/NSO/Birth Certificate</label>
-                    <input type="file" class="form-control mb-4 d-none" id="file-input-psa">
+                    <input type="file" class="form-control mb-4 d-none" accept=".jpg, .pdf" id="file-input-psa">
                     <button type="button" class="btn btn-sm w-100 mb-1" id="add-more-files-psa">
                         <span class="ms-3" style="vertical-align: middle;">
                         <lord-icon
@@ -53,7 +53,7 @@
                     </div>
 
                     <label for="" style="font-size: 12px">Form 137</label>
-                    <input type="file" class="form-control mb-4 d-none" id="file-input-form">
+                    <input type="file" class="form-control mb-4 d-none" accept=".jpg, .pdf" id="file-input-form">
                     <button type="button" class="btn btn-sm w-100 mb-1" id="add-more-files-form">
                         <span class="ms-3" style="vertical-align: middle;">
                         <lord-icon
@@ -73,6 +73,69 @@
                         </div>
                     </form>
 
+                  <!--  <script>
+                        document.addEventListener('livewire:navigated', () => { 
+                        const compressImage = async (file, {
+                            quality = 1,
+                            type = file.type
+                        }) => {
+    
+                            const imageBitmap = await createImageBitmap(file);
+    
+                            const canvas = document.createElement('canvas');
+                            canvas.width = imageBitmap.width;
+                            canvas.height = imageBitmap.height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(imageBitmap, 0, 0);
+    
+                            const blob = await new Promise((resolve) =>
+                                canvas.toBlob(resolve, type, quality)
+                            );
+    
+                            return new File([blob], file.name, {
+                                type: blob.type,
+                            });
+                        };
+    
+                        const handleFileInputChange = async (e) => {
+                            const {
+                                files
+                            } = e.target;
+    
+                            if (!files.length) return;
+    
+                            const dataTransfer = new DataTransfer();
+    
+                            for (const file of files) {
+    
+                                if (!file.type.startsWith('image')) {
+    
+                                    dataTransfer.items.add(file);
+                                    continue;
+                                }
+    
+                                const compressedFile = await compressImage(file, {
+                                    quality: 0.3,
+                                    type: 'image/jpeg'
+                                });
+    
+                                dataTransfer.items.add(compressedFile);
+                            }
+    
+                            e.target.files = dataTransfer.files;
+                        };
+    
+                        const fileInputs = [
+                            document.querySelector('#file-input-form'),
+                            
+                        ];
+    
+                        fileInputs.forEach(input => {
+                            input.addEventListener('change', handleFileInputChange);
+                        });
+                    });
+                    </script> -->
+
                     <div>
                         @include('data.student.form137-data')
                     </div>
@@ -80,7 +143,8 @@
                 </div>
                 
                 @include('data.student.proceed-data')
-                
+            
+
             </div>
         </div>
     </div>

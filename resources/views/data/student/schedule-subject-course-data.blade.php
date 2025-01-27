@@ -9,6 +9,7 @@
                         <div class="card-header">
                             <div class="d-flex flex-row justify-content-between">
                                 <div>
+                                    <h6>AY: {{ $yl->Schedule->schoolYear }}</h6>
                                     <h6 class="text-sm">{{ $yl->Schedule->CourseInfo->yearLevel }} - {{ $yl->Schedule->CourseInfo->semester }}</h6>
                                     <p class="my-1">Section: {{ $yl->Schedule->section }}</p>
                                 </div>

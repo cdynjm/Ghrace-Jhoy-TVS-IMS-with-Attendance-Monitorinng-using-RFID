@@ -29,6 +29,7 @@
 
                 <div class="row">
                     <div class="col-sm-6 col-lg-3 mb-4">
+                      <a wire:navigate href="{{ route('admin.instructors') }}">
                         <div class="card card-border-shadow-warning h-100">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-2 pb-1">
@@ -43,8 +44,10 @@
                             </p>
                           </div>
                         </div>
+                      </a>
                       </div>
                       <div class="col-sm-6 col-lg-3 mb-4">
+                        <a wire:navigate href="{{ route('admin.courses') }}">
                         <div class="card card-border-shadow-primary h-100">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-2 pb-1">
@@ -59,15 +62,17 @@
                             </p>
                           </div>
                         </div>
+                      </a>
                       </div>
                       <div class="col-sm-6 col-lg-3 mb-4">
+                        <a wire:navigate href="{{ route('admin.undergraduates') }}">
                         <div class="card card-border-shadow-danger h-100">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-2 pb-1">
                               <div class="avatar me-2">
                                 <span class="avatar-initial rounded bg-label-danger"><i class='bx bxs-graduation'></i></span>
                               </div>
-                              <h4 class="ms-1 mb-0">{{ $student->count() }}</h4>
+                              <h4 class="ms-1 mb-0">{{ $student->where('enrollmentStatus', 0)->where('admission_status', 0)->count() }}</h4>
                             </div>
                             <p class="mb-1">Students</p>
                             <p class="mb-0">
@@ -75,8 +80,10 @@
                             </p>
                           </div>
                         </div>
+                      </a>
                       </div>
                       <div class="col-sm-6 col-lg-3 mb-4">
+                        <a wire:navigate href="{{ route('admin.graduates') }}">
                         <div class="card card-border-shadow-success h-100">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-2 pb-1">
@@ -91,6 +98,7 @@
                             </p>
                           </div>
                         </div>
+                      </a>
                       </div>
                 </div>
 

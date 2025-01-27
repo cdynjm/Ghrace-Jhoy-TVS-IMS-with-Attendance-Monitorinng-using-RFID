@@ -88,7 +88,7 @@
       @if(Auth::user()->role == 4)
         <script src="{{ asset('assets/javascript/student.js?id=109062024') }}" data-navigate-once></script>
       @endif
-      @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+      @if(Auth::user()->role == 5)
         <script src="{{ asset('assets/javascript/rfid.js?id=04062024') }}" data-navigate-once></script>
       @endif
     @else
@@ -117,6 +117,15 @@
     ::-webkit-scrollbar{width:8px;height:5px}::-webkit-scrollbar-track{background:#f1f1f1;border-radius:10px}::-webkit-scrollbar-thumb{background:#888;border-radius:10px}::-webkit-scrollbar-thumb:hover{background:#555}
   </style>
 
+ 
+    <style>
+        .tooltip-inner {
+            font-size: 0.75rem; /* Smaller font size */
+            padding: 4px 8px;    /* Adjust padding */
+        }
+    </style>
+  
+
     @livewireStyles
 </head>
 
@@ -130,7 +139,7 @@
   @if(Auth::check())
   <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-          @if (!Route::is('AdminOrRegistrar.rfid-attendance'))
+          @if (!Route::is('rfid-scanner'))
               @include('layouts.sidebar')
           @endif
             @yield('content')

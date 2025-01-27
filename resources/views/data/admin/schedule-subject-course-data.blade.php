@@ -1,4 +1,4 @@
-<table id="schedule-subject-course-data" class="table table-sm table-hover" style="border-bottom: 1px solid rgb(240, 240, 240)">
+<table id="schedule-subject-course-data" class="table table-sm table-hover text-nowrap" style="border-bottom: 1px solid rgb(240, 240, 240)">
     <thead class="text-dark" style="background: rgb(244, 244, 244)">
         <tr>
             <th>#</th>

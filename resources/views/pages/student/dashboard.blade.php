@@ -33,22 +33,45 @@
                 </ol>
             </nav>
             <a href="javascript:;" id="downloadPDF" class="mb-4"><i class="fab fa-wpforms me-1 mb-4" data-value="{{ strtolower(Auth::user()->Student->firstname) }}-{{ strtolower(Auth::user()->Student->lastname) }}"></i> Download your Registration Form here!</a>
+           
+            @if($enrollment->enable == 1 && Auth::user()->Student->admission_status == 0)
+            <div class="alert alert-success text-white alert-dismissible d-flex align-items-center shadow-sm mb-4" role="alert" style="background-color: rgba(72, 187, 120, 0.8);">
+                <div>
+                    <i class='bx bxs-info-circle me-1'></i>
+                    <small>
+                     <span class="me-2"> ENROLLMENT IS OPEN FOR NEXT SEMESTER STARTING FROM: </span> <strong>{{ date('F d, Y', strtotime($enrollment->open)) }}</strong> <span class="ms-2 me-2">UNTIL</span> <strong>{{ date('F d, Y', strtotime($enrollment->close)) }}</strong>
+                    </small>
+                </div>
+              </div>
+              @endif
+
+            @if(Session::get('emailStatus') != null)
+
+            <div class="alert bg-primary text-white alert-dismissible d-flex align-items-center shadow-sm mb-4" role="alert">
+              <div>
+                  <i class='bx bxs-info-circle me-1'></i>
+                  <small>
+                      <span>{{ Session::get('emailStatus') }}</span>
+                  </small>
+              </div>
+            </div>
+
+            @endif
 
             @if(Auth::user()->Student->admission_status == 1 || Auth::user()->Student->admission_status == 2)
                 <div class="row">
-                    <div class="col-md-12">                        
-                        <p class="text-light fw-medium mt-2">Your Admission Application Progress</p>
-                    
-                        <!-- Default Wizard -->
-                        <div class="col-12 mb-4">
-                            <div class="bs-stepper wizard-numbered mt-2 table-responsive">
-                            <div class="bs-stepper-header">
-
-                                <div class="step" data-target="#account-details">
-                                <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-circle 
-                                    
-                                    @if(
+                    <div class="col-md-4">                        
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                              <h5 class="card-title m-0">Admission Progress</h5>
+                            </div>
+                            <div class="card-body">
+                              <ul class="timeline pb-0 mb-0">
+                                <li class="timeline-item timeline-item-transparent border-primary">
+                                  <span class="timeline-point
+                                  
+                                  @if(
                                     
                                         Auth::user()->Student->status == 1 ||
                                         Auth::user()->Student->status == 2 ||
@@ -58,234 +81,371 @@
                                         Auth::user()->Student->status == 6 ||
                                         Auth::user()->Student->status == 7
                                     
-                                    ) bg-success border-success text-white @endif
-                                    
-                                    ">1</span>
-                                    <span class="bs-stepper-label">
-                                    <span class="bs-stepper-title">Registration</span>
-                                    <span class="bs-stepper-subtitle">
+                                    )
+                                  
+                                  timeline-point-success
+                                  
+                                  @endif
+
+                                  "></span>
+                                  <div class="timeline-event">
+                                    <div class="timeline-header">
+                                      <h6 class="mb-0">Registration Successful</h6>
+                                      
+                                    </div>
+                                    <p class="mt-2 mb-1">Application Submitted</p>
+                                    <span class="text-muted">
                                         @foreach($tracker->where('tracker', 1) as $tr)
                                             {{ date('M d, Y', strtotime($tr->created_at)) }}
                                         @endforeach
                                     </span>
-                                    </span>
-                                </button>
-                                </div>
+                                  </div>
+                                </li>
 
-                                <div class="line"></div>
-                                <div class="step" data-target="#personal-info">
-                                    <button type="button" class="step-trigger">
-                                        <span class="bs-stepper-circle 
+
+
+                                <li class="timeline-item timeline-item-transparent border-primary">
+                                  <span class="timeline-point 
+                                  
+                                  
+                                  @if(
                                         
-                                        @if(
-                                        
-                                        Auth::user()->Student->status == 2 ||
-                                        Auth::user()->Student->status == 3 ||
-                                        Auth::user()->Student->status == 4 ||
-                                        Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6 ||
-                                        Auth::user()->Student->status == 7
+                                    Auth::user()->Student->status == 2 ||
+                                    Auth::user()->Student->status == 3 ||
+                                    Auth::user()->Student->status == 4 ||
+                                    Auth::user()->Student->status == 5 ||
+                                    Auth::user()->Student->status == 6 ||
+                                    Auth::user()->Student->status == 7
+                                
+                                    ) timeline-point-success @endif
                                     
-                                        ) bg-success border-success text-white @endif
-                                        
-                                        @if(
+                                    @if(Auth::user()->Student->status == 1)
+                                        timeline-point-primary
+                                    @endif
+                                  
+                                  
+                                  "></span>
+                                  <div class="timeline-event">
+                                    <div class="timeline-header">
+                                      <h6 class="mb-0">Documents</h6>
+                                      
+                                    </div>
+                                    <p class="mt-2 mb-1">Upload requirements</p>
+                                    <span class="text-muted">
+                                        @foreach($tracker->where('tracker', 2) as $tr)
+                                            {{ date('M d, Y', strtotime($tr->created_at)) }}
+                                        @endforeach
+                                      </span>
+                                    @if(Auth::user()->Student->status == 1)
+                                    <hr class="border-primary">
+                                    @endif
+                                  </div>
+                                </li>
 
-                                        Auth::user()->Student->status == 1
-                                        
-                                        )
-                                            bg-primary border-primary text-white
-                                        @endif
 
-                                        ">2</span>
-                                        <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Documents</span>
-                                        <span class="bs-stepper-subtitle">
-                                            @foreach($tracker->where('tracker', 2) as $tr)
-                                                {{ date('M d, Y', strtotime($tr->created_at)) }}
-                                            @endforeach
-                                        </span>
-                                        </span>
-                                    </button>
-                                </div>
 
-                                <div class="line"></div>
-                                <div class="step" data-target="#personal-info">
-                                    <button type="button" class="step-trigger">
-                                        <span class="bs-stepper-circle 
-                                        
-                                        @if(
+
+                                <li class="timeline-item timeline-item-transparent border-primary
+
+                                @if(
+                                    Auth::user()->Student->status == 2 ||
+                                    Auth::user()->Student->status == 3 ||
+                                    Auth::user()->Student->status == 4 ||
+                                    Auth::user()->Student->status == 5 ||
+                                    Auth::user()->Student->status == 6 ||
+                                    Auth::user()->Student->status == 7
+                                
+                                    ) 
+                                @else
+                                    opacity-50
+                                @endif
+                                
+                                
+                                ">
+                                  <span class="timeline-point 
+                                  
+                                  
+                                  @if(
+                                    Auth::user()->Student->status == 3 ||
+                                    Auth::user()->Student->status == 4 ||
+                                    Auth::user()->Student->status == 5 ||
+                                    Auth::user()->Student->status == 6 ||
+                                    Auth::user()->Student->status == 7
+                                
+                                    ) timeline-point-success @endif
                                     
-                                        Auth::user()->Student->status == 3 ||
-                                        Auth::user()->Student->status == 4 ||
-                                        Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6 ||
-                                        Auth::user()->Student->status == 7
+                                    @if(Auth::user()->Student->status == 2)
+                                       timeline-point-primary
+                                    @else
+                                        timeline-point-secondary
+                                    @endif
+                                  
+                                  
+                                  "></span>
+                                  <div class="timeline-event">
+                                    <div class="timeline-header">
+                                      <h6 class="mb-0">Review/Approve</h6>
+                                      
+                                    </div>
+                                    <p class="mt-2 mb-1">Application is under review</p>
+                                    <span class="text-muted">
+                                        @foreach($tracker->where('tracker', 3) as $tr)
+                                            {{ date('M d, Y', strtotime($tr->created_at)) }}
+                                        @endforeach
+                                      </span>
+                                      @if(Auth::user()->Student->status == 2)
+                                    <hr class="border-primary">
+                                    @endif
+                                  </div>
+                                 
+                                </li>
+
+
+
+                                <li class="timeline-item timeline-item-transparent border-primary 
+                                
+                                @if(
+                                    Auth::user()->Student->status == 3 ||
+                                    Auth::user()->Student->status == 4 ||
+                                    Auth::user()->Student->status == 5 ||
+                                    Auth::user()->Student->status == 6 ||
+                                    Auth::user()->Student->status == 7
+                                
+                                    ) 
+                                @else
+                                    opacity-50
+                                @endif
+                                
+                                
+                                ">
+                                    <span class="timeline-point 
                                     
-                                        ) bg-success border-success text-white @endif
-                                        
-                                        @if(Auth::user()->Student->status == 2)
-                                            bg-primary border-primary text-white
-                                        @endif
-
-                                        ">3</span>
-                                        <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Pending</span>
-                                        <span class="bs-stepper-subtitle">
-                                            @foreach($tracker->where('tracker', 3) as $tr)
-                                                {{ date('M d, Y', strtotime($tr->created_at)) }}
-                                            @endforeach
-                                        </span>
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <div class="line"></div>
-                                <div class="step" data-target="#personal-info">
-                                    <button type="button" class="step-trigger">
-                                        <span class="bs-stepper-circle 
-                                        
-                                        @if(
                                     
-                                        Auth::user()->Student->status == 4 ||
-                                        Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6 ||
-                                        Auth::user()->Student->status == 7
+                                    @if(
+                                      Auth::user()->Student->status == 4 ||
+                                      Auth::user()->Student->status == 5 ||
+                                      Auth::user()->Student->status == 6 ||
+                                      Auth::user()->Student->status == 7
+                                  
+                                      ) timeline-point-success @endif
+                                      
+                                      @if(Auth::user()->Student->status == 3)
+                                         timeline-point-primary
+                                      @else
+                                          timeline-point-secondary
+                                      @endif
                                     
-                                        ) bg-success border-success text-white @endif
-                                        
-                                        @if(Auth::user()->Student->status == 3)
-                                            bg-primary border-primary text-white
-                                        @endif
-
-                                        ">4</span>
-                                        <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Exam</span>
-                                        <span class="bs-stepper-subtitle">
-                                            @foreach($tracker->where('tracker', 4) as $tr)
-                                                {{ date('M d, Y', strtotime($tr->created_at)) }}
-                                            @endforeach
-                                        </span>
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <div class="line"></div>
-                                <div class="step" data-target="#personal-info">
-                                    <button type="button" class="step-trigger">
-                                        <span class="bs-stepper-circle 
-                                        
-                                        @if(
-
-                                        Auth::user()->Student->status == 5 ||
-                                        Auth::user()->Student->status == 6 ||
-                                        Auth::user()->Student->status == 7
                                     
-                                        ) bg-success border-success text-white @endif
+                                    "></span>
+                                    <div class="timeline-event">
+                                      <div class="timeline-header">
+                                        <h6 class="mb-0">Entrance Examination</h6>
                                         
-                                        @if(Auth::user()->Student->status == 4)
-                                            bg-primary border-primary text-white
-                                        @endif
+                                      </div>
+                                      <p class="mt-2 mb-1">Scheduled for examination</p>
+                                      <span class="text-muted">
+                                        @foreach($tracker->where('tracker', 4) as $tr)
+                                            {{ date('M d, Y', strtotime($tr->created_at)) }}
+                                        @endforeach
+                                      </span>
+                                      @if(Auth::user()->Student->status == 3)
+                                    <hr class="border-primary">
+                                    @endif
+                                    </div>
+                                   
+                                  </li>
 
-                                        ">5</span>
-                                        <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">1st Interview</span>
-                                        <span class="bs-stepper-subtitle">
-                                            @foreach($tracker->where('tracker', 5) as $tr)
-                                                {{ date('M d, Y', strtotime($tr->created_at)) }}
-                                            @endforeach
-                                        </span>
-                                        </span>
-                                    </button>
-                                </div>
 
-                                <div class="line"></div>
-                                <div class="step" data-target="#personal-info">
-                                    <button type="button" class="step-trigger">
-                                        <span class="bs-stepper-circle 
-                                        
-                                        @if(
 
-                                        Auth::user()->Student->status == 6 ||
-                                        Auth::user()->Student->status == 7
+
+                                  <li class="timeline-item timeline-item-transparent border-primary
+                                  
+                                  
+                                  @if(
+                                    Auth::user()->Student->status == 4 ||
+                                    Auth::user()->Student->status == 5 ||
+                                    Auth::user()->Student->status == 6 ||
+                                    Auth::user()->Student->status == 7
+                                
+                                    ) 
+                                @else
+                                    opacity-50
+                                @endif
+                                  
+                                  ">
+                                    <span class="timeline-point 
                                     
-                                        ) bg-success border-success text-white @endif
-                                        
-                                        @if(Auth::user()->Student->status == 5)
-                                            bg-primary border-primary text-white
-                                        @endif
-
-                                        ">6</span>
-                                        <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">2nd Interview</span>
-                                        <span class="bs-stepper-subtitle">
-                                            @foreach($tracker->where('tracker', 6) as $tr)
-                                                {{ date('M d, Y', strtotime($tr->created_at)) }}
-                                            @endforeach
-                                        </span>
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <div class="line"></div>
-                                <div class="step" data-target="#personal-info">
-                                    <button type="button" class="step-trigger">
-                                        <span class="bs-stepper-circle 
-                                        
-                                        @if(
                                     
-                                        Auth::user()->Student->status == 7
+                                    @if(
+                                      Auth::user()->Student->status == 5 ||
+                                      Auth::user()->Student->status == 6 ||
+                                      Auth::user()->Student->status == 7
+                                  
+                                      ) timeline-point-success @endif
+                                      
+                                      @if(Auth::user()->Student->status == 4)
+                                         timeline-point-primary
+                                      @else
+                                          timeline-point-secondary
+                                      @endif
+                                    
+                                    
+                                    "></span>
+                                    <div class="timeline-event">
+                                      <div class="timeline-header">
+                                        <h6 class="mb-0">First Interview</h6>
+                                       
+                                      </div>
+                                      <p class="mt-2 mb-1">Scheduled for personal interview</p>
+                                      <span class="text-muted">
+                                        @foreach($tracker->where('tracker', 5) as $tr)
+                                            {{ date('M d, Y', strtotime($tr->created_at)) }}
+                                        @endforeach
+                                      </span>
+                                      @if(Auth::user()->Student->status == 4)
+                                    <hr class="border-primary">
+                                    @endif
+                                    </div>
+                                   
+                                  </li>
 
-                                        ) bg-success border-success text-white @endif
+
+
+                                  <li class="timeline-item timeline-item-transparent border-primary
+                                  
+                                  @if(
+                                    Auth::user()->Student->status == 5 ||
+                                    Auth::user()->Student->status == 6 ||
+                                    Auth::user()->Student->status == 7
+                                
+                                    ) 
+                                @else
+                                    opacity-50
+                                @endif
+                                  
+                                  ">
+                                    <span class="timeline-point 
+                                    
+                                    
+                                    @if(
+                                    
+                                      Auth::user()->Student->status == 6 ||
+                                      Auth::user()->Student->status == 7
+                                  
+                                      ) timeline-point-success @endif
+                                      
+                                      @if(Auth::user()->Student->status == 5)
+                                         timeline-point-primary
+                                      @else
+                                          timeline-point-secondary
+                                      @endif
+                                    
+                                    
+                                    "></span>
+                                    <div class="timeline-event">
+                                      <div class="timeline-header">
+                                        <h6 class="mb-0">Second Interview</h6>
                                         
-                                        @if(Auth::user()->Student->status == 6)
-                                            bg-primary border-primary text-white
-                                        @endif
+                                      </div>
+                                      <p class="mt-2 mb-1">Scheduled for personal interview</p>
+                                      <span class="text-muted">
+                                        @foreach($tracker->where('tracker', 6) as $tr)
+                                            {{ date('M d, Y', strtotime($tr->created_at)) }}
+                                        @endforeach
+                                      </span>
+                                      @if(Auth::user()->Student->status == 5)
+                                    <hr class="border-primary">
+                                    @endif
+                                    </div>
+                                   
+                                  </li>
 
-                                        ">7</span>
-                                        <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Final Result</span>
-                                        <span class="bs-stepper-subtitle">
-                                            @foreach($tracker->where('tracker', 7) as $tr)
-                                                {{ date('M d, Y', strtotime($tr->created_at)) }}
-                                            @endforeach
-                                        </span>
-                                        </span>
-                                    </button>
-                                </div>
+
+
+
+                                  <li class="timeline-item timeline-item-transparent border-transparent pb-0
+                                  
+                                  @if(
+                                   Auth::user()->Student->status == 6 ||
+                                    Auth::user()->Student->status == 7
+                                    ) 
+                                @else
+                                    opacity-50
+                                @endif
+                                  
+                                  ">
+                                    <span class="timeline-point 
+                                    
+                                    
+                                    @if(
+                                   
+                                      Auth::user()->Student->status == 7
+                                  
+                                      ) timeline-point-success @endif
+                                      
+                                      @if(Auth::user()->Student->status == 6)
+                                         timeline-point-primary
+                                      @else
+                                          timeline-point-secondary
+                                      @endif
+                                    
+                                    
+                                    "></span>
+                                    <div class="timeline-event">
+                                      <div class="timeline-header">
+                                        <h6 class="mb-0">Final Result</h6>
+                                       
+                                      </div>
+                                      <p class="mt-2 mb-1">Evaluation of results</p>
+                                      <span class="text-muted">
+                                        @foreach($tracker->where('tracker', 7) as $tr)
+                                            {{ date('M d, Y', strtotime($tr->created_at)) }}
+                                        @endforeach
+                                      </span>
+                                      @if(Auth::user()->Student->status == 6)
+                                    <hr class="border-primary">
+                                    @endif
+                                    </div>
+                                  </li>
+
+
+
+                              </ul>
                             </div>
-                            
-                            </div>
+                          
                         </div>
-                        <!-- /Default Wizard -->
+
                     </div>
                    
-                    @if(Auth::user()->Student->status == 1 && Auth::user()->Student->failed == null)
-                        @include('pages.student.admission-cards.upload')
-                    @endif
+                    <div class="col-md-8">
+                        @if(Auth::user()->Student->status == 1 && Auth::user()->Student->failed == null)
+                            @include('pages.student.admission-cards.upload')
+                        @endif
 
-                    @if(Auth::user()->Student->status == 2 && Auth::user()->Student->failed == null)
-                        @include('pages.student.admission-cards.pending-review')
-                    @endif
+                        @if(Auth::user()->Student->status == 2 && Auth::user()->Student->failed == null)
+                            @include('pages.student.admission-cards.pending-review')
+                        @endif
 
-                    @if(Auth::user()->Student->status == 3 && Auth::user()->Student->failed == null)
-                        @include('pages.student.admission-cards.exam-schedule')
-                    @endif
+                        @if(Auth::user()->Student->status == 3 && Auth::user()->Student->failed == null)
+                            @include('pages.student.admission-cards.exam-schedule')
+                        @endif
 
-                    @if(Auth::user()->Student->status == 4 && Auth::user()->Student->failed == null) 
-                        @include('pages.student.admission-cards.interview-schedule')
-                    @endif
+                        @if(Auth::user()->Student->status == 4 && Auth::user()->Student->failed == null) 
+                            @include('pages.student.admission-cards.interview-schedule')
+                        @endif
 
-                    @if(Auth::user()->Student->status == 5 && Auth::user()->Student->failed == null)
-                        @include('pages.student.admission-cards.second-interview-schedule')
-                    @endif
+                        @if(Auth::user()->Student->status == 5 && Auth::user()->Student->failed == null)
+                            @include('pages.student.admission-cards.second-interview-schedule')
+                        @endif
 
-                    @if((Auth::user()->Student->status == 6 || Auth::user()->Student->status == 7) && Auth::user()->Student->failed == null)
-                        @include('pages.student.admission-cards.final-result')
-                    @endif
+                        @if((Auth::user()->Student->status == 6 || Auth::user()->Student->status == 7) && Auth::user()->Student->failed == null)
+                            @include('pages.student.admission-cards.final-result')
+                        @endif
 
-                    @if(Auth::user()->Student->failed == 1)
-                        @include('pages.student.admission-cards.failed')
-                    @endif
+                        @if(Auth::user()->Student->failed == 1)
+                            @include('pages.student.admission-cards.failed')
+                        @endif
+                    </div>
                 </div>
           </div>
           

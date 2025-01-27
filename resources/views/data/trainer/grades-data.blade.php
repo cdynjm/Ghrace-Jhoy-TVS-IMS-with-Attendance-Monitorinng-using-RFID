@@ -53,7 +53,33 @@
                                                 <td><small>{{ $sc->Subjects->description }}</small></td>
                                                 <td>
                                                     <small>
-                                                        <a wire:navigate href="{{ route('trainer.students', ['id' => $aes->encrypt($sc->id), 'scheduleID' => $aes->encrypt($sc->scheduleID), 'courseInfoID' => $aes->encrypt($sc->courseInfoID), 'subjectID' => $aes->encrypt($sc->subject)]) }}" class="btn btn-xs btn-primary me-1"><iconify-icon icon="lets-icons:view-duotone" width="18" height="18" class="me-1"></iconify-icon> View</a>
+                                                @php
+                                                    $daysEquivalent = [
+                                                        'mon' => 'Mon',
+                                                        'tue' => 'Tue',
+                                                        'wed' => 'Wed',
+                                                        'thu' => 'Thu',
+                                                        'fri' => 'Fri',
+                                                        'sat' => 'Sat'
+                                                    ];
+                                                
+                                                    // Initialize an empty array to store selected days
+                                                    $selectedDays = [];
+                                                
+                                                    // Loop through each day in $daysEquivalent and check if $sc has a value of 1 for that day
+                                                    foreach ($daysEquivalent as $key => $dayName) {
+                                                        if ($sc->$key == 1) {  // Checks if the day in $sc has a value of 1
+                                                            $selectedDays[] = $dayName;  // Add the full day name to $selectedDays
+                                                        }
+                                                    }
+                                                
+                                                    // Combine selected days into a single string without comma or 'and'
+                                                    $daysString = implode(' ', $selectedDays);    // No separator, just concatenate the days
+                                                @endphp
+                                                    @php
+                                                        $time = date('h:i A', strtotime($sc->fromTime)).' - '.date('h:i A', strtotime($sc->toTime))
+                                                    @endphp
+                                                        <a wire:navigate href="{{ route('trainer.students', ['id' => $aes->encrypt2($sc->id), 'day' => $daysString, 'time' => $time, 'scheduleID' => $aes->encrypt2($sc->scheduleID), 'courseInfoID' => $aes->encrypt2($sc->courseInfoID), 'subjectID' => $aes->encrypt2($sc->subject)]) }}" class="btn btn-xs btn-primary me-1"><iconify-icon icon="lets-icons:view-duotone" width="18" height="18" class="me-1"></iconify-icon> View</a>
                                                     </small>
                                                 </td>
                                             </tr>

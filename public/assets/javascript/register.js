@@ -172,6 +172,21 @@ $(document).on('change', "#select-birthplace-province", function(e){
 
 $(document).on('submit', "#admission-application", function(e){
     e.preventDefault();
+
+    // Get password values
+    const password = $('#password').val();
+    const retypePassword = $('#retype-password').val();
+
+    // Check if passwords match
+    if (password !== retypePassword) {
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Passwords Do Not Match</h4><small>Please ensure both passwords are the same.</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+        return; // Stop form submission
+    }
+
     SweetAlert.fire({
         icon: 'question',
         html: 

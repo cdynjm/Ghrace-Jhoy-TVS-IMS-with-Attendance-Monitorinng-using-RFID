@@ -91,40 +91,48 @@
                                     @foreach ($uli as $index => $char)
                                         @if ($index == 10)
                                             <!-- Insert dash after the 10th cell -->
-                                            <td style="text-align: center;" width='3%'><span>-</span></td>
+                                            <td style="text-align: center; padding: 5px; border: 1px solid black;" width="3%">
+                                                <span>-</span>
+                                            </td>
                                         @endif
-
-                                        <td style="padding: 5px; text-align: center;">
-                                            {{ $char }}
+                        
+                                        <!-- Display character or add a white letter for uniform size -->
+                                        <td style="padding: 5px; text-align: center; border: 1px solid black;">
+                                            <span style="color: {{ empty($char) ? 'white' : 'black' }};">
+                                                {{ $char ?: 'A' }}
+                                            </span>
                                         </td>
                                     @endforeach
-
+                        
                                     @for($i = count($uli); $i < 13; $i++)
-                                        <!-- Add empty cells to ensure there are 13 cells in total -->
-                                        <td style="padding: 5px; text-align: center;"></td>
+                                        <!-- Add empty cells with a white letter for uniform size -->
+                                        <td style="padding: 5px; text-align: center; border: 1px solid black;">
+                                            <span style="color: white;">A</span>
+                                        </td>
                                     @endfor
                                 </tr>
                             </table>
-                            @else
+                        @else
                             <table id="table-form">
                                 <tr>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="text-align: center;" width='3%'><span>-</span></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
-                                    <td style="padding-bottom: 25px; padding-right: 5px;"></td>
+                                    @for ($i = 0; $i < 13; $i++)
+                                        @if ($i == 10)
+                                            <!-- Insert dash after the 10th cell -->
+                                            <td style="text-align: center; padding: 5px; border: 1px solid black;" width="3%">
+                                                <span>-</span>
+                                            </td>
+                                        @else
+                                            <!-- Add empty cells with a white letter for uniform size -->
+                                            <td style="padding: 5px; text-align: center; border: 1px solid black;">
+                                                <span style="color: white;">A</span>
+                                            </td>
+                                        @endif
+                                    @endfor
                                 </tr>
                             </table>
-                            @endif
+                        @endif
+                        
+                        
                         </span>
                     </td>
                     <td colspan="2" style="padding: 3px; border-left: none;">
@@ -157,7 +165,10 @@
                     </td>
                     <td style="text-align: center; border-left: none; border-bottom: none; padding-top: 10px;">
                         <span>
-                            <div style="padding: 5px; border: 1px solid black;">{{ $learnersProfile->middlename }}</div>
+                            <div style="padding: 5px; border: 1px solid black; color: {{ $learnersProfile->middlename ? 'black' : 'white' }};">
+                                {{ $learnersProfile->middlename ?: '-' }}
+                            </div>
+                            
                             <label for="" style="font-weight: bold; font-size: 9px;">Middle</label>
                         </span>
                     </td>
@@ -172,47 +183,75 @@
                     </td>
                     <td style="text-align: center; border-right: none; border-left: none; border-top: none;">
                         <div>
-                            <div style="padding: 20px; border: 1px solid black;">{{ $learnersProfile->street }}</div>
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">{{ $learnersProfile->street }}</div>
                             <label for="" style="font-weight: bold; font-size: 9px;">Number, Street</label>
                         </div>
                         <div>
-                            <div style="padding: 5px; border: 1px solid black;">{{ ucwords(strtolower($learnersProfile->Municipal->citymunDesc)) }}</div>
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">{{ ucwords(strtolower($learnersProfile->Municipal->citymunDesc)) }}</div>
                             <label for="" style="font-weight: bold; font-size: 9px;">City/Muncipality</label>
                         </div>
                         <div>
-                            <div style="padding: 5px; border: 1px solid black;">{{ $learnersProfile->account }}</div>
+                            @php
+                            function formatEmailWithSpans($email)
+                            {
+                                // Validate the email format
+                                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                                    // Split the email into parts
+                                    list($localPart, $domain) = explode('@', $email);
+                                    list($domainName, $tld) = explode('.', $domain);
+
+                                    // Return the formatted email with <span> tags
+                                    return "{$localPart}<span></span>@<span></span>{$domainName}<span></span>.{$tld}";
+                                }
+
+                                // Return the original input if it's not a valid email
+                                return $email;
+                            }
+                            @endphp
+
+                            <!-- Example Usage -->
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">
+                                <?= formatEmailWithSpans($learnersProfile->account); ?>
+                            </div>
+
                             <label for="" style="font-weight: bold; font-size: 9px;">Email Address/Facebook Account:</label>
                         </div>
+
+                        <script>
+
+                            
+                        </script>
                     </td>
                     <td style="text-align: center; border-right: none; border-left: none; border-top: none;">
                         <div>
-                            <div style="padding: 20px; border: 1px solid black;">{{ $learnersProfile->Barangay->brgyDesc }}</div>
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">{{ $learnersProfile->Barangay->brgyDesc }}</div>
                             <label for="" style="font-weight: bold; font-size: 9px;">Barangay</label>
                         </div>
                         <div>
-                            <div style="padding: 5px; border: 1px solid black;">{{ ucwords(strtolower($learnersProfile->Province->provDesc)) }}</div>
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">{{ ucwords(strtolower($learnersProfile->Province->provDesc)) }}</div>
                             <label for="" style="font-weight: bold; font-size: 9px;">Province</label>
                         </div>
                         <div>
-                            <div style="padding: 5px; border: 1px solid black;">{{ $learnersProfile->phone }}</div>
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">{{ $learnersProfile->phone }}</div>
                             <label for="" style="font-weight: bold; font-size: 9px;">Contact No:</label>
                         </div>
                     </td>
                     <td style="text-align: center; border-left: none; border-top: none;">
                         <div>
-                            <div style="padding: 20px; border: 1px solid black;">{{ $learnersProfile->district }}</div>
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">{{ $learnersProfile->district }}</div>
                             <label for="" style="font-weight: bold; font-size: 9px;">District</label>
                         </div>
                         <div>
-                            <div style="padding: 5px; border: 1px solid black;">{{ $learnersProfile->Region->regDesc }}</div>
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">{{ $learnersProfile->Region->regDesc }}</div>
                             <label for="" style="font-weight: bold; font-size: 9px;">Region</label>
                         </div>
                         <div>
-                            <div style="padding: 5px; border: 1px solid black;">{{ $learnersProfile->nationality }}</div>
+                            <div style="padding: 10px; border: 1px solid black; min-height: 40px;">{{ $learnersProfile->nationality }}</div>
                             <label for="" style="font-weight: bold; font-size: 9px;">Nationality</label>
                         </div>
                     </td>
                 </tr>
+
                 <tr>
                     <td colspan="5">
                         <div style="font-weight: bold; font-size: 14px; padding: 8px;">3. Personal Information</div>

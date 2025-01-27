@@ -988,8 +988,110 @@ $(document).on('click', '#edit-grades-value', function() {
     $('#edit-grades-modal').modal('show');
 });
 
-$(document).on('submit', "#update-grades", function(e){
+$(document).on('click', '.edit-grades-btn', function () {
+    var row = $(this).closest('tr'); // Get the closest row (tr)
+    var mtCell = row.find('[data-type="mt"]'); // Find the mt cell
+    var ftCell = row.find('[data-type="ft"]'); // Find the ft cell
+    var ncCell = row.find('[data-type="nc"]'); // Find the nc cell
+    var nc = $(this).parents('tr').find('td[nc]').attr("nc");
+
+    // Show input fields and hide the current content
+    mtCell.find('.grade-content').hide();
+    mtCell.find('.grade-input').show();
+    ftCell.find('.grade-content').hide();
+    ftCell.find('.grade-input').show();
+
+    if(nc == 1) {
+        ncCell.find('.resultant-content').hide();
+        ncCell.find('.resultant-subject').show();
+    }
+    
+
+    // Show Save and Cancel buttons, hide Edit button
+    $(this).hide();
+    row.find('.save-grades-btn').show();
+    row.find('.cancel-grades-btn').show();
+});
+
+
+$(document).on('click', '.cancel-grades-btn', function() {
+    var row = $(this).closest('tr');
+    var mtCell = row.find('[data-type="mt"]'); // Find the mt cell
+    var ftCell = row.find('[data-type="ft"]'); // Find the ft cell
+    var ncCell = row.find('[data-type="nc"]');
+
+    // Revert to the original content and hide input fields
+    mtCell.find('.grade-content').show();
+    mtCell.find('.grade-input').hide();
+    ftCell.find('.grade-content').show();
+    ftCell.find('.grade-input').hide();
+    
+    ncCell.find('.resultant-content').show();
+    ncCell.find('.resultant-subject').hide();
+    // Show Edit button, hide Save and Cancel buttons
+    row.find('.edit-grades-btn').show();
+    $(this).hide();
+    row.find('.save-grades-btn').hide();
+});
+
+$(document).on('keyup', ".mt-grades-invalid, .ft-grades-invalid", function (e) {
+    // Find the closest parent <td> element
+    let parentTd = $(this).closest('.grade-cell');
+
+    // Get the input values for MT and FT in their respective cells
+    let mtInput = parentTd.find('.mt-grades-invalid').val();
+    let ftInput = parentTd.find('.ft-grades-invalid').val();
+
+    // Parse the values to floats (for validation)
+    let mt = parseFloat(mtInput);
+    let ft = parseFloat(ftInput);
+
+    // Validate MT (Midterm Grade)
+    if (parentTd.data('type') === 'mt') {
+        if (isNaN(mt) || (mt < 1 && mt != 0) || mt > 5) {
+            parentTd.find('.mt-invalid').show(); // Show invalid grade message
+        } else {
+            parentTd.find('.mt-invalid').hide(); // Hide invalid grade message
+        }
+    }
+
+    // Validate FT (Final Term Grade)
+    if (parentTd.data('type') === 'ft') {
+        if (isNaN(ft) || (ft < 1 && ft != 0) || ft > 5) {
+            parentTd.find('.ft-invalid').show(); // Show invalid grade message
+        } else {
+            parentTd.find('.ft-invalid').hide(); // Hide invalid grade message
+        }
+    }
+});
+
+
+
+$(document).on('click', "#update-grades", function(e){
     e.preventDefault();
+
+    var gradeID = $(this).parents('tr').find('td[gradeID]').attr("gradeID");
+    var id = $(this).parents('tr').find('td[id]').attr("id");
+    var identifier = $(this).parents('tr').find('td[identifier]').attr("identifier");
+    var mt = parseFloat($('#mt-grades-' + identifier).val()); // Parse as float
+    var ft = parseFloat($('#ft-grades-' + identifier).val()); // Parse as float
+    var nc = $(this).parents('tr').find('td[nc]').attr("nc");
+    var assessment = $('#assessment-' + identifier).val();
+
+
+    // Validation for integers and range
+    if (
+        (isNaN(mt) || (mt < 1 && mt != 0) || mt > 5) || // mt validation
+        (isNaN(ft) || (ft < 1 && ft != 0) || ft > 5)    // ft validation
+    ) {
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Invalid Input</h4><small>Grades must be whole numbers between 1 and 5, or exactly 0.</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+        return; // Stop execution
+    }
+    
     $('.processing').show(100);
     $('.processing').html(`
         <div class="col d-flex">
@@ -1001,8 +1103,13 @@ $(document).on('submit', "#update-grades", function(e){
         </div>
     `);
     
-    setTimeout(() => {
-        const formData = new FormData(this);
+   
+        const formData = new FormData();
+        formData.append('id', id)
+        formData.append('gradeID', gradeID)
+        formData.append('mt', mt)
+        formData.append('ft', ft)
+        formData.append('assessment', assessment)
         formData.append('_method', 'PATCH');
         async function APIrequest() {
             return await axios.post('/api/update/grades', formData, {
@@ -1016,13 +1123,10 @@ $(document).on('submit', "#update-grades", function(e){
         APIrequest().then(response => {
             $('.processing').hide(100);
             $("#edit-grades-modal").modal('hide');
-            $('input').val('');
+           
             $('#edit-grades-data').html(response.data.Grades);
-            SweetAlert.fire({
-                icon: 'success',
-                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
-                confirmButtonColor: "#3a57e8"
-            });
+            $('#enroll-graduate-button-data').html(response.data.EnrollGraduateButtons)
+           
         })
         .catch(error => {
             console.error('Error:', error);
@@ -1032,7 +1136,7 @@ $(document).on('submit', "#update-grades", function(e){
                 confirmButtonColor: "#3a57e8"
             });
         });
-    }, 1500);
+   
 });
 
 $(document).on('click', "#graduate-student", function(e){
@@ -1057,8 +1161,9 @@ $(document).on('click', "#graduate-student", function(e){
                 showConfirmButton: false
             });
             const data = {
-                studentID: $(this).parents('tr').find('td[id]').attr("id"),
-                id: $(this).parents('tr').find('td[courseID]').attr("courseID"),
+             //   studentID: $(this).parents('tr').find('td[id]').attr("id"),
+              //  id: $(this).parents('tr').find('td[courseID]').attr("courseID"),
+                id: $(this).data('id'),
                 _method: 'PATCH'
             };
             async function APIrequest() {
@@ -1071,9 +1176,8 @@ $(document).on('click', "#graduate-student", function(e){
                 })
             }
             APIrequest().then(response => {
-                $('.processing').hide(100);
-                $('#enrollment-data').html(response.data.Enrollees);
-                $('#schedule-list').html(response.data.Schedule);
+                $('#edit-grades-data').html(response.data.Grades);
+                $('#enroll-graduate-button-data').html(response.data.EnrollGraduateButtons)
                 SweetAlert.fire({
                     icon: 'success',
                     html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
@@ -1972,8 +2076,8 @@ $(document).on('submit', "#create-schedule", function(e){
         
                         return `
                             <tr>
-                                <td>${conflictHtml}</td>
                                 <td>${schedHtml}</td>
+                                 <td>${conflictHtml}</td>
                             </tr>
                         `;
                     }).join('');
@@ -1986,8 +2090,8 @@ $(document).on('submit', "#create-schedule", function(e){
                             <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Conflicting Schedules</th>
-                                    <th>Schedules That Conflict</th>
+                                    <th>These schedule/s conflicts with</th>
+                                    <th>Existing Scehdules</th>
                                 </tr>
                             </thead>
                                 <tbody>
@@ -2146,8 +2250,8 @@ $(document).on('submit', "#update-schedule", function(e){
         
                         return `
                             <tr>
-                                <td>${conflictHtml}</td>
                                 <td>${schedHtml}</td>
+                                <td>${conflictHtml}</td>
                             </tr>
                         `;
                     }).join('');
@@ -2160,8 +2264,8 @@ $(document).on('submit', "#update-schedule", function(e){
                             <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Conflicting Schedules</th>
-                                    <th>Schedules That Conflict</th>
+                                    <th>These schedule/s conflicts with</th>
+                                    <th>Existing Scehdules</th>
                                 </tr>
                             </thead>
                                 <tbody>
@@ -2705,8 +2809,82 @@ $(document).on('click', '#update-grades-value', function() {
     $('#update-grades-modal').modal('show');
 });
 
-$(document).on('submit', "#update-grades-data-value", function(e){
-    e.preventDefault();
+$(document).on('click', '.edit-grades-btn-value', function () {
+   
+    var row = $(this).closest('tr'); // Get the closest row (tr)
+    var mtCell = row.find('[data-type="mt"]'); // Find the mt cell
+    var ftCell = row.find('[data-type="ft"]'); // Find the ft cell
+    var ncCell = row.find('[data-type="nc"]'); // Find the nc cell
+    var nc = $(this).parents('tr').find('td[nc]').attr("nc");
+
+    // Show input fields and hide the current content
+    mtCell.find('.grade-content').hide();
+    mtCell.find('.grade-input').show();
+    ftCell.find('.grade-content').hide();
+    ftCell.find('.grade-input').show();
+
+    if(nc == 1) {
+        ncCell.find('.resultant-content').hide();
+        ncCell.find('.resultant-subject').show();
+    }
+    
+
+    // Show Save and Cancel buttons, hide Edit button
+    $(this).hide();
+    row.find('.view-grades-btn-value').hide();
+    row.find('.save-grades-btn-value').show();
+    row.find('.cancel-grades-btn-value').show();
+});
+
+
+$(document).on('click', '.cancel-grades-btn-value', function() {
+    var row = $(this).closest('tr');
+    var mtCell = row.find('[data-type="mt"]'); // Find the mt cell
+    var ftCell = row.find('[data-type="ft"]'); // Find the ft cell
+    var ncCell = row.find('[data-type="nc"]');
+
+    // Revert to the original content and hide input fields
+    mtCell.find('.grade-content').show();
+    mtCell.find('.grade-input').hide();
+    ftCell.find('.grade-content').show();
+    ftCell.find('.grade-input').hide();
+    
+    ncCell.find('.resultant-content').show();
+    ncCell.find('.resultant-subject').hide();
+    // Show Edit button, hide Save and Cancel buttons
+    row.find('.view-grades-btn-value').show();
+    row.find('.edit-grades-btn-value').show();
+    $(this).hide();
+    row.find('.save-grades-btn-value').hide();
+});
+
+$(document).on('click', "#update-grades-data-value", function(e){
+    e.preventDefault()
+    var id = $(this).parents('tr').find('td[id]').attr("id");
+    var gradeID = $(this).parents('tr').find('td[gradeID]').attr("gradeID");
+    var identifier = $(this).parents('tr').find('td[identifier]').attr("identifier");
+    var schoolYear = $(this).parents('tr').find('td[schoolYear]').attr("schoolYear");
+    var semester = $(this).parents('tr').find('td[semester]').attr("semester");
+    var subject = $(this).parents('tr').find('td[subject]').attr("subject");
+    var section = $(this).parents('tr').find('td[section]').attr("section");
+    var nc = $(this).parents('tr').find('td[nc]').attr("nc");
+    
+    var mt = parseFloat($('#mt-grades-' + identifier).val()); // Parse as float
+    var ft = parseFloat($('#ft-grades-' + identifier).val()); // Parse as float
+    var assessment = $('#assessment-' + identifier).val();
+
+    if (
+        (isNaN(mt) || (mt < 1 && mt != 0) || mt > 5) || // mt validation
+        (isNaN(ft) || (ft < 1 && ft != 0) || ft > 5)    // ft validation
+    ) {
+        SweetAlert.fire({
+            icon: 'error',
+            html: `<h4 class="mb-0">Invalid Input</h4><small>Grades must be whole numbers between 1 and 5, or exactly 0.</small>`,
+            confirmButtonColor: "#3a57e8"
+        });
+        return; // Stop execution
+    }
+
     $('.processing').show(100);
     $('.processing').html(`
         <div class="col d-flex">
@@ -2718,8 +2896,17 @@ $(document).on('submit', "#update-grades-data-value", function(e){
         </div>
     `);
     
-    setTimeout(() => {
-        const formData = new FormData(this);
+   
+        const formData = new FormData();
+        formData.append('id', id)
+        formData.append('gradeID', gradeID)
+        formData.append('schoolYear', schoolYear)
+        formData.append('semester', semester)
+        formData.append('subject', subject)
+        formData.append('section', section)
+        formData.append('mt', mt)
+        formData.append('ft', ft)
+        formData.append('assessment', assessment)
         formData.append('_method', 'PATCH');
         async function APIrequest() {
             return await axios.post('/api/update/grades-data-value', formData, {
@@ -2733,14 +2920,10 @@ $(document).on('submit', "#update-grades-data-value", function(e){
         APIrequest().then(response => {
             $('.processing').hide(100);
             $("#update-grades-modal").modal('hide');
-            $('input').val('');
+            
             $('#grades-data-table').html(response.data.Grades);
             $('#search-input').prop('disabled', false);
-            SweetAlert.fire({
-                icon: 'success',
-                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
-                confirmButtonColor: "#3a57e8"
-            });
+           
         })
         .catch(error => {
             console.error('Error:', error);
@@ -2750,7 +2933,7 @@ $(document).on('submit', "#update-grades-data-value", function(e){
                 confirmButtonColor: "#3a57e8"
             });
         });
-    }, 1500);
+   
 });
 
 $(document).on('click', '#download-ORF', function() {
@@ -3039,3 +3222,66 @@ function editcheckConflicts() {
     }
 }
 
+
+$(document).on('click', '#enrollment-announcement', function() {
+    $('#enrollment-announcement-modal').modal('show')
+})
+
+$(document).on('click', '#toggle-enrollment', function () {
+    const isEnabled = $('#toggle-enrollment').is(':checked');
+    
+    // Enable/Disable inputs
+    $('#open-date, #end-date')
+        .prop('disabled', !isEnabled)
+        .prop('required', isEnabled); // Add/Remove the required attribute
+});
+
+$(document).on('submit', "#update-enrollment-announcement", function(e){
+    e.preventDefault();
+    $('.processing').show(100);
+    $('.processing').html(`
+        <div class="col d-flex">
+            <div>
+                <!-- Pluse -->
+                <div class="sk-pulse sk-primary"></div>
+            </div>
+            <div class="text-sm mt-1 ms-4">Processing...</div>
+        </div>
+    `);
+    
+    setTimeout(() => {
+        const formData = new FormData(this);
+        formData.append('_method', 'PATCH');
+        async function APIrequest() {
+            return await axios.post('/api/update/enrollment-announcement', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                }
+            })
+        }
+        APIrequest().then(response => {
+            $('.processing').hide(100);
+            $("#enrollment-announcement-modal").modal('hide');
+            
+            SweetAlert.fire({
+                icon: 'success',
+                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                confirmButtonColor: "#3a57e8"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            SweetAlert.fire({
+                icon: 'error',
+                html: `<h4 class="mb-0">Opss..</h4><small>Something went wrong!</small>`,
+                confirmButtonColor: "#3a57e8"
+            });
+        });
+    }, 1500);
+});

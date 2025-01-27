@@ -87,23 +87,57 @@ $(document).on('click', '#downloadPDF', function() {
 });
 
 document.addEventListener('livewire:navigated', () => { 
-
     var selectedFiles = [];
-    $('#file-input-psa').on('change', function() {
+
+    // Function to compress the image
+    const compressImage = async (file, { quality = 0.3, type = 'image/jpeg' }) => {
+        const imageBitmap = await createImageBitmap(file);
+        const canvas = document.createElement('canvas');
+        canvas.width = imageBitmap.width;
+        canvas.height = imageBitmap.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(imageBitmap, 0, 0);
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+        return new File([blob], file.name, { type: blob.type });
+    };
+
+    // Handle file input changes and compress images if needed
+    $('#file-input-psa').on('change', async function() {
         selectedFiles = []; // Clear previous files
-        $.each(this.files, function(index, file) {
-            if (!selectedFiles.map(f => f.name).includes(file.name)) {
-                selectedFiles.push(file);
+        const maxFileSize = 2 * 1024 * 1024; // 2MB limit for non-JPG files
+
+        for (const file of this.files) {
+            let processedFile = file;
+
+            // Check if the file is JPG; if not, apply the size limit
+            if (!file.type.startsWith('image/jpeg') && file.size > maxFileSize) {
+                SweetAlert.fire({
+                    icon: 'error',
+                    html: `<h4 class="mb-0">File Size Exceeded</h4><small>The file "${file.name}" exceeds 2MB and has been removed.</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+                continue; // Skip this file
             }
-        });
+
+            // Compress the image if it’s JPG
+            if (file.type.startsWith('image')) {
+                processedFile = await compressImage(file, { quality: 0.3, type: 'image/jpeg' });
+            }
+
+            // Only add unique files to selectedFiles
+            if (!selectedFiles.map(f => f.name).includes(processedFile.name)) {
+                selectedFiles.push(processedFile);
+            }
+        }
         updateFileList();
     });
 
+    // Add more files button
     $('#add-more-files-psa').on('click', function() {
         var count = $('#psa-data ul').data('psa-count');
-        if(count == 0)
+        if(count == 0) {
             $('#file-input-psa').click();
-        else {
+        } else {
             SweetAlert.fire({
                 icon: 'error',
                 html: `<h4 class="mb-0">Opss..</h4><small>You can upload a file only once. If you wish to re-upload, please remove the previously uploaded file and then select a new one.</small>`,
@@ -112,14 +146,13 @@ document.addEventListener('livewire:navigated', () => {
         }
     });
 
+    // Upload attachments form submission
     $('#upload-attachments-psa').on('submit', function(e) {
         e.preventDefault();
         const formData = new FormData();
-        $.each(selectedFiles, function(index, file) {
-            formData.append('files[]', file);
-        });
+        selectedFiles.forEach(file => formData.append('files[]', file));
 
-        if(selectedFiles.length === 0) {
+        if (selectedFiles.length === 0) {
             SweetAlert.fire({
                 icon: 'error',
                 html: `<h4 class="mb-0">Opss..</h4><small>Please select a file to upload!</small>`,
@@ -128,11 +161,7 @@ document.addEventListener('livewire:navigated', () => {
         } else {
             SweetAlert.fire({
                 icon: 'info',
-                html: 
-                `
-                    <h4 class="mb-0">Are you sure?</h4>
-                    <small>This will submit your attachment to the registrar.</small>
-                `,
+                html: `<h4 class="mb-0">Are you sure?</h4><small>This will submit your attachment to the registrar.</small>`,
                 confirmButtonColor: '#160e45',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, Upload!'
@@ -145,55 +174,53 @@ document.addEventListener('livewire:navigated', () => {
                         allowOutsideClick: true,
                         showConfirmButton: false
                     });
-                    async function APIrequest() {
-                        return await axios.post('/api/create/upload-psa', formData, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
-                            }
+                    axios.post('/api/create/upload-psa', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                        }
+                    }).then(response => {
+                        $("#psa-data").html(response.data.Attachments);
+                        $("#proceed-data").html(response.data.Proceed);
+                        $("#file-list-psa").html('');
+                        $("#file-input-psa").val('');
+                        selectedFiles = [];
+                        SweetAlert.fire({
+                            icon: 'success',
+                            html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                            confirmButtonColor: "#3a57e8"
                         });
-                    }
-                    APIrequest().then(response => {
-                            $("#psa-data").html(response.data.Attachments);
-                            $("#proceed-data").html(response.data.Proceed);
-                            $("#file-list-psa").html('');
-                            $("#file-list-psa li").html('');
-                            $("#file-input-psa").val('');
-                            selectedFiles = [];
-                            SweetAlert.fire({
-                                icon: 'success',
-                                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
-                                confirmButtonColor: "#3a57e8"
-                            });
                     });
                 }
             });
         }
     });
 
+    // Update file list display
     function updateFileList() {
         var $listElement = $('#file-list-psa');
         $listElement.empty();
         $.each(selectedFiles, function(index, file) {
             var $li = $('<li class="text-sm">');
-            var $icon = $(`
-            <span class="ms-3" style="vertical-align: middle;">
-                <lord-icon
-                    src="https://cdn.lordicon.com/ghhwiltn.json"
-                    trigger="in"
-                    stroke="bold"
-                    style="width:25px;height:25px">
-                </lord-icon>
-            </span>
+            var $icon = $(` 
+                <span class="ms-3" style="vertical-align: middle;">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/ghhwiltn.json"
+                        trigger="in"
+                        stroke="bold"
+                        style="width:25px;height:25px">
+                    </lord-icon>
+                </span>
             `);
             $li.append($icon);
             $li.append(document.createTextNode(` ${file.name}`));
             $listElement.append($li);
         });
     }
-
 });
+
+
 
 $(document).on('click', "#delete-psa", function(e){
     SweetAlert.fire({
@@ -249,24 +276,57 @@ $(document).on('click', "#delete-psa", function(e){
 });
 
 document.addEventListener('livewire:navigated', () => { 
-
     var selectedFiles = [];
 
-    $('#file-input-form').on('change', function() {
+    // Function to compress the image
+    const compressImage = async (file, { quality = 0.3, type = 'image/jpeg' }) => {
+        const imageBitmap = await createImageBitmap(file);
+        const canvas = document.createElement('canvas');
+        canvas.width = imageBitmap.width;
+        canvas.height = imageBitmap.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(imageBitmap, 0, 0);
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+        return new File([blob], file.name, { type: blob.type });
+    };
+
+    // Handle file input changes and compress images if needed
+    $('#file-input-form').on('change', async function() {
         selectedFiles = []; // Clear previous files
-        $.each(this.files, function(index, file) {
-            if (!selectedFiles.map(f => f.name).includes(file.name)) {
-                selectedFiles.push(file);
+        const maxFileSize = 2 * 1024 * 1024; // 2MB limit for non-JPG files
+
+        for (const file of this.files) {
+            let processedFile = file;
+
+            // Check if the file is JPG; if not, apply the size limit
+            if (!file.type.startsWith('image/jpeg') && file.size > maxFileSize) {
+                SweetAlert.fire({
+                    icon: 'error',
+                    html: `<h4 class="mb-0">File Size Exceeded</h4><small>The file "${file.name}" exceeds 2MB and has been removed.</small>`,
+                    confirmButtonColor: "#3a57e8"
+                });
+                continue; // Skip this file
             }
-        });
+
+            // Compress the image if it’s JPG
+            if (file.type.startsWith('image')) {
+                processedFile = await compressImage(file, { quality: 0.3, type: 'image/jpeg' });
+            }
+
+            // Only add unique files to selectedFiles
+            if (!selectedFiles.map(f => f.name).includes(processedFile.name)) {
+                selectedFiles.push(processedFile);
+            }
+        }
         updateFileList();
     });
 
+    // Add more files button
     $('#add-more-files-form').on('click', function() {
         var count = $('#form137-data ul').data('form137-count');
-        if(count == 0)
+        if(count == 0) {
             $('#file-input-form').click();
-        else {
+        } else {
             SweetAlert.fire({
                 icon: 'error',
                 html: `<h4 class="mb-0">Opss..</h4><small>You can upload a file only once. If you wish to re-upload, please remove the previously uploaded file and then select a new one.</small>`,
@@ -275,30 +335,22 @@ document.addEventListener('livewire:navigated', () => {
         }
     });
 
+    // Upload attachments form submission
     $('#upload-attachments-form').on('submit', function(e) {
         e.preventDefault();
         const formData = new FormData();
-        $.each(selectedFiles, function(index, file) {
-            formData.append('files[]', file);
-        });
+        selectedFiles.forEach(file => formData.append('files[]', file));
 
-        if(selectedFiles.length === 0) {
+        if (selectedFiles.length === 0) {
             SweetAlert.fire({
                 icon: 'error',
                 html: `<h4 class="mb-0">Opss..</h4><small>Please select a file to upload!</small>`,
                 confirmButtonColor: "#3a57e8"
             });
         } else {
-            var id = $("#id").val();
-            formData.append('id', id);
-            console.log(formData);
             SweetAlert.fire({
                 icon: 'info',
-                html: 
-                `
-                    <h4 class="mb-0">Are you sure?</h4>
-                    <small>This will submit your attachment to the registrar.</small>
-                `,
+                html: `<h4 class="mb-0">Are you sure?</h4><small>This will submit your attachment to the registrar.</small>`,
                 confirmButtonColor: '#160e45',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, Upload!'
@@ -311,54 +363,50 @@ document.addEventListener('livewire:navigated', () => {
                         allowOutsideClick: true,
                         showConfirmButton: false
                     });
-                    async function APIrequest() {
-                        return await axios.post('/api/create/upload-form137', formData, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                                "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
-                            }
+                    axios.post('/api/create/upload-form137', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            "Authorization": "Bearer " + $('meta[name="token"]').attr('content')
+                        }
+                    }).then(response => {
+                        $("#form137-data").html(response.data.Attachments);
+                        $("#proceed-data").html(response.data.Proceed);
+                        $("#file-list-form").html('');
+                        $("#file-input-form").val('');
+                        selectedFiles = [];
+                        SweetAlert.fire({
+                            icon: 'success',
+                            html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
+                            confirmButtonColor: "#3a57e8"
                         });
-                    }
-                    APIrequest().then(response => {
-                            $("#form137-data").html(response.data.Attachments);
-                            $("#proceed-data").html(response.data.Proceed);
-                            $("#file-list-form").html('');
-                            $("#file-list-form li").html('');
-                            $("#file-input-form").val('');
-                            selectedFiles = [];
-                            SweetAlert.fire({
-                                icon: 'success',
-                                html: `<h4 class="mb-0">Done</h4><small>${response.data.Message}</small>`,
-                                confirmButtonColor: "#3a57e8"
-                            });
                     });
                 }
             });
         }
     });
 
+    // Update file list display
     function updateFileList() {
         var $listElement = $('#file-list-form');
         $listElement.empty();
         $.each(selectedFiles, function(index, file) {
             var $li = $('<li class="text-sm">');
-            var $icon = $(`
-            <span class="ms-3" style="vertical-align: middle;">
-                <lord-icon
-                    src="https://cdn.lordicon.com/ghhwiltn.json"
-                    trigger="in"
-                    stroke="bold"
-                    style="width:25px;height:25px">
-                </lord-icon>
-            </span>
+            var $icon = $(` 
+                <span class="ms-3" style="vertical-align: middle;">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/ghhwiltn.json"
+                        trigger="in"
+                        stroke="bold"
+                        style="width:25px;height:25px">
+                    </lord-icon>
+                </span>
             `);
             $li.append($icon);
             $li.append(document.createTextNode(` ${file.name}`));
             $listElement.append($li);
         });
     }
-
 });
 
 $(document).on('click', "#delete-form137", function(e){

@@ -21,6 +21,7 @@ class RouteServiceProvider extends ServiceProvider
     public const REGISTRAR = '/registrar/dashboard';
     public const TRAINER = '/trainer/schedule';
     public const STUDENT = '/student/dashboard';
+    public const RFID = '/rfid-attendance';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

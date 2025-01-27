@@ -27,25 +27,40 @@
                 </ol>
             </nav>
 
+            @if($enrollment->enable == 1)
+
+            <div class="alert alert-success text-white alert-dismissible d-flex align-items-center shadow-sm" role="alert" style="background-color: rgba(72, 187, 120, 0.8);">
+              <div>
+                  <i class='bx bxs-info-circle me-1'></i>
+                  <small>
+                   <span class="me-2"> ENROLLMENT IS OPEN FOR NEXT SEMESTER STARTING FROM: </span> <strong>{{ date('F d, Y', strtotime($enrollment->open)) }}</strong> <span class="ms-2 me-2">UNTIL</span> <strong>{{ date('F d, Y', strtotime($enrollment->close)) }}</strong>
+                  </small>
+              </div>
+            </div>
+
+            @endif
             <div class="row">
               <p class="mb-3">Admission Application Summary</p>
               <div class="col-sm-6 col-lg-4 mb-4">
-                  <div class="card card-border-shadow-warning h-100">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center mb-2 pb-1">
-                        <div class="avatar me-2">
-                          <span class="avatar-initial rounded bg-label-warning"><i class='bx bxs-calendar-x'></i></span>
+                  <a wire:navigate href="{{ route('registrar.unscheduled') }}">
+                    <div class="card card-border-shadow-warning h-100">
+                      <div class="card-body">
+                        <div class="d-flex align-items-center mb-2 pb-1">
+                          <div class="avatar me-2">
+                            <span class="avatar-initial rounded bg-label-warning"><i class='bx bxs-calendar-x'></i></span>
+                          </div>
+                          <h4 class="ms-1 mb-0">{{ $student->where('failed', null)->where('status', 2)->count() }}</h4>
                         </div>
-                        <h4 class="ms-1 mb-0">{{ $student->where('failed', null)->where('status', 2)->count() }}</h4>
+                        <p class="mb-0">Pending</p>
+                        <p class="mb-0">
+                          <small class="text-muted">Admission Application</small>
+                        </p>
                       </div>
-                      <p class="mb-0">Pending</p>
-                      <p class="mb-0">
-                        <small class="text-muted">Admission Application</small>
-                      </p>
                     </div>
-                  </div>
+                  </a>
                 </div>
                 <div class="col-sm-6 col-lg-4 mb-4">
+                  <a wire:navigate href="{{ route('registrar.exam') }}">
                   <div class="card card-border-shadow-success h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -60,8 +75,10 @@
                       </p>
                     </div>
                   </div>
+                  </a>
                 </div>
                 <div class="col-sm-6 col-lg-4 mb-4">
+                  <a wire:navigate href="{{ route('registrar.interview') }}">
                   <div class="card card-border-shadow-primary h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -76,12 +93,14 @@
                       </p>
                     </div>
                   </div>
+                </a>
                 </div>
                 <div class="col-md-12">
                   <hr class="mt-2 mb-3">
                 </div>
                 <p class="mb-3">Enrollment & Students</p>
                 <div class="col-sm-6 col-lg-4 mb-4">
+                  <a wire:navigate href="{{ route('registrar.enroll-grades') }}">
                   <div class="card card-border-shadow-danger h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -96,9 +115,11 @@
                       </p>
                     </div>
                   </div>
+                </a>
                 </div>
                 
                 <div class="col-sm-6 col-lg-4 mb-4">
+                  <a wire:navigate href="{{ route('registrar.undergraduates') }}">
                   <div class="card card-border-shadow-info h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -113,9 +134,11 @@
                       </p>
                     </div>
                   </div>
+                </a>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 mb-4">
+                  <a wire:navigate href="{{ route('registrar.graduates') }}">
                   <div class="card card-border-shadow-success h-100">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-2 pb-1">
@@ -130,6 +153,7 @@
                       </p>
                     </div>
                   </div>
+                </a>
                 </div>
           </div>
 

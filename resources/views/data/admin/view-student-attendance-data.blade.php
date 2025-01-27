@@ -49,34 +49,36 @@
 
                 <div class="card-body">
                     @foreach ($month as $mon => $studentAttendance)
-                    <table class="table table-sm table-hover text-nowrap mb-4" style="border-bottom: 1px solid rgb(240, 240, 240)">
-                        <thead class="text-dark" style="background: rgb(244, 244, 244)">
-                            <tr>
-                                <th class="text-nowrap">#</th>
-                                <th class="text-nowrap"><small>Date</small></th>
-                                <th class="text-nowrap"><small>Morning In</small></th>
-                                <th class="text-nowrap"><small>Morning Out</small></th>
-                                <th class="text-nowrap"><small>Afternoon In</small></th>
-                                <th class="text-nowrap"><small>Afternoon Out</small></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="">
-                                <td colspan="10" class="fw-bold text-primary">{{ $monthNames[$mon] }}</td>
-                            </tr>
-                            @foreach ($studentAttendance as $index => $sa)
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover text-nowrap mb-4" style="border-bottom: 1px solid rgb(240, 240, 240)">
+                            <thead class="text-dark" style="background: rgb(244, 244, 244)">
                                 <tr>
-                                    <td><small>{{ $index +1 }}</small></td>
-                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ date('M. d, Y | D', strtotime($sa->date)) }}</small></td>
-                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeInMorning ? date('h:i A', strtotime($sa->timeInMorning)) : '-' }}</small></td>
-                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeOutMorning ? date('h:i A', strtotime($sa->timeOutMorning)) : '-' }}</small></td>
-                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeInAfternoon ? date('h:i A', strtotime($sa->timeInAfternoon)) : '-' }}</small></td>
-                                    <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeOutAfternoon ? date('h:i A', strtotime($sa->timeOutAfternoon)) : '-' }}</small></td>
-                                    
+                                    <th class="text-nowrap">#</th>
+                                    <th class="text-nowrap"><small>Date</small></th>
+                                    <th class="text-nowrap"><small>Morning In</small></th>
+                                    <th class="text-nowrap"><small>Morning Out</small></th>
+                                    <th class="text-nowrap"><small>Afternoon In</small></th>
+                                    <th class="text-nowrap"><small>Afternoon Out</small></th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <tr class="">
+                                    <td colspan="10" class="fw-bold text-primary">{{ $monthNames[$mon] }}</td>
+                                </tr>
+                                @foreach ($studentAttendance as $index => $sa)
+                                    <tr>
+                                        <td><small>{{ $index +1 }}</small></td>
+                                        <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ date('M. d, Y | D', strtotime($sa->date)) }}</small></td>
+                                        <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeInMorning ? date('h:i A', strtotime($sa->timeInMorning)) : '-' }}</small></td>
+                                        <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeOutMorning ? date('h:i A', strtotime($sa->timeOutMorning)) : '-' }}</small></td>
+                                        <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeInAfternoon ? date('h:i A', strtotime($sa->timeInAfternoon)) : '-' }}</small></td>
+                                        <td><small class="{{ $sa->date == date('Y-m-d') ? 'fw-bold text-primary' : '' }}">{{ $sa->timeOutAfternoon ? date('h:i A', strtotime($sa->timeOutAfternoon)) : '-' }}</small></td>
+                                        
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     @endforeach
                 </div>
             </div>

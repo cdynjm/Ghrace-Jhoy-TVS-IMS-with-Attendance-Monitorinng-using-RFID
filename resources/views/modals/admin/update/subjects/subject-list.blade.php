@@ -17,6 +17,7 @@
                 <td>
                     {{ $sub->Subjects->description }}
                     <input type="hidden" value="{{ $aes->encrypt($sub->id) }}" name="subjectID[]">
+                    <input type="hidden" value="{{ $aes->encrypt($sub->subject) }}" name="subject[]">
                 </td>
                 <td>
                     @php

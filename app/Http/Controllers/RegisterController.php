@@ -28,7 +28,7 @@ use App\Models\Barangay;
 use App\Models\Logs;
 use App\Models\Municipal;
 use App\Models\Province;
-use App\Modes\Region;
+use App\Models\Region;
 use App\Models\User;
 use App\Models\Courses;
 
@@ -157,7 +157,7 @@ class RegisterController extends Controller
         $course = $this->aes->decrypt($request->course);
 
         $student = LearnersProfile::create([
-            'lastname' => $request->lastname,
+            'lastname' => $request->lastname . ($request->extension ? ', ' . $request->extension : ''),
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
             'region' => $region,
@@ -261,10 +261,14 @@ class RegisterController extends Controller
         
         $loginUser = User::where('id', $user->id)->first();
 
-        Auth::login($loginUser, true);
+        Auth::login($loginUser);
+
+        event(new Registered($user));
+
+        $loginUser->update(['email_verification_sent_at' => now()]);
 
         return response()->json([
-            'Message' => 'Submission Successful. To open your account, please log in using the email address and password you provided.',
+            'Message' => 'Submission Successful. To open your account, please log in using the email address and password you provided. We have also sent an EMAIL VERIFICATION to your email, please check and verify your email to proceed accordingly after logged in.',
             'Redirect' => '/student/dashboard'
         ], Response::HTTP_OK);
     }

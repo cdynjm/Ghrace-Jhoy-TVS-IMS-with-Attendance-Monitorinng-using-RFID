@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'trainer' => \App\Http\Middleware\Trainer::class,
         'student' => \App\Http\Middleware\Student::class,
         'AdminOrRegistrar' => \App\Http\Middleware\AdminOrRegistrar::class,
+        'rfid' => \App\Http\Middleware\RFID::class,
     ];
 }

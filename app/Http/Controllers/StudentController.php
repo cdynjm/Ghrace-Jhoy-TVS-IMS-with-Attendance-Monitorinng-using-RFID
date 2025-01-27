@@ -38,6 +38,7 @@ use App\Models\SubjectSchedule;
 use App\Models\Tracker;
 use App\Models\StudentYearLevel;
 use App\Models\RFIDAttendance;
+use App\Models\Announcement;
 
 use Illuminate\Support\Facades\Gate;
 
@@ -64,8 +65,8 @@ class StudentController extends Controller
         $yearLevel = $this->StudentInterface->yearLevel();
         $studentGrading = $this->StudentInterface->studentGrading();
         $showProceed = $this->showProceed();
-
-        return view('pages.student.dashboard', compact('psa', 'form137', 'tracker', 'showProceed', 'yearLevel', 'studentGrading'));
+        $enrollment = Announcement::where('id', 1)->first();
+        return view('pages.student.dashboard', compact('psa', 'form137', 'tracker', 'showProceed', 'yearLevel', 'studentGrading', 'enrollment'));
     }
     public function coursesInfo(Request $request) {
         $course = $this->StudentInterface->CourseInfo($request);

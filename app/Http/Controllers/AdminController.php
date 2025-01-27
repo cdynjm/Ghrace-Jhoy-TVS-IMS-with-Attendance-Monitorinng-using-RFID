@@ -341,15 +341,32 @@ class AdminController extends Controller
             'yearLevel' => $request->year,
             'semester' => $request->semester
         ]);
+        
+        $course = CoursesInfo::where('id', $this->aes->decrypt($request->courseInfoID))->first();
 
-        foreach($request->subjectID as $key => $value) {
-            Subjects::where('id', $this->aes->decrypt($value))->update([
-                'description' => $request->description[$key],   
-                'subjectCode' => $request->subjectCode[$key],                        
-                'units' => $request->units[$key],
-                'NC' => $request->NC[$key] ?? 0
-            ]);
+        foreach($request->description as $key => $value) {
+            // Check if subjectID is defined and not empty for the given key
+            if (empty($request->subjectID[$key]) || !isset($request->subjectID[$key])) {
+                // If subjectID is not set or empty, create a new subject
+                Subjects::create([
+                    'courseID' => $course->courseID,
+                    'courseInfoID' => $this->aes->decrypt($request->courseInfoID),
+                    'description' => $value,   
+                    'subjectCode' => $request->subjectCode[$key],                        
+                    'units' => $request->units[$key],
+                    'NC' => $request->NC[$key] ?? 0
+                ]);
+            } else {
+                // If subjectID is set and valid, update the existing subject
+                Subjects::where('id', $this->aes->decrypt($request->subjectID[$key]))->update([
+                    'description' => $value,   
+                    'subjectCode' => $request->subjectCode[$key],                        
+                    'units' => $request->units[$key],
+                    'NC' => $request->NC[$key] ?? 0
+                ]);
+            }
         }
+        
         
         $course = $this->AdminInterface->CourseInfo($request);
         $courseInfo = $this->AdminInterface->getCourseInfo($request);
@@ -809,7 +826,7 @@ class AdminController extends Controller
 
                         $schedThatConflicts[] = [
                             'instructor' => Instructors::where('id', $this->aes->decrypt($request->instructor[$key]))->first()->instructor,
-                            'subject' => Subjects::where('id', $this->aes->decrypt($request->subjectID[$key]))->first()->description,
+                            'subject' => Subjects::where('id', $this->aes->decrypt($request->subject[$key]))->first()->description,
                             'room' => $request->room[$key],
                             'days' => [
                                 'mon' => $request->days[$key][0] ?? 0,

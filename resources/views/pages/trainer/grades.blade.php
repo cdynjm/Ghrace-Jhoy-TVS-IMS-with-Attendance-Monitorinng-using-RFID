@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="layout-page">
-        @include('layouts.navbar', ['page' => 'Dashboard'], 
+        @include('layouts.navbar', ['page' => 'Grades & Attendances'], 
         ['icon' => '
           
             <lord-icon
@@ -27,7 +27,7 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb breadcrumb-style2 mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);" class="fw-bold">Grades |</a>
+                    <a href="javascript:void(0);" class="fw-bold">Grades & Attendances |</a>
                   </li>
                   <li class="breadcrumb-item">Data</li>
                 </ol>

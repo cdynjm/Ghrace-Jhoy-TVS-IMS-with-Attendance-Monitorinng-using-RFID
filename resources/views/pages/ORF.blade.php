@@ -124,34 +124,34 @@
         @foreach ($subjectSchedule as $sc)
             <tr>
                 <td>{{ $sc->Subjects->subjectCode }}</td>
-                <td style="text-align: left">{{ $sc->Subjects->description }}</td>
+                <td style="text-align: center">{{ $sc->Subjects->description }}</td>
                 <td>{{ $sc->Subjects->units }}</td>
                 <td>
                     <div>
                         
                             {{ $sc->room }} | 
                             @if($sc->mon == 1)
-                                Mon 
+                                M 
                             @endif
     
                             @if($sc->tue == 1)
-                                Tue 
+                                T 
                             @endif
     
                             @if($sc->wed == 1)
-                                Wed 
+                                W
                             @endif
     
                             @if($sc->thu == 1)
-                                Thu 
+                                TH
                             @endif
     
                             @if($sc->fri == 1)
-                                Fri 
+                                F
                             @endif
     
                             @if($sc->sat == 1)
-                                Sat 
+                                SAT
                             @endif
                             <br>
                             {{ $sc->fromTime != null ? date('h:i A', strtotime($sc->fromTime)) : 'none' }} - {{ $sc->toTime != null ? date('h:i A', strtotime($sc->toTime)) : 'none' }}
@@ -272,34 +272,34 @@
         @foreach ($subjectSchedule as $sc)
             <tr>
                 <td>{{ $sc->Subjects->subjectCode }}</td>
-                <td style="text-align: left">{{ $sc->Subjects->description }}</td>
+                <td style="text-align: center">{{ $sc->Subjects->description }}</td>
                 <td>{{ $sc->Subjects->units }}</td>
                 <td>
                     <div>
                         
                             {{ $sc->room }} | 
                             @if($sc->mon == 1)
-                                Mon 
+                                M 
                             @endif
     
                             @if($sc->tue == 1)
-                                Tue 
+                                T 
                             @endif
     
                             @if($sc->wed == 1)
-                                Wed 
+                                W
                             @endif
     
                             @if($sc->thu == 1)
-                                Thu 
+                                TH
                             @endif
     
                             @if($sc->fri == 1)
-                                Fri 
+                                F
                             @endif
     
                             @if($sc->sat == 1)
-                                Sat 
+                                SAT
                             @endif
                             <br>
                             {{ $sc->fromTime != null ? date('h:i A', strtotime($sc->fromTime)) : 'none' }} - {{ $sc->toTime != null ? date('h:i A', strtotime($sc->toTime)) : 'none' }}

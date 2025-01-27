@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 03, 2024 at 12:09 AM
+-- Generation Time: Dec 18, 2024 at 12:37 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.2
 
@@ -40,7 +40,30 @@ CREATE TABLE `admission_application` (
 --
 
 INSERT INTO `admission_application` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, NULL, '2024-10-29 23:08:14', NULL);
+(1, 1, NULL, '2024-12-05 01:52:47', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement`
+--
+
+CREATE TABLE `announcement` (
+  `id` int NOT NULL,
+  `enable` int DEFAULT NULL,
+  `open` date DEFAULT NULL,
+  `close` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`id`, `enable`, `open`, `close`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, '2024-11-01', '2024-11-15', '2024-11-24 16:56:21', '2024-12-05 02:12:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -42179,6 +42202,15 @@ CREATE TABLE `ch_messages` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `ch_messages`
+--
+
+INSERT INTO `ch_messages` (`id`, `from_id`, `to_id`, `body`, `attachment`, `seen`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('0c426d2b-eccb-4828-bce0-f477a829e6f1', 2, 43, 'loc', NULL, 0, '2024-12-05 02:10:57', '2024-12-05 02:10:57', NULL),
+('b3287879-a699-4203-a600-5e26e5ee015b', 2, 43, 'hi', NULL, 1, '2024-12-05 02:10:24', '2024-12-05 02:10:37', NULL),
+('b96fccd8-bd2f-4948-aedc-338224b4af01', 43, 2, 'hi too', NULL, 1, '2024-12-05 02:10:42', '2024-12-05 02:10:42', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -42201,7 +42233,7 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `sector`, `qualification`, `status`, `copr`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(18, 'Tourism (Hotel and Restaurant)', 'Diploma in Hospitality Management', 'NTR-PQF Level 5 (Diploma)', '000-014', '2024-06-05 06:06:29', '2024-10-30 00:54:39', NULL);
+(18, 'Tourism (Hotel and Restaurant)', 'Diploma in Hospitality Management', 'NTR-PQF Level 5 (Diploma)', '000-014', '2024-06-04 14:06:29', '2024-11-16 14:27:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -42224,13 +42256,13 @@ CREATE TABLE `course_info` (
 --
 
 INSERT INTO `course_info` (`id`, `courseID`, `yearLevel`, `semester`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 18, '1st Year', '1st Semester', '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(2, 18, '1st Year', '2nd Semester', '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(3, 18, '2nd Year', '1st Semester', '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(6, 18, '2nd Year', '2nd Semester', '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(7, 18, '2nd Year', 'Summer', '2024-09-30 23:51:51', '2024-09-30 23:51:51', NULL),
-(8, 18, '3rd Year', '1st Semester', '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(10, 18, '3rd Year', '2nd Semester', '2024-10-01 00:03:40', '2024-10-01 00:03:40', NULL);
+(1, 18, '1st Year', '1st Semester', '2024-09-30 07:21:55', '2024-11-06 11:09:44', NULL),
+(2, 18, '1st Year', '2nd Semester', '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(3, 18, '2nd Year', '1st Semester', '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(6, 18, '2nd Year', '2nd Semester', '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(7, 18, '2nd Year', 'Summer', '2024-09-30 07:51:51', '2024-09-30 07:51:51', NULL),
+(8, 18, '3rd Year', '1st Semester', '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(10, 18, '3rd Year', '2nd Semester', '2024-09-30 08:03:40', '2024-09-30 08:03:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -42300,9 +42332,9 @@ CREATE TABLE `instructors` (
 --
 
 INSERT INTO `instructors` (`id`, `instructor`, `address`, `contactNumber`, `degree`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Sample Instructor 1', 'Bontoc Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:15:12', '2024-11-02 05:58:14', NULL),
-(3, 'Sample Instructor 2', 'Sogod Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:25:31', '2024-09-06 07:36:27', NULL),
-(4, 'Sample Instructor 3', 'Libagon Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-30 04:25:41', '2024-09-06 07:36:50', NULL);
+(1, 'Sample Instructor 1', 'Bontoc Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-29 12:15:12', '2024-11-24 19:30:28', NULL),
+(3, 'Sample Instructor 2', 'Sogod Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-29 12:25:31', '2024-09-05 15:36:27', NULL),
+(4, 'Sample Instructor 3', 'Libagon Southern Leyte', '09661195690', 'Bachelor of Education (B. Ed. or BEd)', '2024-08-29 12:25:41', '2024-09-05 15:36:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -44343,6 +44375,14 @@ CREATE TABLE `schedule` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`id`, `courseID`, `courseInfoID`, `section`, `slots`, `enrolled`, `status`, `schoolYear`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 18, 1, 'A', 25, 0, 1, '2024-2025', '2024-11-12 09:02:23', '2024-12-17 08:36:16', NULL),
+(2, 18, 2, 'A', 30, 0, 1, '2024-2025', '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -44364,7 +44404,7 @@ CREATE TABLE `sms_token` (
 --
 
 INSERT INTO `sms_token` (`id`, `url`, `access_token`, `mobile_identity`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'https://api.pushbullet.com/v2/texts', 'o.Sm794G9UtbkvepiBfniqNuPu6LL9akVM --', 'ujvDX0z55LEsjCWaqZzXKC --', NULL, '2024-11-01 06:19:18', NULL);
+(1, 'https://api.pushbullet.com/v2/texts', 'o.SznAb5cYAWLhX6Zz32Y7wtzonsjxTJJl', 'ujEo5fUR0Hksjyp1bnzc28', NULL, '2024-11-13 06:24:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -44381,9 +44421,9 @@ CREATE TABLE `student_grading` (
   `subjectCode` varchar(255) DEFAULT NULL,
   `subjectID` int DEFAULT NULL,
   `instructor` int DEFAULT NULL,
-  `mt` decimal(11,2) DEFAULT NULL,
-  `ft` decimal(11,2) DEFAULT NULL,
-  `avg` decimal(11,2) DEFAULT NULL,
+  `mt` decimal(11,1) DEFAULT NULL,
+  `ft` decimal(11,1) DEFAULT NULL,
+  `avg` decimal(11,1) DEFAULT NULL,
   `assessment` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -44430,57 +44470,58 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`id`, `courseID`, `courseInfoID`, `description`, `subjectCode`, `units`, `NC`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 18, 1, 'Purposive Communication', 'GE ENG 102', 3, 0, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(2, 18, 1, 'Readings in Philippine History', 'GE SS 101', 3, 0, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(3, 18, 1, 'Mathematics in the Modern World', 'GE Mat 101', 3, 0, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(4, 18, 1, 'NSTP-CWTS 1', 'NSTP-CWTS 1', 3, 0, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(5, 18, 1, 'Risk Management as Apply to Safety, Security & Sanitation', 'THC 101', 3, 0, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(6, 18, 1, 'Movement Competency and Training', 'PATHFIT 1', 2, 0, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(7, 18, 1, 'Bread and Pastry Production', 'HM PE 301', 3, 1, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(8, 18, 1, 'BARISTA NCII', 'DHM 101', 3, 1, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(9, 18, 1, 'Environmental Science', 'GE ELEC 101', 3, 0, '2024-09-30 23:21:55', '2024-09-30 23:25:56', NULL),
-(10, 18, 2, 'Quality Service Management in Tourism & Hospitality', 'THC 102', 3, 0, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(11, 18, 2, 'Philippine Tourism, Geography and Culture', 'THC 104', 3, 0, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(12, 18, 2, 'Micro-Perspective of Tourism and Hospitality', 'THC 106', 3, 0, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(13, 18, 2, 'Front Office Procedures', 'DHM 101', 3, 1, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(14, 18, 2, 'Speech and Oral Communication', 'HM IC 101', 3, 0, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(15, 18, 2, 'Living in the IT Era', 'GE ELEC 203', 3, 0, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(16, 18, 2, 'KItchen Essentials & Basic Food Preparation', 'HPC 102', 3, 1, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(17, 18, 2, 'Exercised-Based Fitness Activities', 'PATHFIT 2', 2, 0, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(18, 18, 2, 'NSTP 2-CWTS', 'NSTP 102', 3, 0, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(19, 18, 2, 'Fundamentals of Lodging Operations', 'HPC 104', 3, 0, '2024-09-30 23:31:09', '2024-10-01 04:33:46', NULL),
-(20, 18, 3, 'Understanding the Self', 'GE SS 102', 3, 0, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(21, 18, 3, 'Applied Business Tools and Technologies', 'HPC 201', 3, 0, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(22, 18, 3, 'Supply Chain Management in Hospitality Industry', 'HPC 203', 3, 0, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(23, 18, 3, 'Bar and Beverage Management', 'DHM 202', 3, 1, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(24, 18, 3, 'Fundamentals in FS Operations', 'HPC 202', 3, 1, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(25, 18, 3, 'Research in Hospitality', 'HPC 301', 3, 0, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(26, 18, 3, 'Entrepreneurial Mind', 'GE ELEC 202', 3, 0, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(27, 18, 3, 'Housekeeping Services and Management', 'HM 201', 3, 0, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(28, 18, 3, 'Foreign Language 1', 'HPC 205', 3, 0, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(29, 18, 3, 'Dance', 'PATHFIT 3', 2, 0, '2024-09-30 23:38:40', '2024-09-30 23:38:55', NULL),
-(34, 18, 6, 'Science, Technology and Society', 'GE SCI 201', 3, 0, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(35, 18, 6, 'Ethics', 'GE SS 201', 3, 0, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(36, 18, 6, 'Rooms Division Management', 'HM PE 305', 3, 1, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(37, 18, 6, 'Applied Economics', 'ABM 203', 3, 0, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(38, 18, 6, 'Food and Beverage Services NC III', 'DHM 301', 3, 1, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(39, 18, 6, 'Foreign Language II', 'HPC 206', 3, 0, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(40, 18, 6, 'Western and Classical Cuisine of Culinary International', 'DHM 310', 3, 0, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(41, 18, 6, 'Entrepreneurship in Tourism and Hospitality', 'THC 304', 3, 0, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(42, 18, 6, 'Introduction to MICE Management', 'HPC 204', 3, 0, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(43, 18, 6, 'Sports', 'PATHFIT 4', 2, 0, '2024-09-30 23:47:45', '2024-09-30 23:48:55', NULL),
-(44, 18, 7, 'ON THE JOB TRAINING', 'DHM 201', 3, 0, '2024-09-30 23:51:51', '2024-09-30 23:51:51', NULL),
-(45, 18, 8, 'Contemporary World', 'GE SS 202', 3, 0, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(46, 18, 8, 'Operations Management in Tourism and Hospitality Industry', 'BME 101', 3, 1, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(47, 18, 8, 'Professional Development and Applied Ethics', 'THC 301', 3, 0, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(48, 18, 8, 'Photography NCII', 'DHM 302', 3, 1, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(49, 18, 8, 'Speech and Oral Communication', 'HM IC 101', 3, 0, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(50, 18, 8, 'Legal Aspects in Tourism and Hospitality', 'THC 305', 3, 0, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(51, 18, 8, 'Fundamentals of Accounting', 'ABM 101', 3, 0, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(52, 18, 8, 'Life and Works of Rizal', 'GE SS 203', 3, 0, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(53, 18, 8, 'Art Appreciation', 'GE SS 204', 3, 0, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(54, 18, 8, 'Tourism and Hospitality Marketing', 'THC 303', 3, 0, '2024-09-30 23:56:10', '2024-09-30 23:56:32', NULL),
-(58, 18, 10, 'Practicum/OJT', 'DHM 305', 6, 0, '2024-10-01 00:03:40', '2024-10-01 00:03:40', NULL);
+(1, 18, 1, 'Purposive Communication', 'GE ENG 102', 3, 0, '2024-09-30 07:21:55', '2024-11-06 11:09:44', NULL),
+(2, 18, 1, 'Readings in Philippine History', 'GE SS 101', 3, 0, '2024-09-30 07:21:55', '2024-11-06 11:09:44', NULL),
+(3, 18, 1, 'Mathematics in the Modern World', 'GE Mat 101', 3, 0, '2024-09-30 07:21:55', '2024-11-06 11:09:44', NULL),
+(4, 18, 1, 'NSTP-CWTS 1', 'NSTP-CWTS 1', 3, 0, '2024-09-30 07:21:55', '2024-11-06 11:09:45', NULL),
+(5, 18, 1, 'Risk Management as Apply to Safety, Security & Sanitation', 'THC 101', 3, 0, '2024-09-30 07:21:55', '2024-11-06 11:09:45', NULL),
+(6, 18, 1, 'Movement Competency and Training', 'PATHFIT 1', 2, 0, '2024-09-30 07:21:55', '2024-11-06 11:09:45', NULL),
+(7, 18, 1, 'Bread and Pastry Production', 'HM PE 301', 3, 1, '2024-09-30 07:21:55', '2024-11-06 11:09:45', NULL),
+(8, 18, 1, 'BARISTA NCII', 'DHM 101', 3, 1, '2024-09-30 07:21:55', '2024-11-06 11:09:45', NULL),
+(9, 18, 1, 'Environmental Science', 'GE ELEC 101', 3, 0, '2024-09-30 07:21:55', '2024-11-06 11:09:45', NULL),
+(10, 18, 2, 'Quality Service Management in Tourism & Hospitality', 'THC 102', 3, 0, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(11, 18, 2, 'Philippine Tourism, Geography and Culture', 'THC 104', 3, 0, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(12, 18, 2, 'Micro-Perspective of Tourism and Hospitality', 'THC 106', 3, 0, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(13, 18, 2, 'Front Office Procedures', 'DHM 101', 3, 1, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(14, 18, 2, 'Speech and Oral Communication', 'HM IC 101', 3, 0, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(15, 18, 2, 'Living in the IT Era', 'GE ELEC 203', 3, 0, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(16, 18, 2, 'KItchen Essentials & Basic Food Preparation', 'HPC 102', 3, 1, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(17, 18, 2, 'Exercised-Based Fitness Activities', 'PATHFIT 2', 2, 0, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(18, 18, 2, 'NSTP 2-CWTS', 'NSTP 102', 3, 0, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(19, 18, 2, 'Fundamentals of Lodging Operations', 'HPC 104', 3, 0, '2024-09-30 07:31:09', '2024-09-30 12:33:46', NULL),
+(20, 18, 3, 'Understanding the Self', 'GE SS 102', 3, 0, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(21, 18, 3, 'Applied Business Tools and Technologies', 'HPC 201', 3, 0, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(22, 18, 3, 'Supply Chain Management in Hospitality Industry', 'HPC 203', 3, 0, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(23, 18, 3, 'Bar and Beverage Management', 'DHM 202', 3, 1, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(24, 18, 3, 'Fundamentals in FS Operations', 'HPC 202', 3, 1, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(25, 18, 3, 'Research in Hospitality', 'HPC 301', 3, 0, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(26, 18, 3, 'Entrepreneurial Mind', 'GE ELEC 202', 3, 0, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(27, 18, 3, 'Housekeeping Services and Management', 'HM 201', 3, 0, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(28, 18, 3, 'Foreign Language 1', 'HPC 205', 3, 0, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(29, 18, 3, 'Dance', 'PATHFIT 3', 2, 0, '2024-09-30 07:38:40', '2024-09-30 07:38:55', NULL),
+(34, 18, 6, 'Science, Technology and Society', 'GE SCI 201', 3, 0, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(35, 18, 6, 'Ethics', 'GE SS 201', 3, 0, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(36, 18, 6, 'Rooms Division Management', 'HM PE 305', 3, 1, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(37, 18, 6, 'Applied Economics', 'ABM 203', 3, 0, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(38, 18, 6, 'Food and Beverage Services NC III', 'DHM 301', 3, 1, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(39, 18, 6, 'Foreign Language II', 'HPC 206', 3, 0, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(40, 18, 6, 'Western and Classical Cuisine of Culinary International', 'DHM 310', 3, 0, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(41, 18, 6, 'Entrepreneurship in Tourism and Hospitality', 'THC 304', 3, 0, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(42, 18, 6, 'Introduction to MICE Management', 'HPC 204', 3, 0, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(43, 18, 6, 'Sports', 'PATHFIT 4', 2, 0, '2024-09-30 07:47:45', '2024-09-30 07:48:55', NULL),
+(44, 18, 7, 'ON THE JOB TRAINING', 'DHM 201', 3, 0, '2024-09-30 07:51:51', '2024-09-30 07:51:51', NULL),
+(45, 18, 8, 'Contemporary World', 'GE SS 202', 3, 0, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(46, 18, 8, 'Operations Management in Tourism and Hospitality Industry', 'BME 101', 3, 1, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(47, 18, 8, 'Professional Development and Applied Ethics', 'THC 301', 3, 0, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(48, 18, 8, 'Photography NCII', 'DHM 302', 3, 1, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(49, 18, 8, 'Speech and Oral Communication', 'HM IC 101', 3, 0, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(50, 18, 8, 'Legal Aspects in Tourism and Hospitality', 'THC 305', 3, 0, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(51, 18, 8, 'Fundamentals of Accounting', 'ABM 101', 3, 0, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(52, 18, 8, 'Life and Works of Rizal', 'GE SS 203', 3, 0, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(53, 18, 8, 'Art Appreciation', 'GE SS 204', 3, 0, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(54, 18, 8, 'Tourism and Hospitality Marketing', 'THC 303', 3, 0, '2024-09-30 07:56:10', '2024-09-30 07:56:32', NULL),
+(58, 18, 10, 'Practicum/OJT', 'DHM 305', 6, 0, '2024-09-30 08:03:40', '2024-09-30 08:03:40', NULL),
+(76, 18, 1, 'Macro-Perspective of Tourism and Hospitality', 'THC 101', 3, 0, '2024-11-06 11:09:09', '2024-11-06 11:09:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -44509,6 +44550,32 @@ CREATE TABLE `subject_schedule` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `subject_schedule`
+--
+
+INSERT INTO `subject_schedule` (`id`, `courseID`, `courseInfoID`, `scheduleID`, `subject`, `instructor`, `room`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `fromTime`, `toTime`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 18, 1, 1, 1, 1, 'Room 1', 1, 0, 0, 0, 0, 0, '07:00:00', '08:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(2, 18, 1, 1, 2, 3, 'Room 2', 1, 0, 0, 0, 0, 0, '08:00:00', '09:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(3, 18, 1, 1, 3, 4, 'Room 3', 1, 0, 0, 0, 0, 0, '10:00:00', '11:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(4, 18, 1, 1, 4, 1, 'Room 1', 0, 1, 0, 0, 0, 0, '07:00:00', '08:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(5, 18, 1, 1, 5, 3, 'Room 2', 0, 1, 0, 0, 0, 0, '09:00:00', '10:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(6, 18, 1, 1, 6, 4, 'Room 3', 0, 1, 0, 0, 0, 0, '11:00:00', '12:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(7, 18, 1, 1, 7, 1, 'Room 1', 0, 0, 1, 0, 0, 0, '11:00:00', '12:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(8, 18, 1, 1, 8, 3, 'Room 2', 0, 0, 1, 0, 0, 0, '15:00:00', '16:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(9, 18, 1, 1, 9, 4, 'Room 3', 0, 0, 0, 1, 0, 0, '16:00:00', '17:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(10, 18, 1, 1, 76, 1, 'Room 1', 0, 0, 0, 1, 0, 0, '07:00:00', '08:00:00', 1, '2024-11-12 09:02:23', '2024-11-12 14:30:54', NULL),
+(11, 18, 2, 2, 10, 1, 'Room 1', 1, 0, 1, 0, 1, 0, '08:00:00', '09:30:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(12, 18, 2, 2, 11, 1, '1', 1, 0, 1, 0, 1, 0, '09:30:00', '11:00:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(13, 18, 2, 2, 12, 1, '1', 1, 0, 1, 0, 1, 0, '13:00:00', '14:30:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(14, 18, 2, 2, 13, 4, '1', 1, 0, 1, 0, 1, 0, '14:30:00', '16:00:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(15, 18, 2, 2, 14, 4, '1', 0, 1, 0, 1, 0, 0, '08:00:00', '09:30:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(16, 18, 2, 2, 15, 1, '1', 0, 1, 0, 1, 0, 0, '09:30:00', '11:00:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(17, 18, 2, 2, 16, 3, '1', 0, 1, 0, 1, 0, 0, '13:00:00', '14:00:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(18, 18, 2, 2, 17, 1, '1', 0, 1, 0, 1, 0, 0, '14:00:00', '16:00:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(19, 18, 2, 2, 18, 3, '1', 0, 0, 0, 0, 0, 1, '08:00:00', '11:00:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL),
+(20, 18, 2, 2, 19, 1, '1', 0, 0, 0, 0, 0, 1, '13:00:00', '14:30:00', 1, '2024-11-13 06:34:01', '2024-11-16 14:24:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -44547,19 +44614,21 @@ CREATE TABLE `users` (
   `active_status` tinyint(1) NOT NULL DEFAULT '0',
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'avatar.png',
   `dark_mode` tinyint(1) NOT NULL DEFAULT '0',
-  `messenger_color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `messenger_color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_verification_sent_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `trainerID`, `studentID`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`, `deleted_at`, `active_status`, `avatar`, `dark_mode`, `messenger_color`) VALUES
-(1, NULL, NULL, 'Dr. Ghubert Francisco', 'gjtvs@admin.com', NULL, '$2y$10$BFWLltpoBycU9/LGg3aKOufdmZdJBb28mK.yx5fNEnyTwhjnlQRsC', NULL, 1, '2024-06-02 17:42:58', '2024-09-08 02:40:23', NULL, 0, 'avatar.png', 0, NULL),
-(2, NULL, NULL, 'GJTVSI Registrar', 'gjtvs@registrar.com', NULL, '$2y$10$wuO7/CxdJu5.MXCQE8WBSeyJRtqzuFnfwUHYR185BKQ07Pw5nh3oW', NULL, 2, NULL, '2024-10-29 23:58:10', NULL, 0, 'avatar.png', 0, '#2180f3'),
-(21, 1, NULL, 'Sample Instructor 1', 'sample1@gmail.com', NULL, '$2y$10$UoeQMDH7WSopDRl.DoFrhuHDj1.8UEQX8BBCvJdzwEuWgM2RqomWm', NULL, 3, NULL, '2024-11-02 05:58:14', NULL, 0, 'avatar.png', 0, NULL),
-(22, 3, NULL, 'Sample Instructor 2', 'sample2@gmail.com', NULL, '$2y$10$L7M6t6SJDhNd1lw9MHXC1uSfTuwSdqpnq.naAh2qE6WZFbYJdyrwa', NULL, 3, NULL, '2024-09-06 07:36:27', NULL, 0, 'avatar.png', 0, NULL),
-(23, 4, NULL, 'Sample Instructor 3', 'sample3@gmail.com', NULL, '$2y$10$9AP2ktEyYj.nUGZ.ZtII/OILsdFKFcN3VbUNQ5thFD7tJbNooJJuu', NULL, 3, NULL, '2024-11-02 05:22:16', NULL, 0, 'avatar.png', 0, NULL);
+INSERT INTO `users` (`id`, `trainerID`, `studentID`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`, `deleted_at`, `active_status`, `avatar`, `dark_mode`, `messenger_color`, `email_verification_sent_at`) VALUES
+(1, NULL, NULL, 'Dr. Ghubert Francisco', 'gjtvs@admin.com', '2024-11-25 00:07:22', '$2y$10$BFWLltpoBycU9/LGg3aKOufdmZdJBb28mK.yx5fNEnyTwhjnlQRsC', NULL, 1, '2024-06-02 01:42:58', '2024-09-07 10:40:23', NULL, 0, 'avatar.png', 0, NULL, NULL),
+(2, NULL, NULL, 'GJTVSI Registrar', 'gjtvs@registrar.com', '2024-11-25 00:07:22', '$2y$10$wuO7/CxdJu5.MXCQE8WBSeyJRtqzuFnfwUHYR185BKQ07Pw5nh3oW', NULL, 2, NULL, '2024-12-05 02:10:36', NULL, 1, 'avatar.png', 0, '#2180f3', '2024-11-25 00:59:03'),
+(21, 1, NULL, 'Sample Instructor 1', 'sample1@gmail.com', NULL, '$2y$10$igIqlKjq7BDSQgI985bfpeZrfHm5eM8ZlfuJ8rH54yB8AHrSSTAd6', NULL, 3, NULL, '2024-12-05 02:14:06', NULL, 0, 'avatar.png', 0, NULL, '2024-12-05 02:14:06'),
+(22, 3, NULL, 'Sample Instructor 2', 'sample2@gmail.com', NULL, '$2y$10$L7M6t6SJDhNd1lw9MHXC1uSfTuwSdqpnq.naAh2qE6WZFbYJdyrwa', NULL, 3, NULL, '2024-09-05 15:36:27', NULL, 0, 'avatar.png', 0, NULL, NULL),
+(23, 4, NULL, 'Sample Instructor 3', 'sample3@gmail.com', NULL, '$2y$10$9AP2ktEyYj.nUGZ.ZtII/OILsdFKFcN3VbUNQ5thFD7tJbNooJJuu', NULL, 3, NULL, '2024-11-01 13:22:16', NULL, 0, 'avatar.png', 0, NULL, NULL),
+(40, NULL, NULL, 'RFID Scanner', 'rfidscanner@gmail.com', '2024-11-25 00:07:22', '$2y$10$9AP2ktEyYj.nUGZ.ZtII/OILsdFKFcN3VbUNQ5thFD7tJbNooJJuu', NULL, 5, '2024-11-24 17:56:46', '2024-11-24 17:56:46', NULL, 0, 'avatar.png', 0, NULL, '2024-11-25 16:03:07');
 
 --
 -- Indexes for dumped tables
@@ -44569,6 +44638,12 @@ INSERT INTO `users` (`id`, `trainerID`, `studentID`, `name`, `email`, `email_ver
 -- Indexes for table `admission_application`
 --
 ALTER TABLE `admission_application`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `announcement`
+--
+ALTER TABLE `announcement`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -44754,6 +44829,12 @@ ALTER TABLE `admission_application`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `announcement`
+--
+ALTER TABLE `announcement`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `barangay`
 --
 ALTER TABLE `barangay`
@@ -44859,7 +44940,7 @@ ALTER TABLE `rfid_attendance`
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sms_token`
@@ -44883,13 +44964,13 @@ ALTER TABLE `student_year_level`
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `subject_schedule`
 --
 ALTER TABLE `subject_schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tracker`
@@ -44901,7 +44982,7 @@ ALTER TABLE `tracker`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

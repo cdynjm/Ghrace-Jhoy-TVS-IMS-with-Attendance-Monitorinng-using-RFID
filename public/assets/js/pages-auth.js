@@ -115,3 +115,16 @@ $(document).on('click', '#show-password', function() {
         $icon.removeClass('fa-eye').addClass('fa-eye-slash');
     }
 });
+
+$(document).on('click', '#show-password-confirm', function() {
+    const $passwordInput = $('#retype-password');
+    const $icon = $(this).find('i');
+
+    if ($passwordInput.attr('type') === 'password') {
+        $passwordInput.attr('type', 'text');
+        $icon.removeClass('fa-eye-slash').addClass('fa-eye');
+    } else {
+        $passwordInput.attr('type', 'password');
+        $icon.removeClass('fa-eye').addClass('fa-eye-slash');
+    }
+});

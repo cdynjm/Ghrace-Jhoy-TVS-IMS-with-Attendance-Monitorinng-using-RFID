@@ -2,6 +2,7 @@
     use Illuminate\Support\Str;
     use App\Http\Controllers\AESCipher;
     use App\Models\AdmissionApplication;
+    use App\Models\Announcement;
     use App\Models\SMSToken;
     use App\Models\ChMessage;
 
@@ -12,6 +13,7 @@
 
 @extends('modals.update-profile')
 @extends('modals.admin.update.edit-sms-token')
+@extends('modals.registrar.update.enrollment-announcement-modal')
 
 <div class="header-navbar-shadow"></div>
 <!-- Navbar -->
@@ -138,7 +140,15 @@
                                 <span class="align-middle">SMS API</span>
                             </div>
                         </a>
-                    </li>                    
+                    </li>  
+                    <li>
+                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:;" id="enrollment-announcement">
+                            <div>
+                                <i class='bx bxs-microphone me-2'></i>
+                                <span class="align-middle">Enrollment Announcement</span>
+                            </div>
+                        </a>
+                    </li>                           
                       @endif
                       <li>
                           <a class="dropdown-item" href="javascript:;" id="sign-out">

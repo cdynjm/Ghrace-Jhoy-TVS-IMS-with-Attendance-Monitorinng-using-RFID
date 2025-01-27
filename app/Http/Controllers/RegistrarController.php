@@ -36,6 +36,7 @@ use App\Models\LearnersCourse;
 use App\Models\LearnersProfile;
 use App\Models\LearnersWork;
 use App\Models\Subjects;
+use App\Models\Announcement;
 
 use App\Models\RFIDAttendance;
 use App\Models\Tracker;
@@ -64,7 +65,8 @@ class RegistrarController extends Controller
      */
     public function dashboard() {
         $student = $this->RegistrarInterface->Students();
-        return view('pages.registrar.dashboard', ['student' => $student]);
+        $enrollment = Announcement::where('id', 1)->first();
+        return view('pages.registrar.dashboard', ['student' => $student, 'enrollment' => $enrollment]);
     }
     /**
      * Handle an incoming request.
@@ -614,6 +616,20 @@ class RegistrarController extends Controller
         return view('pages.registrar.enrollment', compact('course', 'enrollees', 'schedule'));
     }
 
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function updateEnrollmentStatus(Request $request) {
+
+       LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+            'enrollmentStatus' => 1
+       ]);
+
+       return redirect('/registrar/enrollment/'.$request->id);
+    }
+
     public function getSpecificSchedule(Request $request) {
 
         $schedule = $this->RegistrarInterface->getSpecificSchedule($request);
@@ -758,6 +774,7 @@ class RegistrarController extends Controller
         ->orderBy('semester', 'ASC')
         ->get();
         $id = $request->id;
+        
         return view('pages.registrar.edit-grades', compact('yearLevel', 'studentGrading', 'student', 'courseInfo', 'id'));
     }
 
@@ -807,7 +824,7 @@ class RegistrarController extends Controller
             ->doesntExist();
     
         // Update the enrollment status based on the grading status
-        $statusValue = $allGraded ? 1 : 0;
+        $statusValue = $allGraded ? 3 : 0;
         
         $coursesInfo = CoursesInfo::where('courseID', StudentGrading::where('studentID', $this->aes->decrypt($request->id))->first()->Subjects->courseID)->count();
         $studentProgress = LearnersProfile::where('id', $this->aes->decrypt($request->id))->first();
@@ -839,7 +856,8 @@ class RegistrarController extends Controller
         // Return a JSON response
         return response()->json([
             'Message' => 'Grades updated successfully',
-            'Grades' => view('data.registrar.edit-grades-data', compact('yearLevel', 'studentGrading', 'student', 'aes'))->render()
+            'Grades' => view('data.registrar.edit-grades-data', compact('yearLevel', 'studentGrading', 'student', 'aes'))->render(),
+            'EnrollGraduateButtons' => view('data.registrar.enroll-graduate-button', compact('student', 'aes'))->render()
         ], Response::HTTP_OK);
     }
 
@@ -918,7 +936,25 @@ class RegistrarController extends Controller
 
     public function graduateStudent(Request $request) {
 
-        LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
+        LearnersProfile::where('id', $this->aes->decrypt($request->id))->update([
+            'diploma' => 1,
+            'dateGraduated' => date('Y-m-d')
+        ]);
+
+        // Fetch related data for the response
+        $yearLevel = $this->RegistrarInterface->yearLevel($request);
+        $studentGrading = $this->RegistrarInterface->studentGrading($request);
+        $student = $this->RegistrarInterface->LearnersProfile($request);
+        $aes = $this->aes;
+    
+        // Return a JSON response
+        return response()->json([
+            'Message' => 'Grades updated successfully',
+            'Grades' => view('data.registrar.edit-grades-data', compact('yearLevel', 'studentGrading', 'student', 'aes'))->render(),
+            'EnrollGraduateButtons' => view('data.registrar.enroll-graduate-button', compact('student', 'aes'))->render()
+        ], Response::HTTP_OK);
+
+     /*   LearnersProfile::where('id', $this->aes->decrypt($request->studentID))->update([
             'diploma' => 1,
             'dateGraduated' => date('Y-m-d')
         ]);
@@ -933,6 +969,7 @@ class RegistrarController extends Controller
             'Enrollees' => view('data.registrar.enrollment-data', compact('course', 'enrollees', 'schedule', 'aes'))->render(),
             'Schedule' => view('modals.registrar.update.schedule.schedule-list', compact('schedule', 'aes'))->render(),
         ], Response::HTTP_OK); 
+        */
     }
 
     public function updateEmploymentStatus(Request $request) {
@@ -1060,5 +1097,16 @@ class RegistrarController extends Controller
         $subjectSchedule = SubjectSchedule::where('scheduleID', $student->scheduleID)->get();
 
         return view('pages.ORF', compact('schedule', 'subjectSchedule', 'student', 'learner'));
+    }
+
+    public function updateEnrollmentAnnouncement(Request $request) {
+
+        Announcement::where('id', 1)->update([
+            'enable' => $this->aes->decrypt($request->enable) ?? 0,
+            'open' => $request->open ?? null,
+            'close' => $request->close ?? null
+        ]);
+
+        return response()->json(['Message' => 'Enrollment Announcement and Status update successfully!'], Response::HTTP_OK);
     }
 }

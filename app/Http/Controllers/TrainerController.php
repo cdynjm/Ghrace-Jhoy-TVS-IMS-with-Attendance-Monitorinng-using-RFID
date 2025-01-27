@@ -33,6 +33,8 @@ use App\Models\LearnersWork;
 use App\Models\Schedule;
 use App\Models\SubjectSchedule;
 
+use App\Models\RFIDAttendance;
+
 class TrainerController extends Controller
 {
     /**
@@ -60,7 +62,10 @@ class TrainerController extends Controller
         $students = $this->TrainerInterface->Students($request);
         $schedule = $this->TrainerInterface->getSchedule($request);
         $grading = $this->TrainerInterface->Grading($request);
-        return view('pages.trainer.students', compact('students', 'schedule', 'grading'));
+        $attendance = RFIDAttendance::where('date', date('Y-m-d'))->get();
+        $day = $request->day;
+        $time = $request->time;
+        return view('pages.trainer.students', compact('students', 'schedule', 'grading', 'attendance', 'day', 'time'));
     }
 
     public function getSchoolYear(Request $request) {
@@ -94,5 +99,38 @@ class TrainerController extends Controller
         ]);
     }
     
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function viewStudentAttendance(Request $request) {
+        $attendance = RFIDAttendance::where('studentID', $this->aes->decrypt($request->id))
+        ->orderBy('created_at', 'DESC')
+        ->get()
+        ->groupBy('yearLevel');
+
+        $student = LearnersProfile::where('id', $this->aes->decrypt($request->id))->first();
+        return view('pages.trainer.view-student-attendance', compact('attendance', 'student'));
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function searchStudentAttendance(Request $request) {
+        $attendance = RFIDAttendance::where('studentID', $this->aes->decrypt($request->id))
+        ->where('yearLevel', $request->yearLevel)
+        ->where('month', $request->month)
+        ->orderBy('created_at', 'DESC')
+        ->get()
+        ->groupBy('yearLevel');
+
+        $aes = $this->aes;
+        return response()->json([
+            'Attendance' => view('data.trainer.view-student-attendance-data', compact('attendance', 'aes'))->render()
+        ]);
+    }
 
 }

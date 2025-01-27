@@ -11,6 +11,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use App\Models\AdmissionApplication;
+use App\Models\Announcement;
+use Illuminate\Auth\Events\Registered;
 
 class LoginController extends Controller
 {
@@ -21,7 +23,8 @@ class LoginController extends Controller
      */
     public function login() {
         $status = AdmissionApplication::where('id', 1)->first();
-        return view('auth.login', ['status' => $status]);
+        $enrollment = Announcement::where('id', 1)->first();
+        return view('auth.login', ['status' => $status, 'enrollment' => $enrollment]);
     }
     /**
      * Handle an incoming request.
@@ -29,24 +32,37 @@ class LoginController extends Controller
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function authenticate(LoginRequest $request)
-    {
-        try {
-            $request->authenticate();
-            $request->session()->regenerate();
+{
+    try {
+        $request->authenticate();
+        $request->session()->regenerate();
 
-            $user = User::where(['id' => Auth::user()->id])->first();
-            $authToken = $user->createToken(\Str::random(50))->plainTextToken;
-            $request->session()->put('token', $authToken);
+        $user = User::where('id', Auth::user()->id)->first();
+        $authToken = $user->createToken(\Str::random(50))->plainTextToken;
+        $request->session()->put('token', $authToken);
 
-            return response()->json([], 200);
+        // Check if the user is verified
+        if (!$user->hasVerifiedEmail()) {
+            $lastEmailSentAt = $user->email_verification_sent_at;
 
-        } catch (ValidationException $e) {
-            return response()->json([
-                'Message' => $e->getMessage(),
-            ],  Response::HTTP_INTERNAL_SERVER_ERROR);
-            
+            if (!$lastEmailSentAt || now()->diffInMinutes($lastEmailSentAt) >= 10) {
+                // Send email verification
+                $user->sendEmailVerificationNotification();
+
+                // Update the timestamp for the last email sent
+                $user->update(['email_verification_sent_at' => now()]);
+            }
         }
+
+        return response()->json([], 200);
+
+    } catch (ValidationException $e) {
+        return response()->json([
+            'Message' => $e->getMessage(),
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
+}
+
     /**
      * Handle an incoming request.
      *

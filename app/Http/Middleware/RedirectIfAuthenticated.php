@@ -29,6 +29,8 @@ class RedirectIfAuthenticated
                     return redirect(RouteServiceProvider::TRAINER);
                 if(auth()->user()->role == 4)
                     return redirect(RouteServiceProvider::STUDENT);
+                if(auth()->user()->role == 5)
+                    return redirect(RouteServiceProvider::RFID);
             }
         }
 

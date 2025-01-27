@@ -5,7 +5,7 @@
             <hr class="my-2">
         </div>
         <div class="card-body">
-            <div class="alert alert-solid-danger alert-dismissible d-flex align-items-center" role="alert">
+            <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert">
                 <div>
                     <i class='bx bxs-info-circle me-1' ></i>
                     <small>

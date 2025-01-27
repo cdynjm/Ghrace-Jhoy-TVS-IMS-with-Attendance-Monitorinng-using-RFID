@@ -40,14 +40,21 @@
 
                 <div class="col-md-12 mb-4">
                     <div class="card">
-                        <div class="card-header">
-                            <a class="nav-link hide-arrow d-flex" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                <span class="avatar me-2">
-                                    <img src="/assets/user-logo.png" alt class="rounded-circle shadow-lg">
-                                </span>
-                                <span class="me-3 mt-2 fw-medium"> {{ $student->lastname }} {{ $student->firstname }} {{ $student->middlename }}</span>
-                            </a>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <!-- Left side with user info -->
+                            <div class="d-flex align-items-center">
+                                <a class="nav-link hide-arrow d-flex" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                    <span class="avatar me-2">
+                                        <img src="/assets/user-logo.png" alt class="rounded-circle shadow-lg">
+                                    </span>
+                                    <span class="fw-medium mt-2 ms-1">{{ $student->lastname }} {{ $student->firstname }} {{ $student->middlename }}</span>
+                                </a>
+                            </div>
+                        
+                            <!-- Right side with action buttons -->
+                            @include('data.registrar.enroll-graduate-button')
                         </div>
+                        
                     </div>
                 </div>
 

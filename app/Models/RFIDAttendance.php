@@ -28,4 +28,8 @@ class RFIDAttendance extends Model
         'smsInAfternoon',
         'smsOutAfternoon'
     ];
+
+    public function student() {
+        return $this->hasOne(LearnersProfile::class, 'id', 'studentID')->withTrashed();
+    }
 }

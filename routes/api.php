@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::post('/update-profile', [ProfileController::class, 'updateProfile']);
 
-    Route::group(['middleware' => 'AdminOrRegistrar'], function () {
+    Route::group(['middleware' => 'rfid'], function () {
         
         Route::group(['prefix' => 'log'], function () {
             Route::post('/attendance', [AttendanceController::class, 'LogRFIDAttendance']);
@@ -119,6 +119,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::patch('/schedule', [AdminController::class, 'updateSubjectSchedule']);
             Route::patch('/course-info', [AdminController::class, 'updateCourseInfo']);
             Route::patch('/sms-token', [AdminController::class, 'updateSMSToken']);
+
+            Route::patch('/enrollment-announcement', [RegistrarController::class, 'updateEnrollmentAnnouncement']);
         });
         
         Route::group(['prefix' => 'delete'], function () {
@@ -169,7 +171,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/get-school-year', [TrainerController::class, 'getSchoolYear']);
             Route::get('/get-year-semester', [TrainerController::class, 'getYearSemester']);
             Route::post('/grades-instructor', [TrainerController::class, 'gradesInstructor']);
-          
+            Route::post('/instructor-student-attendance', [TrainerController::class, 'searchStudentAttendance']);
         });
 
     });

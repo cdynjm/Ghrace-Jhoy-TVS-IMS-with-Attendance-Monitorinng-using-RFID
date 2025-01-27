@@ -183,7 +183,7 @@
                                       <div class="col-md-4"></div>
                                       <div class="col-md-4">
                                         <div class="app-brand demo">
-                                          <img style="width: 38px; height: 38px; border-radius: 50px;" src="/assets/school-logo.png" class="me-4 mb-4 mt-2" alt="...">
+                                          <img style="width: 65px; height: auto;" src="/assets/school-logo.png" class="me-3 mb-4 mt-2" alt="...">
                                           <a class="layout-menu-toggle align-items-center d-flex" href="javascript:void(0);">
                                             <span class="sidebar-text fw-bold fs-3">
                                                 <span class="">GJTVSI</span>
@@ -196,7 +196,7 @@
                                     </div>
                                     
 
-                                      <p>1. Admission Details and General Requirements <span class="text-primary">(<i class='bx bxs-down-arrow-circle' ></i> PLEASE READ BEFORE YOU PROCEED)</span></p>
+                                      <p>1. Admission Details and General Requirements <span class="text-primary"> <br>(<i class='bx bxs-down-arrow-circle' ></i> PLEASE READ BEFORE YOU PROCEED & <span class="text-danger">CHECK THE BOX TO AGREE WITH THE TERMS AND CONDITIONS</span> )</span></p>
 
                                       <div class="mb-2">
                                         <b>Requirements: </b>
@@ -254,12 +254,12 @@
                                     </p>
                                     <hr>
                                     <p>
-                                      <!--  <input type="checkbox" id="agreeTerms" name="agreeTerms">
+                                      <input type="checkbox" id="agreeTerms" class="form-check-input" name="agreeTerms">
                                       <label for="agreeTerms">
                                         <small class="text-primary">
                                               By checking this box, I confirm that I have read, understood, and agree to abide by the terms and conditions set forth by this application process.
                                           </small> 
-                                      </label> -->
+                                      </label>
                                     </p>
                                   
                                     <div class="col-12 d-flex justify-content-between">
@@ -286,14 +286,17 @@
                                       <div class="row mb-4">
                                         <div class="col-md-4 mb-4">
                                           <div><b>2.1 Name</b></div>
-                                          <label for="" style="font-size: 11px">Last Name, Extension Name (Jr., Sr.) <span class="text-danger" style="font-size: 16px">*</span></label>
+                                          <label for="" style="font-size: 11px">Last Name<span class="text-danger" style="font-size: 16px">*</span></label>
                                           <input type="text" name="lastname" class="form-control" required>
                                           
                                           <label for="" style="font-size: 11px">First Name <span class="text-danger" style="font-size: 16px">*</span></label>
                                           <input type="text" name="firstname" class="form-control" required>
         
-                                          <label for="" style="font-size: 11px">Middle Name <span class="text-danger" style="font-size: 16px">*</span></label>
-                                          <input type="text" name="middlename" class="form-control" required>
+                                          <label for="" style="font-size: 11px">Middle Name</label>
+                                          <input type="text" name="middlename" class="form-control">
+
+                                          <label for="" style="font-size: 11px">Extension Name (Jr., Sr.)</label>
+                                          <input type="text" name="extension" class="form-control">
                                         </div>
                                         <div class="col-md-4 mb-4">
                                           <div><b>2.2 Complete Permanent Mailing Address</b></div>
@@ -649,28 +652,35 @@
                                     
                                     <div class="row mb-4">
                                       @for($i = 0; $i < 3; $i++)
-                                      <div class="col-md-4 mb-4">
-                                        <hr class="my-2 d-lg-none d-block" style="border: 2px solid gray">
-                                        <label for="" style="font-size: 11px">Name of Company</label>
-                                        <input type="text" name="company[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Position</label>
-                                        <input type="text" name="position[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Inclusive Date From</label>
-                                        <input type="date" name="dateFrom[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Inclusive Date To</label>
-                                        <input type="date" name="dateTo[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Salary</label>
-                                        <input type="number" step="any" min="0" name="salary[]" class="form-control">
-
-                                        <label for="" style="font-size: 11px">Status</label>
-                                        <input type="text" name="status[]" class="form-control">
-                                      </div>
+                                          <div class="col-md-4 mb-4">
+                                              
+                                                  
+                                                <label for="" style="font-size: 11px">Name of Company</label>
+                                                <input type="text" name="company[]" class="form-control">
+                                                
+                                                <label for="" style="font-size: 11px">Position</label>
+                                                <input type="text" name="position[]" class="form-control">
+                                            
+                                                <label for="" style="font-size: 11px">Inclusive Date From</label>
+                                                <input type="date" name="dateFrom[]" class="form-control">
+                                            
+                                                <label for="" style="font-size: 11px">Inclusive Date To</label>
+                                                <input type="date" name="dateTo[]" class="form-control">
+                                            
+                                                <label for="" style="font-size: 11px">Salary</label>
+                                                <input type="number" step="any" min="0" name="salary[]" class="form-control">
+                                            
+                                                <label for="" style="font-size: 11px">Status</label>
+                                                <input type="text" name="status[]" class="form-control">
+                                                 
+                                                <hr class="mt-5 d-block d-lg-none">
+                                          </div>
+                                         
                                       @endfor
-                                    </div>
+                                  </div>
+                                  
+                                  
+                                  
 
                                     <div class="col-12 d-flex justify-content-between">
                                       <button type="button" class="btn btn-primary btn-prev">
@@ -745,14 +755,21 @@
                                           <label for="email" class="form-label text-capitalize">Email <span class="text-danger" style="font-size: 16px">*</span></label>
                                           <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="" required>
                                         </div>
-
+                                    
                                         <label class="form-label text-capitalize" for="password">Password <span class="text-danger" style="font-size: 16px">*</span></label>
-                                        <div class="input-group input-group-merge">
+                                        <div class="input-group input-group-merge mb-3">
                                           <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" required/>
                                           <span class="input-group-text cursor-pointer" id="show-password"><i class="far fa-eye-slash"></i></span>
                                         </div>
+                                    
+                                        <label class="form-label text-capitalize" for="retype-password">Re-type Password <span class="text-danger" style="font-size: 16px">*</span></label>
+                                        <div class="input-group input-group-merge">
+                                          <input type="password" id="retype-password" class="form-control" name="retype_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required/>
+                                          <span class="input-group-text cursor-pointer" id="show-password-confirm"><i class="far fa-eye-slash"></i></span>
+                                        </div>
                                       </div>
                                     </div>
+                                    
 
                                     <div class="col-12 d-flex justify-content-between">
                                       <button type="button" class="btn btn-primary btn-prev">
@@ -785,16 +802,16 @@
                                             Before submitting your form online, please make sure that all required fields are completely filled out. Required fields are marked with an asterisk (<span class="text-danger">*</span>).
                                         </p>
                                         <p class="mb-3">
-                                            <strong>Note:</strong> <span class="text-danger">The form cannot be submitted unless all required fields are completed. If any required field is left empty, the submit button will remain disabled, and your form will not be processed.</span>
+                                            <strong>Note:</strong> <span class="text-danger">The form cannot be submitted unless all required fields are completed. If any required field is left empty, the submit button will remain disabled, and your form will not be processed. MAKE SURE TO CHECK THE BOX IN THE REQUIREMENTS SECTION TO AGREE WITH TERMS AND CONDITIONS</span>
                                         </p>
                                         <p class="mb-3">
                                             Thank you for your attention to this matter!
                                         </p>
                                       </div>
-                                      <p class="fw-bolder">Sample Printed Form</p>
+                                   <!--   <p class="fw-bolder">Sample Printed Form</p>
                                       <div class="col-md-12 mb-4 text-center">
                                         <img src="{{ asset('storage/forms/form-full.png') }}" alt="" class="img-fluid" style="width: 80%; height: auto;">
-                                      </div>
+                                      </div> -->
                                     </div>
 
                                     <div class="col-12 d-flex justify-content-between">

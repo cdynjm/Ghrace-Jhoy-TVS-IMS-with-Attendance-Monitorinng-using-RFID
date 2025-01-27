@@ -11,8 +11,8 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme shadow-sm" style="position: fixed; z-index: 10;">
 
   
-    <div class="app-brand demo mt-4 p-3">
-      <img style="width: 55px; height: auto; border-radius: 50px;" src="/assets/school-logo.png" class="me-4 mb-4 mt-2" alt="...">
+    <div class="app-brand demo mt-4 p-3 ps-2">
+      <img style="width:65px; height: auto; border-radius: 50px;" src="/assets/school-logo.png" class="me-4 mb-4 mt-2" alt="...">
       <a class="layout-menu-toggle align-items-center d-flex" href="javascript:void(0);">
         <span class="sidebar-text fw-bold fs-3">
             <span class="">GJTVSI</span>
@@ -112,7 +112,7 @@
         </a>
       </li>
 
-      <li class="menu-item {{ Route::currentRouteName() == 'admin.attendance' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'admin.attendance' ? 'active' : '' }}" style="margin-bottom: 80px">
         <a wire:navigate href="{{ route('admin.attendance') }}" class="menu-link {{ Route::currentRouteName() == 'admin.attendance' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
@@ -354,19 +354,7 @@
 
       <li class="menu-header small text-uppercase mt-0"><span class="menu-header-text">Attendance</span></li>
 
-      <li class="menu-item {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
-        <a wire:navigate href="{{ route('AdminOrRegistrar.rfid-attendance') }}" class="menu-link {{ Route::currentRouteName() == 'AdminOrRegistrar.rfid-attendance' ? 'active' : '' }}">
-          <span class="me-2">
-            <lord-icon
-                src="https://cdn.lordicon.com/eqnxbkyy.json"
-                trigger="in"
-                stroke="bold"
-                style="width:22px;height:22px">
-            </lord-icon>
-          </span>
-          <div>Scan RFID</div>
-        </a>
-      </li>
+    
 
       <li class="menu-item {{ Route::currentRouteName() == 'registrar.attendance' ? 'active' : '' }}">
         <a wire:navigate href="{{ route('registrar.attendance') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.attendance' ? 'active' : '' }}">
@@ -383,7 +371,7 @@
       </li>
 
 
-      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'registrar.rfid-information' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'registrar.rfid-information' ? 'active' : '' }}" style="margin-bottom: 80px">
         <a wire:navigate href="{{ route('registrar.rfid-information') }}" class="menu-link {{ Route::currentRouteName() == 'registrar.rfid-information' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
@@ -417,7 +405,7 @@
         </a>
       </li>
 
-      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'trainer.grades' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'trainer.grades' ? 'active' : '' }}" style="margin-bottom: 80px">
         <a wire:navigate href="{{ route('trainer.grades') }}" class="menu-link {{ Route::currentRouteName() == 'trainer.grades' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon
@@ -427,7 +415,7 @@
               style="width:22px;height:22px">
             </lord-icon>
           </span>
-          <div>Grades</div>
+          <div>Grades & Attendances</div>
         </a>
       </li>
 
@@ -493,7 +481,7 @@
         </a>
       </li>
 
-      <li class="menu-item mb-4 {{ Route::currentRouteName() == 'student.courses-info' ? 'active' : '' }}">
+      <li class="menu-item {{ Route::currentRouteName() == 'student.courses-info' ? 'active' : '' }}" style="margin-bottom: 80px">
         <a wire:navigate href="{{ route('student.courses-info', ['id' => $aes->encrypt(Auth::user()->Student->LearnersCourse->course)] ) }}" class="menu-link {{ Route::currentRouteName() == 'student.courses-info' ? 'active' : '' }}">
           <span class="me-2">
             <lord-icon

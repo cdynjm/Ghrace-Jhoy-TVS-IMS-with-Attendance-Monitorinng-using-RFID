@@ -9,6 +9,7 @@ use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\VerifyEmailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,12 +38,6 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
 
 
-});
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::group(['middleware' => 'AdminOrRegistrar'], function () {
-        Route::get('/rfid-attendance', [AttendanceController::class, 'RFIDattendance'])->name('AdminOrRegistrar.rfid-attendance');
-    });
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -82,6 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('/view-undergraduates/{id}', [RegistrarController::class, 'viewUndergraduates'])->name('registrar.view-undergraduates');
 			Route::post('/registration-form', [RegistrarController::class, 'registrationForm'])->name('registrar.registrationform');
 			Route::get('/enrollment/{id}', [RegistrarController::class, 'enrollment'])->name('registrar.enrollment');
+			Route::get('/update-enrollment-status/{id}/{studentID}', [RegistrarController::class, 'updateEnrollmentStatus'])->name('registrar.update-enrollment-status');
 			Route::get('/grades/{id}', [RegistrarController::class, 'grades'])->name('registrar.grades');
 			Route::get('/edit-grades/{id}/{courseID}', [RegistrarController::class, 'editGrades'])->name('registrar.edit-grades');
 			Route::get('/attendance', [RegistrarController::class, 'attendance'])->name('registrar.attendance');
@@ -103,24 +99,36 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'trainer'], function () {
 		Route::group(['prefix' => 'trainer'], function () {
 			Route::get('/schedule', [TrainerController::class, 'dashboard'])->name('trainer.dashboard');
-			Route::get('/students/{id}/{scheduleID}/{courseInfoID}/{subjectID}', [TrainerController::class, 'students'])->name('trainer.students');
-			Route::get('/grades', [TrainerController::class, 'grades'])->name('trainer.grades');
+			Route::get('/students/{id}/{day}/{time}/{scheduleID}/{courseInfoID}/{subjectID}', [TrainerController::class, 'students'])->name('trainer.students');
+			Route::get('/grades-attendances', [TrainerController::class, 'grades'])->name('trainer.grades');
+			Route::get('/view-student-attendance/{id}', [TrainerController::class, 'viewStudentAttendance'])->name('trainer.view-student-attendance');
 		});
 	});
 
-	Route::group(['middleware' => 'student'], function () {
-		Route::group(['prefix' => 'student'], function () {
-			Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
-			Route::get('/schedule', [StudentController::class, 'schedule'])->name('student.schedule');
-			Route::get('/grades', [StudentController::class, 'grades'])->name('student.grades');
-			Route::get('/registration-form', [StudentController::class, 'registrationForm'])->name('student.registrationform');
-			Route::get('/proceed-enrollment', [StudentController::class, 'proceedEnrollment'])->name('student.proceed-enrollment');
-			Route::get('/cancel-enrollment', [StudentController::class, 'cancelEnrollment'])->name('student.cancel-enrollment');
-			Route::get('/attendance', [StudentController::class, 'attendance'])->name('student.attendance');
-			Route::get('/courses-info/{id}', [StudentController::class, 'coursesInfo'])->name('student.courses-info');
-			// Route::get('/ORF', [StudentController::class, 'ORF'])->name('student.ORF');
-			Route::get('/download-orf', [StudentController::class, 'ORF']);
+	Route::group(['middleware' => 'verified'], function () {
+		Route::group(['middleware' => 'student'], function () {
+			Route::group(['prefix' => 'student'], function () {
+				Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
+				Route::get('/schedule', [StudentController::class, 'schedule'])->name('student.schedule');
+				Route::get('/grades', [StudentController::class, 'grades'])->name('student.grades');
+				Route::get('/registration-form', [StudentController::class, 'registrationForm'])->name('student.registrationform');
+				Route::get('/proceed-enrollment', [StudentController::class, 'proceedEnrollment'])->name('student.proceed-enrollment');
+				Route::get('/cancel-enrollment', [StudentController::class, 'cancelEnrollment'])->name('student.cancel-enrollment');
+				Route::get('/attendance', [StudentController::class, 'attendance'])->name('student.attendance');
+				Route::get('/courses-info/{id}', [StudentController::class, 'coursesInfo'])->name('student.courses-info');
+				// Route::get('/ORF', [StudentController::class, 'ORF'])->name('student.ORF');
+				Route::get('/download-orf', [StudentController::class, 'ORF']);
+			});
 		});
 	});
+
+	Route::group(['middleware' => 'rfid'], function () {
+		Route::get('/rfid-attendance', [AttendanceController::class, 'RFIDattendance'])->name('rfid-scanner');
+	});
+
+
+	Route::get('/email/verify', [VerifyEmailController::class, 'notVerified'])->name('verification.notice');
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });
+
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->middleware('signed')->name('verification.verify');
